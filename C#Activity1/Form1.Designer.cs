@@ -402,8 +402,7 @@
         private Label RegiPassLabel;
         private TextBox RegiNameBox;
         private Label RegiNameLabel;
-        private Label label5;
-        private Label RegiWarning2;
+        private Label GSLabel;
         private TextBox RegiSNBox;
         private Label RegiSNLabel;
     }
