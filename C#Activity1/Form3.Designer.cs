@@ -1,6 +1,6 @@
 ﻿namespace C_Activity1
 {
-    partial class Form3
+    partial class UserPanel
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form3";
+            SuspendLayout();
+            // 
+            // UserPanel
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Name = "UserPanel";
+            ShowIcon = false;
+            Text = "Learning Hub Home Page";
+            ResumeLayout(false);
         }
 
         #endregion

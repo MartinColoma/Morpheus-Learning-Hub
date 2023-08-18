@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace C_Activity1
 {
-    public partial class Form3 : Form
+    public partial class UserPanel : Form
     {
-        public Form3()
+        public UserPanel()
         {
             InitializeComponent();
         }

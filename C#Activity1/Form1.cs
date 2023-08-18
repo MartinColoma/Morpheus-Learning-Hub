@@ -1,3 +1,6 @@
+using Microsoft.VisualBasic.Logging;
+using System.Windows.Forms;
+
 namespace C_Activity1
 {
     public partial class RTULogin : Form
@@ -9,6 +12,7 @@ namespace C_Activity1
 
         private void RTULogin_Load(object sender, EventArgs e)
         {
+
 
         }
 
@@ -38,13 +42,43 @@ namespace C_Activity1
 
         private void SignUpLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //SignUP
+            //SignUP Label
+
+            if (LoginPanel.Visible)
+            {
+                LoginPanel.Visible = false;
+                RegiPanel.Visible = true;
+                SNBox.Text = "";
+                PassBox.Text = "";
+            }
+
+            else
+            {
+                RegiPanel.Visible = false;
+                LoginPanel.Visible = true;
+            }
+
+
 
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //Forgot Pass
+            if (LoginPanel.Visible)
+            {
+                LoginPanel.Visible = false;
+                RecoveryPanel.Visible = true;
+                SNBox.Text = "";
+                PassBox.Text = "";
+            }
+
+            else
+            {
+                RecoveryPanel.Visible = false;
+                LoginPanel.Visible = true;
+            }
+
         }
 
         private void RMBRCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -72,6 +106,11 @@ namespace C_Activity1
                     return;
                 }
             }*/
+            if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
+            {
+
+            }
+
         }
 
         private void UNWarningLabel_Click(object sender, EventArgs e)
@@ -101,7 +140,78 @@ namespace C_Activity1
 
         private void LoginLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            //Login linked label
+            if (RegiPanel.Visible)
+            {
+                RegiPanel.Visible = false;
+                LoginPanel.Visible = true;
+                RegiNameBox.Text = "";
+                RegiSNBox.Text = "";
+                RegiRPBox.Text = "";
+                RecoveryPanel.Visible = false;
+                RegiPassBox.Text = "";
+            }
 
+            else
+            {
+                LoginPanel.Visible = false;
+                RegiPanel.Visible = true;
+                RecoveryPanel.Visible = false;
+
+            }
+        }
+
+        private void RegiPanel_Paint(object sender, PaintEventArgs e)
+        {
+            //register panel
+
+
+        }
+
+        private void GSLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            //RecoverLabel
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //Forgot Pass linked label
+            if (LoginPanel.Visible)
+            {
+                LoginPanel.Visible = false;
+                RecoveryPanel.Visible = true;
+                SNBox.Text = "";
+                PassBox.Text = "";
+            }
+
+            else
+            {
+                RecoveryPanel.Visible = false;
+                LoginPanel.Visible = true;
+            }
+
+        }
+
+        private void SubmitBtn_Click(object sender, EventArgs e)
+        {
+            //Recovery Pass Submit Btn
+
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            //recovery pass textbox
         }
     }
 }

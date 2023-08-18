@@ -16,5 +16,30 @@ namespace C_Activity1
         {
             InitializeComponent();
         }
+
+        private void AdminPanel_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PendingLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ApprovedTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
