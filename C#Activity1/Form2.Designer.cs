@@ -187,6 +187,7 @@
             Controls.Add(TablePanel);
             Name = "AdminPanel";
             ShowIcon = false;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Admin Panel";
             Load += AdminPanel_Load;
             ((System.ComponentModel.ISupportInitialize)PendingTable).EndInit();

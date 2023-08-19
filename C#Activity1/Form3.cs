@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace C_Activity1
 {
-    public partial class UserPanel : Form
+    public partial class LHHomePage : Form
     {
-        public UserPanel()
+        public LHHomePage()
         {
             InitializeComponent();
+        }
+
+        private void UserPanel_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RTUSealXL_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

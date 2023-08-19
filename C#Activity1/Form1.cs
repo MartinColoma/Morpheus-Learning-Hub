@@ -26,14 +26,9 @@ namespace C_Activity1
 
         }
 
-        private void SNBox_TextChanged(object sender, EventArgs e)
-        {
-            //student number textbox
-        }
-
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-
+            //LoginPanel
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -42,7 +37,7 @@ namespace C_Activity1
 
         private void SignUpLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //SignUP Label
+            //Sign UP Label
 
             if (LoginPanel.Visible)
             {
@@ -85,52 +80,84 @@ namespace C_Activity1
         {
             //Remember Me Checkbox
         }
-
-        private void PassBox_TextChanged(object sender, EventArgs e)
+        private void SNBox_TextChanged(object sender, EventArgs e)
         {
-            //Password Textbox
+            //Login student number textbox
+        }
 
+        private void PassBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Login Password Textbox
+            if (e.KeyCode == Keys.Enter)
+            {
+
+                // Check login credentials
+
+
+                if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
+                {
+                    AdminPanel APanel = new AdminPanel();
+                    Hide();
+                    APanel.Show();
+                }
+
+                else
+
+                {
+                    MessageBox.Show("Glad you're back Admin.", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+
+
+                // Prevent further event handling for the Enter key
+
+                e.SuppressKeyPress = true
+        ;
+            }
         }
 
         private void LoginBtn_Click(object sender, EventArgs e)
         {
             //Login Button
 
-            /*if (SNBox.Text == "Enter your Student Number")
+            if (SNBox.Text == "" || PassBox.Text == "")
             {
-                SNWarningLabel.Visible = true;
-                return;
-                if (PassBox.Text == "Enter your Password")
-                {
-                    PassWarningLabel.Visible = true;
-                    return;
-                }
-            }*/
-            if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
+                MessageBox.Show("Input your username or password", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
+            {
+                MessageBox.Show("Glad you're back Admin.", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                AdminPanel APanel = new AdminPanel();
+                Hide();
+                APanel.Show();
+
+            }
+            else
             {
 
             }
-
         }
 
-        private void UNWarningLabel_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void RegiNameBox_TextChanged(object sender, EventArgs e)
         {
-            //Name Textbox
+            //Register Name Textbox
         }
 
         private void RegiSNBox_TextChanged(object sender, EventArgs e)
         {
-            //Student Number Textbox
+            //Register Student Number Textbox
         }
+        private void RegiRPBox_TextChanged(object sender, EventArgs e)
+        {
+            //Register PIN TextBox
 
+
+        }
         private void RegiPassBox_TextChanged(object sender, EventArgs e)
         {
-            //Password Box
+            //Register Password Textbox
         }
 
         private void CreateBtn_Click(object sender, EventArgs e)
@@ -213,5 +240,7 @@ namespace C_Activity1
         {
             //recovery pass textbox
         }
+
+        
     }
 }

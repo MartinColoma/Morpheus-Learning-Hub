@@ -63,9 +63,39 @@ namespace C_Activity1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap RTU_Facade0 {
+            get {
+                object obj = ResourceManager.GetObject("RTU_Facade0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RTU_Facade1_720x720 {
+            get {
+                object obj = ResourceManager.GetObject("RTU_Facade1_720x720", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap rtu_grounds {
             get {
                 object obj = ResourceManager.GetObject("rtu grounds", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RTU_Seal {
+            get {
+                object obj = ResourceManager.GetObject("RTU_Seal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -68,7 +68,7 @@
             // RTUBg
             // 
             RTUBg.Image = Properties.Resources.rtu_grounds;
-            RTUBg.Location = new Point(-2, -5);
+            RTUBg.Location = new Point(-2, -1);
             RTUBg.Name = "RTUBg";
             RTUBg.Size = new Size(828, 696);
             RTUBg.TabIndex = 0;
@@ -87,7 +87,7 @@
             LoginPanel.Controls.Add(SNLabel);
             LoginPanel.Controls.Add(RTULHLabel);
             LoginPanel.Controls.Add(RTUSealIcon);
-            LoginPanel.Location = new Point(869, 80);
+            LoginPanel.Location = new Point(872, 80);
             LoginPanel.Name = "LoginPanel";
             LoginPanel.Size = new Size(362, 529);
             LoginPanel.TabIndex = 1;
@@ -169,7 +169,7 @@
             PassBox.PlaceholderText = "Enter Password";
             PassBox.Size = new Size(311, 30);
             PassBox.TabIndex = 5;
-            PassBox.TextChanged += PassBox_TextChanged;
+            PassBox.KeyDown += PassBox_KeyDown;
             // 
             // PassLabel
             // 
@@ -246,7 +246,7 @@
             RegiPanel.Controls.Add(RegiNameBox);
             RegiPanel.Controls.Add(RegiNameLabel);
             RegiPanel.Controls.Add(GSLabel);
-            RegiPanel.Location = new Point(872, 83);
+            RegiPanel.Location = new Point(875, 83);
             RegiPanel.Name = "RegiPanel";
             RegiPanel.Size = new Size(362, 526);
             RegiPanel.TabIndex = 12;
@@ -265,6 +265,7 @@
             RegiRPBox.PlaceholderText = "Enter PIN";
             RegiRPBox.Size = new Size(311, 30);
             RegiRPBox.TabIndex = 15;
+            RegiRPBox.TextChanged += RegiRPBox_TextChanged;
             // 
             // RegiRPLabel
             // 
@@ -411,7 +412,7 @@
             RecoveryPanel.Controls.Add(RPBox);
             RecoveryPanel.Controls.Add(RecoveryLabel);
             RecoveryPanel.Controls.Add(RecoveryHLabel);
-            RecoveryPanel.Location = new Point(872, 80);
+            RecoveryPanel.Location = new Point(878, 80);
             RecoveryPanel.Name = "RecoveryPanel";
             RecoveryPanel.Size = new Size(362, 526);
             RecoveryPanel.TabIndex = 16;
@@ -497,8 +498,8 @@
             BackColor = Color.FromArgb(24, 79, 144);
             ClientSize = new Size(1264, 681);
             Controls.Add(LoginPanel);
-            Controls.Add(RTUBg);
             Controls.Add(RegiPanel);
+            Controls.Add(RTUBg);
             Controls.Add(RecoveryPanel);
             Name = "RTULogin";
             ShowIcon = false;
@@ -526,8 +527,7 @@
         private TextBox SNBox;
         private TextBox PassBox;
         private Label PassLabel;
-        private Label PassWarningLabel;
-        private Label SNWarningLabel;
+
         private LinkLabel SignUpLinkLabel;
         private Button LoginBtn;
         private LinkLabel ForgotLinkLabel;
@@ -535,14 +535,14 @@
         private Panel RegiPanel;
         private Button CreateBtn;
         private LinkLabel LoginLinkLabel;
-        private Label RegiWarning3;
-        private Label RegiWarning1;
+
         private TextBox RegiPassBox;
         private Label RegiPassLabel;
         private TextBox RegiNameBox;
         private Label RegiNameLabel;
         private Label GSLabel;
-        private Label RegiWarning2;
+
+
         private TextBox RegiSNBox;
         private Label RegiSNLabel;
         private TextBox RegiRPBox;

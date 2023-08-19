@@ -24,6 +24,9 @@ namespace C_Activity1
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            //Pending Table
+
+
 
         }
 
@@ -39,7 +42,7 @@ namespace C_Activity1
 
         private void ApprovedTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            //Approved Table
         }
     }
 }
