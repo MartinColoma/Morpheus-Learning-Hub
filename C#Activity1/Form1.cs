@@ -1,13 +1,18 @@
 using Microsoft.VisualBasic.Logging;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace C_Activity1
 {
     public partial class RTULogin : Form
     {
+        AdminPanel APanel = new AdminPanel();
+
         public RTULogin()
         {
             InitializeComponent();
+            String SN, Pass;
+            SN = SNBox.Text; Pass = PassBox.Text;
         }
 
         private void RTULogin_Load(object sender, EventArgs e)
@@ -42,6 +47,7 @@ namespace C_Activity1
             if (LoginPanel.Visible)
             {
                 LoginPanel.Visible = false;
+                RecoveryPanel.Visible = false;
                 RegiPanel.Visible = true;
                 SNBox.Text = "";
                 PassBox.Text = "";
@@ -50,6 +56,7 @@ namespace C_Activity1
             else
             {
                 RegiPanel.Visible = false;
+                RecoveryPanel.Visible= true;
                 LoginPanel.Visible = true;
             }
 
@@ -63,6 +70,7 @@ namespace C_Activity1
             if (LoginPanel.Visible)
             {
                 LoginPanel.Visible = false;
+                RegiPanel.Visible = false;
                 RecoveryPanel.Visible = true;
                 SNBox.Text = "";
                 PassBox.Text = "";
@@ -71,6 +79,7 @@ namespace C_Activity1
             else
             {
                 RecoveryPanel.Visible = false;
+                RecoveryPanel.Visible = true;
                 LoginPanel.Visible = true;
             }
 
@@ -92,12 +101,11 @@ namespace C_Activity1
             {
 
                 // Check login credentials
+                String SN, Pass;
+                SN = SNBox.Text; Pass = PassBox.Text;
 
-
-                if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
+                if (SN == "Admin" && Pass == "Admin123")
                 {
-                    AdminPanel APanel = new AdminPanel();
-                    Hide();
                     APanel.Show();
                 }
 
@@ -120,16 +128,21 @@ namespace C_Activity1
         {
             //Login Button
 
-            if (SNBox.Text == "" || PassBox.Text == "")
+            if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
+            {
+                MessageBox.Show("Welcome back Admin.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                AdminPanel APanel = new AdminPanel();
+
+                APanel.Show();
+            }
+            else if (SNBox.Text == "" || PassBox.Text == "")
+            {
+                MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (SNBox.Text == "" || PassBox.Text == "")
             {
                 MessageBox.Show("Input your username or password", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
-            {
-                MessageBox.Show("Glad you're back Admin.", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                AdminPanel APanel = new AdminPanel();
-                Hide();
-                APanel.Show();
+
 
             }
             else
@@ -163,9 +176,33 @@ namespace C_Activity1
         private void CreateBtn_Click(object sender, EventArgs e)
         {
             //Create Button
+            String Btnname,BtnSN, BtnRP, BtnPass;
+            Btnname = RegiNameBox.Text; BtnSN = RegiSNBox.Text; BtnRP = RegiRPBox.Text; BtnPass = RegiPassBox.Text;
+            if (Btnname != "" || BtnSN!="" || BtnRP!="" || BtnPass != "")
+            {
+                //if (!AdminPanel.instance.existingStudentNumber.Contain(name, sn, rp, pass))
+                //{
+                //    AdminPanel.instance.existingStudentNumber.Add();
+                //    AdminPanel.instance.AddDataGridView(name, sn, rp, pass);
+                //    Btnname = "";
+                //    BtnSN = "";
+                //    BtnRP = "";
+                //    BtnPass = "";
+                //    MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                //}
+                //else
+                //{
+
+                //}
+            }
+
+
+
         }
 
-        private void LoginLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+            private void LoginLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //Login linked label
             if (RegiPanel.Visible)
@@ -229,6 +266,11 @@ namespace C_Activity1
 
         }
 
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            //recovery pass textbox
+        }
+
         private void SubmitBtn_Click(object sender, EventArgs e)
         {
             //Recovery Pass Submit Btn
@@ -236,11 +278,9 @@ namespace C_Activity1
 
         }
 
-        private void textBox4_TextChanged(object sender, EventArgs e)
+        private void PassBox_TextChanged(object sender, EventArgs e)
         {
-            //recovery pass textbox
-        }
 
-        
+        }
     }
 }

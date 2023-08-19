@@ -87,7 +87,7 @@
             LoginPanel.Controls.Add(SNLabel);
             LoginPanel.Controls.Add(RTULHLabel);
             LoginPanel.Controls.Add(RTUSealIcon);
-            LoginPanel.Location = new Point(872, 80);
+            LoginPanel.Location = new Point(874, 68);
             LoginPanel.Name = "LoginPanel";
             LoginPanel.Size = new Size(362, 529);
             LoginPanel.TabIndex = 1;
@@ -169,6 +169,7 @@
             PassBox.PlaceholderText = "Enter Password";
             PassBox.Size = new Size(311, 30);
             PassBox.TabIndex = 5;
+            PassBox.TextChanged += PassBox_TextChanged;
             PassBox.KeyDown += PassBox_KeyDown;
             // 
             // PassLabel
@@ -246,9 +247,9 @@
             RegiPanel.Controls.Add(RegiNameBox);
             RegiPanel.Controls.Add(RegiNameLabel);
             RegiPanel.Controls.Add(GSLabel);
-            RegiPanel.Location = new Point(875, 83);
+            RegiPanel.Location = new Point(871, 71);
             RegiPanel.Name = "RegiPanel";
-            RegiPanel.Size = new Size(362, 526);
+            RegiPanel.Size = new Size(362, 529);
             RegiPanel.TabIndex = 12;
             RegiPanel.Paint += RegiPanel_Paint;
             // 
@@ -412,9 +413,9 @@
             RecoveryPanel.Controls.Add(RPBox);
             RecoveryPanel.Controls.Add(RecoveryLabel);
             RecoveryPanel.Controls.Add(RecoveryHLabel);
-            RecoveryPanel.Location = new Point(878, 80);
+            RecoveryPanel.Location = new Point(871, 74);
             RecoveryPanel.Name = "RecoveryPanel";
-            RecoveryPanel.Size = new Size(362, 526);
+            RecoveryPanel.Size = new Size(362, 529);
             RecoveryPanel.TabIndex = 16;
             // 
             // SubmitBtn
