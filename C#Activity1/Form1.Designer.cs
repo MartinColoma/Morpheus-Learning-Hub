@@ -526,8 +526,7 @@
         private TextBox SNBox;
         private TextBox PassBox;
         private Label PassLabel;
-        private Label PassWarningLabel;
-        private Label SNWarningLabel;
+       
         private LinkLabel SignUpLinkLabel;
         private Button LoginBtn;
         private LinkLabel ForgotLinkLabel;
@@ -535,14 +534,14 @@
         private Panel RegiPanel;
         private Button CreateBtn;
         private LinkLabel LoginLinkLabel;
-        private Label RegiWarning3;
-        private Label RegiWarning1;
+       
         private TextBox RegiPassBox;
         private Label RegiPassLabel;
         private TextBox RegiNameBox;
         private Label RegiNameLabel;
         private Label GSLabel;
-        private Label RegiWarning2;
+        
+
         private TextBox RegiSNBox;
         private Label RegiSNLabel;
         private TextBox RegiRPBox;

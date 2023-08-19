@@ -96,27 +96,21 @@ namespace C_Activity1
         {
             //Login Button
 
-            /*if (SNBox.Text == "Enter your Student Number")
-            {
-                SNWarningLabel.Visible = true;
-                return;
-                if (PassBox.Text == "Enter your Password")
-                {
-                    PassWarningLabel.Visible = true;
-                    return;
-                }
-            }*/
+            
             if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
             {
-
+                AdminPanel APanel = new AdminPanel();
+                Hide();
+                APanel.Show();
+                
             }
-
+            else
+            {
+                MessageBox.Show("Glad you're back Admin.", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
-        private void UNWarningLabel_Click(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void RegiNameBox_TextChanged(object sender, EventArgs e)
         {
