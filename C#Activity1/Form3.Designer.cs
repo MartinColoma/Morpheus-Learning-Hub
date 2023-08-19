@@ -1,6 +1,6 @@
 ﻿namespace C_Activity1
 {
-    partial class UserPanel
+    partial class LHHomePage
     {
         /// <summary>
         /// Required designer variable.
@@ -28,19 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
+            RTUSealXL = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)RTUSealXL).BeginInit();
             SuspendLayout();
             // 
-            // UserPanel
+            // RTUSealXL
             // 
+            RTUSealXL.Dock = DockStyle.Fill;
+            RTUSealXL.Image = Properties.Resources.RTU_Facade1_720x720;
+            RTUSealXL.Location = new Point(0, 0);
+            RTUSealXL.Name = "RTUSealXL";
+            RTUSealXL.Size = new Size(704, 681);
+            RTUSealXL.SizeMode = PictureBoxSizeMode.CenterImage;
+            RTUSealXL.TabIndex = 0;
+            RTUSealXL.TabStop = false;
+            // 
+            // LHHomePage
+            // 
+            AccessibleRole = AccessibleRole.TitleBar;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Name = "UserPanel";
+            BackColor = Color.FromArgb(249, 184, 74);
+            ClientSize = new Size(704, 681);
+            Controls.Add(RTUSealXL);
+            Name = "LHHomePage";
             ShowIcon = false;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Learning Hub Home Page";
+            Load += UserPanel_Load;
+            ((System.ComponentModel.ISupportInitialize)RTUSealXL).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
+
+        private PictureBox RTUSealXL;
     }
 }

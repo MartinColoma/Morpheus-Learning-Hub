@@ -68,7 +68,7 @@
             // RTUBg
             // 
             RTUBg.Image = Properties.Resources.rtu_grounds;
-            RTUBg.Location = new Point(-2, -5);
+            RTUBg.Location = new Point(-2, -1);
             RTUBg.Name = "RTUBg";
             RTUBg.Size = new Size(828, 696);
             RTUBg.TabIndex = 0;
@@ -87,7 +87,7 @@
             LoginPanel.Controls.Add(SNLabel);
             LoginPanel.Controls.Add(RTULHLabel);
             LoginPanel.Controls.Add(RTUSealIcon);
-            LoginPanel.Location = new Point(869, 80);
+            LoginPanel.Location = new Point(869, 83);
             LoginPanel.Name = "LoginPanel";
             LoginPanel.Size = new Size(362, 529);
             LoginPanel.TabIndex = 1;
@@ -411,7 +411,7 @@
             RecoveryPanel.Controls.Add(RPBox);
             RecoveryPanel.Controls.Add(RecoveryLabel);
             RecoveryPanel.Controls.Add(RecoveryHLabel);
-            RecoveryPanel.Location = new Point(872, 80);
+            RecoveryPanel.Location = new Point(869, 86);
             RecoveryPanel.Name = "RecoveryPanel";
             RecoveryPanel.Size = new Size(362, 526);
             RecoveryPanel.TabIndex = 16;
@@ -498,8 +498,8 @@
             ClientSize = new Size(1264, 681);
             Controls.Add(LoginPanel);
             Controls.Add(RTUBg);
-            Controls.Add(RegiPanel);
             Controls.Add(RecoveryPanel);
+            Controls.Add(RegiPanel);
             Name = "RTULogin";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
