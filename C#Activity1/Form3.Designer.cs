@@ -42,6 +42,7 @@
             RTUSealXL.SizeMode = PictureBoxSizeMode.CenterImage;
             RTUSealXL.TabIndex = 0;
             RTUSealXL.TabStop = false;
+            RTUSealXL.Click += RTUSealXL_Click;
             // 
             // LHHomePage
             // 

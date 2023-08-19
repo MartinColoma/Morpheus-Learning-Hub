@@ -21,5 +21,10 @@ namespace C_Activity1
         {
 
         }
+
+        private void RTUSealXL_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
