@@ -14,6 +14,7 @@ namespace C_Activity1
     {
 
         public static AdminPanel instance;
+        public List<string> existingSN = new List<string>();
         public AdminPanel()
         {
             InitializeComponent();

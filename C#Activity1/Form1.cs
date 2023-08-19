@@ -135,10 +135,10 @@ namespace C_Activity1
 
                 APanel.Show();
             }
-            else if (SNBox.Text == "" || PassBox.Text == "")
-            {
-                MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //else if (SNBox.Text == "" || PassBox.Text == "")
+            //{
+            //    MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
             else if (SNBox.Text == "" || PassBox.Text == "")
             {
                 MessageBox.Show("Input your username or password", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -180,22 +180,22 @@ namespace C_Activity1
             Btnname = RegiNameBox.Text; BtnSN = RegiSNBox.Text; BtnRP = RegiRPBox.Text; BtnPass = RegiPassBox.Text;
             if (Btnname != "" || BtnSN!="" || BtnRP!="" || BtnPass != "")
             {
-                //if (!AdminPanel.instance.existingStudentNumber.Contain(name, sn, rp, pass))
-                //{
-                //    AdminPanel.instance.existingStudentNumber.Add();
-                //    AdminPanel.instance.AddDataGridView(name, sn, rp, pass);
-                //    Btnname = "";
-                //    BtnSN = "";
-                //    BtnRP = "";
-                //    BtnPass = "";
-                //    MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (!AdminPanel.instance.existingSN.Contains(BtnSN))
+                {
+                    AdminPanel.instance.existingSN.Contains(BtnSN);
+                    AdminPanel.instance.AddDataGridView(Btnname, BtnSN, BtnRP, BtnPass);
+                    Btnname = "";
+                    BtnSN = "";
+                    BtnRP = "";
+                    BtnPass = "";
+                    MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
-                //}
-                //else
-                //{
+                }
+                else
+                {
 
-                //}
+                }
             }
 
 
