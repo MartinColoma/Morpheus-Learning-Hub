@@ -42,6 +42,7 @@
             label1 = new Label();
             ApproveBtn = new Button();
             TablePanel = new Panel();
+            ApprovedDictionary = new LinkLabel();
             ((System.ComponentModel.ISupportInitialize)PendingTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).BeginInit();
             TablePanel.SuspendLayout();
@@ -175,6 +176,7 @@
             // 
             // TablePanel
             // 
+            TablePanel.Controls.Add(ApprovedDictionary);
             TablePanel.Controls.Add(ApproveBtn);
             TablePanel.Controls.Add(label1);
             TablePanel.Controls.Add(PendingLabel);
@@ -184,6 +186,21 @@
             TablePanel.Name = "TablePanel";
             TablePanel.Size = new Size(1008, 412);
             TablePanel.TabIndex = 11;
+            // 
+            // ApprovedDictionary
+            // 
+            ApprovedDictionary.ActiveLinkColor = Color.Black;
+            ApprovedDictionary.AutoSize = true;
+            ApprovedDictionary.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ApprovedDictionary.LinkBehavior = LinkBehavior.HoverUnderline;
+            ApprovedDictionary.LinkColor = Color.FromArgb(24, 79, 144);
+            ApprovedDictionary.Location = new Point(703, 351);
+            ApprovedDictionary.Name = "ApprovedDictionary";
+            ApprovedDictionary.Size = new Size(261, 16);
+            ApprovedDictionary.TabIndex = 11;
+            ApprovedDictionary.TabStop = true;
+            ApprovedDictionary.Text = "Dictionary of Approved Accounts";
+            ApprovedDictionary.LinkClicked += ApprovedDictionary_LinkClicked;
             // 
             // AdminPanel
             // 
@@ -219,5 +236,6 @@
         private Panel TablePanel;
         public DataGridView PendingTable;
         public DataGridView ApprovedTable;
+        private LinkLabel ApprovedDictionary;
     }
 }

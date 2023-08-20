@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -106,7 +107,7 @@ namespace C_Activity1
                     // Check for duplicate username in the dictionary
                     if (RTULogin.instance.dictionary.ContainsKey(selectedUsername))
                     {
-                        MessageBox.Show("Username already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("This student already had an account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         continue; // Skip to the next selected row
                     }
                     else
@@ -134,71 +135,14 @@ namespace C_Activity1
 
 
 
-            // Check if a row is selected in the PendingTable
-            //if (PendingTable.SelectedRows.Count > 0)
-            //{
-            //    //// Loop through selected rows
-            //    //foreach (DataGridViewRow selectedRow in PendingTable.SelectedRows)
-            //    //{
-            //    //    // Create a new row for the ApprovedTable
-            //    //    DataGridViewRow newRow = new DataGridViewRow();
-
-            //    //    // Loop through each cell in the selected row and add its value to the new row
-            //    //    foreach (DataGridViewCell cell in selectedRow.Cells)
-            //    //    {
-            //    //        newRow.Cells.Add(new DataGridViewTextBoxCell { Value = cell.Value });
-            //    //    }
-
-            //    //    // Add the new row to the ApprovedTable
-            //    //    ApprovedTable.Rows.Add(newRow);
-
-            //    //    // Remove the selected row from the PendingTable
-            //    //    PendingTable.Rows.RemoveAt(selectedRow.Index);
-            //    //}
 
 
+        }
 
-
-
-            //    //dictionary
-            //    foreach (DataGridViewRow selectedRow in PendingTable.SelectedRows)
-            //    {
-
-            //        DataGridViewRow newRow = new DataGridViewRow();
-
-            //        foreach (DataGridViewCell cell in selectedRow.Cells)
-            //        {
-            //            newRow.Cells.Add(new DataGridViewTextBoxCell { Value = cell.Value });
-            //        }
-
-            //        // Add the new row to the ApprovedTable
-            //        ApprovedTable.Rows.Add(newRow);
-
-            //        // Remove the selected row from the PendingTable
-            //        PendingTable.Rows.RemoveAt(selectedRow.Index);
-
-
-            //        string selectedUsername = (string)selectedRow.Cells["PSNColumn"].Value;
-
-
-            //        if (RTULogin.instance.dictionary.ContainsKey(selectedUsername))
-            //    {
-            //        MessageBox.Show("Username already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        break;
-            //    }
-            //    else
-            //    {
-            //        RTULogin.instance.AddUserToDictionary(selectedUsername, (string)selectedRow.Cells["PPassColumn"].Value);
-
-            //        PendingTable.Rows.RemoveAt(selectedRow.Index);
-            //    }
-
-
-
-
-            //    }
-            //}
-
+        private void ApprovedDictionary_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string dictContents = string.Join(Environment.NewLine, RTULogin.instance.dictionary.Select(kv => $"{kv.Key}: {kv.Value}"));
+            MessageBox.Show("ActivatedUsers Dictionary Contents:" + Environment.NewLine + dictContents);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace C_Activity1
         public static RTULogin instance;
 
         AdminPanel APanel = new AdminPanel();
+        LHHomePage HomePage = new LHHomePage();
         public new Dictionary<string, string> dictionary = new Dictionary<string, string>();
         public RTULogin()
         {
@@ -59,7 +60,7 @@ namespace C_Activity1
             else
             {
                 RegiPanel.Visible = false;
-                RecoveryPanel.Visible= true;
+                RecoveryPanel.Visible = true;
                 LoginPanel.Visible = true;
             }
 
@@ -90,7 +91,10 @@ namespace C_Activity1
 
         private void RMBRCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //Remember Me Checkbox
+            //Show PassCheckbox
+            //if(ShowPassCheck.isChecked)
+            PassBox.UseSystemPasswordChar = !ShowPassCheck.Checked;
+
         }
         private void SNBox_TextChanged(object sender, EventArgs e)
         {
@@ -110,10 +114,11 @@ namespace C_Activity1
                 if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
                 {
                     MessageBox.Show("Welcome back Admin.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
+
                     APanel.Show();
                     SN = "";
                     Pass = "";
+
 
                 }
                 //else if (SNBox.Text == "" || PassBox.Text == "")
@@ -142,39 +147,66 @@ namespace C_Activity1
         private void LoginBtn_Click(object sender, EventArgs e)
         {
             //Login Button
-            string dictContents = string.Join(Environment.NewLine, dictionary.Select(kv => $"{kv.Key}: {kv.Value}"));
-            MessageBox.Show("ActivatedUsers Dictionary Contents:" + Environment.NewLine + dictContents);
 
 
 
-            // Check login credentials
+
+            AdminPanel APanel = new AdminPanel();
+            LHHomePage HomePage = new LHHomePage();
+
             String SN, Pass;
-            SN = SNBox.Text; Pass = PassBox.Text;
+            SN = SNBox.Text;
+            Pass = PassBox.Text;
 
             if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
             {
                 MessageBox.Show("Welcome back Admin.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
                 APanel.Show();
-                SN = "";
-                Pass = "";
-
-
+                SNBox.Text = ""; // Clear the textbox
+                PassBox.Text = ""; // Clear the textbox
             }
-            //else if (SNBox.Text == "" || PassBox.Text == "")
-            //{
-            //    MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            else if (SNBox.Text == "" || PassBox.Text == "")
+            else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
             {
                 MessageBox.Show("Input your username or password", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
             }
             else
             {
+                bool found = false;
 
+                // Iterate through rows in ApprovedTable DataGridView
+                foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
+                {
+                    if (!row.IsNewRow) // Skip the new row if any
+                    {
+                        int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
+                        int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
+
+                        string storedSN = row.Cells[asnColumnIndex].Value?.ToString();
+                        string storedPass = row.Cells[apassColumnIndex].Value?.ToString();
+
+                        if (storedSN == SNBox.Text && storedPass == PassBox.Text)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (found)
+                {
+                    MessageBox.Show("Welcome back RTUista.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    HomePage.Show(); // Show the LHHomePage form
+                    SNBox.Text = ""; // Clear the textbox
+                    PassBox.Text = ""; // Clear the textbox
+                }
+                else
+                {
+                    MessageBox.Show("Invalid username or password", "Authentication Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+
+
         }
 
 
@@ -202,9 +234,9 @@ namespace C_Activity1
         private void CreateBtn_Click(object sender, EventArgs e)
         {
             //Create Button
-            String Btnname,BtnSN, BtnRP, BtnPass;
+            String Btnname, BtnSN, BtnRP, BtnPass;
             Btnname = RegiNameBox.Text; BtnSN = RegiSNBox.Text; BtnRP = RegiRPBox.Text; BtnPass = RegiPassBox.Text;
-            if (Btnname != "" || BtnSN!="" || BtnRP!="" || BtnPass != "")
+            if (Btnname != "" || BtnSN != "" || BtnRP != "" || BtnPass != "")
             {
                 if (!AdminPanel.instance.existingSN.Contains(BtnSN))
                 {
@@ -228,7 +260,7 @@ namespace C_Activity1
 
         }
 
-            private void LoginLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LoginLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //Login linked label
             if (RegiPanel.Visible)
@@ -312,6 +344,17 @@ namespace C_Activity1
         public void AddUserToDictionary(string selectedUsername, string value)
         {
             dictionary.Add(selectedUsername, value);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            RegiPassBox.UseSystemPasswordChar = !RegiShowPass.Checked;
+
+        }
+
+        private void RMBRCheckbox_CheckedChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
