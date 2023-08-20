@@ -12,9 +12,13 @@ namespace C_Activity1
 {
     public partial class LHHomePage : Form
     {
+        public static LHHomePage instance;
+
         public LHHomePage()
         {
             InitializeComponent();
+            instance = this;
+
         }
 
         private void UserPanel_Load(object sender, EventArgs e)

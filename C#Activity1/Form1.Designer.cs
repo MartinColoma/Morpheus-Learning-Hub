@@ -30,7 +30,8 @@
         {
             RTUBg = new PictureBox();
             LoginPanel = new Panel();
-            RMBRCheckBox = new CheckBox();
+            RMBRCheckbox = new CheckBox();
+            ShowPassCheck = new CheckBox();
             ForgotLinkLabel = new LinkLabel();
             LoginBtn = new Button();
             SignUpLinkLabel = new LinkLabel();
@@ -41,6 +42,7 @@
             RTULHLabel = new Label();
             RTUSealIcon = new PictureBox();
             RegiPanel = new Panel();
+            RegiShowPass = new CheckBox();
             RegiRPBox = new TextBox();
             RegiRPLabel = new Label();
             RegiSNBox = new TextBox();
@@ -77,7 +79,8 @@
             // LoginPanel
             // 
             LoginPanel.BackColor = Color.FromArgb(249, 184, 74);
-            LoginPanel.Controls.Add(RMBRCheckBox);
+            LoginPanel.Controls.Add(RMBRCheckbox);
+            LoginPanel.Controls.Add(ShowPassCheck);
             LoginPanel.Controls.Add(ForgotLinkLabel);
             LoginPanel.Controls.Add(LoginBtn);
             LoginPanel.Controls.Add(SignUpLinkLabel);
@@ -87,25 +90,40 @@
             LoginPanel.Controls.Add(SNLabel);
             LoginPanel.Controls.Add(RTULHLabel);
             LoginPanel.Controls.Add(RTUSealIcon);
-            LoginPanel.Location = new Point(872, 80);
+            LoginPanel.Location = new Point(868, 71);
             LoginPanel.Name = "LoginPanel";
             LoginPanel.Size = new Size(362, 529);
             LoginPanel.TabIndex = 1;
             LoginPanel.Paint += panel1_Paint;
             // 
-            // RMBRCheckBox
+            // RMBRCheckbox
             // 
-            RMBRCheckBox.AutoSize = true;
-            RMBRCheckBox.Cursor = Cursors.Hand;
-            RMBRCheckBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
-            RMBRCheckBox.ForeColor = Color.White;
-            RMBRCheckBox.Location = new Point(29, 341);
-            RMBRCheckBox.Name = "RMBRCheckBox";
-            RMBRCheckBox.Size = new Size(117, 19);
-            RMBRCheckBox.TabIndex = 11;
-            RMBRCheckBox.Text = "Remember Me";
-            RMBRCheckBox.UseVisualStyleBackColor = true;
-            RMBRCheckBox.CheckedChanged += RMBRCheckBox_CheckedChanged;
+            RMBRCheckbox.AutoSize = true;
+            RMBRCheckbox.BackColor = Color.Transparent;
+            RMBRCheckbox.Cursor = Cursors.Hand;
+            RMBRCheckbox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
+            RMBRCheckbox.ForeColor = Color.White;
+            RMBRCheckbox.Location = new Point(29, 329);
+            RMBRCheckbox.Name = "RMBRCheckbox";
+            RMBRCheckbox.Size = new Size(117, 19);
+            RMBRCheckbox.TabIndex = 12;
+            RMBRCheckbox.Text = "Remember Me";
+            RMBRCheckbox.UseVisualStyleBackColor = false;
+            RMBRCheckbox.CheckedChanged += RMBRCheckbox_CheckedChanged_1;
+            // 
+            // ShowPassCheck
+            // 
+            ShowPassCheck.AutoSize = true;
+            ShowPassCheck.BackColor = Color.White;
+            ShowPassCheck.Cursor = Cursors.Hand;
+            ShowPassCheck.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
+            ShowPassCheck.ForeColor = Color.White;
+            ShowPassCheck.Location = new Point(319, 295);
+            ShowPassCheck.Name = "ShowPassCheck";
+            ShowPassCheck.Size = new Size(15, 14);
+            ShowPassCheck.TabIndex = 11;
+            ShowPassCheck.UseVisualStyleBackColor = false;
+            ShowPassCheck.CheckedChanged += RMBRCheckBox_CheckedChanged;
             // 
             // ForgotLinkLabel
             // 
@@ -114,7 +132,7 @@
             ForgotLinkLabel.Font = new Font("STZhongsong", 9F, FontStyle.Regular, GraphicsUnit.Point);
             ForgotLinkLabel.LinkBehavior = LinkBehavior.HoverUnderline;
             ForgotLinkLabel.LinkColor = Color.White;
-            ForgotLinkLabel.Location = new Point(231, 274);
+            ForgotLinkLabel.Location = new Point(231, 267);
             ForgotLinkLabel.Name = "ForgotLinkLabel";
             ForgotLinkLabel.Size = new Size(109, 14);
             ForgotLinkLabel.TabIndex = 10;
@@ -159,16 +177,16 @@
             // 
             PassBox.BackColor = Color.White;
             PassBox.Cursor = Cursors.IBeam;
-            PassBox.Font = new Font("STZhongsong", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            PassBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             PassBox.ForeColor = Color.FromArgb(24, 79, 144);
-            PassBox.Location = new Point(29, 298);
+            PassBox.Location = new Point(24, 291);
             PassBox.Margin = new Padding(10);
-            PassBox.Multiline = true;
             PassBox.Name = "PassBox";
-            PassBox.PasswordChar = '•';
             PassBox.PlaceholderText = "Enter Password";
-            PassBox.Size = new Size(311, 30);
+            PassBox.Size = new Size(311, 25);
             PassBox.TabIndex = 5;
+            PassBox.UseSystemPasswordChar = true;
+            PassBox.TextChanged += PassBox_TextChanged;
             PassBox.KeyDown += PassBox_KeyDown;
             // 
             // PassLabel
@@ -186,14 +204,13 @@
             // 
             SNBox.BackColor = Color.White;
             SNBox.Cursor = Cursors.IBeam;
-            SNBox.Font = new Font("STZhongsong", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            SNBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             SNBox.ForeColor = Color.FromArgb(24, 79, 144);
-            SNBox.Location = new Point(29, 210);
+            SNBox.Location = new Point(24, 220);
             SNBox.Margin = new Padding(10);
-            SNBox.Multiline = true;
             SNBox.Name = "SNBox";
             SNBox.PlaceholderText = "Enter Student Number";
-            SNBox.Size = new Size(311, 30);
+            SNBox.Size = new Size(311, 25);
             SNBox.TabIndex = 3;
             SNBox.TextChanged += SNBox_TextChanged;
             // 
@@ -202,7 +219,7 @@
             SNLabel.AutoSize = true;
             SNLabel.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
             SNLabel.ForeColor = Color.FromArgb(24, 79, 144);
-            SNLabel.Location = new Point(19, 181);
+            SNLabel.Location = new Point(19, 191);
             SNLabel.Name = "SNLabel";
             SNLabel.Size = new Size(160, 19);
             SNLabel.TabIndex = 2;
@@ -235,6 +252,7 @@
             // RegiPanel
             // 
             RegiPanel.BackColor = Color.FromArgb(24, 79, 144);
+            RegiPanel.Controls.Add(RegiShowPass);
             RegiPanel.Controls.Add(RegiRPBox);
             RegiPanel.Controls.Add(RegiRPLabel);
             RegiPanel.Controls.Add(RegiSNBox);
@@ -246,24 +264,37 @@
             RegiPanel.Controls.Add(RegiNameBox);
             RegiPanel.Controls.Add(RegiNameLabel);
             RegiPanel.Controls.Add(GSLabel);
-            RegiPanel.Location = new Point(875, 83);
+            RegiPanel.Location = new Point(871, 71);
             RegiPanel.Name = "RegiPanel";
-            RegiPanel.Size = new Size(362, 526);
+            RegiPanel.Size = new Size(362, 529);
             RegiPanel.TabIndex = 12;
             RegiPanel.Paint += RegiPanel_Paint;
+            // 
+            // RegiShowPass
+            // 
+            RegiShowPass.AutoSize = true;
+            RegiShowPass.BackColor = Color.White;
+            RegiShowPass.Cursor = Cursors.Hand;
+            RegiShowPass.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
+            RegiShowPass.ForeColor = Color.White;
+            RegiShowPass.Location = new Point(317, 317);
+            RegiShowPass.Name = "RegiShowPass";
+            RegiShowPass.Size = new Size(15, 14);
+            RegiShowPass.TabIndex = 16;
+            RegiShowPass.UseVisualStyleBackColor = false;
+            RegiShowPass.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // RegiRPBox
             // 
             RegiRPBox.BackColor = Color.White;
             RegiRPBox.Cursor = Cursors.IBeam;
-            RegiRPBox.Font = new Font("STZhongsong", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            RegiRPBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             RegiRPBox.ForeColor = Color.FromArgb(24, 79, 144);
             RegiRPBox.Location = new Point(21, 240);
             RegiRPBox.Margin = new Padding(10);
-            RegiRPBox.Multiline = true;
             RegiRPBox.Name = "RegiRPBox";
             RegiRPBox.PlaceholderText = "Enter PIN";
-            RegiRPBox.Size = new Size(311, 30);
+            RegiRPBox.Size = new Size(311, 25);
             RegiRPBox.TabIndex = 15;
             RegiRPBox.TextChanged += RegiRPBox_TextChanged;
             // 
@@ -282,14 +313,13 @@
             // 
             RegiSNBox.BackColor = Color.White;
             RegiSNBox.Cursor = Cursors.IBeam;
-            RegiSNBox.Font = new Font("STZhongsong", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            RegiSNBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             RegiSNBox.ForeColor = Color.FromArgb(24, 79, 144);
             RegiSNBox.Location = new Point(21, 167);
             RegiSNBox.Margin = new Padding(10);
-            RegiSNBox.Multiline = true;
             RegiSNBox.Name = "RegiSNBox";
             RegiSNBox.PlaceholderText = "Enter Student Number";
-            RegiSNBox.Size = new Size(311, 30);
+            RegiSNBox.Size = new Size(311, 25);
             RegiSNBox.TabIndex = 13;
             RegiSNBox.TextChanged += RegiSNBox_TextChanged;
             // 
@@ -342,16 +372,15 @@
             // 
             RegiPassBox.BackColor = Color.White;
             RegiPassBox.Cursor = Cursors.IBeam;
-            RegiPassBox.Font = new Font("STZhongsong", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            RegiPassBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             RegiPassBox.ForeColor = Color.FromArgb(24, 79, 144);
             RegiPassBox.Location = new Point(21, 311);
             RegiPassBox.Margin = new Padding(10);
-            RegiPassBox.Multiline = true;
             RegiPassBox.Name = "RegiPassBox";
-            RegiPassBox.PasswordChar = '•';
             RegiPassBox.PlaceholderText = "Enter Password";
-            RegiPassBox.Size = new Size(311, 30);
+            RegiPassBox.Size = new Size(311, 25);
             RegiPassBox.TabIndex = 5;
+            RegiPassBox.UseSystemPasswordChar = true;
             RegiPassBox.TextChanged += RegiPassBox_TextChanged;
             // 
             // RegiPassLabel
@@ -369,14 +398,13 @@
             // 
             RegiNameBox.BackColor = Color.White;
             RegiNameBox.Cursor = Cursors.IBeam;
-            RegiNameBox.Font = new Font("STZhongsong", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            RegiNameBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             RegiNameBox.ForeColor = Color.FromArgb(24, 79, 144);
-            RegiNameBox.Location = new Point(21, 91);
+            RegiNameBox.Location = new Point(21, 101);
             RegiNameBox.Margin = new Padding(10);
-            RegiNameBox.Multiline = true;
             RegiNameBox.Name = "RegiNameBox";
             RegiNameBox.PlaceholderText = "Enter Name";
-            RegiNameBox.Size = new Size(311, 30);
+            RegiNameBox.Size = new Size(311, 25);
             RegiNameBox.TabIndex = 3;
             RegiNameBox.TextChanged += RegiNameBox_TextChanged;
             // 
@@ -385,7 +413,7 @@
             RegiNameLabel.AutoSize = true;
             RegiNameLabel.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
             RegiNameLabel.ForeColor = Color.White;
-            RegiNameLabel.Location = new Point(11, 62);
+            RegiNameLabel.Location = new Point(11, 72);
             RegiNameLabel.Name = "RegiNameLabel";
             RegiNameLabel.Size = new Size(63, 19);
             RegiNameLabel.TabIndex = 2;
@@ -396,7 +424,7 @@
             GSLabel.AutoSize = true;
             GSLabel.Font = new Font("Cooper Black", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
             GSLabel.ForeColor = Color.White;
-            GSLabel.Location = new Point(97, 10);
+            GSLabel.Location = new Point(99, 21);
             GSLabel.Name = "GSLabel";
             GSLabel.Size = new Size(173, 31);
             GSLabel.TabIndex = 1;
@@ -412,9 +440,9 @@
             RecoveryPanel.Controls.Add(RPBox);
             RecoveryPanel.Controls.Add(RecoveryLabel);
             RecoveryPanel.Controls.Add(RecoveryHLabel);
-            RecoveryPanel.Location = new Point(878, 80);
+            RecoveryPanel.Location = new Point(871, 74);
             RecoveryPanel.Name = "RecoveryPanel";
-            RecoveryPanel.Size = new Size(362, 526);
+            RecoveryPanel.Size = new Size(362, 529);
             RecoveryPanel.TabIndex = 16;
             // 
             // SubmitBtn
@@ -531,7 +559,7 @@
         private LinkLabel SignUpLinkLabel;
         private Button LoginBtn;
         private LinkLabel ForgotLinkLabel;
-        private CheckBox RMBRCheckBox;
+        private CheckBox ShowPassCheck;
         private Panel RegiPanel;
         private Button CreateBtn;
         private LinkLabel LoginLinkLabel;
@@ -553,5 +581,7 @@
         private TextBox RPBox;
         private Label RecoveryLabel;
         private Label RecoveryHLabel;
+        private CheckBox RegiShowPass;
+        private CheckBox RMBRCheckbox;
     }
 }

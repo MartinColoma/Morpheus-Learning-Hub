@@ -42,6 +42,7 @@
             label1 = new Label();
             ApproveBtn = new Button();
             TablePanel = new Panel();
+            ApprovedDictionary = new LinkLabel();
             ((System.ComponentModel.ISupportInitialize)PendingTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).BeginInit();
             TablePanel.SuspendLayout();
@@ -50,6 +51,7 @@
             // PendingTable
             // 
             PendingTable.AllowUserToOrderColumns = true;
+            PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PendingTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             PendingTable.Columns.AddRange(new DataGridViewColumn[] { PNameColumn, PSNColumn, PRPinColumn, PPassColumn });
             PendingTable.Location = new Point(38, 73);
@@ -87,6 +89,7 @@
             // ApprovedTable
             // 
             ApprovedTable.AllowUserToOrderColumns = true;
+            ApprovedTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ApprovedTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ApprovedTable.Columns.AddRange(new DataGridViewColumn[] { ANameColumn, ASNColumn, ARPInColumn, APassColumn });
             ApprovedTable.Location = new Point(523, 73);
@@ -99,24 +102,28 @@
             // 
             // ANameColumn
             // 
+            ANameColumn.FillWeight = 100.582642F;
             ANameColumn.HeaderText = "Name";
             ANameColumn.Name = "ANameColumn";
             ANameColumn.ReadOnly = true;
             // 
             // ASNColumn
             // 
+            ASNColumn.FillWeight = 99.37547F;
             ASNColumn.HeaderText = "Student Number";
             ASNColumn.Name = "ASNColumn";
             ASNColumn.ReadOnly = true;
             // 
             // ARPInColumn
             // 
+            ARPInColumn.FillWeight = 100.544395F;
             ARPInColumn.HeaderText = "Recovery Pin";
             ARPInColumn.Name = "ARPInColumn";
             ARPInColumn.ReadOnly = true;
             // 
             // APassColumn
             // 
+            APassColumn.FillWeight = 99.49749F;
             APassColumn.HeaderText = "Password";
             APassColumn.Name = "APassColumn";
             APassColumn.ReadOnly = true;
@@ -165,9 +172,11 @@
             ApproveBtn.TabIndex = 10;
             ApproveBtn.Text = "APPROVE";
             ApproveBtn.UseVisualStyleBackColor = false;
+            ApproveBtn.Click += ApproveBtn_Click;
             // 
             // TablePanel
             // 
+            TablePanel.Controls.Add(ApprovedDictionary);
             TablePanel.Controls.Add(ApproveBtn);
             TablePanel.Controls.Add(label1);
             TablePanel.Controls.Add(PendingLabel);
@@ -177,6 +186,21 @@
             TablePanel.Name = "TablePanel";
             TablePanel.Size = new Size(1008, 412);
             TablePanel.TabIndex = 11;
+            // 
+            // ApprovedDictionary
+            // 
+            ApprovedDictionary.ActiveLinkColor = Color.Black;
+            ApprovedDictionary.AutoSize = true;
+            ApprovedDictionary.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ApprovedDictionary.LinkBehavior = LinkBehavior.HoverUnderline;
+            ApprovedDictionary.LinkColor = Color.FromArgb(24, 79, 144);
+            ApprovedDictionary.Location = new Point(703, 351);
+            ApprovedDictionary.Name = "ApprovedDictionary";
+            ApprovedDictionary.Size = new Size(261, 16);
+            ApprovedDictionary.TabIndex = 11;
+            ApprovedDictionary.TabStop = true;
+            ApprovedDictionary.Text = "Dictionary of Approved Accounts";
+            ApprovedDictionary.LinkClicked += ApprovedDictionary_LinkClicked;
             // 
             // AdminPanel
             // 
@@ -198,9 +222,6 @@
         }
 
         #endregion
-
-        private DataGridView PendingTable;
-        private DataGridView ApprovedTable;
         private Label PendingLabel;
         private Label label1;
         private DataGridViewTextBoxColumn PNameColumn;
@@ -213,5 +234,8 @@
         private DataGridViewTextBoxColumn APassColumn;
         private Button ApproveBtn;
         private Panel TablePanel;
+        public DataGridView PendingTable;
+        public DataGridView ApprovedTable;
+        private LinkLabel ApprovedDictionary;
     }
 }
