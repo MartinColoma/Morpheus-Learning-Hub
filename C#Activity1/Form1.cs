@@ -107,33 +107,68 @@ namespace C_Activity1
             if (e.KeyCode == Keys.Enter)
             {
 
-                // Check login credentials
                 String SN, Pass;
-                SN = SNBox.Text; Pass = PassBox.Text;
+                SN = SNBox.Text;
+                Pass = PassBox.Text;
 
                 if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
                 {
                     MessageBox.Show("Welcome back Admin.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     APanel.Show();
-                    SN = "";
-                    Pass = "";
-
-
+                    SNBox.Text = ""; // Clear the textbox
+                    PassBox.Text = ""; // Clear the textbox
                 }
-                //else if (SNBox.Text == "" || PassBox.Text == "")
-                //{
-                //    MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //}
-                else if (SNBox.Text == "" || PassBox.Text == "")
+                else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
                 {
                     MessageBox.Show("Input your username or password", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
                 }
                 else
                 {
+                    bool found = false;
 
+                    // Iterate through rows in ApprovedTable DataGridView
+                    foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
+                    {
+                        if (!row.IsNewRow) // Skip the new row if any
+                        {
+                            int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
+                            int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
+
+                            string storedSN = row.Cells[asnColumnIndex].Value?.ToString();
+                            string storedPass = row.Cells[apassColumnIndex].Value?.ToString();
+
+                            if (storedSN == SNBox.Text && storedPass == PassBox.Text)
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (found)
+                    {
+                        MessageBox.Show("Welcome back RTUista.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        HomePage.Show(); // Show the LHHomePage form
+                        SNBox.Text = ""; // Clear the textbox
+                        PassBox.Text = ""; // Clear the textbox
+                    }
+                    else
+                    {
+                        // Invalid credentials handling
+                        MessageBox.Show("Invalid username or password", "Oooops", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        // Disable the textboxes temporarily after three failed attempts
+                        int failedAttempts = 0;
+                        failedAttempts++;
+
+                        if (failedAttempts >= 3)
+                        {
+                            SNBox.Enabled = false;
+                            PassBox.Enabled = false;
+                            MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Authentication Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
 
 
@@ -199,7 +234,7 @@ namespace C_Activity1
                 else
                 {
                     // Invalid credentials handling
-                    MessageBox.Show("Invalid username or password", "Authentication Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Invalid username or password", "Oooops", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     // Disable the textboxes temporarily after three failed attempts
                     int failedAttempts = 0;
