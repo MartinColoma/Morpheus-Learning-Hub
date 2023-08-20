@@ -6,13 +6,16 @@ namespace C_Activity1
 {
     public partial class RTULogin : Form
     {
-        AdminPanel APanel = new AdminPanel();
+        public static RTULogin instance;
 
+        AdminPanel APanel = new AdminPanel();
+        public new Dictionary<string, string> dictionary = new Dictionary<string, string>();
         public RTULogin()
         {
             InitializeComponent();
             String SN, Pass;
             SN = SNBox.Text; Pass = PassBox.Text;
+            instance = this;
         }
 
         private void RTULogin_Load(object sender, EventArgs e)
@@ -104,15 +107,27 @@ namespace C_Activity1
                 String SN, Pass;
                 SN = SNBox.Text; Pass = PassBox.Text;
 
-                if (SN == "Admin" && Pass == "Admin123")
+                if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
                 {
+                    MessageBox.Show("Welcome back Admin.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
                     APanel.Show();
+                    SN = "";
+                    Pass = "";
+
                 }
-
-                else
-
+                //else if (SNBox.Text == "" || PassBox.Text == "")
+                //{
+                //    MessageBox.Show("", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
+                else if (SNBox.Text == "" || PassBox.Text == "")
                 {
-                    MessageBox.Show("Glad you're back Admin.", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Input your username or password", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+                }
+                else
+                {
 
                 }
 
@@ -127,13 +142,24 @@ namespace C_Activity1
         private void LoginBtn_Click(object sender, EventArgs e)
         {
             //Login Button
+            string dictContents = string.Join(Environment.NewLine, dictionary.Select(kv => $"{kv.Key}: {kv.Value}"));
+            MessageBox.Show("ActivatedUsers Dictionary Contents:" + Environment.NewLine + dictContents);
+
+
+
+            // Check login credentials
+            String SN, Pass;
+            SN = SNBox.Text; Pass = PassBox.Text;
 
             if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
             {
                 MessageBox.Show("Welcome back Admin.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                AdminPanel APanel = new AdminPanel();
-
+                
                 APanel.Show();
+                SN = "";
+                Pass = "";
+
+
             }
             //else if (SNBox.Text == "" || PassBox.Text == "")
             //{
@@ -194,7 +220,7 @@ namespace C_Activity1
                 }
                 else
                 {
-
+                    MessageBox.Show("Student Number already exists.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -209,10 +235,10 @@ namespace C_Activity1
             {
                 RegiPanel.Visible = false;
                 LoginPanel.Visible = true;
+                RecoveryPanel.Visible = false;
                 RegiNameBox.Text = "";
                 RegiSNBox.Text = "";
                 RegiRPBox.Text = "";
-                RecoveryPanel.Visible = false;
                 RegiPassBox.Text = "";
             }
 
@@ -281,6 +307,11 @@ namespace C_Activity1
         private void PassBox_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        public void AddUserToDictionary(string selectedUsername, string value)
+        {
+            dictionary.Add(selectedUsername, value);
         }
     }
 }
