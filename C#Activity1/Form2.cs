@@ -81,8 +81,10 @@ namespace C_Activity1
         {
             //Approved Table
 
-
+          
         }
+
+        
 
         public void AddDataGridView1(string name, string sn, string rp, string pass)
         {

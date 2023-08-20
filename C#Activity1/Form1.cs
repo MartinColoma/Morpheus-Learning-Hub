@@ -148,11 +148,7 @@ namespace C_Activity1
         {
             //Login Button
 
-
-
-
-            AdminPanel APanel = new AdminPanel();
-            LHHomePage HomePage = new LHHomePage();
+            
 
             String SN, Pass;
             SN = SNBox.Text;
@@ -202,9 +198,22 @@ namespace C_Activity1
                 }
                 else
                 {
+                    // Invalid credentials handling
                     MessageBox.Show("Invalid username or password", "Authentication Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    // Disable the textboxes temporarily after three failed attempts
+                    int failedAttempts = 0;
+                    failedAttempts++;
+
+                    if (failedAttempts >= 3)
+                    {
+                        SNBox.Enabled = false;
+                        PassBox.Enabled = false;
+                        MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Authentication Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
+
 
 
         }
