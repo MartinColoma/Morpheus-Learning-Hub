@@ -245,7 +245,7 @@ namespace C_Activity1
                         }
                     }
                 }
-
+                
                 if (found)
                 {
                     MessageBox.Show("Welcome back RTUista.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -261,15 +261,18 @@ namespace C_Activity1
 
                     // Disable the textboxes temporarily after three failed attempts
                     failedAttempts++;
+                    SNBox.Enabled = false;
+                    PassBox.Enabled = false;
+                    failedAttempts++;
+                    int RemainingAttempts = maxAttempt - failedAttempts;
+                    MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    
                 }
                 if (failedAttempts >= maxAttempt)
                 {
                     SNBox.Enabled = false;
                     PassBox.Enabled = false;
                     failedAttempts++;
-                    int RemainingAttempts = maxAttempt - failedAttempts;
                     MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
