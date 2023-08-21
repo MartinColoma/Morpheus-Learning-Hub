@@ -21,7 +21,7 @@ namespace C_Activity1
             InitializeComponent();
             String SN, Pass;
             SN = SNBox.Text; Pass = PassBox.Text;
-            
+
             instance = this;
         }
 
@@ -300,32 +300,89 @@ namespace C_Activity1
 
         private void CreateBtn_Click(object sender, EventArgs e)
         {
-            //Create Button
+            // Create Button
             String Btnname, BtnSN, BtnRP, BtnPass;
             Btnname = RegiNameBox.Text; BtnSN = RegiSNBox.Text; BtnRP = RegiRPBox.Text; BtnPass = RegiPassBox.Text;
-            if (Btnname != "" || BtnSN != "" || BtnRP != "" || BtnPass != "")
+
+            // Check if any of the input fields is empty
+            if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) || string.IsNullOrEmpty(BtnPass))
             {
-                if (!AdminPanel.instance.existingSN.Contains(BtnSN))
-                {
-                    AdminPanel.instance.existingSN.Contains(BtnSN);
-                    AdminPanel.instance.AddDataGridView(Btnname, BtnSN, BtnRP, BtnPass);
-                    Btnname = "";
-                    BtnSN = "";
-                    BtnRP = "";
-                    BtnPass = "";
-                    MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-                }
-                else
-                {
-                    MessageBox.Show("Student Number already exists.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                HandleIncorrectCreateInput("Missing Text on Required Field.");
+                return; // Exit the method since there's an error
             }
 
+            // Check if the student number (BtnSN) already exists in ApprovedTable
+            bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
+            if (isStudentInApprovedTable)
+            {
+                HandleApprovedUserInput("This student already has an account.");
+                return; // Exit the method since there's an error
+            }
 
-
+            // If everything is okay, proceed to add the record
+            if (!AdminPanel.instance.existingSN.Contains(BtnSN))
+            {
+                AdminPanel.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
+                AdminPanel.instance.AddDataGridView(Btnname, BtnSN, BtnRP, BtnPass);
+                Btnname = "";
+                BtnSN = "";
+                BtnRP = "";
+                BtnPass = "";
+                MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Student Number already exists.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+        private bool IsStudentNumberInApprovedTable(string studentNumber)
+        {
+            foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
+            {
+                if (row.Cells["ASNColumn"].Value != null && row.Cells["ASNColumn"].Value.ToString() == studentNumber)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void HandleIncorrectCreateInput(string errorMessage)
+        {
+            int remainingAttempts = maxAttempt - failedAttempts;
+
+            if (remainingAttempts > 0)
+            {
+                MessageBox.Show($"{errorMessage} Please input valid text on the required field. Attempts remaining: {remainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                failedAttempts++; // Increment failedAttempts here or wherever appropriate
+            }
+            else
+            {
+                SubmitBtn.Enabled = false;
+                MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void HandleApprovedUserInput(string errorMessage)
+        {
+            int remainingAttempts = maxAttempt - failedAttempts;
+
+            if (remainingAttempts > 0)
+            {
+                MessageBox.Show($"{errorMessage} Please try again. Attempts remaining: {remainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                failedAttempts++; // Increment failedAttempts here or wherever appropriate
+            }
+            else
+            {
+                SubmitBtn.Enabled = false;
+                MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+
 
         private void LoginLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -350,7 +407,7 @@ namespace C_Activity1
             }
 
 
-            
+
         }
 
         private void RegiPanel_Paint(object sender, PaintEventArgs e)
@@ -362,17 +419,20 @@ namespace C_Activity1
 
         private void GSLabel_Click(object sender, EventArgs e)
         {
-
+            failedAttempts = 0;
+            LoginBtn.Enabled = true;
         }
 
         private void label4_Click(object sender, EventArgs e)
         {
             //RecoverLabel
+
+
         }
 
         private void label5_Click(object sender, EventArgs e)
         {
-
+            //Recover Label
         }
 
         private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
