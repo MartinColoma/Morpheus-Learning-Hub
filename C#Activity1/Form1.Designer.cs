@@ -55,10 +55,12 @@
             RegiNameLabel = new Label();
             GSLabel = new Label();
             RecoveryPanel = new Panel();
+            RCSNBox = new TextBox();
+            RCSNLabel = new Label();
             SubmitBtn = new Button();
             FPLinkedLabel = new LinkLabel();
-            RPBox = new TextBox();
-            RecoveryLabel = new Label();
+            RPINBox = new TextBox();
+            RecoveryPINLabel = new Label();
             RecoveryHLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)RTUBg).BeginInit();
             LoginPanel.SuspendLayout();
@@ -156,7 +158,7 @@
             LoginBtn.TabIndex = 9;
             LoginBtn.Text = "LOGIN";
             LoginBtn.UseVisualStyleBackColor = false;
-            LoginBtn.Click += LoginBtn_Click;
+            LoginBtn.Click += LoginButton_Click;
             // 
             // SignUpLinkLabel
             // 
@@ -264,7 +266,7 @@
             RegiPanel.Controls.Add(RegiNameBox);
             RegiPanel.Controls.Add(RegiNameLabel);
             RegiPanel.Controls.Add(GSLabel);
-            RegiPanel.Location = new Point(871, 71);
+            RegiPanel.Location = new Point(868, 71);
             RegiPanel.Name = "RegiPanel";
             RegiPanel.Size = new Size(362, 529);
             RegiPanel.TabIndex = 12;
@@ -424,7 +426,7 @@
             GSLabel.AutoSize = true;
             GSLabel.Font = new Font("Cooper Black", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
             GSLabel.ForeColor = Color.White;
-            GSLabel.Location = new Point(99, 21);
+            GSLabel.Location = new Point(90, 18);
             GSLabel.Name = "GSLabel";
             GSLabel.Size = new Size(173, 31);
             GSLabel.TabIndex = 1;
@@ -435,15 +437,43 @@
             // RecoveryPanel
             // 
             RecoveryPanel.BackColor = Color.FromArgb(24, 79, 144);
+            RecoveryPanel.Controls.Add(RCSNBox);
+            RecoveryPanel.Controls.Add(RCSNLabel);
             RecoveryPanel.Controls.Add(SubmitBtn);
             RecoveryPanel.Controls.Add(FPLinkedLabel);
-            RecoveryPanel.Controls.Add(RPBox);
-            RecoveryPanel.Controls.Add(RecoveryLabel);
+            RecoveryPanel.Controls.Add(RPINBox);
+            RecoveryPanel.Controls.Add(RecoveryPINLabel);
             RecoveryPanel.Controls.Add(RecoveryHLabel);
             RecoveryPanel.Location = new Point(871, 74);
             RecoveryPanel.Name = "RecoveryPanel";
             RecoveryPanel.Size = new Size(362, 529);
             RecoveryPanel.TabIndex = 16;
+            // 
+            // RCSNBox
+            // 
+            RCSNBox.BackColor = Color.White;
+            RCSNBox.Cursor = Cursors.IBeam;
+            RCSNBox.Font = new Font("STZhongsong", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            RCSNBox.ForeColor = Color.FromArgb(24, 79, 144);
+            RCSNBox.Location = new Point(23, 189);
+            RCSNBox.Margin = new Padding(10);
+            RCSNBox.Multiline = true;
+            RCSNBox.Name = "RCSNBox";
+            RCSNBox.PlaceholderText = "Enter Student Number";
+            RCSNBox.Size = new Size(311, 30);
+            RCSNBox.TabIndex = 11;
+            RCSNBox.TextChanged += RCSNBox_TextChanged;
+            // 
+            // RCSNLabel
+            // 
+            RCSNLabel.AutoSize = true;
+            RCSNLabel.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
+            RCSNLabel.ForeColor = Color.White;
+            RCSNLabel.Location = new Point(20, 160);
+            RCSNLabel.Name = "RCSNLabel";
+            RCSNLabel.Size = new Size(160, 19);
+            RCSNLabel.TabIndex = 10;
+            RCSNLabel.Text = "Student Number:";
             // 
             // SubmitBtn
             // 
@@ -455,7 +485,7 @@
             SubmitBtn.FlatStyle = FlatStyle.Flat;
             SubmitBtn.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
             SubmitBtn.ForeColor = Color.White;
-            SubmitBtn.Location = new Point(228, 283);
+            SubmitBtn.Location = new Point(230, 319);
             SubmitBtn.Name = "SubmitBtn";
             SubmitBtn.Size = new Size(104, 31);
             SubmitBtn.TabIndex = 9;
@@ -479,39 +509,39 @@
             FPLinkedLabel.Text = "Got your Password? Login again.";
             FPLinkedLabel.LinkClicked += linkLabel1_LinkClicked_1;
             // 
-            // RPBox
+            // RPINBox
             // 
-            RPBox.BackColor = Color.White;
-            RPBox.Cursor = Cursors.IBeam;
-            RPBox.Font = new Font("STZhongsong", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            RPBox.ForeColor = Color.FromArgb(24, 79, 144);
-            RPBox.Location = new Point(21, 240);
-            RPBox.Margin = new Padding(10);
-            RPBox.Multiline = true;
-            RPBox.Name = "RPBox";
-            RPBox.PlaceholderText = "Enter PIN";
-            RPBox.Size = new Size(311, 30);
-            RPBox.TabIndex = 3;
-            RPBox.TextChanged += textBox4_TextChanged;
+            RPINBox.BackColor = Color.White;
+            RPINBox.Cursor = Cursors.IBeam;
+            RPINBox.Font = new Font("STZhongsong", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            RPINBox.ForeColor = Color.FromArgb(24, 79, 144);
+            RPINBox.Location = new Point(23, 276);
+            RPINBox.Margin = new Padding(10);
+            RPINBox.Multiline = true;
+            RPINBox.Name = "RPINBox";
+            RPINBox.PlaceholderText = "Enter PIN";
+            RPINBox.Size = new Size(311, 30);
+            RPINBox.TabIndex = 3;
+            RPINBox.TextChanged += textBox4_TextChanged;
             // 
-            // RecoveryLabel
+            // RecoveryPINLabel
             // 
-            RecoveryLabel.AutoSize = true;
-            RecoveryLabel.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
-            RecoveryLabel.ForeColor = Color.White;
-            RecoveryLabel.Location = new Point(18, 210);
-            RecoveryLabel.Name = "RecoveryLabel";
-            RecoveryLabel.Size = new Size(127, 19);
-            RecoveryLabel.TabIndex = 2;
-            RecoveryLabel.Text = "Recovery Pin:";
-            RecoveryLabel.Click += label4_Click;
+            RecoveryPINLabel.AutoSize = true;
+            RecoveryPINLabel.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
+            RecoveryPINLabel.ForeColor = Color.White;
+            RecoveryPINLabel.Location = new Point(20, 246);
+            RecoveryPINLabel.Name = "RecoveryPINLabel";
+            RecoveryPINLabel.Size = new Size(127, 19);
+            RecoveryPINLabel.TabIndex = 2;
+            RecoveryPINLabel.Text = "Recovery Pin:";
+            RecoveryPINLabel.Click += label4_Click;
             // 
             // RecoveryHLabel
             // 
             RecoveryHLabel.AutoSize = true;
             RecoveryHLabel.Font = new Font("Cooper Black", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
             RecoveryHLabel.ForeColor = Color.White;
-            RecoveryHLabel.Location = new Point(39, 138);
+            RecoveryHLabel.Location = new Point(35, 61);
             RecoveryHLabel.Name = "RecoveryHLabel";
             RecoveryHLabel.Size = new Size(282, 31);
             RecoveryHLabel.TabIndex = 1;
@@ -578,10 +608,12 @@
         private Panel RecoveryPanel;
         private Button SubmitBtn;
         private LinkLabel FPLinkedLabel;
-        private TextBox RPBox;
-        private Label RecoveryLabel;
         private Label RecoveryHLabel;
         private CheckBox RegiShowPass;
         private CheckBox RMBRCheckbox;
+        private TextBox RCSNBox;
+        private Label RCSNLabel;
+        private TextBox RPINBox;
+        private Label RecoveryPINLabel;
     }
 }
