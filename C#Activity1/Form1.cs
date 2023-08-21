@@ -117,117 +117,100 @@ namespace C_Activity1
                 if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
                 {
                     MessageBox.Show("Welcome back Admin.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                     APanel.Show();
-                    SNBox.Text = ""; // Clear the textbox
-                    PassBox.Text = ""; // Clear the textbox
-                    failedAttempts = 0;
-                    LoginBtn.Enabled = true;
+                    ResetForm();
                 }
                 else if (SNBox.Text != "Admin" && PassBox.Text == "Admin123")
                 {
-                    failedAttempts++;
-                    int RemainingAttempts = maxAttempt - failedAttempts;
-                    MessageBox.Show($"Incorrect Student Number. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    HandleIncorrectInput("Incorrect Student Number.");
                 }
                 else if (SNBox.Text == "Admin" && PassBox.Text != "Admin123")
                 {
-                    failedAttempts++;
-                    int RemainingAttempts = maxAttempt - failedAttempts;
-                    MessageBox.Show($"Incorrect Password. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    HandleIncorrectInput("Incorrect Password.");
+                }
+                else if (SNBox.Text != "Admin" && PassBox.Text != "Admin123")
+                {
+                    HandleIncorrectInput("Incorrect Student Number and Password.");
+                }
+                else
+                {
+                    bool foundInPending = false;
+                    bool foundInApproved = false;
+
+                    foreach (DataGridViewRow row in AdminPanel.instance.PendingTable.Rows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            string psn = row.Cells["PSNColumn"].Value?.ToString();
+                            string ppass = row.Cells["PPassColumn"].Value?.ToString();
+
+                            if (psn == SNBox.Text && ppass == PassBox.Text)
+                            {
+                                foundInPending = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            string asn = row.Cells["ASNColumn"].Value?.ToString();
+                            string apass = row.Cells["APassColumn"].Value?.ToString();
+
+                            if (asn == SNBox.Text && apass == PassBox.Text)
+                            {
+                                foundInApproved = true;
+                                HomePage.Show();
+                                ResetForm();
+                                break;
+                            }
+                            else if (asn == SNBox.Text)
+                            {
+                                HandleIncorrectInput("Incorrect Password.");
+                            }
+                        }
+                    }
+
+                    if (foundInPending)
+                    {
+                        MessageBox.Show("Student Account is pending for approval.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (!foundInApproved)
+                    {
+                        HandleIncorrectInput("Incorrect Student Number and Password.");
+                    }
+                }
+
+                if (failedAttempts >= maxAttempt)
+                {
+                    LoginBtn.Enabled = false;
 
                 }
 
-                else
+                void HandleIncorrectInput(string errorMessage)
                 {
-                    bool found = false;
-                    bool find = false;
-                    // Iterate through rows in ApprovedTable DataGridView
-                    foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
+                    failedAttempts++;
+                    int remainingAttempts = maxAttempt - failedAttempts;
+
+                    if (remainingAttempts > 0)
                     {
-                        if (!row.IsNewRow) // Skip the new row if any
-                        {
-                            int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
-                            int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
-
-                            string storedSN = row.Cells[asnColumnIndex].Value?.ToString();
-                            string storedPass = row.Cells[apassColumnIndex].Value?.ToString();
-
-
-                            if (storedSN == SNBox.Text && storedPass == PassBox.Text)
-                            {
-                                found = true;
-                                break;
-                            }
-                            else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
-                            {
-                                failedAttempts++;
-                                int RemainingAttempts = maxAttempt - failedAttempts;
-                                MessageBox.Show($"Incorrect Student Number. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else if (storedSN == SNBox.Text && storedPass != PassBox.Text)
-                            {
-                                failedAttempts++;
-                                int RemainingAttempts = maxAttempt - failedAttempts;
-                                MessageBox.Show($"Incorrect Password. Please check your input Password. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-
-
-
-                        }
-
+                        MessageBox.Show($"{errorMessage} Please check your input. Attempts remaining: {remainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-
-                    foreach (DataGridViewRow rows in AdminPanel.instance.PendingTable.Rows)
-                    {
-                        if (!rows.IsNewRow) // Skip the new row if any
-                        {
-                            int psnColumnIndex = AdminPanel.instance.PendingTable.Columns["PSNColumn"].Index;
-                            int ppassColumnIndex = AdminPanel.instance.PendingTable.Columns["PPassColumn"].Index;
-
-                            string notStoredSN = rows.Cells[psnColumnIndex].Value?.ToString();
-                            string notStoredPass = rows.Cells[ppassColumnIndex].Value?.ToString();
-
-                            if (notStoredSN == SNBox.Text && notStoredPass == PassBox.Text)
-                            {
-                                find = true;
-                                MessageBox.Show("Student Account is pending for approval.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                        }
-                    }
-
-                    if (found)
-                    {
-                        MessageBox.Show("Welcome back RTUista.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        HomePage.Show(); // Show the LHHomePage form
-                        SNBox.Text = ""; // Clear the textbox
-                        PassBox.Text = ""; // Clear the textbox
-                        failedAttempts = 0;
-                        LoginBtn.Enabled = true;
-
-                    }
-                    else if (find)
-                    {
-                        SNBox.Text = ""; // Clear the textbox
-                        PassBox.Text = ""; // Clear the textbox
-                        failedAttempts = 0;
-                        LoginBtn.Enabled = true;
-                    }
-
-                    else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
-                    {
-                        failedAttempts++;
-                        int RemainingAttempts = maxAttempt - failedAttempts;
-                        MessageBox.Show($"Missing Student Number and Password. Please fill the required textboxes. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    }
-
-
-                    if (failedAttempts >= maxAttempt)
+                    else
                     {
                         LoginBtn.Enabled = false;
                         MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                }
+
+                void ResetForm()
+                {
+                    SNBox.Text = "";
+                    PassBox.Text = "";
+                    failedAttempts = 0;
+                    LoginBtn.Enabled = true;
                 }
 
 
@@ -245,117 +228,104 @@ namespace C_Activity1
             if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
             {
                 MessageBox.Show("Welcome back Admin.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 APanel.Show();
-                SNBox.Text = ""; // Clear the textbox
-                PassBox.Text = ""; // Clear the textbox
-                failedAttempts = 0;
-                LoginBtn.Enabled = true;
+                ResetForm();
             }
             else if (SNBox.Text != "Admin" && PassBox.Text == "Admin123")
             {
-                failedAttempts++;
-                int RemainingAttempts = maxAttempt - failedAttempts;
-                MessageBox.Show($"Incorrect Student Number. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                HandleIncorrectInput("Incorrect Student Number.");
             }
             else if (SNBox.Text == "Admin" && PassBox.Text != "Admin123")
             {
-                failedAttempts++;
-                int RemainingAttempts = maxAttempt - failedAttempts;
-                MessageBox.Show($"Incorrect Password. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                HandleIncorrectInput("Incorrect Password.");
             }
-
+            else if (SNBox.Text != "Admin" && PassBox.Text != "Admin123")
+            {
+                HandleIncorrectInput("Incorrect Student Number and Password.");
+            }
             else
             {
-                bool found = false;
-                bool find = false;
-                // Iterate through rows in ApprovedTable DataGridView
-                foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
-                {
-                    if (!row.IsNewRow) // Skip the new row if any
-                    {
-                        int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
-                        int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
+                bool foundInPending = false;
+                bool foundInApproved = false;
 
-                        string storedSN = row.Cells[asnColumnIndex].Value?.ToString();
-                        string storedPass = row.Cells[apassColumnIndex].Value?.ToString();
-                        
-                        
-                        if (storedSN == SNBox.Text && storedPass == PassBox.Text)
+                foreach (DataGridViewRow row in AdminPanel.instance.PendingTable.Rows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        string psn = row.Cells["PSNColumn"].Value?.ToString();
+                        string ppass = row.Cells["PPassColumn"].Value?.ToString();
+
+                        if (psn == SNBox.Text && ppass == PassBox.Text)
                         {
-                            found = true;
+                            foundInPending = true;
                             break;
                         }
-                        else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
-                        {
-                            failedAttempts++;
-                            int RemainingAttempts = maxAttempt - failedAttempts;
-                            MessageBox.Show($"Incorrect Student Number. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else if (storedSN == SNBox.Text && storedPass != PassBox.Text)
-                        {
-                            failedAttempts++;
-                            int RemainingAttempts = maxAttempt - failedAttempts;
-                            MessageBox.Show($"Incorrect Password. Please check your input Password. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        
-
-
                     }
-                    
                 }
 
-                foreach (DataGridViewRow rows in AdminPanel.instance.PendingTable.Rows)
+                foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
                 {
-                    if (!rows.IsNewRow) // Skip the new row if any
+                    if (!row.IsNewRow)
                     {
-                        int psnColumnIndex = AdminPanel.instance.PendingTable.Columns["PSNColumn"].Index;
-                        int ppassColumnIndex = AdminPanel.instance.PendingTable.Columns["PPassColumn"].Index;
+                        string asn = row.Cells["ASNColumn"].Value?.ToString();
+                        string apass = row.Cells["APassColumn"].Value?.ToString();
 
-                        string notStoredSN = rows.Cells[psnColumnIndex].Value?.ToString();
-                        string notStoredPass = rows.Cells[ppassColumnIndex].Value?.ToString();
-
-                        if (notStoredSN == SNBox.Text && notStoredPass == PassBox.Text)
+                        if (asn == SNBox.Text && apass == PassBox.Text)
                         {
-                            find = true;
-                            MessageBox.Show("Student Account is pending for approval.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            foundInApproved = true;
+                            HomePage.Show();
+                            ResetForm();
+                            break;
+                        }
+                        else if (asn == SNBox.Text)
+                        {
+                            HandleIncorrectInput("Incorrect Password.");
                         }
                     }
                 }
 
-                if (found)
+                if (foundInPending)
                 {
-                    MessageBox.Show("Welcome back RTUista.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    HomePage.Show(); // Show the LHHomePage form
-                    SNBox.Text = ""; // Clear the textbox
-                    PassBox.Text = ""; // Clear the textbox
-                    failedAttempts = 0;
-                    LoginBtn.Enabled = true;
-
-                } else if (find)
-                {
-                    SNBox.Text = ""; // Clear the textbox
-                    PassBox.Text = ""; // Clear the textbox
-                    failedAttempts = 0;
-                    LoginBtn.Enabled = true;
+                    MessageBox.Show("Student Account is pending for approval.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-                else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
+                else if (!foundInApproved)
                 {
-                    failedAttempts++;
-                    int RemainingAttempts = maxAttempt - failedAttempts;
-                    MessageBox.Show($"Missing Student Number and Password. Please fill the required textboxes. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                    HandleIncorrectInput("Incorrect Student Number and Password.");
                 }
+            }
 
+            if (failedAttempts >= maxAttempt)
+            {
+                LoginBtn.Enabled = false;
+                
+            }
 
-                if (failedAttempts >= maxAttempt)
+            void HandleIncorrectInput(string errorMessage)
+            {
+                failedAttempts++;
+                int remainingAttempts = maxAttempt - failedAttempts;
+
+                if (remainingAttempts > 0)
+                {
+                    MessageBox.Show($"{errorMessage} Please check your input. Attempts remaining: {remainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else 
                 {
                     LoginBtn.Enabled = false;
                     MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+            void ResetForm()
+            {
+                SNBox.Text = "";
+                PassBox.Text = "";
+                failedAttempts = 0;
+                LoginBtn.Enabled = true;
+            }
+
+
+
 
 
 
