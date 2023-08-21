@@ -21,6 +21,7 @@ namespace C_Activity1
             InitializeComponent();
             String SN, Pass;
             SN = SNBox.Text; Pass = PassBox.Text;
+            
             instance = this;
         }
 
@@ -120,18 +121,6 @@ namespace C_Activity1
                     APanel.Show();
                     ResetForm();
                 }
-                else if (SNBox.Text != "Admin" && PassBox.Text == "Admin123")
-                {
-                    HandleIncorrectInput("Incorrect Student Number.");
-                }
-                else if (SNBox.Text == "Admin" && PassBox.Text != "Admin123")
-                {
-                    HandleIncorrectInput("Incorrect Password.");
-                }
-                else if (SNBox.Text != "Admin" && PassBox.Text != "Admin123")
-                {
-                    HandleIncorrectInput("Incorrect Student Number and Password.");
-                }
                 else
                 {
                     bool foundInPending = false;
@@ -186,31 +175,6 @@ namespace C_Activity1
                 if (failedAttempts >= maxAttempt)
                 {
                     LoginBtn.Enabled = false;
-
-                }
-
-                void HandleIncorrectInput(string errorMessage)
-                {
-                    failedAttempts++;
-                    int remainingAttempts = maxAttempt - failedAttempts;
-
-                    if (remainingAttempts > 0)
-                    {
-                        MessageBox.Show($"{errorMessage} Please check your input. Attempts remaining: {remainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        LoginBtn.Enabled = false;
-                        MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-
-                void ResetForm()
-                {
-                    SNBox.Text = "";
-                    PassBox.Text = "";
-                    failedAttempts = 0;
-                    LoginBtn.Enabled = true;
                 }
 
 
@@ -221,27 +185,15 @@ namespace C_Activity1
             }
         }
 
-        private void LoginBtn_Click(object sender, EventArgs e)
+        private void LoginButton_Click(object sender, EventArgs e)
         {
-            //Login Button
+            //LoginButton
 
             if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
             {
                 MessageBox.Show("Welcome back Admin.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 APanel.Show();
                 ResetForm();
-            }
-            else if (SNBox.Text != "Admin" && PassBox.Text == "Admin123")
-            {
-                HandleIncorrectInput("Incorrect Student Number.");
-            }
-            else if (SNBox.Text == "Admin" && PassBox.Text != "Admin123")
-            {
-                HandleIncorrectInput("Incorrect Password.");
-            }
-            else if (SNBox.Text != "Admin" && PassBox.Text != "Admin123")
-            {
-                HandleIncorrectInput("Incorrect Student Number and Password.");
             }
             else
             {
@@ -297,38 +249,31 @@ namespace C_Activity1
             if (failedAttempts >= maxAttempt)
             {
                 LoginBtn.Enabled = false;
-                
             }
+        }
 
-            void HandleIncorrectInput(string errorMessage)
+        private void HandleIncorrectInput(string errorMessage)
+        {
+            failedAttempts++;
+            int remainingAttempts = maxAttempt - failedAttempts;
+
+            if (remainingAttempts > 0)
             {
-                failedAttempts++;
-                int remainingAttempts = maxAttempt - failedAttempts;
-
-                if (remainingAttempts > 0)
-                {
-                    MessageBox.Show($"{errorMessage} Please check your input. Attempts remaining: {remainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else 
-                {
-                    LoginBtn.Enabled = false;
-                    MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show($"{errorMessage} Please check your input. Attempts remaining: {remainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            void ResetForm()
+            else
             {
-                SNBox.Text = "";
-                PassBox.Text = "";
-                failedAttempts = 0;
-                LoginBtn.Enabled = true;
+                LoginBtn.Enabled = false;
+                MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
 
-
-
-
-
-
+        private void ResetForm()
+        {
+            SNBox.Text = "";
+            PassBox.Text = "";
+            failedAttempts = 0;
+            LoginBtn.Enabled = true;
         }
 
 
@@ -403,6 +348,9 @@ namespace C_Activity1
                 RecoveryPanel.Visible = false;
 
             }
+
+
+            
         }
 
         private void RegiPanel_Paint(object sender, PaintEventArgs e)
@@ -447,6 +395,9 @@ namespace C_Activity1
         }
         private void RCSNBox_TextChanged(object sender, EventArgs e)
         {
+            //recovery student number textbox
+
+
 
         }
 
@@ -457,7 +408,34 @@ namespace C_Activity1
 
         private void SubmitBtn_Click(object sender, EventArgs e)
         {
-            //Recovery Pass Submit Btn
+            ////Recovery Pass Submit Btn
+            bool LFPass = false;
+            string PassFound = "";
+
+            foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
+            {
+
+                string psn = row.Cells["ASNColumn"].Value?.ToString();
+                string ppin = row.Cells["ARPinColumn"].Value?.ToString();
+
+                if (psn == RCSNBox.Text && ppin == RPINBox.Text)
+                {
+                    LFPass = true;
+                    PassFound = row.Cells["APassColumn"].Value.ToString();
+                    break;
+                }
+
+            }
+            if (LFPass)
+            {
+                MessageBox.Show("Your Password is " + PassFound, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Incorrect Student Number and Recovery Pin.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+
 
 
         }
