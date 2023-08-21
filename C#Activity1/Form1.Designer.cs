@@ -92,7 +92,7 @@
             LoginPanel.Controls.Add(SNLabel);
             LoginPanel.Controls.Add(RTULHLabel);
             LoginPanel.Controls.Add(RTUSealIcon);
-            LoginPanel.Location = new Point(868, 71);
+            LoginPanel.Location = new Point(868, 74);
             LoginPanel.Name = "LoginPanel";
             LoginPanel.Size = new Size(362, 529);
             LoginPanel.TabIndex = 1;
@@ -266,7 +266,7 @@
             RegiPanel.Controls.Add(RegiNameBox);
             RegiPanel.Controls.Add(RegiNameLabel);
             RegiPanel.Controls.Add(GSLabel);
-            RegiPanel.Location = new Point(868, 71);
+            RegiPanel.Location = new Point(874, 71);
             RegiPanel.Name = "RegiPanel";
             RegiPanel.Size = new Size(362, 529);
             RegiPanel.TabIndex = 12;
