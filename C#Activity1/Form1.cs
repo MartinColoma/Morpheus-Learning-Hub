@@ -521,6 +521,9 @@ namespace C_Activity1
 
         }
 
+        private void RTUBg_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
