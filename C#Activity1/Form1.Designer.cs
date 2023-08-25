@@ -184,7 +184,7 @@
             PassBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             PassBox.ForeColor = Color.FromArgb(24, 79, 144);
             PassBox.Location = new Point(24, 291);
-            PassBox.Margin = new Padding(10, 10, 10, 10);
+            PassBox.Margin = new Padding(10);
             PassBox.Name = "PassBox";
             PassBox.PlaceholderText = "Enter Password";
             PassBox.Size = new Size(311, 25);
@@ -211,7 +211,7 @@
             SNBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             SNBox.ForeColor = Color.FromArgb(24, 79, 144);
             SNBox.Location = new Point(24, 220);
-            SNBox.Margin = new Padding(10, 10, 10, 10);
+            SNBox.Margin = new Padding(10);
             SNBox.Name = "SNBox";
             SNBox.PlaceholderText = "Enter Student Number";
             SNBox.Size = new Size(311, 25);
@@ -296,7 +296,7 @@
             RegiRPBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             RegiRPBox.ForeColor = Color.FromArgb(24, 79, 144);
             RegiRPBox.Location = new Point(21, 240);
-            RegiRPBox.Margin = new Padding(10, 10, 10, 10);
+            RegiRPBox.Margin = new Padding(10);
             RegiRPBox.Name = "RegiRPBox";
             RegiRPBox.PlaceholderText = "Enter PIN";
             RegiRPBox.Size = new Size(311, 25);
@@ -321,7 +321,7 @@
             RegiSNBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             RegiSNBox.ForeColor = Color.FromArgb(24, 79, 144);
             RegiSNBox.Location = new Point(21, 167);
-            RegiSNBox.Margin = new Padding(10, 10, 10, 10);
+            RegiSNBox.Margin = new Padding(10);
             RegiSNBox.Name = "RegiSNBox";
             RegiSNBox.PlaceholderText = "Enter Student Number";
             RegiSNBox.Size = new Size(311, 25);
@@ -380,7 +380,7 @@
             RegiPassBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             RegiPassBox.ForeColor = Color.FromArgb(24, 79, 144);
             RegiPassBox.Location = new Point(21, 311);
-            RegiPassBox.Margin = new Padding(10, 10, 10, 10);
+            RegiPassBox.Margin = new Padding(10);
             RegiPassBox.Name = "RegiPassBox";
             RegiPassBox.PlaceholderText = "Enter Password";
             RegiPassBox.Size = new Size(311, 25);
@@ -406,7 +406,7 @@
             RegiNameBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             RegiNameBox.ForeColor = Color.FromArgb(24, 79, 144);
             RegiNameBox.Location = new Point(21, 101);
-            RegiNameBox.Margin = new Padding(10, 10, 10, 10);
+            RegiNameBox.Margin = new Padding(10);
             RegiNameBox.Name = "RegiNameBox";
             RegiNameBox.PlaceholderText = "Enter Name";
             RegiNameBox.Size = new Size(311, 25);
@@ -459,7 +459,7 @@
             RCSNBox.Font = new Font("STZhongsong", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             RCSNBox.ForeColor = Color.FromArgb(24, 79, 144);
             RCSNBox.Location = new Point(23, 189);
-            RCSNBox.Margin = new Padding(10, 10, 10, 10);
+            RCSNBox.Margin = new Padding(10);
             RCSNBox.Multiline = true;
             RCSNBox.Name = "RCSNBox";
             RCSNBox.PlaceholderText = "Enter Student Number";
@@ -519,7 +519,7 @@
             RPINBox.Font = new Font("STZhongsong", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             RPINBox.ForeColor = Color.FromArgb(24, 79, 144);
             RPINBox.Location = new Point(23, 276);
-            RPINBox.Margin = new Padding(10, 10, 10, 10);
+            RPINBox.Margin = new Padding(10);
             RPINBox.Multiline = true;
             RPINBox.Name = "RPINBox";
             RPINBox.PlaceholderText = "Enter PIN";
