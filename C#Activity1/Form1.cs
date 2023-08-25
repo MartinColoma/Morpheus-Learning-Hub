@@ -220,6 +220,13 @@ namespace C_Activity1
                 MessageBox.Show($"Incorrect Password. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
+            else if (SNBox.Text != "Admin" && PassBox.Text != "Admin123")
+            {
+                failedAttempts++;
+                int RemainingAttempts = maxAttempt - failedAttempts;
+                MessageBox.Show($"Incorrect Student Number and Password. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
 
             else
             {
