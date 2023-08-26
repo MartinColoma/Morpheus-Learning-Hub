@@ -75,8 +75,10 @@
             RTUBg.Location = new Point(-2, -1);
             RTUBg.Name = "RTUBg";
             RTUBg.Size = new Size(828, 696);
+            RTUBg.SizeMode = PictureBoxSizeMode.StretchImage;
             RTUBg.TabIndex = 0;
             RTUBg.TabStop = false;
+            RTUBg.Click += RTUBg_Click;
             // 
             // LoginPanel
             // 
@@ -246,7 +248,8 @@
             RTUSealIcon.Image = Properties.Resources.RTU_Seal_64x64;
             RTUSealIcon.Location = new Point(150, 41);
             RTUSealIcon.Name = "RTUSealIcon";
-            RTUSealIcon.Size = new Size(64, 64);
+            RTUSealIcon.Size = new Size(64, 63);
+            RTUSealIcon.SizeMode = PictureBoxSizeMode.AutoSize;
             RTUSealIcon.TabIndex = 0;
             RTUSealIcon.TabStop = false;
             RTUSealIcon.Click += pictureBox1_Click;

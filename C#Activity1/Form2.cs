@@ -113,6 +113,7 @@ namespace C_Activity1
 
         private void ApproveBtn_Click(object sender, EventArgs e)
         {
+            //approved btn
             if (PendingTable.SelectedRows.Count > 0)
             {
                 // Loop through selected rows
@@ -124,7 +125,8 @@ namespace C_Activity1
                     if (RTULogin.instance.dictionary.ContainsKey(selectedUsername))
                     {
                         MessageBox.Show("This student already had an account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        continue; // Skip to the next selected row
+                        continue; // Skip to the next selected row09271418890097607
+
                     }
                     else
                     {
