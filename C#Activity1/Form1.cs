@@ -267,7 +267,7 @@ namespace C_Activity1
                 //failedAttempts++;
                 //int RemainingAttempts = maxAttempt - failedAttempts;
                 //MessageBox.Show($"Incorrect Password. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                HandleIncorrectInput("Incorrect Password. Please check your Student Number.");
+                HandleIncorrectInput("Incorrect Password. Please check your Password.");
 
             }
             else if (SNBox.Text != "Admin" && PassBox.Text != "Admin123")
@@ -313,7 +313,7 @@ namespace C_Activity1
                             //failedAttempts++;
                             //int RemainingAttempts = maxAttempt - failedAttempts;
                             //MessageBox.Show($"Incorrect Password. Please check your input Password. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            HandleIncorrectInput("Incorrect Password. Please check your Student Number.");
+                            HandleIncorrectInput("Incorrect Password. Please check your Password.");
 
                         }
 
