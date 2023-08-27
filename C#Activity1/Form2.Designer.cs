@@ -54,7 +54,7 @@
             PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PendingTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             PendingTable.Columns.AddRange(new DataGridViewColumn[] { PNameColumn, PSNColumn, PRPinColumn, PPassColumn });
-            PendingTable.Location = new Point(38, 73);
+            PendingTable.Location = new Point(537, 73);
             PendingTable.Name = "PendingTable";
             PendingTable.ReadOnly = true;
             PendingTable.RowTemplate.Height = 25;
@@ -92,7 +92,7 @@
             ApprovedTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ApprovedTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ApprovedTable.Columns.AddRange(new DataGridViewColumn[] { ANameColumn, ASNColumn, ARPInColumn, APassColumn });
-            ApprovedTable.Location = new Point(523, 73);
+            ApprovedTable.Location = new Point(39, 73);
             ApprovedTable.Name = "ApprovedTable";
             ApprovedTable.ReadOnly = true;
             ApprovedTable.RowTemplate.Height = 25;
@@ -134,7 +134,7 @@
             PendingLabel.BackColor = Color.Transparent;
             PendingLabel.Font = new Font("Cooper Black", 18F, FontStyle.Regular, GraphicsUnit.Point);
             PendingLabel.ForeColor = Color.FromArgb(24, 79, 144);
-            PendingLabel.Location = new Point(149, 31);
+            PendingLabel.Location = new Point(670, 27);
             PendingLabel.Name = "PendingLabel";
             PendingLabel.Size = new Size(232, 27);
             PendingLabel.TabIndex = 2;
@@ -148,7 +148,7 @@
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Cooper Black", 18F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = Color.FromArgb(24, 79, 144);
-            label1.Location = new Point(635, 31);
+            label1.Location = new Point(138, 27);
             label1.Name = "label1";
             label1.Size = new Size(255, 27);
             label1.TabIndex = 3;
@@ -166,7 +166,7 @@
             ApproveBtn.FlatStyle = FlatStyle.Flat;
             ApproveBtn.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
             ApproveBtn.ForeColor = Color.White;
-            ApproveBtn.Location = new Point(366, 344);
+            ApproveBtn.Location = new Point(865, 351);
             ApproveBtn.Name = "ApproveBtn";
             ApproveBtn.Size = new Size(114, 31);
             ApproveBtn.TabIndex = 10;
@@ -194,7 +194,7 @@
             ApprovedDictionary.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ApprovedDictionary.LinkBehavior = LinkBehavior.HoverUnderline;
             ApprovedDictionary.LinkColor = Color.FromArgb(24, 79, 144);
-            ApprovedDictionary.Location = new Point(703, 351);
+            ApprovedDictionary.Location = new Point(39, 351);
             ApprovedDictionary.Name = "ApprovedDictionary";
             ApprovedDictionary.Size = new Size(261, 16);
             ApprovedDictionary.TabIndex = 11;

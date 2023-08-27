@@ -40,7 +40,7 @@ namespace C_Activity1
 
         }
 
-        
+
 
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -95,10 +95,10 @@ namespace C_Activity1
         {
             //Approved Table
 
-          
+
         }
 
-        
+
 
         public void AddDataGridView1(string name, string sn, string rp, string pass)
         {
@@ -114,43 +114,87 @@ namespace C_Activity1
         private void ApproveBtn_Click(object sender, EventArgs e)
         {
             //approved btn
+            //if (PendingTable.SelectedRows.Count > 0)
+            //{
+            //    // Loop through selected rows
+            //    foreach (DataGridViewRow selectedRow in PendingTable.SelectedRows)
+            //    {
+            //        string selectedUsername = selectedRow.Cells["PSNColumn"].Value.ToString();
+
+            //        // Check for duplicate username in the dictionary
+            //        if (RTULogin.instance.dictionary.ContainsKey(selectedUsername))
+            //        {
+            //            MessageBox.Show("This student already had an account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            continue; // Skip to the next selected row09271418890097607
+
+            //        }
+            //        else
+            //        {
+            //            // Add the user to the dictionary
+            //            RTULogin.instance.AddUserToDictionary(selectedUsername, (string)selectedRow.Cells["PPassColumn"].Value);
+
+            //            // Create a new row for the ApprovedTable
+            //            DataGridViewRow newRow = new DataGridViewRow();
+
+            //            // Loop through each cell in the selected row and add its value to the new row
+            //            foreach (DataGridViewCell cell in selectedRow.Cells)
+            //            {
+            //                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = cell.Value });
+            //            }
+
+            //            // Add the new row to the ApprovedTable
+            //            ApprovedTable.Rows.Add(newRow);
+
+            //            // Remove the selected row from the PendingTable
+            //            PendingTable.Rows.RemoveAt(selectedRow.Index);
+            //        }
+            //    }
+            //}
+
             if (PendingTable.SelectedRows.Count > 0)
             {
-                // Loop through selected rows
-                foreach (DataGridViewRow selectedRow in PendingTable.SelectedRows)
+                DialogResult dialogResult = MessageBox.Show("Do you want to approve the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dialogResult == DialogResult.Yes)
                 {
-                    string selectedUsername = selectedRow.Cells["PSNColumn"].Value.ToString();
-
-                    // Check for duplicate username in the dictionary
-                    if (RTULogin.instance.dictionary.ContainsKey(selectedUsername))
+                    foreach (DataGridViewRow selectedRow in PendingTable.SelectedRows)
                     {
-                        MessageBox.Show("This student already had an account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        continue; // Skip to the next selected row09271418890097607
+                        string selectedUsername = selectedRow.Cells["PSNColumn"].Value.ToString();
 
-                    }
-                    else
-                    {
-                        // Add the user to the dictionary
-                        RTULogin.instance.AddUserToDictionary(selectedUsername, (string)selectedRow.Cells["PPassColumn"].Value);
-
-                        // Create a new row for the ApprovedTable
-                        DataGridViewRow newRow = new DataGridViewRow();
-
-                        // Loop through each cell in the selected row and add its value to the new row
-                        foreach (DataGridViewCell cell in selectedRow.Cells)
+                        if (RTULogin.instance.dictionary.ContainsKey(selectedUsername))
                         {
-                            newRow.Cells.Add(new DataGridViewTextBoxCell { Value = cell.Value });
+                            MessageBox.Show("This student already has an account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            continue;
                         }
+                        else
+                        {
+                            RTULogin.instance.AddUserToDictionary(selectedUsername, (string)selectedRow.Cells["PPassColumn"].Value);
 
-                        // Add the new row to the ApprovedTable
-                        ApprovedTable.Rows.Add(newRow);
+                            DataGridViewRow newRow = new DataGridViewRow();
 
-                        // Remove the selected row from the PendingTable
-                        PendingTable.Rows.RemoveAt(selectedRow.Index);
+                            foreach (DataGridViewCell cell in selectedRow.Cells)
+                            {
+                                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = cell.Value });
+                            }
+
+                            ApprovedTable.Rows.Add(newRow);
+                            PendingTable.Rows.RemoveAt(selectedRow.Index);
+                        }
+                    }
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    DialogResult deleteResult = MessageBox.Show("Do you want to delete the selected row?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (deleteResult == DialogResult.Yes)
+                    {
+                        foreach (DataGridViewRow selectedRow in PendingTable.SelectedRows)
+                        {
+                            PendingTable.Rows.RemoveAt(selectedRow.Index);
+                        }
                     }
                 }
             }
-
 
 
 
