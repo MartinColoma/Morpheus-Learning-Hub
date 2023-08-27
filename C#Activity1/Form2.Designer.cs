@@ -167,7 +167,7 @@
             ApproveBtn.FlatStyle = FlatStyle.Flat;
             ApproveBtn.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
             ApproveBtn.ForeColor = Color.White;
-            ApproveBtn.Location = new Point(865, 351);
+            ApproveBtn.Location = new Point(865, 344);
             ApproveBtn.Name = "ApproveBtn";
             ApproveBtn.Size = new Size(114, 31);
             ApproveBtn.TabIndex = 10;

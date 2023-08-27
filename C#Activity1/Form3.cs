@@ -61,7 +61,16 @@ namespace C_Activity1
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
+            if (LHMenuColumn.Visible)
+            {
+                LHMenuColumn.Visible = false;
+                LHMenuColumn.Location = new Point(-220, 98);
+            }
+            else
+            {
+                LHMenuColumn.Visible = true;
+                LHMenuColumn.Location = new Point(0, 98);
+            }
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -71,7 +80,28 @@ namespace C_Activity1
 
         private void label1_Click_1(object sender, EventArgs e)
         {
+            if (LHMenuColumn.Visible)
+            {
+                LHMenuColumn.Visible = false;
+                LHMenuColumn.Location = new Point(-220, 98);
+            }
+            else
+            {
+                LHMenuColumn.Visible = true;
+                LHMenuColumn.Location = new Point(0, 98);
+            }
+        }
+
+        private void LHMenuColumn_Paint(object sender, PaintEventArgs e)
+        {
+
 
         }
-    }
+
+       
+
+
+
+
+}
 }

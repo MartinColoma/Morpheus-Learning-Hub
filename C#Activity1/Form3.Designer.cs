@@ -30,11 +30,11 @@
         {
             RTUSealXL = new PictureBox();
             RTUSealIcon = new PictureBox();
-            panel1 = new Panel();
+            LHHeaderPanel = new Panel();
             LearningHLabel = new Label();
-            panel2 = new Panel();
-            label1 = new Label();
-            pictureBox1 = new PictureBox();
+            LHMenuStripPanel = new Panel();
+            MenuLbl = new Label();
+            MenuIcon = new PictureBox();
             LHMenuColumn = new Panel();
             BillIcon = new PictureBox();
             BillLinkedLbl = new LinkLabel();
@@ -44,20 +44,29 @@
             GradeLinkLbl = new LinkLabel();
             StudentIcon = new PictureBox();
             ProfileLinkLbl = new LinkLabel();
-            UserCalendar = new MonthCalendar();
+            LHUserCalendar = new MonthCalendar();
             LHWelcome = new TextBox();
-            panel3 = new Panel();
-            panel4 = new Panel();
+            LHBasicInfoPanel = new Panel();
+            BasicInfoLbl = new Label();
+            LHSchedPanel = new Panel();
+            label1 = new Label();
+            LHEnrolledCoursePanel = new Panel();
+            EnrolledLbl = new Label();
+            LHWcPanel = new Panel();
             ((System.ComponentModel.ISupportInitialize)RTUSealXL).BeginInit();
             ((System.ComponentModel.ISupportInitialize)RTUSealIcon).BeginInit();
-            panel1.SuspendLayout();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            LHHeaderPanel.SuspendLayout();
+            LHMenuStripPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)MenuIcon).BeginInit();
             LHMenuColumn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)BillIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)StudentSuppIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)GradeIcon).BeginInit();
             ((System.ComponentModel.ISupportInitialize)StudentIcon).BeginInit();
+            LHBasicInfoPanel.SuspendLayout();
+            LHSchedPanel.SuspendLayout();
+            LHEnrolledCoursePanel.SuspendLayout();
+            LHWcPanel.SuspendLayout();
             SuspendLayout();
             // 
             // RTUSealXL
@@ -74,25 +83,25 @@
             // RTUSealIcon
             // 
             RTUSealIcon.Image = Properties.Resources.RTU_Seal_64x64;
-            RTUSealIcon.Location = new Point(421, 14);
+            RTUSealIcon.Location = new Point(421, 28);
             RTUSealIcon.Name = "RTUSealIcon";
             RTUSealIcon.Size = new Size(64, 63);
             RTUSealIcon.SizeMode = PictureBoxSizeMode.AutoSize;
             RTUSealIcon.TabIndex = 1;
             RTUSealIcon.TabStop = false;
             // 
-            // panel1
+            // LHHeaderPanel
             // 
-            panel1.BackColor = Color.FromArgb(249, 184, 74);
-            panel1.BackgroundImageLayout = ImageLayout.None;
-            panel1.BorderStyle = BorderStyle.Fixed3D;
-            panel1.Controls.Add(LearningHLabel);
-            panel1.Controls.Add(RTUSealIcon);
-            panel1.Controls.Add(panel2);
-            panel1.Location = new Point(-14, -5);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1281, 120);
-            panel1.TabIndex = 3;
+            LHHeaderPanel.BackColor = Color.FromArgb(249, 184, 74);
+            LHHeaderPanel.BackgroundImageLayout = ImageLayout.None;
+            LHHeaderPanel.BorderStyle = BorderStyle.Fixed3D;
+            LHHeaderPanel.Controls.Add(LearningHLabel);
+            LHHeaderPanel.Controls.Add(RTUSealIcon);
+            LHHeaderPanel.Controls.Add(LHMenuStripPanel);
+            LHHeaderPanel.Location = new Point(-14, -5);
+            LHHeaderPanel.Name = "LHHeaderPanel";
+            LHHeaderPanel.Size = new Size(1281, 120);
+            LHHeaderPanel.TabIndex = 3;
             // 
             // LearningHLabel
             // 
@@ -100,48 +109,49 @@
             LearningHLabel.Font = new Font("Cooper Black", 18F, FontStyle.Regular, GraphicsUnit.Point);
             LearningHLabel.ForeColor = Color.FromArgb(24, 79, 144);
             LearningHLabel.ImageAlign = ContentAlignment.MiddleLeft;
-            LearningHLabel.Location = new Point(491, 33);
+            LearningHLabel.Location = new Point(491, 47);
             LearningHLabel.Name = "LearningHLabel";
             LearningHLabel.Size = new Size(390, 27);
             LearningHLabel.TabIndex = 2;
             LearningHLabel.Text = "Rizal Technological University";
             LearningHLabel.Click += label1_Click;
             // 
-            // panel2
+            // LHMenuStripPanel
             // 
-            panel2.BackColor = Color.Transparent;
-            panel2.Controls.Add(label1);
-            panel2.Controls.Add(pictureBox1);
-            panel2.Location = new Point(14, 63);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1286, 57);
-            panel2.TabIndex = 5;
+            LHMenuStripPanel.BackColor = Color.Transparent;
+            LHMenuStripPanel.Controls.Add(MenuLbl);
+            LHMenuStripPanel.Controls.Add(MenuIcon);
+            LHMenuStripPanel.Location = new Point(15, 63);
+            LHMenuStripPanel.Name = "LHMenuStripPanel";
+            LHMenuStripPanel.Size = new Size(1285, 57);
+            LHMenuStripPanel.TabIndex = 5;
             // 
-            // label1
+            // MenuLbl
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(37, 28);
-            label1.Name = "label1";
-            label1.Size = new Size(44, 16);
-            label1.TabIndex = 1;
-            label1.Text = "MENU";
-            label1.Click += label1_Click_1;
+            MenuLbl.AutoSize = true;
+            MenuLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            MenuLbl.Location = new Point(37, 28);
+            MenuLbl.Name = "MenuLbl";
+            MenuLbl.Size = new Size(44, 16);
+            MenuLbl.TabIndex = 1;
+            MenuLbl.Text = "MENU";
+            MenuLbl.Click += label1_Click_1;
             // 
-            // pictureBox1
+            // MenuIcon
             // 
-            pictureBox1.Image = Properties.Resources.Menu1;
-            pictureBox1.Location = new Point(10, 25);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(24, 24);
-            pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            MenuIcon.Image = Properties.Resources.Menu1;
+            MenuIcon.Location = new Point(10, 25);
+            MenuIcon.Name = "MenuIcon";
+            MenuIcon.Size = new Size(24, 24);
+            MenuIcon.SizeMode = PictureBoxSizeMode.AutoSize;
+            MenuIcon.TabIndex = 0;
+            MenuIcon.TabStop = false;
+            MenuIcon.Click += pictureBox1_Click;
             // 
             // LHMenuColumn
             // 
             LHMenuColumn.BackColor = Color.FromArgb(249, 184, 74);
+            LHMenuColumn.BorderStyle = BorderStyle.Fixed3D;
             LHMenuColumn.Controls.Add(BillIcon);
             LHMenuColumn.Controls.Add(BillLinkedLbl);
             LHMenuColumn.Controls.Add(StudentSuppIcon);
@@ -150,10 +160,11 @@
             LHMenuColumn.Controls.Add(GradeLinkLbl);
             LHMenuColumn.Controls.Add(StudentIcon);
             LHMenuColumn.Controls.Add(ProfileLinkLbl);
-            LHMenuColumn.Location = new Point(0, 98);
+            LHMenuColumn.Location = new Point(-220, 98);
             LHMenuColumn.Name = "LHMenuColumn";
-            LHMenuColumn.Size = new Size(194, 590);
+            LHMenuColumn.Size = new Size(212, 590);
             LHMenuColumn.TabIndex = 4;
+            LHMenuColumn.Paint += LHMenuColumn_Paint;
             // 
             // BillIcon
             // 
@@ -252,47 +263,106 @@
             ProfileLinkLbl.Text = "PROFILE";
             ProfileLinkLbl.LinkClicked += linkLabel1_LinkClicked;
             // 
-            // UserCalendar
+            // LHUserCalendar
             // 
-            UserCalendar.BackColor = SystemColors.Window;
-            UserCalendar.Location = new Point(18, 141);
-            UserCalendar.Name = "UserCalendar";
-            UserCalendar.ShowWeekNumbers = true;
-            UserCalendar.TabIndex = 2;
-            UserCalendar.TodayDate = new DateTime(2023, 8, 27, 0, 0, 0, 0);
-            UserCalendar.DateChanged += UserCalendar_DateChanged;
+            LHUserCalendar.BackColor = SystemColors.Window;
+            LHUserCalendar.Location = new Point(997, 141);
+            LHUserCalendar.Name = "LHUserCalendar";
+            LHUserCalendar.ShowWeekNumbers = true;
+            LHUserCalendar.TabIndex = 2;
+            LHUserCalendar.TodayDate = new DateTime(2023, 8, 27, 0, 0, 0, 0);
+            LHUserCalendar.DateChanged += UserCalendar_DateChanged;
             // 
             // LHWelcome
             // 
-            LHWelcome.BackColor = Color.FromArgb(24, 79, 144);
+            LHWelcome.BackColor = Color.FromArgb(249, 184, 74);
             LHWelcome.BorderStyle = BorderStyle.None;
             LHWelcome.Font = new Font("MS PGothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             LHWelcome.ForeColor = Color.White;
-            LHWelcome.Location = new Point(266, 401);
+            LHWelcome.Location = new Point(47, 24);
             LHWelcome.Multiline = true;
             LHWelcome.Name = "LHWelcome";
             LHWelcome.ReadOnly = true;
-            LHWelcome.Size = new Size(733, 142);
+            LHWelcome.Size = new Size(623, 153);
             LHWelcome.TabIndex = 5;
-            LHWelcome.Text = "The RTUista Learning Hub is the university’s Learning Management System (LMS) platform developed to create virtual classrooms and learning environment dedicated for online distance learning.";
+            LHWelcome.Text = "The RTUista Learning Hub is the university’s  dupe Learning Management System (LMS) platform developed to create virtual classrooms and learning environment dedicated for online distance learning.";
             LHWelcome.TextAlign = HorizontalAlignment.Center;
             LHWelcome.TextChanged += LHWelcome_TextChanged;
             // 
-            // panel3
+            // LHBasicInfoPanel
             // 
-            panel3.BackColor = Color.FromArgb(249, 184, 74);
-            panel3.Location = new Point(279, 141);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(694, 237);
-            panel3.TabIndex = 6;
+            LHBasicInfoPanel.BackColor = Color.FromArgb(249, 184, 74);
+            LHBasicInfoPanel.Controls.Add(BasicInfoLbl);
+            LHBasicInfoPanel.Location = new Point(279, 141);
+            LHBasicInfoPanel.Name = "LHBasicInfoPanel";
+            LHBasicInfoPanel.Size = new Size(706, 289);
+            LHBasicInfoPanel.TabIndex = 6;
             // 
-            // panel4
+            // BasicInfoLbl
             // 
-            panel4.BackColor = Color.FromArgb(249, 184, 74);
-            panel4.Location = new Point(1002, 137);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(233, 482);
-            panel4.TabIndex = 7;
+            BasicInfoLbl.AutoSize = true;
+            BasicInfoLbl.BorderStyle = BorderStyle.FixedSingle;
+            BasicInfoLbl.FlatStyle = FlatStyle.Flat;
+            BasicInfoLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            BasicInfoLbl.ForeColor = Color.White;
+            BasicInfoLbl.Location = new Point(15, 15);
+            BasicInfoLbl.Name = "BasicInfoLbl";
+            BasicInfoLbl.Size = new Size(174, 18);
+            BasicInfoLbl.TabIndex = 1;
+            BasicInfoLbl.Text = "Basic Student Information";
+            // 
+            // LHSchedPanel
+            // 
+            LHSchedPanel.BackColor = Color.FromArgb(249, 184, 74);
+            LHSchedPanel.Controls.Add(label1);
+            LHSchedPanel.Location = new Point(997, 315);
+            LHSchedPanel.Name = "LHSchedPanel";
+            LHSchedPanel.Size = new Size(249, 338);
+            LHSchedPanel.TabIndex = 7;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BorderStyle = BorderStyle.FixedSingle;
+            label1.FlatStyle = FlatStyle.Flat;
+            label1.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(12, 11);
+            label1.Name = "label1";
+            label1.Size = new Size(108, 18);
+            label1.TabIndex = 2;
+            label1.Text = "Class Schedule";
+            // 
+            // LHEnrolledCoursePanel
+            // 
+            LHEnrolledCoursePanel.BackColor = Color.FromArgb(249, 184, 74);
+            LHEnrolledCoursePanel.Controls.Add(EnrolledLbl);
+            LHEnrolledCoursePanel.Location = new Point(18, 141);
+            LHEnrolledCoursePanel.Name = "LHEnrolledCoursePanel";
+            LHEnrolledCoursePanel.Size = new Size(249, 512);
+            LHEnrolledCoursePanel.TabIndex = 8;
+            // 
+            // EnrolledLbl
+            // 
+            EnrolledLbl.AutoSize = true;
+            EnrolledLbl.BorderStyle = BorderStyle.FixedSingle;
+            EnrolledLbl.FlatStyle = FlatStyle.Flat;
+            EnrolledLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            EnrolledLbl.ForeColor = Color.White;
+            EnrolledLbl.Location = new Point(13, 15);
+            EnrolledLbl.Name = "EnrolledLbl";
+            EnrolledLbl.Size = new Size(117, 18);
+            EnrolledLbl.TabIndex = 0;
+            EnrolledLbl.Text = "Enrolled Courses";
+            // 
+            // LHWcPanel
+            // 
+            LHWcPanel.BackColor = Color.FromArgb(249, 184, 74);
+            LHWcPanel.Controls.Add(LHWelcome);
+            LHWcPanel.Location = new Point(279, 450);
+            LHWcPanel.Name = "LHWcPanel";
+            LHWcPanel.Size = new Size(706, 203);
+            LHWcPanel.TabIndex = 7;
             // 
             // LHHomePage
             // 
@@ -301,13 +371,14 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(24, 79, 144);
             ClientSize = new Size(1264, 681);
-            Controls.Add(panel4);
-            Controls.Add(panel3);
-            Controls.Add(LHWelcome);
-            Controls.Add(panel1);
+            Controls.Add(LHWcPanel);
+            Controls.Add(LHSchedPanel);
+            Controls.Add(LHBasicInfoPanel);
+            Controls.Add(LHHeaderPanel);
             Controls.Add(RTUSealXL);
             Controls.Add(LHMenuColumn);
-            Controls.Add(UserCalendar);
+            Controls.Add(LHUserCalendar);
+            Controls.Add(LHEnrolledCoursePanel);
             Name = "LHHomePage";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
@@ -315,42 +386,54 @@
             Load += UserPanel_Load;
             ((System.ComponentModel.ISupportInitialize)RTUSealXL).EndInit();
             ((System.ComponentModel.ISupportInitialize)RTUSealIcon).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            LHHeaderPanel.ResumeLayout(false);
+            LHHeaderPanel.PerformLayout();
+            LHMenuStripPanel.ResumeLayout(false);
+            LHMenuStripPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)MenuIcon).EndInit();
             LHMenuColumn.ResumeLayout(false);
             LHMenuColumn.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)BillIcon).EndInit();
             ((System.ComponentModel.ISupportInitialize)StudentSuppIcon).EndInit();
             ((System.ComponentModel.ISupportInitialize)GradeIcon).EndInit();
             ((System.ComponentModel.ISupportInitialize)StudentIcon).EndInit();
+            LHBasicInfoPanel.ResumeLayout(false);
+            LHBasicInfoPanel.PerformLayout();
+            LHSchedPanel.ResumeLayout(false);
+            LHSchedPanel.PerformLayout();
+            LHEnrolledCoursePanel.ResumeLayout(false);
+            LHEnrolledCoursePanel.PerformLayout();
+            LHWcPanel.ResumeLayout(false);
+            LHWcPanel.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private PictureBox RTUSealXL;
         private PictureBox RTUSealIcon;
-        private Panel panel1;
-        private MonthCalendar UserCalendar;
+        private Panel LHHeaderPanel;
+        private MonthCalendar LHUserCalendar;
         private Label LearningHLabel;
-        private Panel panel2;
+        private Panel LHMenuStripPanel;
         private Panel LHMenuColumn;
-        private PictureBox pictureBox1;
+        private PictureBox MenuIcon;
         private TextBox LHWelcome;
         private LinkLabel ProfileLinkLbl;
         private PictureBox StudentIcon;
-        private Label label1;
+        private Label MenuLbl;
         private PictureBox GradeIcon;
         private LinkLabel GradeLinkLbl;
         private PictureBox StudentSuppIcon;
         private LinkLabel StudentSuppLinkLbl;
         private PictureBox BillIcon;
         private LinkLabel BillLinkedLbl;
-        private Panel panel3;
-        private Panel panel4;
+        private Panel LHBasicInfoPanel;
+        private Panel LHSchedPanel;
+        private Panel LHEnrolledCoursePanel;
+        private Panel LHWcPanel;
+        private Label EnrolledLbl;
+        private Label BasicInfoLbl;
+        private Label label1;
     }
 }
