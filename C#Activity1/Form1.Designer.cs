@@ -94,7 +94,7 @@
             LoginPanel.Controls.Add(SNLabel);
             LoginPanel.Controls.Add(RTULHLabel);
             LoginPanel.Controls.Add(RTUSealIcon);
-            LoginPanel.Location = new Point(868, 74);
+            LoginPanel.Location = new Point(874, 71);
             LoginPanel.Name = "LoginPanel";
             LoginPanel.Size = new Size(362, 529);
             LoginPanel.TabIndex = 1;

@@ -1,6 +1,7 @@
 using Microsoft.VisualBasic.Logging;
 using System.Drawing.Text;
 using System.Numerics;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
@@ -13,8 +14,12 @@ namespace C_Activity1
         AdminPanel APanel = new AdminPanel();
         LHHomePage HomePage = new LHHomePage();
         public new Dictionary<string, string> dictionary = new Dictionary<string, string>();
-        private const int maxAttempt = 3;
-        int failedAttempts = 0;
+        private const int LoginmaxAttempt = 3;
+        int LoginfailedAttempts = 0;
+        private const int CreatemaxAttempt = 3;
+        int CreatefailedAttempts = 0;
+        //private const int maxAttempt = 3;
+        //int failedAttempts = 0;
 
         public RTULogin()
         {
@@ -48,7 +53,7 @@ namespace C_Activity1
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            failedAttempts = 0;
+            LoginfailedAttempts = 0;
             LoginBtn.Enabled = true;
         }
 
@@ -123,28 +128,13 @@ namespace C_Activity1
                 }
                 else if (SNBox.Text != "Admin" && PassBox.Text == "Admin123")
                 {
-                    //failedAttempts++;
-                    //int RemainingAttempts = maxAttempt - failedAttempts;
-                    //MessageBox.Show($"Incorrect Student Number. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     HandleIncorrectInput("Incorrect Student Number. Please check your Student Number.");
                 }
                 else if (SNBox.Text == "Admin" && PassBox.Text != "Admin123")
                 {
-                    //failedAttempts++;
-                    //int RemainingAttempts = maxAttempt - failedAttempts;
-                    //MessageBox.Show($"Incorrect Password. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    HandleIncorrectInput("Incorrect Password. Please check your Student Number.");
+                    HandleIncorrectInput("Incorrect Password. Please check your Password.");
 
                 }
-                else if (SNBox.Text != "Admin" && PassBox.Text != "Admin123")
-                {
-                    //failedAttempts++;
-                    //int RemainingAttempts = maxAttempt - failedAttempts;
-                    //MessageBox.Show($"Incorrect Student Number and Password. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    HandleIncorrectInput("Incorrect Student Number and Password. Please check your Student Number and Password.");
-
-                }
-
                 else
                 {
                     bool found = false;
@@ -168,18 +158,12 @@ namespace C_Activity1
                             }
                             else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
                             {
-                                //failedAttempts++;
-                                //int RemainingAttempts = maxAttempt - failedAttempts;
-                                //MessageBox.Show($"Incorrect Student Number. Please check your Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 HandleIncorrectInput("Incorrect Student Number. Please check your Student Number.");
 
                             }
                             else if (storedSN == SNBox.Text && storedPass != PassBox.Text)
                             {
-                                //failedAttempts++;
-                                //int RemainingAttempts = maxAttempt - failedAttempts;
-                                //MessageBox.Show($"Incorrect Password. Please check your input Password. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                HandleIncorrectInput("Incorrect Password. Please check your Student Number.");
+                                HandleIncorrectInput("Incorrect Password. Please check your Password.");
 
                             }
 
@@ -221,20 +205,17 @@ namespace C_Activity1
 
                     else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
                     {
-                        //failedAttempts++;
-                        //int RemainingAttempts = maxAttempt - failedAttempts;
-                        //MessageBox.Show($"Missing Student Number and Password. Please fill the required textboxes. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         HandleIncorrectInput("Missing Student Number and Password. Please fill the required textboxes.");
                     }
 
 
-                    if (failedAttempts >= maxAttempt)
-                    {
-                        LoginBtn.Enabled = false;
-                        MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    //if (LoginfailedAttempts >= LoginmaxAttempt)
+                    //{
+                    //    LoginBtn.Enabled = false;
+                    //    MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //}
                 }
-                
+
 
 
                 // Prevent further event handling for the Enter key
@@ -246,7 +227,7 @@ namespace C_Activity1
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-
+            //Login BUtton
 
             if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
             {
@@ -257,28 +238,13 @@ namespace C_Activity1
             }
             else if (SNBox.Text != "Admin" && PassBox.Text == "Admin123")
             {
-                //failedAttempts++;
-                //int RemainingAttempts = maxAttempt - failedAttempts;
-                //MessageBox.Show($"Incorrect Student Number. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 HandleIncorrectInput("Incorrect Student Number. Please check your Student Number.");
             }
             else if (SNBox.Text == "Admin" && PassBox.Text != "Admin123")
             {
-                //failedAttempts++;
-                //int RemainingAttempts = maxAttempt - failedAttempts;
-                //MessageBox.Show($"Incorrect Password. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 HandleIncorrectInput("Incorrect Password. Please check your Password.");
 
             }
-            else if (SNBox.Text != "Admin" && PassBox.Text != "Admin123")
-            {
-                //failedAttempts++;
-                //int RemainingAttempts = maxAttempt - failedAttempts;
-                //MessageBox.Show($"Incorrect Student Number and Password. Please check your input Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                HandleIncorrectInput("Incorrect Student Number and Password. Please check your Student Number and Password.");
-
-            }
-
             else
             {
                 bool found = false;
@@ -302,17 +268,11 @@ namespace C_Activity1
                         }
                         else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
                         {
-                            //failedAttempts++;
-                            //int RemainingAttempts = maxAttempt - failedAttempts;
-                            //MessageBox.Show($"Incorrect Student Number. Please check your Student Number. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             HandleIncorrectInput("Incorrect Student Number. Please check your Student Number.");
 
                         }
                         else if (storedSN == SNBox.Text && storedPass != PassBox.Text)
                         {
-                            //failedAttempts++;
-                            //int RemainingAttempts = maxAttempt - failedAttempts;
-                            //MessageBox.Show($"Incorrect Password. Please check your input Password. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             HandleIncorrectInput("Incorrect Password. Please check your Password.");
 
                         }
@@ -355,31 +315,29 @@ namespace C_Activity1
 
                 else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
                 {
-                    //failedAttempts++;
-                    //int RemainingAttempts = maxAttempt - failedAttempts;
-                    //MessageBox.Show($"Missing Student Number and Password. Please fill the required textboxes. Attempts remaining: {RemainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     HandleIncorrectInput("Missing Student Number and Password. Please fill the required textboxes.");
                 }
 
 
-                if (failedAttempts >= maxAttempt)
-                {
-                    LoginBtn.Enabled = false;
-                    MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                //if (LoginfailedAttempts >= LoginmaxAttempt)
+                //{
+                //    LoginBtn.Enabled = false;
+                //    MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
             }
+
 
 
         }
 
         private void HandleIncorrectInput(string errorMessage)
         {
-            failedAttempts++;
-            int remainingAttempts = maxAttempt - failedAttempts;
+            LoginfailedAttempts++;
+            int LoginremainingAttempts = LoginmaxAttempt - LoginfailedAttempts;
 
-            if (remainingAttempts == 0)
+            if (LoginremainingAttempts > 0)
             {
-                MessageBox.Show($"Attempts remaining: {remainingAttempts} \n{errorMessage} ", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Attempts remaining: {LoginremainingAttempts} \n{errorMessage} ", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -392,7 +350,7 @@ namespace C_Activity1
         {
             SNBox.Text = "";
             PassBox.Text = "";
-            failedAttempts = 0;
+            LoginfailedAttempts = 0;
             LoginBtn.Enabled = true;
 
         }
@@ -423,7 +381,7 @@ namespace C_Activity1
         private void CreateBtn_Click(object sender, EventArgs e)
         {
             // Create Button
-            String Btnname, BtnSN, BtnRP, BtnPass;
+            string Btnname, BtnSN, BtnRP, BtnPass;
             Btnname = RegiNameBox.Text; BtnSN = RegiSNBox.Text; BtnRP = RegiRPBox.Text; BtnPass = RegiPassBox.Text;
 
             // Check if any of the input fields is empty
@@ -433,12 +391,41 @@ namespace C_Activity1
                 return; // Exit the method since there's an error
             }
 
+            
+
+            Regex nameRegex = new Regex("^[A-Za-z ]+$");
+
+            if (!nameRegex.IsMatch(Btnname))
+            {
+                HandleIncorrectCreateInput("Name must only contain alphabetic values.");
+
+                return
+                ;
+            }
+
+            // Validate Password using Lambda
+            //Regex passwordRegex = new Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+            Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+
+            if (!passwordRegex.IsMatch(BtnPass))
+            {
+                HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
+                return;
+            }
+
             // Check if the student number (BtnSN) already exists in ApprovedTable
             bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
             if (isStudentInApprovedTable)
             {
                 HandleApprovedUserInput("This student already has an account.");
                 return; // Exit the method since there's an error
+            }
+
+            // Validate Student Number using Lambda
+            if (!int.TryParse(BtnSN, out _))
+            {
+                HandleIncorrectCreateInput("Incorrect Student Number.");
+                return;
             }
 
             // If everything is okay, proceed to add the record
@@ -456,7 +443,16 @@ namespace C_Activity1
             {
                 MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            if (CreatefailedAttempts >= CreatemaxAttempt)
+            {
+                CreateBtn.Enabled = false;
+                MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
+
+
 
         private bool IsStudentNumberInApprovedTable(string studentNumber)
         {
@@ -472,38 +468,37 @@ namespace C_Activity1
 
         private void HandleIncorrectCreateInput(string errorMessage)
         {
-            int remainingAttempts = maxAttempt - failedAttempts;
+            CreatefailedAttempts++;
 
-            if (remainingAttempts > 0)
+            int CreateRemainingAttempts = CreatemaxAttempt - CreatefailedAttempts;
+
+            if (CreateRemainingAttempts > 0)
             {
-                MessageBox.Show($"Attempts remaining: {remainingAttempts} \n{errorMessage} Please input valid text on the required field. ", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                failedAttempts++; // Increment failedAttempts here or wherever appropriate
+                MessageBox.Show($"Attempts remaining: {CreateRemainingAttempts} \n{errorMessage} Please input valid text on the required field. ", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                SubmitBtn.Enabled = false;
+                CreateBtn.Enabled = false;
                 MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void HandleApprovedUserInput(string errorMessage)
         {
-            int remainingAttempts = maxAttempt - failedAttempts;
+            CreatefailedAttempts++;
+            int CreateRemainingAttempts = CreatemaxAttempt - CreatefailedAttempts;
 
-            if (remainingAttempts > 0)
+
+            if (CreateRemainingAttempts > 0)
             {
-                MessageBox.Show($"{errorMessage} Please try again. Attempts remaining: {remainingAttempts}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                failedAttempts++; // Increment failedAttempts here or wherever appropriate
+                MessageBox.Show($"Attempts remaining: {CreateRemainingAttempts} \n{errorMessage} Please try again. ", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                SubmitBtn.Enabled = false;
+                CreateBtn.Enabled = false;
                 MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
 
 
         private void LoginLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -541,8 +536,8 @@ namespace C_Activity1
 
         private void GSLabel_Click(object sender, EventArgs e)
         {
-            failedAttempts = 0;
-            LoginBtn.Enabled = true;
+            CreatefailedAttempts = 0;
+            CreateBtn.Enabled = true;
         }
 
         private void label4_Click(object sender, EventArgs e)
