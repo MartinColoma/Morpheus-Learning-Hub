@@ -42,6 +42,7 @@
             label1 = new Label();
             ApproveBtn = new Button();
             TablePanel = new Panel();
+            DeleteBtn = new Button();
             ApprovedDictionary = new LinkLabel();
             ((System.ComponentModel.ISupportInitialize)PendingTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).BeginInit();
@@ -176,6 +177,7 @@
             // 
             // TablePanel
             // 
+            TablePanel.Controls.Add(DeleteBtn);
             TablePanel.Controls.Add(ApprovedDictionary);
             TablePanel.Controls.Add(ApproveBtn);
             TablePanel.Controls.Add(label1);
@@ -186,6 +188,24 @@
             TablePanel.Name = "TablePanel";
             TablePanel.Size = new Size(1008, 412);
             TablePanel.TabIndex = 11;
+            // 
+            // DeleteBtn
+            // 
+            DeleteBtn.BackColor = Color.FromArgb(249, 184, 74);
+            DeleteBtn.Cursor = Cursors.Hand;
+            DeleteBtn.FlatAppearance.BorderColor = Color.FromArgb(24, 79, 144);
+            DeleteBtn.FlatAppearance.BorderSize = 2;
+            DeleteBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(24, 79, 144);
+            DeleteBtn.FlatStyle = FlatStyle.Flat;
+            DeleteBtn.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
+            DeleteBtn.ForeColor = Color.White;
+            DeleteBtn.Location = new Point(366, 344);
+            DeleteBtn.Name = "DeleteBtn";
+            DeleteBtn.Size = new Size(114, 31);
+            DeleteBtn.TabIndex = 12;
+            DeleteBtn.Text = "DELETE";
+            DeleteBtn.UseVisualStyleBackColor = false;
+            DeleteBtn.Click += DeleteBtn_Click;
             // 
             // ApprovedDictionary
             // 
@@ -212,7 +232,7 @@
             Name = "AdminPanel";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Admin Panel";
+            Text = "RTU Admin Panel";
             Load += AdminPanel_Load;
             ((System.ComponentModel.ISupportInitialize)PendingTable).EndInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).EndInit();
@@ -237,5 +257,6 @@
         public DataGridView PendingTable;
         public DataGridView ApprovedTable;
         private LinkLabel ApprovedDictionary;
+        private Button DeleteBtn;
     }
 }

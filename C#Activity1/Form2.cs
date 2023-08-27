@@ -206,5 +206,10 @@ namespace C_Activity1
             string dictContents = string.Join(Environment.NewLine, RTULogin.instance.dictionary.Select(kv => $"{kv.Key}: {kv.Value}"));
             MessageBox.Show("ActivatedUsers Dictionary Contents:" + Environment.NewLine + dictContents);
         }
+
+        private void DeleteBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

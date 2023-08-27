@@ -391,7 +391,7 @@ namespace C_Activity1
                 return; // Exit the method since there's an error
             }
 
-            
+
 
             Regex nameRegex = new Regex("^[A-Za-z ]+$");
 
