@@ -39,7 +39,7 @@
             ARPInColumn = new DataGridViewTextBoxColumn();
             APassColumn = new DataGridViewTextBoxColumn();
             PendingLabel = new Label();
-            label1 = new Label();
+            ApprovedLbl = new Label();
             ApproveBtn = new Button();
             ApprovedPanel = new Panel();
             DeleteBtn = new Button();
@@ -147,19 +147,19 @@
             PendingLabel.TextAlign = ContentAlignment.MiddleCenter;
             PendingLabel.Click += PendingLabel_Click;
             // 
-            // label1
+            // ApprovedLbl
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Cooper Black", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.ForeColor = Color.FromArgb(24, 79, 144);
-            label1.Location = new Point(138, 27);
-            label1.Name = "label1";
-            label1.Size = new Size(255, 27);
-            label1.TabIndex = 3;
-            label1.Text = "Approved Accounts";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
-            label1.Click += label1_Click;
+            ApprovedLbl.AutoSize = true;
+            ApprovedLbl.BackColor = Color.Transparent;
+            ApprovedLbl.Font = new Font("Cooper Black", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            ApprovedLbl.ForeColor = Color.FromArgb(24, 79, 144);
+            ApprovedLbl.Location = new Point(138, 27);
+            ApprovedLbl.Name = "ApprovedLbl";
+            ApprovedLbl.Size = new Size(255, 27);
+            ApprovedLbl.TabIndex = 3;
+            ApprovedLbl.Text = "Approved Accounts";
+            ApprovedLbl.TextAlign = ContentAlignment.MiddleCenter;
+            ApprovedLbl.Click += label1_Click;
             // 
             // ApproveBtn
             // 
@@ -183,7 +183,7 @@
             // 
             ApprovedPanel.Controls.Add(DeleteBtn);
             ApprovedPanel.Controls.Add(ApprovedDictionary);
-            ApprovedPanel.Controls.Add(label1);
+            ApprovedPanel.Controls.Add(ApprovedLbl);
             ApprovedPanel.Controls.Add(ApprovedTable);
             ApprovedPanel.Location = new Point(31, 55);
             ApprovedPanel.Name = "ApprovedPanel";
@@ -257,7 +257,7 @@
 
         #endregion
         private Label PendingLabel;
-        private Label label1;
+        private Label ApprovedLbl;
         private DataGridViewTextBoxColumn PNameColumn;
         private DataGridViewTextBoxColumn PSNColumn;
         private DataGridViewTextBoxColumn PRPinColumn;

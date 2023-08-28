@@ -83,7 +83,7 @@ namespace C_Activity1
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //Forgot Panel to Login Panel Linked Label
+            //Login Panel to Forgot Panel Linked Label
             if (LoginPanel.Visible)
             {
                 LoginPanel.Visible = false;
