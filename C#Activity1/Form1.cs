@@ -59,7 +59,7 @@ namespace C_Activity1
 
         private void SignUpLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //Sign UP Label
+            //Login Panel to Register Panel Linked Label
 
             if (LoginPanel.Visible)
             {
@@ -83,7 +83,7 @@ namespace C_Activity1
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //Forgot Pass
+            //Forgot Panel to Login Panel Linked Label
             if (LoginPanel.Visible)
             {
                 LoginPanel.Visible = false;
@@ -96,7 +96,6 @@ namespace C_Activity1
             else
             {
                 RecoveryPanel.Visible = false;
-                RecoveryPanel.Visible = true;
                 LoginPanel.Visible = true;
             }
 
@@ -285,7 +284,7 @@ namespace C_Activity1
                             HandleIncorrectInput("Incorrect Password. Please check your Password.");
 
                         }
-                        
+
                     }
 
                 }
@@ -519,7 +518,8 @@ namespace C_Activity1
             {
                 HandleIncorrectCreateInput("Incorrect Student Number.");
                 return;
-            }else if (IsPasswordTakenInTable(BtnPass, AdminPanel.instance.ApprovedTable, "APassColumn") ||
+            }
+            else if (IsPasswordTakenInTable(BtnPass, AdminPanel.instance.ApprovedTable, "APassColumn") ||
                 IsPasswordTakenInTable(BtnPass, AdminPanel.instance.PendingTable, "PPassColumn"))
             {
                 HandleIncorrectCreateInput("Password is already taken.");
@@ -604,7 +604,7 @@ namespace C_Activity1
         //    // ... (existing code)
 
         //    // Check if the provided password is already taken in ApprovedTable or PendingTable
-            
+
 
         //    // ... (existing code)
 
@@ -628,7 +628,7 @@ namespace C_Activity1
 
         private void LoginLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //Register to Login Link Label
+            //Register Panel to Login Panel Link Label
             if (RegiPanel.Visible)
             {
                 RegiPanel.Visible = false;
@@ -679,7 +679,7 @@ namespace C_Activity1
 
         private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //Forgot Pass linked label
+            //Forgot Panel to Login Pass Panel linked label
             if (LoginPanel.Visible)
             {
                 LoginPanel.Visible = false;
@@ -768,6 +768,9 @@ namespace C_Activity1
 
         }
 
+        private void RecoveryPanel_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
     }
 }

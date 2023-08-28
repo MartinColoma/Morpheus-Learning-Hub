@@ -95,7 +95,7 @@
             LoginPanel.Controls.Add(SNLabel);
             LoginPanel.Controls.Add(RTULHLabel);
             LoginPanel.Controls.Add(RTUSealIcon);
-            LoginPanel.Location = new Point(874, 68);
+            LoginPanel.Location = new Point(0, 0);
             LoginPanel.Name = "LoginPanel";
             LoginPanel.Size = new Size(362, 529);
             LoginPanel.TabIndex = 1;
@@ -258,6 +258,7 @@
             // RegiPanel
             // 
             RegiPanel.BackColor = Color.FromArgb(24, 79, 144);
+            RegiPanel.Controls.Add(LoginPanel);
             RegiPanel.Controls.Add(RegiShowPass);
             RegiPanel.Controls.Add(RegiRPBox);
             RegiPanel.Controls.Add(RegiRPLabel);
@@ -270,7 +271,7 @@
             RegiPanel.Controls.Add(RegiNameBox);
             RegiPanel.Controls.Add(RegiNameLabel);
             RegiPanel.Controls.Add(GSLabel);
-            RegiPanel.Location = new Point(874, 71);
+            RegiPanel.Location = new Point(865, 94);
             RegiPanel.Name = "RegiPanel";
             RegiPanel.Size = new Size(362, 529);
             RegiPanel.TabIndex = 12;
@@ -449,10 +450,11 @@
             RecoveryPanel.Controls.Add(RPINBox);
             RecoveryPanel.Controls.Add(RecoveryPINLabel);
             RecoveryPanel.Controls.Add(RecoveryHLabel);
-            RecoveryPanel.Location = new Point(871, 74);
+            RecoveryPanel.Location = new Point(865, 94);
             RecoveryPanel.Name = "RecoveryPanel";
             RecoveryPanel.Size = new Size(362, 529);
             RecoveryPanel.TabIndex = 16;
+            RecoveryPanel.Paint += RecoveryPanel_Paint;
             // 
             // RCSNBox
             // 
@@ -560,7 +562,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(24, 79, 144);
             ClientSize = new Size(1264, 681);
-            Controls.Add(LoginPanel);
             Controls.Add(RegiPanel);
             Controls.Add(RTUBg);
             Controls.Add(RecoveryPanel);
