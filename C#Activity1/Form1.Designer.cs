@@ -58,7 +58,7 @@
             RCSNBox = new TextBox();
             RCSNLabel = new Label();
             SubmitBtn = new Button();
-            FPLinkedLabel = new LinkLabel();
+            FPtoLPLinkedLbl = new LinkLabel();
             RPINBox = new TextBox();
             RecoveryPINLabel = new Label();
             RecoveryHLabel = new Label();
@@ -95,7 +95,7 @@
             LoginPanel.Controls.Add(SNLabel);
             LoginPanel.Controls.Add(RTULHLabel);
             LoginPanel.Controls.Add(RTUSealIcon);
-            LoginPanel.Location = new Point(874, 68);
+            LoginPanel.Location = new Point(864, 78);
             LoginPanel.Name = "LoginPanel";
             LoginPanel.Size = new Size(362, 529);
             LoginPanel.TabIndex = 1;
@@ -207,7 +207,7 @@
             // 
             // SNBox
             // 
-            SNBox.BackColor = Color.White;
+            SNBox.BackColor = Color.WhiteSmoke;
             SNBox.Cursor = Cursors.IBeam;
             SNBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             SNBox.ForeColor = Color.FromArgb(24, 79, 144);
@@ -270,7 +270,7 @@
             RegiPanel.Controls.Add(RegiNameBox);
             RegiPanel.Controls.Add(RegiNameLabel);
             RegiPanel.Controls.Add(GSLabel);
-            RegiPanel.Location = new Point(874, 71);
+            RegiPanel.Location = new Point(864, 78);
             RegiPanel.Name = "RegiPanel";
             RegiPanel.Size = new Size(362, 529);
             RegiPanel.TabIndex = 12;
@@ -445,14 +445,15 @@
             RecoveryPanel.Controls.Add(RCSNBox);
             RecoveryPanel.Controls.Add(RCSNLabel);
             RecoveryPanel.Controls.Add(SubmitBtn);
-            RecoveryPanel.Controls.Add(FPLinkedLabel);
+            RecoveryPanel.Controls.Add(FPtoLPLinkedLbl);
             RecoveryPanel.Controls.Add(RPINBox);
             RecoveryPanel.Controls.Add(RecoveryPINLabel);
             RecoveryPanel.Controls.Add(RecoveryHLabel);
-            RecoveryPanel.Location = new Point(871, 74);
+            RecoveryPanel.Location = new Point(867, 78);
             RecoveryPanel.Name = "RecoveryPanel";
             RecoveryPanel.Size = new Size(362, 529);
             RecoveryPanel.TabIndex = 16;
+            RecoveryPanel.Paint += RecoveryPanel_Paint;
             // 
             // RCSNBox
             // 
@@ -498,21 +499,21 @@
             SubmitBtn.UseVisualStyleBackColor = false;
             SubmitBtn.Click += SubmitBtn_Click;
             // 
-            // FPLinkedLabel
+            // FPtoLPLinkedLbl
             // 
-            FPLinkedLabel.ActiveLinkColor = Color.FromArgb(249, 184, 74);
-            FPLinkedLabel.AutoSize = true;
-            FPLinkedLabel.Font = new Font("MS UI Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            FPLinkedLabel.ForeColor = Color.White;
-            FPLinkedLabel.LinkBehavior = LinkBehavior.HoverUnderline;
-            FPLinkedLabel.LinkColor = Color.White;
-            FPLinkedLabel.Location = new Point(73, 427);
-            FPLinkedLabel.Name = "FPLinkedLabel";
-            FPLinkedLabel.Size = new Size(214, 15);
-            FPLinkedLabel.TabIndex = 8;
-            FPLinkedLabel.TabStop = true;
-            FPLinkedLabel.Text = "Got your Password? Login again.";
-            FPLinkedLabel.LinkClicked += linkLabel1_LinkClicked_1;
+            FPtoLPLinkedLbl.ActiveLinkColor = Color.FromArgb(249, 184, 74);
+            FPtoLPLinkedLbl.AutoSize = true;
+            FPtoLPLinkedLbl.Font = new Font("MS UI Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            FPtoLPLinkedLbl.ForeColor = Color.White;
+            FPtoLPLinkedLbl.LinkBehavior = LinkBehavior.HoverUnderline;
+            FPtoLPLinkedLbl.LinkColor = Color.White;
+            FPtoLPLinkedLbl.Location = new Point(73, 427);
+            FPtoLPLinkedLbl.Name = "FPtoLPLinkedLbl";
+            FPtoLPLinkedLbl.Size = new Size(214, 15);
+            FPtoLPLinkedLbl.TabIndex = 8;
+            FPtoLPLinkedLbl.TabStop = true;
+            FPtoLPLinkedLbl.Text = "Got your Password? Login again.";
+            FPtoLPLinkedLbl.LinkClicked += linkLabel1_LinkClicked_1;
             // 
             // RPINBox
             // 
@@ -612,7 +613,7 @@
         private Label RegiRPLabel;
         private Panel RecoveryPanel;
         private Button SubmitBtn;
-        private LinkLabel FPLinkedLabel;
+        private LinkLabel FPtoLPLinkedLbl;
         private Label RecoveryHLabel;
         private CheckBox RegiShowPass;
         private CheckBox RMBRCheckbox;

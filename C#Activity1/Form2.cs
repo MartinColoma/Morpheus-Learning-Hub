@@ -97,12 +97,32 @@ namespace C_Activity1
 
         private void label1_Click(object sender, EventArgs e)
         {
+            if (ApprovedPanel.Visible)
+            {
+                ApprovedPanel.Visible = false;
+                PendingPanel.Visible = true;
+            }
 
+            else
+            {
+                PendingPanel.Visible = false;
+                ApprovedPanel.Visible = true;
+            }
         }
 
         private void PendingLabel_Click(object sender, EventArgs e)
         {
+            if (PendingPanel.Visible)
+            {
+                PendingPanel.Visible = false;
+                ApprovedPanel.Visible = true;
+            }
 
+            else
+            {
+                ApprovedPanel.Visible = false;
+                PendingPanel.Visible = true;
+            }
         }
 
         private void ApprovedTable_CellContentClick(object sender, DataGridViewCellEventArgs e)

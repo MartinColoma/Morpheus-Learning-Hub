@@ -59,7 +59,7 @@ namespace C_Activity1
 
         private void SignUpLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //Sign UP Label
+            //Login Panel to Register Panel Linked Label
 
             if (LoginPanel.Visible)
             {
@@ -83,7 +83,7 @@ namespace C_Activity1
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //Forgot Pass
+            //Login Panel to Forgot Panel Linked Label
             if (LoginPanel.Visible)
             {
                 LoginPanel.Visible = false;
@@ -96,7 +96,6 @@ namespace C_Activity1
             else
             {
                 RecoveryPanel.Visible = false;
-                RecoveryPanel.Visible = true;
                 LoginPanel.Visible = true;
             }
 
@@ -146,6 +145,8 @@ namespace C_Activity1
                         {
                             int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
                             int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
+                            int anameColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ANameColumn"].Index;
+
 
                             string storedSN = row.Cells[asnColumnIndex].Value?.ToString();
                             string storedPass = row.Cells[apassColumnIndex].Value?.ToString();
@@ -154,6 +155,8 @@ namespace C_Activity1
                             if (storedSN == SNBox.Text && storedPass == PassBox.Text)
                             {
                                 found = true;
+                                LHHomePage.instance.LHSNBox.Text = storedSN;
+                                LHHomePage.instance.LHNameBox.Text = row.Cells[anameColumnIndex].Value?.ToString();
                                 break;
                             }
                             else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
@@ -166,12 +169,6 @@ namespace C_Activity1
                                 HandleIncorrectInput("Incorrect Password. Please check your Password.");
 
                             }
-                            else if (storedSN != SNBox.Text && storedPass != PassBox.Text)
-                            {
-                                MessageBox.Show("Student Account not found.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-
-
 
                         }
 
@@ -263,6 +260,8 @@ namespace C_Activity1
                     {
                         int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
                         int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
+                        int anameColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ANameColumn"].Index;
+
 
                         string storedSN = row.Cells[asnColumnIndex].Value?.ToString();
                         string storedPass = row.Cells[apassColumnIndex].Value?.ToString();
@@ -271,6 +270,8 @@ namespace C_Activity1
                         if (storedSN == SNBox.Text && storedPass == PassBox.Text)
                         {
                             found = true;
+                            LHHomePage.instance.LHSNBox.Text = storedSN;
+                            LHHomePage.instance.LHNameBox.Text = row.Cells[anameColumnIndex].Value?.ToString();
                             break;
                         }
                         else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
@@ -283,12 +284,6 @@ namespace C_Activity1
                             HandleIncorrectInput("Incorrect Password. Please check your Password.");
 
                         }
-                        else if (storedSN != SNBox.Text && storedPass != PassBox.Text)
-                        {
-                            MessageBox.Show("Student Account not found.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-
 
                     }
 
@@ -524,6 +519,12 @@ namespace C_Activity1
                 HandleIncorrectCreateInput("Incorrect Student Number.");
                 return;
             }
+            else if (IsPasswordTakenInTable(BtnPass, AdminPanel.instance.ApprovedTable, "APassColumn") ||
+                IsPasswordTakenInTable(BtnPass, AdminPanel.instance.PendingTable, "PPassColumn"))
+            {
+                HandleIncorrectCreateInput("Password is already taken.");
+                return;
+            }
 
             // If everything is okay, proceed to add the record
             if (!AdminPanel.instance.existingSN.Contains(BtnSN))
@@ -536,6 +537,7 @@ namespace C_Activity1
                 BtnPass = "";
                 MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
             else
             {
                 MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -597,10 +599,36 @@ namespace C_Activity1
             }
         }
 
+        //private void CreateBtn_Click(object sender, EventArgs e)
+        //{
+        //    // ... (existing code)
+
+        //    // Check if the provided password is already taken in ApprovedTable or PendingTable
+
+
+        //    // ... (existing code)
+
+        //    // If everything is okay, proceed to add the record
+        //    // ... (existing code)
+        //}
+
+        private bool IsPasswordTakenInTable(string password, DataGridView dataGridView, string passwordColumnName)
+        {
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                if (row.Cells[passwordColumnName].Value != null && row.Cells[passwordColumnName].Value.ToString() == password)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
 
         private void LoginLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //Register to Login Link Label
+            //Register Panel to Login Panel Link Label
             if (RegiPanel.Visible)
             {
                 RegiPanel.Visible = false;
@@ -651,7 +679,7 @@ namespace C_Activity1
 
         private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //Forgot Pass linked label
+            //Forgot Panel to Login Pass Panel linked label
             if (LoginPanel.Visible)
             {
                 LoginPanel.Visible = false;
@@ -740,6 +768,9 @@ namespace C_Activity1
 
         }
 
-        
+        private void RecoveryPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
