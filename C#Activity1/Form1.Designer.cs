@@ -62,6 +62,7 @@
             RPINBox = new TextBox();
             RecoveryPINLabel = new Label();
             RecoveryHLabel = new Label();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)RTUBg).BeginInit();
             LoginPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)RTUSealIcon).BeginInit();
@@ -94,7 +95,7 @@
             LoginPanel.Controls.Add(SNLabel);
             LoginPanel.Controls.Add(RTULHLabel);
             LoginPanel.Controls.Add(RTUSealIcon);
-            LoginPanel.Location = new Point(874, 71);
+            LoginPanel.Location = new Point(874, 68);
             LoginPanel.Name = "LoginPanel";
             LoginPanel.Size = new Size(362, 529);
             LoginPanel.TabIndex = 1;
@@ -387,6 +388,7 @@
             RegiPassBox.TabIndex = 5;
             RegiPassBox.UseSystemPasswordChar = true;
             RegiPassBox.TextChanged += RegiPassBox_TextChanged;
+            RegiPassBox.KeyDown += RegiPassBox_KeyDown;
             // 
             // RegiPassLabel
             // 
@@ -618,5 +620,6 @@
         private Label RCSNLabel;
         private TextBox RPINBox;
         private Label RecoveryPINLabel;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

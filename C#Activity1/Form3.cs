@@ -43,5 +43,74 @@ namespace C_Activity1
         {
 
         }
+
+        private void UserCalendar_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LHWelcome_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (LHMenuColumn.Visible)
+            {
+                LHMenuColumn.Visible = false;
+                LHMenuColumn.Location = new Point(-220, 98);
+            }
+            else
+            {
+                LHMenuColumn.Visible = true;
+                LHMenuColumn.Location = new Point(0, 98);
+            }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+            if (LHMenuColumn.Visible)
+            {
+                LHMenuColumn.Visible = false;
+                LHMenuColumn.Location = new Point(-220, 98);
+            }
+            else
+            {
+                LHMenuColumn.Visible = true;
+                LHMenuColumn.Location = new Point(0, 98);
+            }
+        }
+
+        private void LHMenuColumn_Paint(object sender, PaintEventArgs e)
+        {
+
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LHDeptLbl_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

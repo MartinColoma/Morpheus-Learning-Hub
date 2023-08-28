@@ -166,6 +166,10 @@ namespace C_Activity1
                                 HandleIncorrectInput("Incorrect Password. Please check your Password.");
 
                             }
+                            else if (storedSN != SNBox.Text && storedPass != PassBox.Text)
+                            {
+                                MessageBox.Show("Student Account not found.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
 
 
 
@@ -207,6 +211,10 @@ namespace C_Activity1
                     {
                         HandleIncorrectInput("Missing Student Number and Password. Please fill the required textboxes.");
                     }
+                    else if (!found)
+                    {
+                        MessageBox.Show("Student Account not found.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
 
 
                     //if (LoginfailedAttempts >= LoginmaxAttempt)
@@ -220,8 +228,7 @@ namespace C_Activity1
 
                 // Prevent further event handling for the Enter key
 
-                e.SuppressKeyPress = true
-        ;
+                e.SuppressKeyPress = true;
             }
         }
 
@@ -276,6 +283,10 @@ namespace C_Activity1
                             HandleIncorrectInput("Incorrect Password. Please check your Password.");
 
                         }
+                        else if (storedSN != SNBox.Text && storedPass != PassBox.Text)
+                        {
+                            MessageBox.Show("Student Account not found.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
 
 
 
@@ -316,6 +327,10 @@ namespace C_Activity1
                 else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
                 {
                     HandleIncorrectInput("Missing Student Number and Password. Please fill the required textboxes.");
+                }
+                else if (!found)
+                {
+                    MessageBox.Show("Student Account not found.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
 
@@ -376,6 +391,88 @@ namespace C_Activity1
         private void RegiPassBox_TextChanged(object sender, EventArgs e)
         {
             //Register Password Textbox
+
+
+        }
+        private void RegiPassBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Register Password Textbox
+            if (e.KeyCode == Keys.Enter)
+            {
+
+                string Btnname, BtnSN, BtnRP, BtnPass;
+                Btnname = RegiNameBox.Text; BtnSN = RegiSNBox.Text; BtnRP = RegiRPBox.Text; BtnPass = RegiPassBox.Text;
+
+                // Check if any of the input fields is empty
+                if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) || string.IsNullOrEmpty(BtnPass))
+                {
+                    HandleIncorrectCreateInput("Missing Text on Required Field.");
+                    return; // Exit the method since there's an error
+                }
+
+
+
+                Regex nameRegex = new Regex("^[A-Za-z ]+$");
+
+                if (!nameRegex.IsMatch(Btnname))
+                {
+                    HandleIncorrectCreateInput("Name must only contain alphabetic values.");
+
+                    return
+                    ;
+                }
+
+                // Validate Password using Lambda
+                //Regex passwordRegex = new Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+                Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+
+                if (!passwordRegex.IsMatch(BtnPass))
+                {
+                    HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
+                    return;
+                }
+
+                // Check if the student number (BtnSN) already exists in ApprovedTable
+                bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
+                if (isStudentInApprovedTable)
+                {
+                    HandleApprovedUserInput("This student already has an account.");
+                    return; // Exit the method since there's an error
+                }
+
+                // Validate Student Number using Lambda
+                if (!int.TryParse(BtnSN, out _))
+                {
+                    HandleIncorrectCreateInput("Incorrect Student Number.");
+                    return;
+                }
+
+                // If everything is okay, proceed to add the record
+                if (!AdminPanel.instance.existingSN.Contains(BtnSN))
+                {
+                    AdminPanel.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
+                    AdminPanel.instance.AddDataGridView(Btnname, BtnSN, BtnRP, BtnPass);
+                    Btnname = "";
+                    BtnSN = "";
+                    BtnRP = "";
+                    BtnPass = "";
+                    MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                if (CreatefailedAttempts >= CreatemaxAttempt)
+                {
+                    CreateBtn.Enabled = false;
+                    MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                e.SuppressKeyPress = true;
+            }
+
+
         }
 
         private void CreateBtn_Click(object sender, EventArgs e)
@@ -391,7 +488,7 @@ namespace C_Activity1
                 return; // Exit the method since there's an error
             }
 
-            
+
 
             Regex nameRegex = new Regex("^[A-Za-z ]+$");
 
@@ -642,5 +739,7 @@ namespace C_Activity1
         {
 
         }
+
+        
     }
 }
