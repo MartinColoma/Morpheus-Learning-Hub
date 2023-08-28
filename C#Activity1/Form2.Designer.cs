@@ -41,12 +41,14 @@
             PendingLabel = new Label();
             label1 = new Label();
             ApproveBtn = new Button();
-            TablePanel = new Panel();
+            ApprovedPanel = new Panel();
             DeleteBtn = new Button();
             ApprovedDictionary = new LinkLabel();
+            PendingPanel = new Panel();
             ((System.ComponentModel.ISupportInitialize)PendingTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).BeginInit();
-            TablePanel.SuspendLayout();
+            ApprovedPanel.SuspendLayout();
+            PendingPanel.SuspendLayout();
             SuspendLayout();
             // 
             // PendingTable
@@ -56,11 +58,11 @@
             PendingTable.BackgroundColor = Color.FromArgb(249, 184, 74);
             PendingTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             PendingTable.Columns.AddRange(new DataGridViewColumn[] { PNameColumn, PSNColumn, PRPinColumn, PPassColumn });
-            PendingTable.Location = new Point(537, 73);
+            PendingTable.Location = new Point(39, 71);
             PendingTable.Name = "PendingTable";
             PendingTable.ReadOnly = true;
             PendingTable.RowTemplate.Height = 25;
-            PendingTable.Size = new Size(442, 265);
+            PendingTable.Size = new Size(441, 265);
             PendingTable.TabIndex = 0;
             PendingTable.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -137,7 +139,7 @@
             PendingLabel.BackColor = Color.Transparent;
             PendingLabel.Font = new Font("Cooper Black", 18F, FontStyle.Regular, GraphicsUnit.Point);
             PendingLabel.ForeColor = Color.FromArgb(24, 79, 144);
-            PendingLabel.Location = new Point(670, 27);
+            PendingLabel.Location = new Point(163, 25);
             PendingLabel.Name = "PendingLabel";
             PendingLabel.Size = new Size(232, 27);
             PendingLabel.TabIndex = 2;
@@ -169,7 +171,7 @@
             ApproveBtn.FlatStyle = FlatStyle.Flat;
             ApproveBtn.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
             ApproveBtn.ForeColor = Color.White;
-            ApproveBtn.Location = new Point(865, 344);
+            ApproveBtn.Location = new Point(366, 342);
             ApproveBtn.Name = "ApproveBtn";
             ApproveBtn.Size = new Size(114, 31);
             ApproveBtn.TabIndex = 10;
@@ -177,19 +179,16 @@
             ApproveBtn.UseVisualStyleBackColor = false;
             ApproveBtn.Click += ApproveBtn_Click;
             // 
-            // TablePanel
+            // ApprovedPanel
             // 
-            TablePanel.Controls.Add(DeleteBtn);
-            TablePanel.Controls.Add(ApprovedDictionary);
-            TablePanel.Controls.Add(ApproveBtn);
-            TablePanel.Controls.Add(label1);
-            TablePanel.Controls.Add(PendingLabel);
-            TablePanel.Controls.Add(ApprovedTable);
-            TablePanel.Controls.Add(PendingTable);
-            TablePanel.Location = new Point(31, 55);
-            TablePanel.Name = "TablePanel";
-            TablePanel.Size = new Size(1008, 412);
-            TablePanel.TabIndex = 11;
+            ApprovedPanel.Controls.Add(DeleteBtn);
+            ApprovedPanel.Controls.Add(ApprovedDictionary);
+            ApprovedPanel.Controls.Add(label1);
+            ApprovedPanel.Controls.Add(ApprovedTable);
+            ApprovedPanel.Location = new Point(31, 55);
+            ApprovedPanel.Name = "ApprovedPanel";
+            ApprovedPanel.Size = new Size(521, 412);
+            ApprovedPanel.TabIndex = 11;
             // 
             // DeleteBtn
             // 
@@ -224,13 +223,24 @@
             ApprovedDictionary.Text = "Dictionary of Approved Accounts";
             ApprovedDictionary.LinkClicked += ApprovedDictionary_LinkClicked;
             // 
+            // PendingPanel
+            // 
+            PendingPanel.Controls.Add(ApproveBtn);
+            PendingPanel.Controls.Add(PendingLabel);
+            PendingPanel.Controls.Add(PendingTable);
+            PendingPanel.Location = new Point(31, 55);
+            PendingPanel.Name = "PendingPanel";
+            PendingPanel.Size = new Size(518, 412);
+            PendingPanel.TabIndex = 13;
+            // 
             // AdminPanel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(249, 184, 74);
-            ClientSize = new Size(1064, 511);
-            Controls.Add(TablePanel);
+            ClientSize = new Size(582, 511);
+            Controls.Add(PendingPanel);
+            Controls.Add(ApprovedPanel);
             Name = "AdminPanel";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
@@ -238,8 +248,10 @@
             Load += AdminPanel_Load;
             ((System.ComponentModel.ISupportInitialize)PendingTable).EndInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).EndInit();
-            TablePanel.ResumeLayout(false);
-            TablePanel.PerformLayout();
+            ApprovedPanel.ResumeLayout(false);
+            ApprovedPanel.PerformLayout();
+            PendingPanel.ResumeLayout(false);
+            PendingPanel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -255,10 +267,11 @@
         private DataGridViewTextBoxColumn ARPInColumn;
         private DataGridViewTextBoxColumn APassColumn;
         private Button ApproveBtn;
-        private Panel TablePanel;
+        private Panel ApprovedPanel;
         public DataGridView PendingTable;
         public DataGridView ApprovedTable;
         private LinkLabel ApprovedDictionary;
         private Button DeleteBtn;
+        private Panel PendingPanel;
     }
 }

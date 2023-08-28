@@ -207,7 +207,7 @@
             // 
             // SNBox
             // 
-            SNBox.BackColor = Color.White;
+            SNBox.BackColor = Color.WhiteSmoke;
             SNBox.Cursor = Cursors.IBeam;
             SNBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             SNBox.ForeColor = Color.FromArgb(24, 79, 144);

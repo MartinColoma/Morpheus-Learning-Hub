@@ -112,5 +112,10 @@ namespace C_Activity1
         {
 
         }
+
+        private void LHNam_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

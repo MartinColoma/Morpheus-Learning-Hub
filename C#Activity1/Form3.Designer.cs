@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LHHomePage));
             RTUSealXL = new PictureBox();
             RTUSealIcon = new PictureBox();
             LHHeaderPanel = new Panel();
@@ -49,6 +50,8 @@
             LHUserCalendar = new MonthCalendar();
             LHWelcome = new TextBox();
             LHBasicInfoPanel = new Panel();
+            LHSNBox = new TextBox();
+            LHNameBox = new TextBox();
             LHSectLbl = new Label();
             LHDeptLbl = new Label();
             LHSNLbl = new Label();
@@ -321,21 +324,23 @@
             // 
             LHWelcome.BackColor = Color.FromArgb(249, 184, 74);
             LHWelcome.BorderStyle = BorderStyle.None;
-            LHWelcome.Font = new Font("MS PGothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            LHWelcome.ForeColor = Color.White;
-            LHWelcome.Location = new Point(47, 24);
+            LHWelcome.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            LHWelcome.ForeColor = Color.Black;
+            LHWelcome.Location = new Point(15, 18);
             LHWelcome.Multiline = true;
             LHWelcome.Name = "LHWelcome";
             LHWelcome.ReadOnly = true;
-            LHWelcome.Size = new Size(623, 153);
+            LHWelcome.Size = new Size(688, 165);
             LHWelcome.TabIndex = 5;
-            LHWelcome.Text = "The RTUista Learning Hub is the university’s  dupe Learning Management System (LMS) platform developed to create virtual classrooms and learning environment dedicated for online distance learning.";
+            LHWelcome.Text = resources.GetString("LHWelcome.Text");
             LHWelcome.TextAlign = HorizontalAlignment.Center;
             LHWelcome.TextChanged += LHWelcome_TextChanged;
             // 
             // LHBasicInfoPanel
             // 
             LHBasicInfoPanel.BackColor = Color.FromArgb(249, 184, 74);
+            LHBasicInfoPanel.Controls.Add(LHSNBox);
+            LHBasicInfoPanel.Controls.Add(LHNameBox);
             LHBasicInfoPanel.Controls.Add(LHSectLbl);
             LHBasicInfoPanel.Controls.Add(LHDeptLbl);
             LHBasicInfoPanel.Controls.Add(LHSNLbl);
@@ -346,12 +351,37 @@
             LHBasicInfoPanel.Size = new Size(706, 289);
             LHBasicInfoPanel.TabIndex = 6;
             // 
+            // LHSNBox
+            // 
+            LHSNBox.BackColor = Color.FromArgb(249, 184, 74);
+            LHSNBox.BorderStyle = BorderStyle.None;
+            LHSNBox.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            LHSNBox.ForeColor = Color.Black;
+            LHSNBox.Location = new Point(136, 74);
+            LHSNBox.Name = "LHSNBox";
+            LHSNBox.ReadOnly = true;
+            LHSNBox.Size = new Size(305, 16);
+            LHSNBox.TabIndex = 7;
+            // 
+            // LHNameBox
+            // 
+            LHNameBox.BackColor = Color.FromArgb(249, 184, 74);
+            LHNameBox.BorderStyle = BorderStyle.None;
+            LHNameBox.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            LHNameBox.ForeColor = Color.Black;
+            LHNameBox.Location = new Point(71, 44);
+            LHNameBox.Name = "LHNameBox";
+            LHNameBox.ReadOnly = true;
+            LHNameBox.Size = new Size(305, 16);
+            LHNameBox.TabIndex = 6;
+            LHNameBox.TextChanged += LHNam_TextChanged;
+            // 
             // LHSectLbl
             // 
             LHSectLbl.AutoSize = true;
             LHSectLbl.FlatStyle = FlatStyle.Flat;
             LHSectLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            LHSectLbl.ForeColor = Color.White;
+            LHSectLbl.ForeColor = Color.Black;
             LHSectLbl.Location = new Point(15, 103);
             LHSectLbl.Name = "LHSectLbl";
             LHSectLbl.Size = new Size(58, 16);
@@ -364,7 +394,7 @@
             LHDeptLbl.AutoSize = true;
             LHDeptLbl.FlatStyle = FlatStyle.Flat;
             LHDeptLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            LHDeptLbl.ForeColor = Color.White;
+            LHDeptLbl.ForeColor = Color.Black;
             LHDeptLbl.Location = new Point(15, 131);
             LHDeptLbl.Name = "LHDeptLbl";
             LHDeptLbl.Size = new Size(142, 16);
@@ -377,7 +407,7 @@
             LHSNLbl.AutoSize = true;
             LHSNLbl.FlatStyle = FlatStyle.Flat;
             LHSNLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            LHSNLbl.ForeColor = Color.White;
+            LHSNLbl.ForeColor = Color.Black;
             LHSNLbl.Location = new Point(15, 74);
             LHSNLbl.Name = "LHSNLbl";
             LHSNLbl.Size = new Size(115, 16);
@@ -389,7 +419,7 @@
             LHNameLbl.AutoSize = true;
             LHNameLbl.FlatStyle = FlatStyle.Flat;
             LHNameLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            LHNameLbl.ForeColor = Color.White;
+            LHNameLbl.ForeColor = Color.Black;
             LHNameLbl.Location = new Point(15, 46);
             LHNameLbl.Name = "LHNameLbl";
             LHNameLbl.Size = new Size(50, 16);
@@ -403,7 +433,7 @@
             BasicInfoLbl.BorderStyle = BorderStyle.FixedSingle;
             BasicInfoLbl.FlatStyle = FlatStyle.Flat;
             BasicInfoLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            BasicInfoLbl.ForeColor = Color.White;
+            BasicInfoLbl.ForeColor = Color.Black;
             BasicInfoLbl.Location = new Point(15, 15);
             BasicInfoLbl.Name = "BasicInfoLbl";
             BasicInfoLbl.Size = new Size(174, 18);
@@ -474,7 +504,7 @@
             ClassSchedLbl.BorderStyle = BorderStyle.FixedSingle;
             ClassSchedLbl.FlatStyle = FlatStyle.Flat;
             ClassSchedLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            ClassSchedLbl.ForeColor = Color.White;
+            ClassSchedLbl.ForeColor = Color.Black;
             ClassSchedLbl.Location = new Point(12, 11);
             ClassSchedLbl.Name = "ClassSchedLbl";
             ClassSchedLbl.Size = new Size(108, 18);
@@ -497,7 +527,7 @@
             EnrolledLbl.BorderStyle = BorderStyle.FixedSingle;
             EnrolledLbl.FlatStyle = FlatStyle.Flat;
             EnrolledLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            EnrolledLbl.ForeColor = Color.White;
+            EnrolledLbl.ForeColor = Color.Black;
             EnrolledLbl.Location = new Point(13, 15);
             EnrolledLbl.Name = "EnrolledLbl";
             EnrolledLbl.Size = new Size(117, 18);
@@ -598,5 +628,7 @@
         private DataGridViewTextBoxColumn LHRoom;
         private LinkLabel LogoutLinkedLbl;
         private PictureBox LogoutIcon;
+        public TextBox LHNameBox;
+        public TextBox LHSNBox;
     }
 }
