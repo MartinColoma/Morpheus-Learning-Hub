@@ -53,6 +53,7 @@
             // 
             PendingTable.AllowUserToOrderColumns = true;
             PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            PendingTable.BackgroundColor = Color.FromArgb(249, 184, 74);
             PendingTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             PendingTable.Columns.AddRange(new DataGridViewColumn[] { PNameColumn, PSNColumn, PRPinColumn, PPassColumn });
             PendingTable.Location = new Point(537, 73);
@@ -91,6 +92,7 @@
             // 
             ApprovedTable.AllowUserToOrderColumns = true;
             ApprovedTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ApprovedTable.BackgroundColor = Color.FromArgb(249, 184, 74);
             ApprovedTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ApprovedTable.Columns.AddRange(new DataGridViewColumn[] { ANameColumn, ASNColumn, ARPInColumn, APassColumn });
             ApprovedTable.Location = new Point(39, 73);

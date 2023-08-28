@@ -21,19 +21,33 @@ namespace C_Activity1
         {
             InitializeComponent();
             instance = this;
-            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
+            this.FormClosing += new FormClosingEventHandler(AdminPanel_FormClosing);
+
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void AdminPanel_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //RTULogin rtu = new RTULogin();
+
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 // Prevent the form from closing.
                 e.Cancel = true;
                 // Hide the form instead of closing it.
                 this.Hide();
+
+                //// Check if the rtu form has been created or not.
+                //if (rtu == null || rtu.IsDisposed)
+                //{
+                //    rtu.Show();
+                //}
+                //else
+                //{
+                //    rtu.Show(); // Show the existing instance of RTUForm.
+                //}
             }
         }
+
 
         private void AdminPanel_Load(object sender, EventArgs e)
         {
@@ -174,12 +188,12 @@ namespace C_Activity1
 
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
-            
+
 
             // Call this method when a button is clicked to delete the selected row from ApprovedTable
-            
-                DeleteSelectedRowFromApprovedTable();
-            
+
+            DeleteSelectedRowFromApprovedTable();
+
 
         }
         private void DeleteSelectedRowFromApprovedTable()
@@ -192,7 +206,7 @@ namespace C_Activity1
                 {
                     foreach (DataGridViewRow selectedRow in ApprovedTable.SelectedRows)
                     {
-                        string selectedUsername = selectedRow.Cells["PSNColumn"].Value.ToString();
+                        string selectedUsername = selectedRow.Cells["ASNColumn"].Value.ToString();
 
                         // Remove the value from the dictionary
                         if (RTULogin.instance.dictionary.ContainsKey(selectedUsername))
