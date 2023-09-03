@@ -120,33 +120,38 @@ namespace C_Activity1
             {
                 if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
                 {
-                    MessageBox.Show("Welcome back Admin.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Welcome back Admin.", "Greetings", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     APanel.Show();
                     ResetForm();
                 }
                 else if (SNBox.Text != "Admin" && PassBox.Text == "Admin123")
                 {
-                    HandleIncorrectInput("Incorrect Student Number. Please check your Student Number.");
+                    HandleIncorrectInput("Incorrect Student Number.");
                 }
                 else if (SNBox.Text == "Admin" && PassBox.Text != "Admin123")
                 {
-                    HandleIncorrectInput("Incorrect Password. Please check your Password.");
+                    HandleIncorrectInput("Incorrect Password.");
 
                 }
                 else
                 {
                     bool found = false;
                     bool find = false;
+                    //bool unknown = false;
+
+                    int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
+                    int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
+                    int anameColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ANameColumn"].Index;
+                    int psnColumnIndex = AdminPanel.instance.PendingTable.Columns["PSNColumn"].Index;
+                    int ppassColumnIndex = AdminPanel.instance.PendingTable.Columns["PPassColumn"].Index;
+
+
                     // Iterate through rows in ApprovedTable DataGridView
                     foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
                     {
                         if (!row.IsNewRow) // Skip the new row if any
                         {
-                            int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
-                            int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
-                            int anameColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ANameColumn"].Index;
-
 
                             string storedSN = row.Cells[asnColumnIndex].Value?.ToString();
                             string storedPass = row.Cells[apassColumnIndex].Value?.ToString();
@@ -161,14 +166,15 @@ namespace C_Activity1
                             }
                             else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
                             {
-                                HandleIncorrectInput("Incorrect Student Number. Please check your Student Number.");
+                                HandleIncorrectInput("Incorrect Student Number.");
 
                             }
                             else if (storedSN == SNBox.Text && storedPass != PassBox.Text)
                             {
-                                HandleIncorrectInput("Incorrect Password. Please check your Password.");
+                                HandleIncorrectInput("Incorrect Password.");
 
                             }
+
 
                         }
 
@@ -178,8 +184,6 @@ namespace C_Activity1
                     {
                         if (!rows.IsNewRow) // Skip the new row if any
                         {
-                            int psnColumnIndex = AdminPanel.instance.PendingTable.Columns["PSNColumn"].Index;
-                            int ppassColumnIndex = AdminPanel.instance.PendingTable.Columns["PPassColumn"].Index;
 
                             string notStoredSN = rows.Cells[psnColumnIndex].Value?.ToString();
                             string notStoredPass = rows.Cells[ppassColumnIndex].Value?.ToString();
@@ -188,37 +192,34 @@ namespace C_Activity1
                             {
                                 find = true;
                                 MessageBox.Show("Student Account is pending for approval.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
                             }
+
+
                         }
                     }
 
+
                     if (found)
                     {
-                        MessageBox.Show("Welcome back RTUista.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Welcome back RTUista.", "Greetings", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         HomePage.Show(); // Show the LHHomePage form
-                        ResetForm();
+                        ResetHideForm();
 
                     }
                     else if (find)
                     {
                         ResetForm();
                     }
-
                     else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
                     {
-                        HandleIncorrectInput("Missing Student Number and Password. Please fill the required textboxes.");
+                        HandleIncorrectInput("Missing Student Number and Password.");
                     }
-                    else if (!found)
+                    else if (!find && !found)
                     {
-                        MessageBox.Show("Student Account not found.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Login Failed. Please try again.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-
-                    //if (LoginfailedAttempts >= LoginmaxAttempt)
-                    //{
-                    //    LoginBtn.Enabled = false;
-                    //    MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //}
                 }
 
 
@@ -235,34 +236,39 @@ namespace C_Activity1
 
             if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
             {
-                MessageBox.Show("Welcome back Admin.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Welcome back Admin.", "Greetings", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 APanel.Show();
                 ResetForm();
             }
             else if (SNBox.Text != "Admin" && PassBox.Text == "Admin123")
             {
-                HandleIncorrectInput("Incorrect Student Number. Please check your Student Number.");
+                HandleIncorrectInput("Incorrect Student Number.");
             }
             else if (SNBox.Text == "Admin" && PassBox.Text != "Admin123")
             {
-                HandleIncorrectInput("Incorrect Password. Please check your Password.");
+                HandleIncorrectInput("Incorrect Password.");
 
             }
             else
             {
                 bool found = false;
                 bool find = false;
+                //bool unknown = false;
+
+                int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
+                int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
+                int anameColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ANameColumn"].Index;
+                int psnColumnIndex = AdminPanel.instance.PendingTable.Columns["PSNColumn"].Index;
+                int ppassColumnIndex = AdminPanel.instance.PendingTable.Columns["PPassColumn"].Index;
+                
+
                 // Iterate through rows in ApprovedTable DataGridView
                 foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
                 {
                     if (!row.IsNewRow) // Skip the new row if any
                     {
-                        int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
-                        int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
-                        int anameColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ANameColumn"].Index;
-
-
+                        
                         string storedSN = row.Cells[asnColumnIndex].Value?.ToString();
                         string storedPass = row.Cells[apassColumnIndex].Value?.ToString();
 
@@ -276,14 +282,15 @@ namespace C_Activity1
                         }
                         else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
                         {
-                            HandleIncorrectInput("Incorrect Student Number. Please check your Student Number.");
+                            HandleIncorrectInput("Incorrect Student Number.");
 
                         }
                         else if (storedSN == SNBox.Text && storedPass != PassBox.Text)
                         {
-                            HandleIncorrectInput("Incorrect Password. Please check your Password.");
+                            HandleIncorrectInput("Incorrect Password.");
 
                         }
+                        
 
                     }
 
@@ -293,9 +300,7 @@ namespace C_Activity1
                 {
                     if (!rows.IsNewRow) // Skip the new row if any
                     {
-                        int psnColumnIndex = AdminPanel.instance.PendingTable.Columns["PSNColumn"].Index;
-                        int ppassColumnIndex = AdminPanel.instance.PendingTable.Columns["PPassColumn"].Index;
-
+                        
                         string notStoredSN = rows.Cells[psnColumnIndex].Value?.ToString();
                         string notStoredPass = rows.Cells[ppassColumnIndex].Value?.ToString();
 
@@ -303,40 +308,35 @@ namespace C_Activity1
                         {
                             find = true;
                             MessageBox.Show("Student Account is pending for approval.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                         }
+                        
+
                     }
                 }
+                
 
                 if (found)
                 {
-                    MessageBox.Show("Welcome back RTUista.", "Hello", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Welcome back RTUista.", "Greetings", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     HomePage.Show(); // Show the LHHomePage form
-                    ResetForm();
+                    ResetHideForm();
 
                 }
                 else if (find)
                 {
                     ResetForm();
                 }
-
                 else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
                 {
-                    HandleIncorrectInput("Missing Student Number and Password. Please fill the required textboxes.");
+                    HandleIncorrectInput("Missing Student Number and Password.");
                 }
-                else if (!found)
+                else if (!find && !found)
                 {
-                    MessageBox.Show("Student Account not found.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Login Failed. Please try again.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-
-                //if (LoginfailedAttempts >= LoginmaxAttempt)
-                //{
-                //    LoginBtn.Enabled = false;
-                //    MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //}
             }
-
-
 
         }
 
@@ -347,7 +347,7 @@ namespace C_Activity1
 
             if (LoginremainingAttempts > 0)
             {
-                MessageBox.Show($"Attempts remaining: {LoginremainingAttempts} \n{errorMessage} ", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Attempts remaining: {LoginremainingAttempts} \n{errorMessage} Check your input on required fields", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -362,9 +362,15 @@ namespace C_Activity1
             PassBox.Text = "";
             LoginfailedAttempts = 0;
             LoginBtn.Enabled = true;
-
         }
-
+        private void ResetHideForm()
+        {
+            SNBox.Text = "";
+            PassBox.Text = "";
+            LoginfailedAttempts = 0;
+            LoginBtn.Enabled = true;
+            this.Hide();
+        }
 
 
 
@@ -401,31 +407,24 @@ namespace C_Activity1
                 // Check if any of the input fields is empty
                 if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) || string.IsNullOrEmpty(BtnPass))
                 {
-                    HandleIncorrectCreateInput("Missing Text on Required Field.");
+                    HandleIncorrectCreateInput("Missing text on required Field.");
                     return; // Exit the method since there's an error
                 }
-
-
+                else if (Btnname == "Admin" || BtnSN == "Admin" || BtnPass == "Admin123")
+                {
+                    HandleIncorrectCreateInput("This student already has an account.");
+                    return;
+                }
 
                 Regex nameRegex = new Regex("^[A-Za-z ]+$");
 
                 if (!nameRegex.IsMatch(Btnname))
                 {
                     HandleIncorrectCreateInput("Name must only contain alphabetic values.");
-
                     return
                     ;
                 }
 
-                // Validate Password using Lambda
-                //Regex passwordRegex = new Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
-                Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
-
-                if (!passwordRegex.IsMatch(BtnPass))
-                {
-                    HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
-                    return;
-                }
 
                 // Check if the student number (BtnSN) already exists in ApprovedTable
                 bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
@@ -436,11 +435,26 @@ namespace C_Activity1
                 }
 
                 // Validate Student Number using Lambda
-                if (!int.TryParse(BtnSN, out _))
+                else if (!int.TryParse(BtnSN, out _))
                 {
                     HandleIncorrectCreateInput("Incorrect Student Number.");
                     return;
                 }
+                else if (IsPasswordTakenInTable(BtnPass, AdminPanel.instance.ApprovedTable, "APassColumn"))
+                {
+                    HandleIncorrectCreateInput("Password is already taken.");
+                    return;
+                }
+                // Validate Password using Lambda
+                //Regex passwordRegex = new Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+                Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+
+                if (!passwordRegex.IsMatch(BtnPass))
+                {
+                    HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
+                    return;
+                }
+
 
                 // If everything is okay, proceed to add the record
                 if (!AdminPanel.instance.existingSN.Contains(BtnSN))
@@ -453,10 +467,13 @@ namespace C_Activity1
                     BtnPass = "";
                     MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+
                 else
                 {
                     MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+
 
                 if (CreatefailedAttempts >= CreatemaxAttempt)
                 {
@@ -479,22 +496,44 @@ namespace C_Activity1
             // Check if any of the input fields is empty
             if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) || string.IsNullOrEmpty(BtnPass))
             {
-                HandleIncorrectCreateInput("Missing Text on Required Field.");
+                HandleIncorrectCreateInput("Missing text on required Field.");
                 return; // Exit the method since there's an error
             }
-
-
+            else if (Btnname == "Admin" || BtnSN == "Admin" || BtnPass == "Admin123")
+            {
+                HandleIncorrectCreateInput("This student already has an account.");
+                return;
+            }
 
             Regex nameRegex = new Regex("^[A-Za-z ]+$");
 
             if (!nameRegex.IsMatch(Btnname))
             {
                 HandleIncorrectCreateInput("Name must only contain alphabetic values.");
-
                 return
                 ;
             }
 
+            
+            // Check if the student number (BtnSN) already exists in ApprovedTable
+            bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
+            if (isStudentInApprovedTable)
+            {
+                HandleApprovedUserInput("This student already has an account.");
+                return; // Exit the method since there's an error
+            }
+
+            // Validate Student Number using Lambda
+            else if (!int.TryParse(BtnSN, out _))
+            {
+                HandleIncorrectCreateInput("Incorrect Student Number.");
+                return;
+            }
+            else if (IsPasswordTakenInTable(BtnPass, AdminPanel.instance.ApprovedTable, "APassColumn"))
+            {
+                HandleIncorrectCreateInput("Password is already taken.");
+                return;
+            }
             // Validate Password using Lambda
             //Regex passwordRegex = new Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
             Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
@@ -505,26 +544,6 @@ namespace C_Activity1
                 return;
             }
 
-            // Check if the student number (BtnSN) already exists in ApprovedTable
-            bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
-            if (isStudentInApprovedTable)
-            {
-                HandleApprovedUserInput("This student already has an account.");
-                return; // Exit the method since there's an error
-            }
-
-            // Validate Student Number using Lambda
-            if (!int.TryParse(BtnSN, out _))
-            {
-                HandleIncorrectCreateInput("Incorrect Student Number.");
-                return;
-            }
-            else if (IsPasswordTakenInTable(BtnPass, AdminPanel.instance.ApprovedTable, "APassColumn") ||
-                IsPasswordTakenInTable(BtnPass, AdminPanel.instance.PendingTable, "PPassColumn"))
-            {
-                HandleIncorrectCreateInput("Password is already taken.");
-                return;
-            }
 
             // If everything is okay, proceed to add the record
             if (!AdminPanel.instance.existingSN.Contains(BtnSN))
@@ -542,6 +561,8 @@ namespace C_Activity1
             {
                 MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            
 
             if (CreatefailedAttempts >= CreatemaxAttempt)
             {
@@ -573,7 +594,7 @@ namespace C_Activity1
 
             if (CreateRemainingAttempts > 0)
             {
-                MessageBox.Show($"Attempts remaining: {CreateRemainingAttempts} \n{errorMessage} Please input valid text on the required field. ", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Attempts remaining: {CreateRemainingAttempts} \n{errorMessage} ", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {

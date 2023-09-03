@@ -45,6 +45,7 @@
             DeleteBtn = new Button();
             ApprovedDictionary = new LinkLabel();
             PendingPanel = new Panel();
+            AdminLoginLinkedLbl = new LinkLabel();
             ((System.ComponentModel.ISupportInitialize)PendingTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).BeginInit();
             ApprovedPanel.SuspendLayout();
@@ -233,12 +234,28 @@
             PendingPanel.Size = new Size(518, 412);
             PendingPanel.TabIndex = 13;
             // 
+            // AdminLoginLinkedLbl
+            // 
+            AdminLoginLinkedLbl.ActiveLinkColor = Color.FromArgb(24, 79, 144);
+            AdminLoginLinkedLbl.AutoSize = true;
+            AdminLoginLinkedLbl.Font = new Font("MS UI Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            AdminLoginLinkedLbl.LinkBehavior = LinkBehavior.HoverUnderline;
+            AdminLoginLinkedLbl.LinkColor = Color.White;
+            AdminLoginLinkedLbl.Location = new Point(70, 470);
+            AdminLoginLinkedLbl.Name = "AdminLoginLinkedLbl";
+            AdminLoginLinkedLbl.Size = new Size(125, 15);
+            AdminLoginLinkedLbl.TabIndex = 14;
+            AdminLoginLinkedLbl.TabStop = true;
+            AdminLoginLinkedLbl.Text = "Open Login Page...";
+            AdminLoginLinkedLbl.LinkClicked += AdminLoginLinkedLbl_LinkClicked;
+            // 
             // AdminPanel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(249, 184, 74);
             ClientSize = new Size(582, 511);
+            Controls.Add(AdminLoginLinkedLbl);
             Controls.Add(PendingPanel);
             Controls.Add(ApprovedPanel);
             Name = "AdminPanel";
@@ -253,6 +270,7 @@
             PendingPanel.ResumeLayout(false);
             PendingPanel.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -273,5 +291,6 @@
         private LinkLabel ApprovedDictionary;
         private Button DeleteBtn;
         private Panel PendingPanel;
+        private LinkLabel AdminLoginLinkedLbl;
     }
 }
