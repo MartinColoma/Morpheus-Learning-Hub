@@ -35,23 +35,15 @@ namespace C_Activity1
                 e.Cancel = true;
                 // Hide the form instead of closing it.
                 this.Hide();
+                RTULogin.instance.Show();
 
-                //// Check if the rtu form has been created or not.
-                //if (rtu == null || rtu.IsDisposed)
-                //{
-                //    rtu.Show();
-                //}
-                //else
-                //{
-                //    rtu.Show(); // Show the existing instance of RTUForm.
-                //}
             }
         }
 
 
         private void AdminPanel_Load(object sender, EventArgs e)
         {
-
+            this.Location = new Point(550, 270);
         }
 
 
@@ -180,6 +172,18 @@ namespace C_Activity1
                             PendingTable.Rows.RemoveAt(selectedRow.Index);
                         }
                     }
+                    if (PendingPanel.Visible)
+                    {
+                        PendingPanel.Visible = false;
+                        ApprovedPanel.Visible = true;
+                    }
+
+                    else
+                    {
+                        ApprovedPanel.Visible = false;
+                        PendingPanel.Visible = true;
+                    }
+
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -240,5 +244,13 @@ namespace C_Activity1
             }
         }
 
+        private void AdminLoginLinkedLbl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.Visible)
+            {
+                RTULogin.instance.Show();
+
+            }
+        }
     }
 }

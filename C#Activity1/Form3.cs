@@ -30,6 +30,8 @@ namespace C_Activity1
                 e.Cancel = true;
                 // Hide the form instead of closing it.
                 this.Hide();
+                RTULogin.instance.Show();
+
             }
         }
 
@@ -116,6 +118,27 @@ namespace C_Activity1
         private void LHNam_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void LogoutLinkedLbl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.Visible)
+            {
+                this.Hide();
+                RTULogin.instance.Show();
+
+            }
+        }
+
+        private void LogoutIcon_Click(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                this.Hide();
+                RTULogin.instance.Show();
+
+            }
+            
         }
     }
 }

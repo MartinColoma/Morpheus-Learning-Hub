@@ -200,6 +200,7 @@
             LogoutLinkedLbl.TabIndex = 9;
             LogoutLinkedLbl.TabStop = true;
             LogoutLinkedLbl.Text = "LOGOUT";
+            LogoutLinkedLbl.LinkClicked += LogoutLinkedLbl_LinkClicked;
             // 
             // LogoutIcon
             // 
@@ -210,6 +211,7 @@
             LogoutIcon.SizeMode = PictureBoxSizeMode.AutoSize;
             LogoutIcon.TabIndex = 8;
             LogoutIcon.TabStop = false;
+            LogoutIcon.Click += LogoutIcon_Click;
             // 
             // BillIcon
             // 
