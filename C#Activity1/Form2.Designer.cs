@@ -54,6 +54,7 @@
             // 
             // PendingTable
             // 
+            PendingTable.AllowUserToAddRows = false;
             PendingTable.AllowUserToOrderColumns = true;
             PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PendingTable.BackgroundColor = Color.FromArgb(249, 184, 74);
@@ -93,6 +94,7 @@
             // 
             // ApprovedTable
             // 
+            ApprovedTable.AllowUserToAddRows = false;
             ApprovedTable.AllowUserToOrderColumns = true;
             ApprovedTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ApprovedTable.BackgroundColor = Color.FromArgb(249, 184, 74);
