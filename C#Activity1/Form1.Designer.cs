@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             RTUBg = new PictureBox();
             LoginPanel = new Panel();
             RMBRCheckbox = new CheckBox();
@@ -63,6 +64,7 @@
             RecoveryPINLabel = new Label();
             RecoveryHLabel = new Label();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            LoginBtnTimer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)RTUBg).BeginInit();
             LoginPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)RTUSealIcon).BeginInit();
@@ -555,6 +557,16 @@
             RecoveryHLabel.TextAlign = ContentAlignment.MiddleCenter;
             RecoveryHLabel.Click += label5_Click;
             // 
+            // backgroundWorker1
+            // 
+            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+            // 
+            // LoginBtnTimer
+            // 
+            LoginBtnTimer.Enabled = true;
+            LoginBtnTimer.Interval = 15000;
+            LoginBtnTimer.Tick += LoginBtnTimer_Tick;
+            // 
             // RTULogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -622,5 +634,6 @@
         private TextBox RPINBox;
         private Label RecoveryPINLabel;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Timer LoginBtnTimer;
     }
 }

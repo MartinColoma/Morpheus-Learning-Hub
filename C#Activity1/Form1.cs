@@ -20,14 +20,16 @@ namespace C_Activity1
         int CreatefailedAttempts = 0;
         //private const int maxAttempt = 3;
         //int failedAttempts = 0;
+        int timerInterval = 15000; 
+        bool disableButton = false;
 
         public RTULogin()
         {
             InitializeComponent();
             String SN, Pass;
             SN = SNBox.Text; Pass = PassBox.Text;
-
             instance = this;
+            
         }
 
         private void RTULogin_Load(object sender, EventArgs e)
@@ -139,6 +141,7 @@ namespace C_Activity1
                     bool found = false;
                     bool find = false;
                     //bool unknown = false;
+
 
                     int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
                     int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
@@ -255,20 +258,21 @@ namespace C_Activity1
                 bool found = false;
                 bool find = false;
                 //bool unknown = false;
+               
 
                 int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
                 int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
                 int anameColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ANameColumn"].Index;
                 int psnColumnIndex = AdminPanel.instance.PendingTable.Columns["PSNColumn"].Index;
                 int ppassColumnIndex = AdminPanel.instance.PendingTable.Columns["PPassColumn"].Index;
-                
+
 
                 // Iterate through rows in ApprovedTable DataGridView
                 foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
                 {
                     if (!row.IsNewRow) // Skip the new row if any
                     {
-                        
+
                         string storedSN = row.Cells[asnColumnIndex].Value?.ToString();
                         string storedPass = row.Cells[apassColumnIndex].Value?.ToString();
 
@@ -290,7 +294,7 @@ namespace C_Activity1
                             HandleIncorrectInput("Incorrect Password.");
 
                         }
-                        
+
 
                     }
 
@@ -300,7 +304,7 @@ namespace C_Activity1
                 {
                     if (!rows.IsNewRow) // Skip the new row if any
                     {
-                        
+
                         string notStoredSN = rows.Cells[psnColumnIndex].Value?.ToString();
                         string notStoredPass = rows.Cells[ppassColumnIndex].Value?.ToString();
 
@@ -310,11 +314,11 @@ namespace C_Activity1
                             MessageBox.Show("Student Account is pending for approval.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
-                        
+
 
                     }
                 }
-                
+
 
                 if (found)
                 {
@@ -340,20 +344,75 @@ namespace C_Activity1
 
         }
 
-        private void HandleIncorrectInput(string errorMessage)
-        {
+        
+
+        //private void HandleIncorrectInput(string errorMessage)
+        //{
+        //    LoginfailedAttempts++;
+        //    int LoginremainingAttempts = LoginmaxAttempt - LoginfailedAttempts;
+
+        //    if (LoginremainingAttempts > 0)
+        //    {
+        //        MessageBox.Show($"Attempts remaining: {LoginremainingAttempts} \n{errorMessage} Check your input on required fields", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //    else
+        //    {
+        //        LoginBtn.Enabled = false;
+        //        LoginBtnTimer.Start();
+        //        MessageBox.Show("You run out of attempts. Please try again after 15 seconds.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
+
+        private void HandleIncorrectInput(string errorMessage){
             LoginfailedAttempts++;
+
             int LoginremainingAttempts = LoginmaxAttempt - LoginfailedAttempts;
 
-            if (LoginremainingAttempts > 0)
+
+            if(LoginremainingAttempts > 0)
             {
-                MessageBox.Show($"Attempts remaining: {LoginremainingAttempts} \n{errorMessage} Check your input on required fields", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Attempts remaining: {LoginremainingAttempts} \n{errorMessage}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
+
+            else if(!disableButton)
             {
-                LoginBtn.Enabled = false;
-                MessageBox.Show("Please contact an administrator. \nYou've exceeded the maximum number of failed attempts.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DisableLoginButton();
+                int secondsRemaining = LoginBtnTimer.Interval /1000; // Convert milliseconds to seconds
+
+                MessageBox.Show($"You ran out of attempts. Please try again after {secondsRemaining} second.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void LoginBtnTimer_Tick(object sender, EventArgs e)
+        {
+            ResetForm();
+            LoginBtnTimer.Stop();
+
+
+            if (LoginfailedAttempts > 0 && disableButton)
+            {
+                // If the remaining attempts are still zero, extend the timer
+                LoginBtnTimer.Interval += timerInterval;
+                LoginBtnTimer.Start();
+            }
+
+            else if (disableButton)
+            {
+                EnableLoginButton();
+            }
+        }
+
+        private void DisableLoginButton(){
+            LoginBtn.Enabled = false;
+            disableButton = true;
+            LoginBtnTimer.Interval = timerInterval;
+            LoginBtnTimer.Start();
+        }
+
+        private void EnableLoginButton()
+        {
+            LoginBtn.Enabled = true;
+            disableButton = false;
         }
 
         private void ResetForm()
@@ -514,7 +573,7 @@ namespace C_Activity1
                 ;
             }
 
-            
+
             // Check if the student number (BtnSN) already exists in ApprovedTable
             bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
             if (isStudentInApprovedTable)
@@ -562,7 +621,7 @@ namespace C_Activity1
                 MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            
+
 
             if (CreatefailedAttempts >= CreatemaxAttempt)
             {
@@ -793,5 +852,12 @@ namespace C_Activity1
         {
 
         }
+
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+
+        }
+
+
     }
 }
