@@ -263,6 +263,8 @@ namespace C_Activity1
                 int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
                 int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
                 int anameColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ANameColumn"].Index;
+
+                //Pending Table Indexes
                 int psnColumnIndex = AdminPanel.instance.PendingTable.Columns["PSNColumn"].Index;
                 int ppassColumnIndex = AdminPanel.instance.PendingTable.Columns["PPassColumn"].Index;
 
