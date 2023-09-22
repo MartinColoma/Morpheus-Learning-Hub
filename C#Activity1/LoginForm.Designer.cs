@@ -71,6 +71,7 @@
             PassBox = new TextBox();
             ShowPassCheck = new CheckBox();
             LnRPanel = new Panel();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)MorpheusLogo2).BeginInit();
             RecoveryPanel.SuspendLayout();
             RegiPanel.SuspendLayout();
@@ -81,6 +82,7 @@
             ((System.ComponentModel.ISupportInitialize)MorpheusLogo1).BeginInit();
             PassTextPanel.SuspendLayout();
             LnRPanel.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // LoginBtnTimer
@@ -246,6 +248,7 @@
             // RegiPanel
             // 
             RegiPanel.BackColor = Color.FromArgb(250, 247, 247);
+            RegiPanel.Controls.Add(panel1);
             RegiPanel.Controls.Add(RegiShowPass);
             RegiPanel.Controls.Add(RegiRPBox);
             RegiPanel.Controls.Add(RegiRPLabel);
@@ -255,12 +258,11 @@
             RegiPanel.Controls.Add(LoginLinkLabel);
             RegiPanel.Controls.Add(RegiPassBox);
             RegiPanel.Controls.Add(RegiPassLabel);
-            RegiPanel.Controls.Add(RegiNameBox);
             RegiPanel.Controls.Add(RegiNameLabel);
             RegiPanel.Controls.Add(GSLabel);
-            RegiPanel.Location = new Point(199, 133);
+            RegiPanel.Location = new Point(199, 115);
             RegiPanel.Name = "RegiPanel";
-            RegiPanel.Size = new Size(500, 460);
+            RegiPanel.Size = new Size(500, 478);
             RegiPanel.TabIndex = 12;
             RegiPanel.Paint += RegiPanel_Paint;
             // 
@@ -395,7 +397,7 @@
             RegiNameBox.Cursor = Cursors.IBeam;
             RegiNameBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
             RegiNameBox.ForeColor = Color.FromArgb(24, 79, 144);
-            RegiNameBox.Location = new Point(86, 103);
+            RegiNameBox.Location = new Point(9, 4);
             RegiNameBox.Margin = new Padding(10);
             RegiNameBox.Name = "RegiNameBox";
             RegiNameBox.PlaceholderText = "Enter Name";
@@ -432,9 +434,9 @@
             WCPanel.Controls.Add(WCMsgBox);
             WCPanel.Controls.Add(MorpheusWCIcon);
             WCPanel.Controls.Add(SignUpLinkLabel);
-            WCPanel.Location = new Point(7, 125);
+            WCPanel.Location = new Point(7, 136);
             WCPanel.Name = "WCPanel";
-            WCPanel.Size = new Size(498, 489);
+            WCPanel.Size = new Size(498, 478);
             WCPanel.TabIndex = 18;
             WCPanel.Paint += panel3_Paint;
             // 
@@ -444,23 +446,24 @@
             WCMsgBox.BorderStyle = BorderStyle.None;
             WCMsgBox.Font = new Font("Arial Black", 14F, FontStyle.Bold, GraphicsUnit.Point);
             WCMsgBox.ForeColor = Color.FromArgb(250, 247, 247);
-            WCMsgBox.Location = new Point(50, 246);
+            WCMsgBox.Location = new Point(68, 246);
             WCMsgBox.Multiline = true;
             WCMsgBox.Name = "WCMsgBox";
             WCMsgBox.Size = new Size(378, 94);
             WCMsgBox.TabIndex = 20;
-            WCMsgBox.Text = "You are just one step away from your DREAMS. Make it through with the help of MORPHEUS.";
+            WCMsgBox.Text = "You are just one step away from your DREAMS. Make it happen with the help of MORPHEUS.";
             WCMsgBox.TextChanged += textBox2_TextChanged;
             // 
             // MorpheusWCIcon
             // 
             MorpheusWCIcon.Image = Properties.Resources.Morpheus_Icons__2_;
-            MorpheusWCIcon.Location = new Point(118, 8);
+            MorpheusWCIcon.Location = new Point(128, 8);
             MorpheusWCIcon.Name = "MorpheusWCIcon";
             MorpheusWCIcon.Size = new Size(250, 250);
             MorpheusWCIcon.SizeMode = PictureBoxSizeMode.AutoSize;
             MorpheusWCIcon.TabIndex = 19;
             MorpheusWCIcon.TabStop = false;
+            MorpheusWCIcon.Click += MorpheusWCIcon_Click;
             // 
             // LoginPanel
             // 
@@ -646,16 +649,24 @@
             // LnRPanel
             // 
             LnRPanel.BackColor = Color.Transparent;
+            LnRPanel.Controls.Add(RegiPanel);
             LnRPanel.Controls.Add(LoginPanel);
             LnRPanel.Controls.Add(WCPanel);
             LnRPanel.Controls.Add(MorpheusLbl);
             LnRPanel.Controls.Add(MorpheusLogo2);
             LnRPanel.Controls.Add(RecoveryPanel);
-            LnRPanel.Controls.Add(RegiPanel);
             LnRPanel.Location = new Point(-6, 0);
             LnRPanel.Name = "LnRPanel";
             LnRPanel.Size = new Size(879, 614);
             LnRPanel.TabIndex = 17;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(RegiNameBox);
+            panel1.Location = new Point(77, 99);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(328, 37);
+            panel1.TabIndex = 17;
             // 
             // LoginForm
             // 
@@ -689,6 +700,8 @@
             PassTextPanel.PerformLayout();
             LnRPanel.ResumeLayout(false);
             LnRPanel.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -735,5 +748,6 @@
         private Panel WCPanel;
         private PictureBox MorpheusWCIcon;
         private TextBox WCMsgBox;
+        private Panel panel1;
     }
 }

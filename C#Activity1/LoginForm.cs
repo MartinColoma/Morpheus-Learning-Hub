@@ -917,5 +917,10 @@ namespace C_Activity1
         {
 
         }
+
+        private void MorpheusWCIcon_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
