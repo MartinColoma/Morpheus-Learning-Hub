@@ -245,7 +245,7 @@
             // 
             // RegiPanel
             // 
-            RegiPanel.BackColor = Color.FromArgb(90, 115, 141);
+            RegiPanel.BackColor = Color.FromArgb(250, 247, 247);
             RegiPanel.Controls.Add(RegiShowPass);
             RegiPanel.Controls.Add(RegiRPBox);
             RegiPanel.Controls.Add(RegiRPLabel);
@@ -258,9 +258,9 @@
             RegiPanel.Controls.Add(RegiNameBox);
             RegiPanel.Controls.Add(RegiNameLabel);
             RegiPanel.Controls.Add(GSLabel);
-            RegiPanel.Location = new Point(199, 113);
+            RegiPanel.Location = new Point(199, 133);
             RegiPanel.Name = "RegiPanel";
-            RegiPanel.Size = new Size(500, 480);
+            RegiPanel.Size = new Size(500, 460);
             RegiPanel.TabIndex = 12;
             RegiPanel.Paint += RegiPanel_Paint;
             // 
@@ -296,7 +296,7 @@
             // 
             RegiRPLabel.AutoSize = true;
             RegiRPLabel.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiRPLabel.ForeColor = Color.White;
+            RegiRPLabel.ForeColor = Color.FromArgb(90, 115, 141);
             RegiRPLabel.Location = new Point(76, 213);
             RegiRPLabel.Name = "RegiRPLabel";
             RegiRPLabel.Size = new Size(121, 19);
@@ -321,7 +321,7 @@
             // 
             RegiSNLabel.AutoSize = true;
             RegiSNLabel.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiSNLabel.ForeColor = Color.White;
+            RegiSNLabel.ForeColor = Color.FromArgb(90, 115, 141);
             RegiSNLabel.Location = new Point(76, 140);
             RegiSNLabel.Name = "RegiSNLabel";
             RegiSNLabel.Size = new Size(160, 19);
@@ -382,7 +382,7 @@
             // 
             RegiPassLabel.AutoSize = true;
             RegiPassLabel.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiPassLabel.ForeColor = Color.White;
+            RegiPassLabel.ForeColor = Color.FromArgb(90, 115, 141);
             RegiPassLabel.Location = new Point(76, 282);
             RegiPassLabel.Name = "RegiPassLabel";
             RegiPassLabel.Size = new Size(96, 19);
@@ -407,7 +407,7 @@
             // 
             RegiNameLabel.AutoSize = true;
             RegiNameLabel.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiNameLabel.ForeColor = Color.White;
+            RegiNameLabel.ForeColor = Color.FromArgb(90, 115, 141);
             RegiNameLabel.Location = new Point(76, 74);
             RegiNameLabel.Name = "RegiNameLabel";
             RegiNameLabel.Size = new Size(66, 23);
@@ -418,7 +418,7 @@
             // 
             GSLabel.AutoSize = true;
             GSLabel.Font = new Font("Arial Black", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            GSLabel.ForeColor = Color.White;
+            GSLabel.ForeColor = Color.FromArgb(90, 115, 141);
             GSLabel.Location = new Point(155, 20);
             GSLabel.Name = "GSLabel";
             GSLabel.Size = new Size(189, 38);
@@ -646,12 +646,12 @@
             // LnRPanel
             // 
             LnRPanel.BackColor = Color.Transparent;
-            LnRPanel.Controls.Add(RegiPanel);
             LnRPanel.Controls.Add(LoginPanel);
             LnRPanel.Controls.Add(WCPanel);
             LnRPanel.Controls.Add(MorpheusLbl);
             LnRPanel.Controls.Add(MorpheusLogo2);
             LnRPanel.Controls.Add(RecoveryPanel);
+            LnRPanel.Controls.Add(RegiPanel);
             LnRPanel.Location = new Point(-6, 0);
             LnRPanel.Name = "LnRPanel";
             LnRPanel.Size = new Size(879, 614);
