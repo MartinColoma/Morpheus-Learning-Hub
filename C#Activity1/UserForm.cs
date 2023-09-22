@@ -10,15 +10,17 @@ using System.Windows.Forms;
 
 namespace C_Activity1
 {
-    public partial class LHHomePage : Form
+    public partial class UserForm : Form
     {
-        public static LHHomePage instance;
+        public static UserForm instance;
 
-        public LHHomePage()
+        public UserForm()
         {
             InitializeComponent();
             instance = this;
             this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+
 
         }
 
@@ -30,7 +32,7 @@ namespace C_Activity1
                 e.Cancel = true;
                 // Hide the form instead of closing it.
                 this.Hide();
-                RTULogin.instance.Show();
+                LoginForm.instance.Show();
 
             }
         }
@@ -125,7 +127,7 @@ namespace C_Activity1
             if (this.Visible)
             {
                 this.Hide();
-                RTULogin.instance.Show();
+                LoginForm.instance.Show();
 
             }
         }
@@ -135,10 +137,10 @@ namespace C_Activity1
             if (this.Visible)
             {
                 this.Hide();
-                RTULogin.instance.Show();
+                LoginForm.instance.Show();
 
             }
-            
+
         }
     }
 }

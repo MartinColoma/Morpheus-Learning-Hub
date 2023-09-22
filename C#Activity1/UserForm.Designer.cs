@@ -1,6 +1,6 @@
 ﻿namespace C_Activity1
 {
-    partial class LHHomePage
+    partial class UserForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LHHomePage));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserForm));
             RTUSealXL = new PictureBox();
             RTUSealIcon = new PictureBox();
             LHHeaderPanel = new Panel();
@@ -545,7 +545,7 @@
             LHWcPanel.Size = new Size(706, 203);
             LHWcPanel.TabIndex = 7;
             // 
-            // LHHomePage
+            // UserForm
             // 
             AccessibleRole = AccessibleRole.TitleBar;
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -560,7 +560,7 @@
             Controls.Add(LHMenuColumn);
             Controls.Add(LHUserCalendar);
             Controls.Add(LHEnrolledCoursePanel);
-            Name = "LHHomePage";
+            Name = "UserForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "RTU Learning Hub";

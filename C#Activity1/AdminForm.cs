@@ -12,16 +12,18 @@ using static System.Windows.Forms.DataFormats;
 
 namespace C_Activity1
 {
-    public partial class AdminPanel : Form
+    public partial class AdminForm : Form
     {
-        public static AdminPanel instance;
+        public static AdminForm instance;
         public List<string> existingSN = new List<string>();
 
-        public AdminPanel()
+        public AdminForm()
         {
             InitializeComponent();
             instance = this;
             this.FormClosing += new FormClosingEventHandler(AdminPanel_FormClosing);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+
 
         }
 
@@ -35,7 +37,7 @@ namespace C_Activity1
                 e.Cancel = true;
                 // Hide the form instead of closing it.
                 this.Hide();
-                RTULogin.instance.Show();
+                LoginForm.instance.Show();
 
             }
         }
@@ -152,14 +154,14 @@ namespace C_Activity1
                     {
                         string selectedUsername = selectedRow.Cells["PSNColumn"].Value.ToString();
 
-                        if (RTULogin.instance.dictionary.ContainsKey(selectedUsername))
+                        if (LoginForm.instance.dictionary.ContainsKey(selectedUsername))
                         {
                             MessageBox.Show("This student already has an account.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             continue;
                         }
                         else
                         {
-                            RTULogin.instance.AddUserToDictionary(selectedUsername, (string)selectedRow.Cells["PPassColumn"].Value);
+                            LoginForm.instance.AddUserToDictionary(selectedUsername, (string)selectedRow.Cells["PPassColumn"].Value);
 
                             DataGridViewRow newRow = new DataGridViewRow();
 
@@ -206,7 +208,7 @@ namespace C_Activity1
 
         private void ApprovedDictionary_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string dictContents = string.Join(Environment.NewLine, RTULogin.instance.dictionary.Select(kv => $"{kv.Key}: {kv.Value}"));
+            string dictContents = string.Join(Environment.NewLine, LoginForm.instance.dictionary.Select(kv => $"{kv.Key}: {kv.Value}"));
             MessageBox.Show("ActivatedUsers Dictionary Contents:" + Environment.NewLine + dictContents);
         }
 
@@ -233,9 +235,9 @@ namespace C_Activity1
                         string selectedUsername = selectedRow.Cells["ASNColumn"].Value.ToString();
 
                         // Remove the value from the dictionary
-                        if (RTULogin.instance.dictionary.ContainsKey(selectedUsername))
+                        if (LoginForm.instance.dictionary.ContainsKey(selectedUsername))
                         {
-                            RTULogin.instance.dictionary.Remove(selectedUsername);
+                            LoginForm.instance.dictionary.Remove(selectedUsername);
                         }
 
                         ApprovedTable.Rows.RemoveAt(selectedRow.Index);
@@ -248,9 +250,14 @@ namespace C_Activity1
         {
             if (this.Visible)
             {
-                RTULogin.instance.Show();
+                LoginForm.instance.Show();
 
             }
+        }
+
+        private void PendingPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

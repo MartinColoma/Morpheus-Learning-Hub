@@ -1,6 +1,6 @@
 ﻿namespace C_Activity1
 {
-    partial class AdminPanel
+    partial class AdminForm
     {
         /// <summary>
         /// Required designer variable.
@@ -235,6 +235,7 @@
             PendingPanel.Name = "PendingPanel";
             PendingPanel.Size = new Size(518, 412);
             PendingPanel.TabIndex = 13;
+            PendingPanel.Paint += PendingPanel_Paint;
             // 
             // AdminLoginLinkedLbl
             // 
@@ -251,7 +252,7 @@
             AdminLoginLinkedLbl.Text = "Open Login Page...";
             AdminLoginLinkedLbl.LinkClicked += AdminLoginLinkedLbl_LinkClicked;
             // 
-            // AdminPanel
+            // AdminForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -260,7 +261,7 @@
             Controls.Add(AdminLoginLinkedLbl);
             Controls.Add(PendingPanel);
             Controls.Add(ApprovedPanel);
-            Name = "AdminPanel";
+            Name = "AdminForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "RTU Admin Panel";

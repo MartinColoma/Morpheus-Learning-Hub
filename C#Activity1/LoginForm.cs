@@ -4,15 +4,22 @@ using System.Numerics;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using MySql.Data.MySqlClient;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+
 
 namespace C_Activity1
 {
-    public partial class RTULogin : Form
+    public partial class LoginForm : Form
     {
-        public static RTULogin instance;
+        public static LoginForm instance;
+        private MySqlConnection conn;
 
-        AdminPanel APanel = new AdminPanel();
-        LHHomePage HomePage = new LHHomePage();
+
+        AdminForm APanel = new AdminForm();
+        UserForm HomePage = new UserForm();
         public new Dictionary<string, string> dictionary = new Dictionary<string, string>();
         private const int LoginmaxAttempt = 3;
         int LoginfailedAttempts = 0;
@@ -20,16 +27,33 @@ namespace C_Activity1
         int CreatefailedAttempts = 0;
         //private const int maxAttempt = 3;
         //int failedAttempts = 0;
-        int timerInterval = 15000; 
+        int timerInterval = 15000;
         bool disableButton = false;
 
-        public RTULogin()
+
+        public LoginForm()
         {
             InitializeComponent();
             String SN, Pass;
             SN = SNBox.Text; Pass = PassBox.Text;
             instance = this;
-            
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            string mysqlconn = "server=localhost;user=root;database=learninghub;password=";
+            conn = new MySqlConnection(mysqlconn);
+
+
+            try
+            {
+                conn.Open();
+                MessageBox.Show("Connection Successful");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
+
         }
 
         private void RTULogin_Load(object sender, EventArgs e)
@@ -51,6 +75,13 @@ namespace C_Activity1
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             //LoginPanel
+
+
+
+
+
+
+
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -67,6 +98,7 @@ namespace C_Activity1
             {
                 LoginPanel.Visible = false;
                 RecoveryPanel.Visible = false;
+                WCPanel.Visible = false;
                 RegiPanel.Visible = true;
                 SNBox.Text = "";
                 PassBox.Text = "";
@@ -77,6 +109,7 @@ namespace C_Activity1
                 RegiPanel.Visible = false;
                 RecoveryPanel.Visible = true;
                 LoginPanel.Visible = true;
+                WCPanel.Visible = true;
             }
 
 
@@ -143,15 +176,15 @@ namespace C_Activity1
                     //bool unknown = false;
 
 
-                    int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
-                    int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
-                    int anameColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ANameColumn"].Index;
-                    int psnColumnIndex = AdminPanel.instance.PendingTable.Columns["PSNColumn"].Index;
-                    int ppassColumnIndex = AdminPanel.instance.PendingTable.Columns["PPassColumn"].Index;
+                    int asnColumnIndex = AdminForm.instance.ApprovedTable.Columns["ASNColumn"].Index;
+                    int apassColumnIndex = AdminForm.instance.ApprovedTable.Columns["APassColumn"].Index;
+                    int anameColumnIndex = AdminForm.instance.ApprovedTable.Columns["ANameColumn"].Index;
+                    int psnColumnIndex = AdminForm.instance.PendingTable.Columns["PSNColumn"].Index;
+                    int ppassColumnIndex = AdminForm.instance.PendingTable.Columns["PPassColumn"].Index;
 
 
                     // Iterate through rows in ApprovedTable DataGridView
-                    foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
+                    foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
                     {
                         if (!row.IsNewRow) // Skip the new row if any
                         {
@@ -163,8 +196,8 @@ namespace C_Activity1
                             if (storedSN == SNBox.Text && storedPass == PassBox.Text)
                             {
                                 found = true;
-                                LHHomePage.instance.LHSNBox.Text = storedSN;
-                                LHHomePage.instance.LHNameBox.Text = row.Cells[anameColumnIndex].Value?.ToString();
+                                UserForm.instance.LHSNBox.Text = storedSN;
+                                UserForm.instance.LHNameBox.Text = row.Cells[anameColumnIndex].Value?.ToString();
                                 break;
                             }
                             else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
@@ -183,7 +216,7 @@ namespace C_Activity1
 
                     }
 
-                    foreach (DataGridViewRow rows in AdminPanel.instance.PendingTable.Rows)
+                    foreach (DataGridViewRow rows in AdminForm.instance.PendingTable.Rows)
                     {
                         if (!rows.IsNewRow) // Skip the new row if any
                         {
@@ -258,19 +291,19 @@ namespace C_Activity1
                 bool found = false;
                 bool find = false;
                 //bool unknown = false;
-               
 
-                int asnColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ASNColumn"].Index;
-                int apassColumnIndex = AdminPanel.instance.ApprovedTable.Columns["APassColumn"].Index;
-                int anameColumnIndex = AdminPanel.instance.ApprovedTable.Columns["ANameColumn"].Index;
+
+                int asnColumnIndex = AdminForm.instance.ApprovedTable.Columns["ASNColumn"].Index;
+                int apassColumnIndex = AdminForm.instance.ApprovedTable.Columns["APassColumn"].Index;
+                int anameColumnIndex = AdminForm.instance.ApprovedTable.Columns["ANameColumn"].Index;
 
                 //Pending Table Indexes
-                int psnColumnIndex = AdminPanel.instance.PendingTable.Columns["PSNColumn"].Index;
-                int ppassColumnIndex = AdminPanel.instance.PendingTable.Columns["PPassColumn"].Index;
+                int psnColumnIndex = AdminForm.instance.PendingTable.Columns["PSNColumn"].Index;
+                int ppassColumnIndex = AdminForm.instance.PendingTable.Columns["PPassColumn"].Index;
 
 
                 // Iterate through rows in ApprovedTable DataGridView
-                foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
+                foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
                 {
                     if (!row.IsNewRow) // Skip the new row if any
                     {
@@ -282,8 +315,8 @@ namespace C_Activity1
                         if (storedSN == SNBox.Text && storedPass == PassBox.Text)
                         {
                             found = true;
-                            LHHomePage.instance.LHSNBox.Text = storedSN;
-                            LHHomePage.instance.LHNameBox.Text = row.Cells[anameColumnIndex].Value?.ToString();
+                            UserForm.instance.LHSNBox.Text = storedSN;
+                            UserForm.instance.LHNameBox.Text = row.Cells[anameColumnIndex].Value?.ToString();
                             break;
                         }
                         else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
@@ -302,7 +335,7 @@ namespace C_Activity1
 
                 }
 
-                foreach (DataGridViewRow rows in AdminPanel.instance.PendingTable.Rows)
+                foreach (DataGridViewRow rows in AdminForm.instance.PendingTable.Rows)
                 {
                     if (!rows.IsNewRow) // Skip the new row if any
                     {
@@ -346,7 +379,7 @@ namespace C_Activity1
 
         }
 
-        
+
 
         //private void HandleIncorrectInput(string errorMessage)
         //{
@@ -365,21 +398,22 @@ namespace C_Activity1
         //    }
         //}
 
-        private void HandleIncorrectInput(string errorMessage){
+        private void HandleIncorrectInput(string errorMessage)
+        {
             LoginfailedAttempts++;
 
             int LoginremainingAttempts = LoginmaxAttempt - LoginfailedAttempts;
 
 
-            if(LoginremainingAttempts > 0)
+            if (LoginremainingAttempts > 0)
             {
                 MessageBox.Show($"Attempts remaining: {LoginremainingAttempts} \n{errorMessage}", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            else if(!disableButton)
+            else if (!disableButton)
             {
                 DisableLoginButton();
-                int secondsRemaining = LoginBtnTimer.Interval /1000; // Convert milliseconds to seconds
+                int secondsRemaining = LoginBtnTimer.Interval / 1000; // Convert milliseconds to seconds
 
                 MessageBox.Show($"You ran out of attempts. Please try again after {secondsRemaining} second.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -404,7 +438,8 @@ namespace C_Activity1
             }
         }
 
-        private void DisableLoginButton(){
+        private void DisableLoginButton()
+        {
             LoginBtn.Enabled = false;
             disableButton = true;
             LoginBtnTimer.Interval = timerInterval;
@@ -501,7 +536,7 @@ namespace C_Activity1
                     HandleIncorrectCreateInput("Incorrect Student Number.");
                     return;
                 }
-                else if (IsPasswordTakenInTable(BtnPass, AdminPanel.instance.ApprovedTable, "APassColumn"))
+                else if (IsPasswordTakenInTable(BtnPass, AdminForm.instance.ApprovedTable, "APassColumn"))
                 {
                     HandleIncorrectCreateInput("Password is already taken.");
                     return;
@@ -518,10 +553,10 @@ namespace C_Activity1
 
 
                 // If everything is okay, proceed to add the record
-                if (!AdminPanel.instance.existingSN.Contains(BtnSN))
+                if (!AdminForm.instance.existingSN.Contains(BtnSN))
                 {
-                    AdminPanel.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
-                    AdminPanel.instance.AddDataGridView(Btnname, BtnSN, BtnRP, BtnPass);
+                    AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
+                    AdminForm.instance.AddDataGridView(Btnname, BtnSN, BtnRP, BtnPass);
                     Btnname = "";
                     BtnSN = "";
                     BtnRP = "";
@@ -590,7 +625,7 @@ namespace C_Activity1
                 HandleIncorrectCreateInput("Incorrect Student Number.");
                 return;
             }
-            else if (IsPasswordTakenInTable(BtnPass, AdminPanel.instance.ApprovedTable, "APassColumn"))
+            else if (IsPasswordTakenInTable(BtnPass, AdminForm.instance.ApprovedTable, "APassColumn"))
             {
                 HandleIncorrectCreateInput("Password is already taken.");
                 return;
@@ -607,10 +642,10 @@ namespace C_Activity1
 
 
             // If everything is okay, proceed to add the record
-            if (!AdminPanel.instance.existingSN.Contains(BtnSN))
+            if (!AdminForm.instance.existingSN.Contains(BtnSN))
             {
-                AdminPanel.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
-                AdminPanel.instance.AddDataGridView(Btnname, BtnSN, BtnRP, BtnPass);
+                AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
+                AdminForm.instance.AddDataGridView(Btnname, BtnSN, BtnRP, BtnPass);
                 Btnname = "";
                 BtnSN = "";
                 BtnRP = "";
@@ -637,7 +672,7 @@ namespace C_Activity1
 
         private bool IsStudentNumberInApprovedTable(string studentNumber)
         {
-            foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
+            foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
             {
                 if (row.Cells["ASNColumn"].Value != null && row.Cells["ASNColumn"].Value.ToString() == studentNumber)
                 {
@@ -714,8 +749,9 @@ namespace C_Activity1
             if (RegiPanel.Visible)
             {
                 RegiPanel.Visible = false;
+                WCPanel.Visible = true;
                 LoginPanel.Visible = true;
-                RecoveryPanel.Visible = false;
+                RecoveryPanel.Visible = true;
                 RegiNameBox.Text = "";
                 RegiSNBox.Text = "";
                 RegiRPBox.Text = "";
@@ -724,8 +760,9 @@ namespace C_Activity1
 
             else
             {
-                LoginPanel.Visible = false;
+                WCPanel.Visible = true;
                 RegiPanel.Visible = true;
+                LoginPanel.Visible = false; ;
                 RecoveryPanel.Visible = false;
 
             }
@@ -796,7 +833,7 @@ namespace C_Activity1
             bool LFPass = false;
             string PassFound = "";
 
-            foreach (DataGridViewRow row in AdminPanel.instance.ApprovedTable.Rows)
+            foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
             {
 
                 string psn = row.Cells["ASNColumn"].Value?.ToString();
@@ -860,6 +897,25 @@ namespace C_Activity1
 
         }
 
+        private void MorpheusPB_Click(object sender, EventArgs e)
+        {
+            LoginfailedAttempts = 0;
+            LoginBtn.Enabled = true;
+        }
 
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
