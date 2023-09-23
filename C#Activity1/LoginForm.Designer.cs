@@ -247,7 +247,7 @@
             SubmitBtn.FlatAppearance.BorderSize = 2;
             SubmitBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
             SubmitBtn.FlatStyle = FlatStyle.Flat;
-            SubmitBtn.Font = new Font("STZhongsong", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point);
+            SubmitBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
             SubmitBtn.ForeColor = Color.FromArgb(90, 115, 141);
             SubmitBtn.Location = new Point(247, 369);
             SubmitBtn.Name = "SubmitBtn";
@@ -642,9 +642,9 @@
             // 
             WCPanel.Controls.Add(WCMsgBox);
             WCPanel.Controls.Add(MorpheusWCIcon);
-            WCPanel.Location = new Point(7, 200);
+            WCPanel.Location = new Point(7, 125);
             WCPanel.Name = "WCPanel";
-            WCPanel.Size = new Size(486, 414);
+            WCPanel.Size = new Size(486, 489);
             WCPanel.TabIndex = 18;
             WCPanel.Paint += panel3_Paint;
             // 
@@ -756,7 +756,7 @@
             LoginBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(250, 247, 247);
             LoginBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
             LoginBtn.FlatStyle = FlatStyle.Flat;
-            LoginBtn.Font = new Font("Sans Serif Collection", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            LoginBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
             LoginBtn.ForeColor = Color.FromArgb(90, 115, 141);
             LoginBtn.Location = new Point(253, 428);
             LoginBtn.Name = "LoginBtn";
@@ -858,12 +858,12 @@
             // LnRPanel
             // 
             LnRPanel.BackColor = Color.Transparent;
-            LnRPanel.Controls.Add(RegiPanel);
             LnRPanel.Controls.Add(LoginPanel);
             LnRPanel.Controls.Add(WCPanel);
             LnRPanel.Controls.Add(MorpheusLbl);
             LnRPanel.Controls.Add(MorpheusLogo2);
             LnRPanel.Controls.Add(RecoveryPanel);
+            LnRPanel.Controls.Add(RegiPanel);
             LnRPanel.Location = new Point(-6, 0);
             LnRPanel.Name = "LnRPanel";
             LnRPanel.Size = new Size(879, 614);

@@ -508,85 +508,85 @@ namespace C_Activity1
             if (e.KeyCode == Keys.Enter)
             {
 
-                string Btnname, BtnSN, BtnRP, BtnPass;
-                Btnname = RegiNameBox.Text; BtnSN = RegiSNBox.Text; BtnRP = RegiRPBox.Text; BtnPass = RegiPassBox.Text;
+                //string Btnname, BtnSN, BtnRP, BtnPass;
+                //Btnname = RegiNameBox.Text; BtnSN = RegiSNBox.Text; BtnRP = RegiRPBox.Text; BtnPass = RegiPassBox.Text;
 
-                // Check if any of the input fields is empty
-                if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) || string.IsNullOrEmpty(BtnPass))
-                {
-                    HandleIncorrectCreateInput("Missing text on required Field.");
-                    return; // Exit the method since there's an error
-                }
-                else if (Btnname == "Admin" || BtnSN == "Admin" || BtnPass == "Admin123")
-                {
-                    HandleIncorrectCreateInput("This student already has an account.");
-                    return;
-                }
+                //// Check if any of the input fields is empty
+                //if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) || string.IsNullOrEmpty(BtnPass))
+                //{
+                //    HandleIncorrectCreateInput("Missing text on required Field.");
+                //    return; // Exit the method since there's an error
+                //}
+                //else if (Btnname == "Admin" || BtnSN == "Admin" || BtnPass == "Admin123")
+                //{
+                //    HandleIncorrectCreateInput("This student already has an account.");
+                //    return;
+                //}
 
-                Regex nameRegex = new Regex("^[A-Za-z ]+$");
+                //Regex nameRegex = new Regex("^[A-Za-z ]+$");
 
-                if (!nameRegex.IsMatch(Btnname))
-                {
-                    HandleIncorrectCreateInput("Name must only contain alphabetic values.");
-                    return
-                    ;
-                }
-
-
-                // Check if the student number (BtnSN) already exists in ApprovedTable
-                bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
-                if (isStudentInApprovedTable)
-                {
-                    HandleApprovedUserInput("This student already has an account.");
-                    return; // Exit the method since there's an error
-                }
-
-                // Validate Student Number using Lambda
-                else if (!int.TryParse(BtnSN, out _))
-                {
-                    HandleIncorrectCreateInput("Incorrect Student Number.");
-                    return;
-                }
-                else if (IsPasswordTakenInTable(BtnPass, AdminForm.instance.ApprovedTable, "APassColumn"))
-                {
-                    HandleIncorrectCreateInput("Password is already taken.");
-                    return;
-                }
-                // Validate Password using Lambda
-                //Regex passwordRegex = new Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
-                Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
-
-                if (!passwordRegex.IsMatch(BtnPass))
-                {
-                    HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
-                    return;
-                }
+                //if (!nameRegex.IsMatch(Btnname))
+                //{
+                //    HandleIncorrectCreateInput("Name must only contain alphabetic values.");
+                //    return
+                //    ;
+                //}
 
 
-                // If everything is okay, proceed to add the record
-                if (!AdminForm.instance.existingSN.Contains(BtnSN))
-                {
-                    AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
-                    AdminForm.instance.AddDataGridView(Btnname, BtnSN, BtnRP, BtnPass);
-                    Btnname = "";
-                    BtnSN = "";
-                    BtnRP = "";
-                    BtnPass = "";
-                    MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                //// Check if the student number (BtnSN) already exists in ApprovedTable
+                //bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
+                //if (isStudentInApprovedTable)
+                //{
+                //    HandleApprovedUserInput("This student already has an account.");
+                //    return; // Exit the method since there's an error
+                //}
 
-                else
-                {
-                    MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                //// Validate Student Number using Lambda
+                //else if (!int.TryParse(BtnSN, out _))
+                //{
+                //    HandleIncorrectCreateInput("Incorrect Student Number.");
+                //    return;
+                //}
+                //else if (IsPasswordTakenInTable(BtnPass, AdminForm.instance.ApprovedTable, "APassColumn"))
+                //{
+                //    HandleIncorrectCreateInput("Password is already taken.");
+                //    return;
+                //}
+                //// Validate Password using Lambda
+                ////Regex passwordRegex = new Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+                //Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+
+                //if (!passwordRegex.IsMatch(BtnPass))
+                //{
+                //    HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
+                //    return;
+                //}
+
+
+                //// If everything is okay, proceed to add the record
+                //if (!AdminForm.instance.existingSN.Contains(BtnSN))
+                //{
+                //    AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
+                //    AdminForm.instance.AddDataGridView(Btnname, BtnSN, BtnRP, BtnPass);
+                //    Btnname = "";
+                //    BtnSN = "";
+                //    BtnRP = "";
+                //    BtnPass = "";
+                //    MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //}
+
+                //else
+                //{
+                //    MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
 
 
 
-                if (CreatefailedAttempts >= CreatemaxAttempt)
-                {
-                    CreateBtn.Enabled = false;
-                    MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                //if (CreatefailedAttempts >= CreatemaxAttempt)
+                //{
+                //    CreateBtn.Enabled = false;
+                //    MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
 
                 e.SuppressKeyPress = true;
             }
@@ -598,13 +598,25 @@ namespace C_Activity1
         {
             // Create Button
             string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender;
-            Btnname = RegiNameBox.Text; BtnSN = RegiSNBox.Text; BtnRP = RegiRPBox.Text; BtnPass = RegiPassBox.Text; BtnCourse = RegiCourseBox.Text;
-            BtnAge = RegiAgeBox.Text; BtnGender = RegiGenderComboBox.Text;
+            Btnname = RegiNameBox.Text;
+            BtnSN = RegiSNBox.Text;
+            BtnRP = RegiRPBox.Text;
+            BtnPass = RegiPassBox.Text;
+            BtnCourse = RegiCourseBox.Text;
+            BtnAge = RegiAgeBox.Text;
+            BtnGender = RegiGenderComboBox.Text;
+
+            // Regex patterns
+            Regex nameRegex = new Regex("^[A-Z][a-zA-Z]+(?: [a-zA-Z]+)*$");
+            Regex courseRegex = new Regex("^[A-Za-z]+(?: [A-Za-z]+)*$");
+            Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
 
             // Check if any of the input fields is empty
-            if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) || string.IsNullOrEmpty(BtnPass))
+            if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) ||
+                string.IsNullOrEmpty(BtnPass) || string.IsNullOrEmpty(BtnAge) || string.IsNullOrEmpty(BtnCourse) ||
+                string.IsNullOrEmpty(BtnGender))
             {
-                MessageBox.Show("Missing text on required Field.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Missing text in required fields.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return; // Exit the method since there's an error
             }
             else if (Btnname == "Admin" || BtnSN == "Admin" || BtnPass == "Admin123")
@@ -613,74 +625,54 @@ namespace C_Activity1
                 return;
             }
 
-            Regex nameRegex = new Regex("^[A-Za-z ]+$");
-
-            if (!nameRegex.IsMatch(Btnname))
-            {
-                HandleIncorrectCreateInput("Name must only contain alphabetic values.");
-                return
-                ;
-            }
-
-
             // Check if the student number (BtnSN) already exists in ApprovedTable
             bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
+
             if (isStudentInApprovedTable)
             {
                 HandleApprovedUserInput("This student already has an account.");
                 return; // Exit the method since there's an error
             }
 
-            // Validate Student Number using Lambda
+            // Validate fields using regex patterns
+            if (!nameRegex.IsMatch(Btnname))
+            {
+                HandleIncorrectCreateInput("Name must start with a capital letter and only contain alphabetic values.");
+                return;
+            }
+            else if (!courseRegex.IsMatch(BtnCourse))
+            {
+                HandleIncorrectCreateInput("Course must only contain alphabetic values.");
+                return;
+            }
+            else if (!int.TryParse(BtnAge, out _))
+            {
+                HandleIncorrectCreateInput("Age must only contain numeric values.");
+                return;
+            }
             else if (!int.TryParse(BtnSN, out _))
             {
                 HandleIncorrectCreateInput("Incorrect Student Number.");
                 return;
             }
-            else if (IsPasswordTakenInTable(BtnPass, AdminForm.instance.ApprovedTable, "APassColumn"))
-            {
-                HandleIncorrectCreateInput("Password is already taken.");
-                return;
-            }
-            // Validate Password using Lambda
-            //Regex passwordRegex = new Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
-            Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
-
-            if (!passwordRegex.IsMatch(BtnPass))
+            else if (!passwordRegex.IsMatch(BtnPass))
             {
                 HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
                 return;
             }
 
-
             // If everything is okay, proceed to add the record
             if (!AdminForm.instance.existingSN.Contains(BtnSN))
             {
                 AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
-                AdminForm.instance.AddDataGridView(Btnname, BtnSN, BtnRP, BtnPass);
-                Btnname = "";
-                BtnSN = "";
-                BtnRP = "";
-                BtnPass = "";
+                AdminForm.instance.AddDataGridView(Btnname, BtnAge, BtnGender, BtnCourse, BtnSN, BtnRP, BtnPass);
                 MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
             else
             {
                 MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
-
-            if (CreatefailedAttempts >= CreatemaxAttempt)
-            {
-                CreateBtn.Enabled = false;
-                MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
         }
-
-
 
         private bool IsStudentNumberInApprovedTable(string studentNumber)
         {

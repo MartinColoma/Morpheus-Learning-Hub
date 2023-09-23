@@ -16,6 +16,8 @@ namespace C_Activity1
     {
         public static AdminForm instance;
         public List<string> existingSN = new List<string>();
+        public new Dictionary<string, string> dictionaryOne = new Dictionary<string, string>();
+        private string selectedUN;
 
         public AdminForm()
         {
@@ -84,9 +86,9 @@ namespace C_Activity1
 
         }
 
-        public void AddDataGridView(string name, string sn, string rp, string pass)
+        public void AddDataGridView(string name, string sn, string rp, string pass, string age, string course, string gender)
         {
-            PendingTable.Rows.Add(name, sn, rp, pass);
+            PendingTable.Rows.Add(name, sn, rp, pass, age, course, gender);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -128,10 +130,10 @@ namespace C_Activity1
 
 
 
-        public void AddDataGridView1(string name, string sn, string rp, string pass)
+        public void AddDataGridView1(string name, string sn, string rp, string pass, string age, string course, string gender)
         {
 
-            ApprovedTable.Rows.Add(name, sn, rp, pass);
+            ApprovedTable.Rows.Add(name, sn, rp, pass, age, course, gender);
         }
 
         internal void SetPendingData(string name, string sn, string rp, string password)
@@ -209,19 +211,15 @@ namespace C_Activity1
         private void ApprovedDictionary_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             string dictContents = string.Join(Environment.NewLine, LoginForm.instance.dictionary.Select(kv => $"{kv.Key}: {kv.Value}"));
-            MessageBox.Show("ActivatedUsers Dictionary Contents:" + Environment.NewLine + dictContents);
+            MessageBox.Show("Activated Users Dictionary Contents:" + Environment.NewLine + dictContents);
         }
 
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
-
-
             // Call this method when a button is clicked to delete the selected row from ApprovedTable
-
             DeleteSelectedRowFromApprovedTable();
-
-
         }
+
         private void DeleteSelectedRowFromApprovedTable()
         {
             if (ApprovedTable.SelectedRows.Count > 0)
@@ -239,11 +237,18 @@ namespace C_Activity1
                         {
                             LoginForm.instance.dictionary.Remove(selectedUsername);
                         }
-
+                       
+                        AddUserToDictionaryOne(selectedUsername, (string)selectedRow.Cells["APassColumn"].Value);
                         ApprovedTable.Rows.RemoveAt(selectedRow.Index);
+                        UserForm.instance.Hide();
                     }
                 }
             }
+        }
+
+        public void AddUserToDictionaryOne(string selectedUN, string values)
+        {
+            dictionaryOne.Add(selectedUN, values);
         }
 
         private void AdminLoginLinkedLbl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -258,6 +263,17 @@ namespace C_Activity1
         private void PendingPanel_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void ApprovedPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string dictContents = string.Join(Environment.NewLine, dictionaryOne.Select(kv => $"{kv.Key}: {kv.Value}"));
+            MessageBox.Show("Delete Users Dictionary Contents:" + Environment.NewLine + dictContents);
         }
     }
 }
