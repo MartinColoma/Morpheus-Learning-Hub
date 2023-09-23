@@ -29,6 +29,8 @@ namespace C_Activity1
         //int failedAttempts = 0;
         int timerInterval = 15000;
         bool disableButton = false;
+        private string[] genders = { "Male", "Female", "Prefer Not to Say" };
+
 
 
         public LoginForm()
@@ -38,6 +40,8 @@ namespace C_Activity1
             SN = SNBox.Text; Pass = PassBox.Text;
             instance = this;
             FormBorderStyle = FormBorderStyle.FixedSingle;
+
+
             string mysqlconn = "server=localhost;user=root;database=learninghub;password=";
             conn = new MySqlConnection(mysqlconn);
 
@@ -52,6 +56,8 @@ namespace C_Activity1
                 MessageBox.Show(ex.Message);
             }
 
+            RegiGenderComboBox.Items.AddRange(genders);
+            RegiGenderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
 
         }
@@ -122,6 +128,7 @@ namespace C_Activity1
             if (LoginPanel.Visible)
             {
                 LoginPanel.Visible = false;
+                //WCPanel.Visible = false;
                 RegiPanel.Visible = false;
                 RecoveryPanel.Visible = true;
                 SNBox.Text = "";
@@ -132,6 +139,8 @@ namespace C_Activity1
             {
                 RecoveryPanel.Visible = false;
                 LoginPanel.Visible = true;
+                //WCPanel.Visible = true;
+
             }
 
         }
@@ -368,7 +377,9 @@ namespace C_Activity1
                 }
                 else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
                 {
-                    HandleIncorrectInput("Missing Student Number and Password.");
+                    //HandleIncorrectInput("Missing Student Number and Password.");
+                    MessageBox.Show("Missing text on required Field.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 }
                 else if (!find && !found)
                 {
@@ -586,13 +597,14 @@ namespace C_Activity1
         private void CreateBtn_Click(object sender, EventArgs e)
         {
             // Create Button
-            string Btnname, BtnSN, BtnRP, BtnPass;
-            Btnname = RegiNameBox.Text; BtnSN = RegiSNBox.Text; BtnRP = RegiRPBox.Text; BtnPass = RegiPassBox.Text;
+            string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender;
+            Btnname = RegiNameBox.Text; BtnSN = RegiSNBox.Text; BtnRP = RegiRPBox.Text; BtnPass = RegiPassBox.Text; BtnCourse = RegiCourseBox.Text;
+            BtnAge = RegiAgeBox.Text; BtnGender = RegiGenderComboBox.Text;
 
             // Check if any of the input fields is empty
             if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) || string.IsNullOrEmpty(BtnPass))
             {
-                HandleIncorrectCreateInput("Missing text on required Field.");
+                MessageBox.Show("Missing text on required Field.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return; // Exit the method since there's an error
             }
             else if (Btnname == "Admin" || BtnSN == "Admin" || BtnPass == "Admin123")
@@ -802,6 +814,7 @@ namespace C_Activity1
             if (LoginPanel.Visible)
             {
                 LoginPanel.Visible = false;
+                //WCPanel.Visible = false;
                 RecoveryPanel.Visible = true;
                 SNBox.Text = "";
                 PassBox.Text = "";
@@ -811,6 +824,7 @@ namespace C_Activity1
             {
                 RecoveryPanel.Visible = false;
                 LoginPanel.Visible = true;
+                WCPanel.Visible = true;
             }
 
         }
@@ -892,11 +906,6 @@ namespace C_Activity1
 
         }
 
-        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-
-        }
-
         private void MorpheusPB_Click(object sender, EventArgs e)
         {
             LoginfailedAttempts = 0;
@@ -919,6 +928,29 @@ namespace C_Activity1
         }
 
         private void MorpheusWCIcon_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegiRPLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GenderComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (RegiGenderComboBox.SelectedItem != null)
+            {
+                RegiGenderComboBox.Text = RegiGenderComboBox.SelectedItem.ToString();
+            }
+        }
+
+        private void RegiAgeBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_2(object sender, EventArgs e)
         {
 
         }
