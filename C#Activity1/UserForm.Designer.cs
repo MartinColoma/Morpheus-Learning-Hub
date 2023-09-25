@@ -96,7 +96,7 @@
             // 
             // LHHeaderPanel
             // 
-            LHHeaderPanel.BackColor = Color.FromArgb(249, 184, 74);
+            LHHeaderPanel.BackColor = Color.FromArgb(250, 247, 247);
             LHHeaderPanel.BackgroundImageLayout = ImageLayout.None;
             LHHeaderPanel.BorderStyle = BorderStyle.Fixed3D;
             LHHeaderPanel.Controls.Add(LearningHLabel);
@@ -306,7 +306,7 @@
             LHUserCalendar.Name = "LHUserCalendar";
             LHUserCalendar.ShowToday = false;
             LHUserCalendar.TabIndex = 2;
-            LHUserCalendar.TodayDate = new DateTime(2023, 8, 27, 0, 0, 0, 0);
+            LHUserCalendar.TodayDate = new DateTime(2023, 9, 25, 0, 0, 0, 0);
             LHUserCalendar.DateChanged += UserCalendar_DateChanged;
             // 
             // LHWelcome
