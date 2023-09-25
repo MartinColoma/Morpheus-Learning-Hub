@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserForm));
             RTUSealIcon = new PictureBox();
             LHHeaderPanel = new Panel();
-            LearningHLabel = new Label();
+            MorpheusLbl = new Label();
             LHMenuStripPanel = new Panel();
             MenuBtn = new Button();
             LHMenuColumn = new Panel();
@@ -43,9 +43,9 @@
             LHUserCalendar = new MonthCalendar();
             LHWelcome = new TextBox();
             LHBasicInfoPanel = new Panel();
+            textBox1 = new TextBox();
             LHSNBox = new TextBox();
             LHNameBox = new TextBox();
-            LHSectLbl = new Label();
             LHCourseLbl = new Label();
             LHSNLbl = new Label();
             LHNameLbl = new Label();
@@ -60,7 +60,6 @@
             ClassSchedLbl = new Label();
             LHEnrolledCoursePanel = new Panel();
             EnrolledLbl = new Label();
-            LHWcPanel = new Panel();
             ((System.ComponentModel.ISupportInitialize)RTUSealIcon).BeginInit();
             LHHeaderPanel.SuspendLayout();
             LHMenuStripPanel.SuspendLayout();
@@ -69,13 +68,12 @@
             LHSchedPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)LHSchedTable).BeginInit();
             LHEnrolledCoursePanel.SuspendLayout();
-            LHWcPanel.SuspendLayout();
             SuspendLayout();
             // 
             // RTUSealIcon
             // 
             RTUSealIcon.Image = Properties.Resources._5;
-            RTUSealIcon.Location = new Point(421, 28);
+            RTUSealIcon.Location = new Point(444, 24);
             RTUSealIcon.Name = "RTUSealIcon";
             RTUSealIcon.Size = new Size(64, 64);
             RTUSealIcon.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -87,7 +85,7 @@
             LHHeaderPanel.BackColor = Color.FromArgb(250, 247, 247);
             LHHeaderPanel.BackgroundImageLayout = ImageLayout.None;
             LHHeaderPanel.BorderStyle = BorderStyle.Fixed3D;
-            LHHeaderPanel.Controls.Add(LearningHLabel);
+            LHHeaderPanel.Controls.Add(MorpheusLbl);
             LHHeaderPanel.Controls.Add(RTUSealIcon);
             LHHeaderPanel.Controls.Add(LHMenuStripPanel);
             LHHeaderPanel.Location = new Point(-14, -5);
@@ -95,18 +93,18 @@
             LHHeaderPanel.Size = new Size(1281, 120);
             LHHeaderPanel.TabIndex = 3;
             // 
-            // LearningHLabel
+            // MorpheusLbl
             // 
-            LearningHLabel.AutoSize = true;
-            LearningHLabel.Font = new Font("Cooper Black", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            LearningHLabel.ForeColor = Color.FromArgb(24, 79, 144);
-            LearningHLabel.ImageAlign = ContentAlignment.MiddleLeft;
-            LearningHLabel.Location = new Point(491, 47);
-            LearningHLabel.Name = "LearningHLabel";
-            LearningHLabel.Size = new Size(390, 27);
-            LearningHLabel.TabIndex = 2;
-            LearningHLabel.Text = "Rizal Technological University";
-            LearningHLabel.Click += label1_Click;
+            MorpheusLbl.AutoSize = true;
+            MorpheusLbl.Font = new Font("Arial Black", 36F, FontStyle.Bold, GraphicsUnit.Point);
+            MorpheusLbl.ForeColor = Color.FromArgb(90, 115, 141);
+            MorpheusLbl.ImageAlign = ContentAlignment.MiddleLeft;
+            MorpheusLbl.Location = new Point(502, 24);
+            MorpheusLbl.Name = "MorpheusLbl";
+            MorpheusLbl.Size = new Size(286, 68);
+            MorpheusLbl.TabIndex = 2;
+            MorpheusLbl.Text = "Morpheus";
+            MorpheusLbl.Click += label1_Click;
             // 
             // LHMenuStripPanel
             // 
@@ -250,7 +248,7 @@
             // 
             // LHUserCalendar
             // 
-            LHUserCalendar.BackColor = SystemColors.Info;
+            LHUserCalendar.BackColor = Color.FromArgb(90, 115, 141);
             LHUserCalendar.Cursor = Cursors.Hand;
             LHUserCalendar.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
             LHUserCalendar.Location = new Point(997, 139);
@@ -262,15 +260,15 @@
             // 
             // LHWelcome
             // 
-            LHWelcome.BackColor = Color.FromArgb(250, 247, 247);
+            LHWelcome.BackColor = Color.FromArgb(90, 115, 141);
             LHWelcome.BorderStyle = BorderStyle.None;
-            LHWelcome.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            LHWelcome.ForeColor = Color.Black;
-            LHWelcome.Location = new Point(15, 18);
+            LHWelcome.Font = new Font("Arial Black", 16F, FontStyle.Bold, GraphicsUnit.Point);
+            LHWelcome.ForeColor = Color.FromArgb(250, 247, 247);
+            LHWelcome.Location = new Point(279, 450);
             LHWelcome.Multiline = true;
             LHWelcome.Name = "LHWelcome";
             LHWelcome.ReadOnly = true;
-            LHWelcome.Size = new Size(688, 165);
+            LHWelcome.Size = new Size(706, 203);
             LHWelcome.TabIndex = 5;
             LHWelcome.Text = resources.GetString("LHWelcome.Text");
             LHWelcome.TextAlign = HorizontalAlignment.Center;
@@ -278,10 +276,10 @@
             // 
             // LHBasicInfoPanel
             // 
-            LHBasicInfoPanel.BackColor = Color.FromArgb(250, 247, 247);
+            LHBasicInfoPanel.BackColor = Color.FromArgb(90, 115, 141);
+            LHBasicInfoPanel.Controls.Add(textBox1);
             LHBasicInfoPanel.Controls.Add(LHSNBox);
             LHBasicInfoPanel.Controls.Add(LHNameBox);
-            LHBasicInfoPanel.Controls.Add(LHSectLbl);
             LHBasicInfoPanel.Controls.Add(LHCourseLbl);
             LHBasicInfoPanel.Controls.Add(LHSNLbl);
             LHBasicInfoPanel.Controls.Add(LHNameLbl);
@@ -291,53 +289,52 @@
             LHBasicInfoPanel.Size = new Size(706, 289);
             LHBasicInfoPanel.TabIndex = 6;
             // 
+            // textBox1
+            // 
+            textBox1.BackColor = Color.FromArgb(90, 115, 141);
+            textBox1.BorderStyle = BorderStyle.None;
+            textBox1.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox1.ForeColor = Color.Black;
+            textBox1.Location = new Point(152, 105);
+            textBox1.Name = "textBox1";
+            textBox1.ReadOnly = true;
+            textBox1.Size = new Size(305, 19);
+            textBox1.TabIndex = 8;
+            // 
             // LHSNBox
             // 
-            LHSNBox.BackColor = Color.FromArgb(250, 247, 247);
+            LHSNBox.BackColor = Color.FromArgb(90, 115, 141);
             LHSNBox.BorderStyle = BorderStyle.None;
-            LHSNBox.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            LHSNBox.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             LHSNBox.ForeColor = Color.Black;
-            LHSNBox.Location = new Point(136, 74);
+            LHSNBox.Location = new Point(152, 73);
             LHSNBox.Name = "LHSNBox";
             LHSNBox.ReadOnly = true;
-            LHSNBox.Size = new Size(305, 16);
+            LHSNBox.Size = new Size(305, 19);
             LHSNBox.TabIndex = 7;
             // 
             // LHNameBox
             // 
-            LHNameBox.BackColor = Color.FromArgb(250, 247, 247);
+            LHNameBox.BackColor = Color.FromArgb(90, 115, 141);
             LHNameBox.BorderStyle = BorderStyle.None;
-            LHNameBox.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            LHNameBox.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             LHNameBox.ForeColor = Color.Black;
-            LHNameBox.Location = new Point(71, 44);
+            LHNameBox.Location = new Point(152, 45);
             LHNameBox.Name = "LHNameBox";
             LHNameBox.ReadOnly = true;
-            LHNameBox.Size = new Size(305, 16);
+            LHNameBox.Size = new Size(305, 19);
             LHNameBox.TabIndex = 6;
             LHNameBox.TextChanged += LHNam_TextChanged;
-            // 
-            // LHSectLbl
-            // 
-            LHSectLbl.AutoSize = true;
-            LHSectLbl.FlatStyle = FlatStyle.Flat;
-            LHSectLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            LHSectLbl.ForeColor = Color.Black;
-            LHSectLbl.Location = new Point(15, 103);
-            LHSectLbl.Name = "LHSectLbl";
-            LHSectLbl.Size = new Size(58, 16);
-            LHSectLbl.TabIndex = 5;
-            LHSectLbl.Text = "Section:";
-            LHSectLbl.Click += label1_Click_2;
             // 
             // LHCourseLbl
             // 
             LHCourseLbl.AutoSize = true;
             LHCourseLbl.FlatStyle = FlatStyle.Flat;
-            LHCourseLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            LHCourseLbl.ForeColor = Color.Black;
-            LHCourseLbl.Location = new Point(15, 131);
+            LHCourseLbl.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            LHCourseLbl.ForeColor = Color.FromArgb(250, 247, 247);
+            LHCourseLbl.Location = new Point(15, 106);
             LHCourseLbl.Name = "LHCourseLbl";
-            LHCourseLbl.Size = new Size(111, 16);
+            LHCourseLbl.Size = new Size(121, 18);
             LHCourseLbl.TabIndex = 4;
             LHCourseLbl.Text = "College Course:";
             LHCourseLbl.Click += LHDeptLbl_Click;
@@ -346,11 +343,11 @@
             // 
             LHSNLbl.AutoSize = true;
             LHSNLbl.FlatStyle = FlatStyle.Flat;
-            LHSNLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            LHSNLbl.ForeColor = Color.Black;
+            LHSNLbl.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            LHSNLbl.ForeColor = Color.FromArgb(250, 247, 247);
             LHSNLbl.Location = new Point(15, 74);
             LHSNLbl.Name = "LHSNLbl";
-            LHSNLbl.Size = new Size(115, 16);
+            LHSNLbl.Size = new Size(131, 18);
             LHSNLbl.TabIndex = 3;
             LHSNLbl.Text = "Student Number:";
             // 
@@ -358,11 +355,11 @@
             // 
             LHNameLbl.AutoSize = true;
             LHNameLbl.FlatStyle = FlatStyle.Flat;
-            LHNameLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            LHNameLbl.ForeColor = Color.Black;
+            LHNameLbl.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            LHNameLbl.ForeColor = Color.FromArgb(250, 247, 247);
             LHNameLbl.Location = new Point(15, 46);
             LHNameLbl.Name = "LHNameLbl";
-            LHNameLbl.Size = new Size(50, 16);
+            LHNameLbl.Size = new Size(54, 18);
             LHNameLbl.TabIndex = 2;
             LHNameLbl.Text = "Name:";
             LHNameLbl.Click += label2_Click;
@@ -372,17 +369,17 @@
             BasicInfoLbl.AutoSize = true;
             BasicInfoLbl.BorderStyle = BorderStyle.FixedSingle;
             BasicInfoLbl.FlatStyle = FlatStyle.Flat;
-            BasicInfoLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            BasicInfoLbl.ForeColor = Color.Black;
+            BasicInfoLbl.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            BasicInfoLbl.ForeColor = Color.FromArgb(250, 247, 247);
             BasicInfoLbl.Location = new Point(15, 15);
             BasicInfoLbl.Name = "BasicInfoLbl";
-            BasicInfoLbl.Size = new Size(174, 18);
+            BasicInfoLbl.Size = new Size(200, 20);
             BasicInfoLbl.TabIndex = 1;
             BasicInfoLbl.Text = "Basic Student Information";
             // 
             // LHSchedPanel
             // 
-            LHSchedPanel.BackColor = Color.FromArgb(250, 247, 247);
+            LHSchedPanel.BackColor = Color.FromArgb(90, 115, 141);
             LHSchedPanel.Controls.Add(LHSchedTable);
             LHSchedPanel.Controls.Add(ClassSchedLbl);
             LHSchedPanel.Location = new Point(997, 315);
@@ -394,7 +391,7 @@
             // 
             LHSchedTable.AllowUserToDeleteRows = false;
             LHSchedTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            LHSchedTable.BackgroundColor = Color.FromArgb(250, 247, 247);
+            LHSchedTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             LHSchedTable.BorderStyle = BorderStyle.None;
             LHSchedTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             LHSchedTable.Columns.AddRange(new DataGridViewColumn[] { LHSub, LHSect, LHTime, LHDay, LHRoom });
@@ -443,17 +440,17 @@
             ClassSchedLbl.AutoSize = true;
             ClassSchedLbl.BorderStyle = BorderStyle.FixedSingle;
             ClassSchedLbl.FlatStyle = FlatStyle.Flat;
-            ClassSchedLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            ClassSchedLbl.ForeColor = Color.Black;
+            ClassSchedLbl.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            ClassSchedLbl.ForeColor = Color.FromArgb(250, 247, 247);
             ClassSchedLbl.Location = new Point(12, 11);
             ClassSchedLbl.Name = "ClassSchedLbl";
-            ClassSchedLbl.Size = new Size(108, 18);
+            ClassSchedLbl.Size = new Size(120, 20);
             ClassSchedLbl.TabIndex = 2;
             ClassSchedLbl.Text = "Class Schedule";
             // 
             // LHEnrolledCoursePanel
             // 
-            LHEnrolledCoursePanel.BackColor = Color.FromArgb(250, 247, 247);
+            LHEnrolledCoursePanel.BackColor = Color.FromArgb(90, 115, 141);
             LHEnrolledCoursePanel.BorderStyle = BorderStyle.FixedSingle;
             LHEnrolledCoursePanel.Controls.Add(EnrolledLbl);
             LHEnrolledCoursePanel.Location = new Point(18, 141);
@@ -466,22 +463,13 @@
             EnrolledLbl.AutoSize = true;
             EnrolledLbl.BorderStyle = BorderStyle.FixedSingle;
             EnrolledLbl.FlatStyle = FlatStyle.Flat;
-            EnrolledLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            EnrolledLbl.ForeColor = Color.Black;
+            EnrolledLbl.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            EnrolledLbl.ForeColor = Color.FromArgb(250, 247, 247);
             EnrolledLbl.Location = new Point(13, 15);
             EnrolledLbl.Name = "EnrolledLbl";
-            EnrolledLbl.Size = new Size(117, 18);
+            EnrolledLbl.Size = new Size(132, 20);
             EnrolledLbl.TabIndex = 0;
             EnrolledLbl.Text = "Enrolled Courses";
-            // 
-            // LHWcPanel
-            // 
-            LHWcPanel.BackColor = Color.FromArgb(250, 247, 247);
-            LHWcPanel.Controls.Add(LHWelcome);
-            LHWcPanel.Location = new Point(279, 450);
-            LHWcPanel.Name = "LHWcPanel";
-            LHWcPanel.Size = new Size(706, 203);
-            LHWcPanel.TabIndex = 7;
             // 
             // UserForm
             // 
@@ -490,7 +478,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(90, 115, 141);
             ClientSize = new Size(1264, 681);
-            Controls.Add(LHWcPanel);
+            Controls.Add(LHWelcome);
             Controls.Add(LHSchedPanel);
             Controls.Add(LHBasicInfoPanel);
             Controls.Add(LHHeaderPanel);
@@ -514,29 +502,26 @@
             ((System.ComponentModel.ISupportInitialize)LHSchedTable).EndInit();
             LHEnrolledCoursePanel.ResumeLayout(false);
             LHEnrolledCoursePanel.PerformLayout();
-            LHWcPanel.ResumeLayout(false);
-            LHWcPanel.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
         private PictureBox RTUSealIcon;
         private Panel LHHeaderPanel;
         private MonthCalendar LHUserCalendar;
-        private Label LearningHLabel;
+        private Label MorpheusLbl;
         private Panel LHMenuStripPanel;
         private Panel LHMenuColumn;
         private TextBox LHWelcome;
         private Panel LHBasicInfoPanel;
         private Panel LHSchedPanel;
         private Panel LHEnrolledCoursePanel;
-        private Panel LHWcPanel;
         private Label EnrolledLbl;
         private Label BasicInfoLbl;
         private Label ClassSchedLbl;
         private Label LHNameLbl;
         private Label LHSNLbl;
-        private Label LHSectLbl;
         private Label LHCourseLbl;
         private DataGridView LHSchedTable;
         private DataGridViewTextBoxColumn LHSub;
@@ -552,5 +537,6 @@
         private Button GradeLinkBtn;
         private Button LogoutBtn;
         private Button MenuBtn;
+        public TextBox textBox1;
     }
 }
