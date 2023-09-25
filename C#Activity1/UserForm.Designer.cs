@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserForm));
-            RTUSealXL = new PictureBox();
             RTUSealIcon = new PictureBox();
             LHHeaderPanel = new Panel();
             LearningHLabel = new Label();
@@ -53,7 +52,7 @@
             LHSNBox = new TextBox();
             LHNameBox = new TextBox();
             LHSectLbl = new Label();
-            LHDeptLbl = new Label();
+            LHCourseLbl = new Label();
             LHSNLbl = new Label();
             LHNameLbl = new Label();
             BasicInfoLbl = new Label();
@@ -68,7 +67,6 @@
             LHEnrolledCoursePanel = new Panel();
             EnrolledLbl = new Label();
             LHWcPanel = new Panel();
-            ((System.ComponentModel.ISupportInitialize)RTUSealXL).BeginInit();
             ((System.ComponentModel.ISupportInitialize)RTUSealIcon).BeginInit();
             LHHeaderPanel.SuspendLayout();
             LHMenuStripPanel.SuspendLayout();
@@ -86,23 +84,12 @@
             LHWcPanel.SuspendLayout();
             SuspendLayout();
             // 
-            // RTUSealXL
-            // 
-            RTUSealXL.Image = Properties.Resources.RTU_Facade1_720x720;
-            RTUSealXL.Location = new Point(1281, 0);
-            RTUSealXL.Name = "RTUSealXL";
-            RTUSealXL.Size = new Size(704, 681);
-            RTUSealXL.SizeMode = PictureBoxSizeMode.CenterImage;
-            RTUSealXL.TabIndex = 0;
-            RTUSealXL.TabStop = false;
-            RTUSealXL.Click += RTUSealXL_Click;
-            // 
             // RTUSealIcon
             // 
-            RTUSealIcon.Image = Properties.Resources.RTU_Seal_64x64;
+            RTUSealIcon.Image = Properties.Resources._5;
             RTUSealIcon.Location = new Point(421, 28);
             RTUSealIcon.Name = "RTUSealIcon";
-            RTUSealIcon.Size = new Size(64, 63);
+            RTUSealIcon.Size = new Size(64, 64);
             RTUSealIcon.SizeMode = PictureBoxSizeMode.AutoSize;
             RTUSealIcon.TabIndex = 1;
             RTUSealIcon.TabStop = false;
@@ -312,12 +299,12 @@
             // 
             // LHUserCalendar
             // 
-            LHUserCalendar.BackColor = SystemColors.Window;
+            LHUserCalendar.BackColor = SystemColors.Info;
             LHUserCalendar.Cursor = Cursors.Hand;
-            LHUserCalendar.Font = new Font("Cooper Black", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            LHUserCalendar.Location = new Point(997, 141);
+            LHUserCalendar.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            LHUserCalendar.Location = new Point(1018, 139);
             LHUserCalendar.Name = "LHUserCalendar";
-            LHUserCalendar.ShowWeekNumbers = true;
+            LHUserCalendar.ShowToday = false;
             LHUserCalendar.TabIndex = 2;
             LHUserCalendar.TodayDate = new DateTime(2023, 8, 27, 0, 0, 0, 0);
             LHUserCalendar.DateChanged += UserCalendar_DateChanged;
@@ -344,7 +331,7 @@
             LHBasicInfoPanel.Controls.Add(LHSNBox);
             LHBasicInfoPanel.Controls.Add(LHNameBox);
             LHBasicInfoPanel.Controls.Add(LHSectLbl);
-            LHBasicInfoPanel.Controls.Add(LHDeptLbl);
+            LHBasicInfoPanel.Controls.Add(LHCourseLbl);
             LHBasicInfoPanel.Controls.Add(LHSNLbl);
             LHBasicInfoPanel.Controls.Add(LHNameLbl);
             LHBasicInfoPanel.Controls.Add(BasicInfoLbl);
@@ -391,18 +378,18 @@
             LHSectLbl.Text = "Section:";
             LHSectLbl.Click += label1_Click_2;
             // 
-            // LHDeptLbl
+            // LHCourseLbl
             // 
-            LHDeptLbl.AutoSize = true;
-            LHDeptLbl.FlatStyle = FlatStyle.Flat;
-            LHDeptLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            LHDeptLbl.ForeColor = Color.Black;
-            LHDeptLbl.Location = new Point(15, 131);
-            LHDeptLbl.Name = "LHDeptLbl";
-            LHDeptLbl.Size = new Size(142, 16);
-            LHDeptLbl.TabIndex = 4;
-            LHDeptLbl.Text = "College Department:";
-            LHDeptLbl.Click += LHDeptLbl_Click;
+            LHCourseLbl.AutoSize = true;
+            LHCourseLbl.FlatStyle = FlatStyle.Flat;
+            LHCourseLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            LHCourseLbl.ForeColor = Color.Black;
+            LHCourseLbl.Location = new Point(15, 131);
+            LHCourseLbl.Name = "LHCourseLbl";
+            LHCourseLbl.Size = new Size(111, 16);
+            LHCourseLbl.TabIndex = 4;
+            LHCourseLbl.Text = "College Course:";
+            LHCourseLbl.Click += LHDeptLbl_Click;
             // 
             // LHSNLbl
             // 
@@ -556,7 +543,6 @@
             Controls.Add(LHSchedPanel);
             Controls.Add(LHBasicInfoPanel);
             Controls.Add(LHHeaderPanel);
-            Controls.Add(RTUSealXL);
             Controls.Add(LHMenuColumn);
             Controls.Add(LHUserCalendar);
             Controls.Add(LHEnrolledCoursePanel);
@@ -565,7 +551,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "RTU Learning Hub";
             Load += UserPanel_Load;
-            ((System.ComponentModel.ISupportInitialize)RTUSealXL).EndInit();
             ((System.ComponentModel.ISupportInitialize)RTUSealIcon).EndInit();
             LHHeaderPanel.ResumeLayout(false);
             LHHeaderPanel.PerformLayout();
@@ -592,8 +577,6 @@
         }
 
         #endregion
-
-        private PictureBox RTUSealXL;
         private PictureBox RTUSealIcon;
         private Panel LHHeaderPanel;
         private MonthCalendar LHUserCalendar;
@@ -621,7 +604,7 @@
         private Label LHNameLbl;
         private Label LHSNLbl;
         private Label LHSectLbl;
-        private Label LHDeptLbl;
+        private Label LHCourseLbl;
         private DataGridView LHSchedTable;
         private DataGridViewTextBoxColumn LHSub;
         private DataGridViewTextBoxColumn LHSect;

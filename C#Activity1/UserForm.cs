@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,14 +14,18 @@ namespace C_Activity1
     public partial class UserForm : Form
     {
         public static UserForm instance;
+        private MySqlConnection conn;
+
 
         public UserForm()
         {
             InitializeComponent();
             instance = this;
+            string mysqlconn = "server=localhost;user=root;database=learninghub;password=";
+            conn = new MySqlConnection(mysqlconn);
+            conn.Open();
             this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-
 
         }
 
@@ -43,13 +48,13 @@ namespace C_Activity1
 
         }
 
-        private void RTUSealXL_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void UserCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
+            //Calendar
+            DateTime currentDate = DateTime.Now;
+            LHUserCalendar.TodayDate = currentDate;
 
         }
 

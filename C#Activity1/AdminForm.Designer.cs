@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             PendingTable = new DataGridView();
             PNameColumn = new DataGridViewTextBoxColumn();
             PAgeColumn = new DataGridViewTextBoxColumn();
             PGenderColumn = new DataGridViewTextBoxColumn();
             PCourseColumn = new DataGridViewTextBoxColumn();
             PSNColumn = new DataGridViewTextBoxColumn();
+            PMailColumn = new DataGridViewTextBoxColumn();
             PRPinColumn = new DataGridViewTextBoxColumn();
             PPassColumn = new DataGridViewTextBoxColumn();
             ApprovedTable = new DataGridView();
@@ -43,19 +45,20 @@
             AGenderColumn = new DataGridViewTextBoxColumn();
             ACourseColumn = new DataGridViewTextBoxColumn();
             ASNColumn = new DataGridViewTextBoxColumn();
+            AMailColumn = new DataGridViewTextBoxColumn();
             ARPInColumn = new DataGridViewTextBoxColumn();
             APassColumn = new DataGridViewTextBoxColumn();
             PendingLabel = new Label();
             ApprovedLbl = new Label();
             ApproveBtn = new Button();
             ApprovedPanel = new Panel();
+            linkLabel1 = new LinkLabel();
             MorpheusLogo2 = new PictureBox();
             DeleteBtn = new Button();
             ApprovedDictionary = new LinkLabel();
             PendingPanel = new Panel();
             MorpheusBlueLogo = new PictureBox();
             AdminLoginLinkedLbl = new LinkLabel();
-            linkLabel1 = new LinkLabel();
             ((System.ComponentModel.ISupportInitialize)PendingTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).BeginInit();
             ApprovedPanel.SuspendLayout();
@@ -68,22 +71,24 @@
             // 
             PendingTable.AllowUserToAddRows = false;
             PendingTable.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PendingTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             PendingTable.BorderStyle = BorderStyle.Fixed3D;
             PendingTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            PendingTable.Columns.AddRange(new DataGridViewColumn[] { PNameColumn, PAgeColumn, PGenderColumn, PCourseColumn, PSNColumn, PRPinColumn, PPassColumn });
+            PendingTable.Columns.AddRange(new DataGridViewColumn[] { PNameColumn, PAgeColumn, PGenderColumn, PCourseColumn, PSNColumn, PMailColumn, PRPinColumn, PPassColumn });
             PendingTable.Location = new Point(39, 126);
             PendingTable.Name = "PendingTable";
             PendingTable.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(250, 247, 247);
-            dataGridViewCellStyle3.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(250, 247, 247);
+            dataGridViewCellStyle2.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             PendingTable.RowTemplate.Height = 25;
             PendingTable.Size = new Size(664, 265);
             PendingTable.TabIndex = 0;
@@ -123,6 +128,12 @@
             PSNColumn.Name = "PSNColumn";
             PSNColumn.ReadOnly = true;
             // 
+            // PMailColumn
+            // 
+            PMailColumn.HeaderText = "Email";
+            PMailColumn.Name = "PMailColumn";
+            PMailColumn.ReadOnly = true;
+            // 
             // PRPinColumn
             // 
             PRPinColumn.HeaderText = "Recovery Pin";
@@ -143,7 +154,7 @@
             ApprovedTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             ApprovedTable.BorderStyle = BorderStyle.Fixed3D;
             ApprovedTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ApprovedTable.Columns.AddRange(new DataGridViewColumn[] { ANameColumn, AAgeColumn, AGenderColumn, ACourseColumn, ASNColumn, ARPInColumn, APassColumn });
+            ApprovedTable.Columns.AddRange(new DataGridViewColumn[] { ANameColumn, AAgeColumn, AGenderColumn, ACourseColumn, ASNColumn, AMailColumn, ARPInColumn, APassColumn });
             ApprovedTable.Location = new Point(39, 126);
             ApprovedTable.Name = "ApprovedTable";
             ApprovedTable.ReadOnly = true;
@@ -185,6 +196,12 @@
             ASNColumn.HeaderText = "Student Number";
             ASNColumn.Name = "ASNColumn";
             ASNColumn.ReadOnly = true;
+            // 
+            // AMailColumn
+            // 
+            AMailColumn.HeaderText = "Email";
+            AMailColumn.Name = "AMailColumn";
+            AMailColumn.ReadOnly = true;
             // 
             // ARPInColumn
             // 
@@ -260,6 +277,21 @@
             ApprovedPanel.Size = new Size(747, 476);
             ApprovedPanel.TabIndex = 11;
             ApprovedPanel.Paint += ApprovedPanel_Paint;
+            // 
+            // linkLabel1
+            // 
+            linkLabel1.ActiveLinkColor = Color.Black;
+            linkLabel1.AutoSize = true;
+            linkLabel1.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            linkLabel1.LinkBehavior = LinkBehavior.HoverUnderline;
+            linkLabel1.LinkColor = Color.FromArgb(250, 247, 247);
+            linkLabel1.Location = new Point(40, 430);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(247, 16);
+            linkLabel1.TabIndex = 19;
+            linkLabel1.TabStop = true;
+            linkLabel1.Text = "Dictionary of Deleted Accounts";
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
             // MorpheusLogo2
             // 
@@ -342,21 +374,6 @@
             AdminLoginLinkedLbl.Text = "Open Login Page...";
             AdminLoginLinkedLbl.LinkClicked += AdminLoginLinkedLbl_LinkClicked;
             // 
-            // linkLabel1
-            // 
-            linkLabel1.ActiveLinkColor = Color.Black;
-            linkLabel1.AutoSize = true;
-            linkLabel1.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            linkLabel1.LinkBehavior = LinkBehavior.HoverUnderline;
-            linkLabel1.LinkColor = Color.FromArgb(250, 247, 247);
-            linkLabel1.Location = new Point(40, 430);
-            linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(247, 16);
-            linkLabel1.TabIndex = 19;
-            linkLabel1.TabStop = true;
-            linkLabel1.Text = "Dictionary of Deleted Accounts";
-            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
-            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -364,8 +381,8 @@
             BackColor = Color.FromArgb(90, 115, 141);
             ClientSize = new Size(805, 511);
             Controls.Add(AdminLoginLinkedLbl);
-            Controls.Add(ApprovedPanel);
             Controls.Add(PendingPanel);
+            Controls.Add(ApprovedPanel);
             Name = "AdminForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
@@ -394,11 +411,15 @@
         private Button DeleteBtn;
         private Panel PendingPanel;
         private LinkLabel AdminLoginLinkedLbl;
+        private PictureBox MorpheusLogo2;
+        private PictureBox MorpheusBlueLogo;
+        private LinkLabel linkLabel1;
         private DataGridViewTextBoxColumn PNameColumn;
         private DataGridViewTextBoxColumn PAgeColumn;
         private DataGridViewTextBoxColumn PGenderColumn;
         private DataGridViewTextBoxColumn PCourseColumn;
         private DataGridViewTextBoxColumn PSNColumn;
+        private DataGridViewTextBoxColumn PMailColumn;
         private DataGridViewTextBoxColumn PRPinColumn;
         private DataGridViewTextBoxColumn PPassColumn;
         private DataGridViewTextBoxColumn ANameColumn;
@@ -406,10 +427,8 @@
         private DataGridViewTextBoxColumn AGenderColumn;
         private DataGridViewTextBoxColumn ACourseColumn;
         private DataGridViewTextBoxColumn ASNColumn;
+        private DataGridViewTextBoxColumn AMailColumn;
         private DataGridViewTextBoxColumn ARPInColumn;
         private DataGridViewTextBoxColumn APassColumn;
-        private PictureBox MorpheusLogo2;
-        private PictureBox MorpheusBlueLogo;
-        private LinkLabel linkLabel1;
     }
 }

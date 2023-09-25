@@ -1,13 +1,8 @@
-using Microsoft.VisualBasic.Logging;
-using System.Drawing.Text;
-using System.Numerics;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using System.Xml.Linq;
 using MySql.Data.MySqlClient;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Drawing.Drawing2D;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
+
 
 
 namespace C_Activity1
@@ -597,7 +592,7 @@ namespace C_Activity1
         private void CreateBtn_Click(object sender, EventArgs e)
         {
             // Create Button
-            string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender;
+            string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender, BtnMail;
             Btnname = RegiNameBox.Text;
             BtnSN = RegiSNBox.Text;
             BtnRP = RegiRPBox.Text;
@@ -605,16 +600,18 @@ namespace C_Activity1
             BtnCourse = RegiCourseBox.Text;
             BtnAge = RegiAgeBox.Text;
             BtnGender = RegiGenderComboBox.Text;
+            BtnMail = RegiMailBox.Text;
 
             // Regex patterns
             Regex nameRegex = new Regex("^[A-Z][a-zA-Z]+(?: [a-zA-Z]+)*$");
             Regex courseRegex = new Regex("^[A-Za-z]+(?: [A-Za-z]+)*$");
             Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+            Regex gmailRegex = new Regex(@"^[A-Za-z0-9._%+-]+@gmail\.com$");
 
             // Check if any of the input fields is empty
             if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) ||
                 string.IsNullOrEmpty(BtnPass) || string.IsNullOrEmpty(BtnAge) || string.IsNullOrEmpty(BtnCourse) ||
-                string.IsNullOrEmpty(BtnGender))
+                string.IsNullOrEmpty(BtnGender) || string.IsNullOrEmpty(BtnMail))
             {
                 MessageBox.Show("Missing text in required fields.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return; // Exit the method since there's an error
@@ -655,23 +652,30 @@ namespace C_Activity1
                 HandleIncorrectCreateInput("Incorrect Student Number.");
                 return;
             }
+            else if (!gmailRegex.IsMatch(BtnMail))
+            {
+                HandleIncorrectCreateInput("Invalid Gmail address format.");
+                return;
+            }
             else if (!passwordRegex.IsMatch(BtnPass))
             {
                 HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
                 return;
             }
 
+
             // If everything is okay, proceed to add the record
             if (!AdminForm.instance.existingSN.Contains(BtnSN))
             {
                 AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
-                AdminForm.instance.AddDataGridView(Btnname, BtnAge, BtnGender, BtnCourse, BtnSN, BtnRP, BtnPass);
+                AdminForm.instance.AddDataGridView(Btnname, BtnAge, BtnGender, BtnCourse, BtnSN, BtnMail, BtnRP, BtnPass);
                 MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private bool IsStudentNumberInApprovedTable(string studentNumber)
@@ -733,17 +737,17 @@ namespace C_Activity1
         //    // ... (existing code)
         //}
 
-        private bool IsPasswordTakenInTable(string password, DataGridView dataGridView, string passwordColumnName)
-        {
-            foreach (DataGridViewRow row in dataGridView.Rows)
-            {
-                if (row.Cells[passwordColumnName].Value != null && row.Cells[passwordColumnName].Value.ToString() == password)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        //private bool IsPasswordTakenInTable(string password, DataGridView dataGridView, string passwordColumnName)
+        //{
+        //    foreach (DataGridViewRow row in dataGridView.Rows)
+        //    {
+        //        if (row.Cells[passwordColumnName].Value != null && row.Cells[passwordColumnName].Value.ToString() == password)
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
 
 
 

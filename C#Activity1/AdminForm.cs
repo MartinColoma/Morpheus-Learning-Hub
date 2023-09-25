@@ -1,8 +1,10 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,8 @@ namespace C_Activity1
     public partial class AdminForm : Form
     {
         public static AdminForm instance;
+        private MySqlConnection conn;
+
         public List<string> existingSN = new List<string>();
         public new Dictionary<string, string> dictionaryOne = new Dictionary<string, string>();
         private string selectedUN;
@@ -23,6 +27,9 @@ namespace C_Activity1
         {
             InitializeComponent();
             instance = this;
+            string mysqlconn = "server=localhost;user=root;database=learninghub;password=";
+            conn = new MySqlConnection(mysqlconn);
+
             this.FormClosing += new FormClosingEventHandler(AdminPanel_FormClosing);
             FormBorderStyle = FormBorderStyle.FixedSingle;
 
@@ -55,26 +62,14 @@ namespace C_Activity1
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //Pending Table
-
-
             // Assuming your source data grid is named "PendingTable"
-
             DataGridViewRow selectedRow = PendingTable.CurrentRow;
 
-
             // Transfer data to the destination data grid
-
-
-            // Assuming your destination data grid is named "ApprovedTable"
-
             ApprovedTable.Rows.Clear();
             // Clear previous data
 
-
-
             // Create a new row for the destination data grid and populate it with the values from the selected row
-
             DataGridViewRow newRow = new DataGridViewRow();
 
             foreach (DataGridViewCell cell in selectedRow.Cells)
@@ -82,13 +77,57 @@ namespace C_Activity1
                 newRow.Cells.Add(new DataGridViewTextBoxCell { Value = cell.Value });
             }
 
+            // Add the new row to the "ApprovedTable"
             ApprovedTable.Rows.Add(newRow);
 
+            // Here, you can also insert the data into the database
+            InsertDataIntoDatabase(selectedRow);
         }
 
-        public void AddDataGridView(string name, string sn, string rp, string pass, string age, string course, string gender)
+        // Function to insert data into the database
+        private void InsertDataIntoDatabase(DataGridViewRow selectedRow)
         {
-            PendingTable.Rows.Add(name, sn, rp, pass, age, course, gender);
+            try
+            {
+                string mysqlconn = "server=localhost;user=root;database=learninghub;password=";
+                using (conn)
+                {
+                    conn.Open();
+
+                    // Debugging code to print column names
+                    Debug.WriteLine("Column Names:");
+                    foreach (DataGridViewCell cell in selectedRow.Cells)
+                    {
+                        Debug.WriteLine(cell.OwningColumn.Name);
+                    }
+
+                    // Assuming you have a table named "ApprovedData" in your database
+                    string insertQuery = "INSERT INTO approveddb (Name, Age, Gender, Course, Email, StudNum, RecoveryPin) VALUES (@Name, @Age, @Gender, @Course, @Email, @StudNum, @RecoveryPin)";
+                    using (MySqlCommand command = new MySqlCommand(insertQuery, conn))
+                    {
+                        command.Parameters.AddWithValue("@Name", selectedRow.Cells["PNameColumn"].Value);
+                        command.Parameters.AddWithValue("@Age", selectedRow.Cells["PAgeColumn"].Value);
+                        command.Parameters.AddWithValue("@Gender", selectedRow.Cells["PGenderColumn"].Value);
+                        command.Parameters.AddWithValue("@Course", selectedRow.Cells["PCourseColumn"].Value);
+                        command.Parameters.AddWithValue("@Email", selectedRow.Cells["PMailColumn"].Value);
+                        command.Parameters.AddWithValue("@StudNum", selectedRow.Cells["PSNColumn"].Value);
+                        command.Parameters.AddWithValue("@RecoveryPin", selectedRow.Cells["PRPinColumn"].Value);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any database-related errors here
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+
+
+        public void AddDataGridView(string name, string sn, string rp, string pass, string age, string course, string gender, string mail)
+        {
+            PendingTable.Rows.Add(name, sn, rp, pass, age, course, gender, mail);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -130,10 +169,10 @@ namespace C_Activity1
 
 
 
-        public void AddDataGridView1(string name, string sn, string rp, string pass, string age, string course, string gender)
+        public void AddDataGridView1(string name, string sn, string rp, string pass, string age, string course, string gender, string mail)
         {
 
-            ApprovedTable.Rows.Add(name, sn, rp, pass, age, course, gender);
+            ApprovedTable.Rows.Add(name, sn, rp, pass, age, course, gender, mail);
         }
 
         internal void SetPendingData(string name, string sn, string rp, string password)
@@ -143,15 +182,14 @@ namespace C_Activity1
 
         private void ApproveBtn_Click(object sender, EventArgs e)
         {
-            //approved btn
-
-
+            // Check if any rows are selected in PendingTable
             if (PendingTable.SelectedRows.Count > 0)
             {
                 DialogResult dialogResult = MessageBox.Show("Do you want to approve the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (dialogResult == DialogResult.Yes)
                 {
+                    // Iterate through selected rows in PendingTable
                     foreach (DataGridViewRow selectedRow in PendingTable.SelectedRows)
                     {
                         string selectedUsername = selectedRow.Cells["PSNColumn"].Value.ToString();
@@ -163,31 +201,33 @@ namespace C_Activity1
                         }
                         else
                         {
-                            LoginForm.instance.AddUserToDictionary(selectedUsername, (string)selectedRow.Cells["PPassColumn"].Value);
+                            // Insert data into the database
+                            InsertDataIntoDatabase(selectedRow);
 
-                            DataGridViewRow newRow = new DataGridViewRow();
-
+                            // Clone the selected row and add it to ApprovedTable
+                            DataGridViewRow newRow = (DataGridViewRow)selectedRow.Clone();
                             foreach (DataGridViewCell cell in selectedRow.Cells)
                             {
-                                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = cell.Value });
+                                newRow.Cells[cell.ColumnIndex].Value = cell.Value;
                             }
-
                             ApprovedTable.Rows.Add(newRow);
-                            PendingTable.Rows.RemoveAt(selectedRow.Index);
+
+                            // Remove the selected row from PendingTable
+                            PendingTable.Rows.Remove(selectedRow);
                         }
                     }
+
+                    // Toggle visibility of panels
                     if (PendingPanel.Visible)
                     {
                         PendingPanel.Visible = false;
                         ApprovedPanel.Visible = true;
                     }
-
                     else
                     {
                         ApprovedPanel.Visible = false;
                         PendingPanel.Visible = true;
                     }
-
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -202,11 +242,8 @@ namespace C_Activity1
                     }
                 }
             }
-
-
-
-
         }
+
 
         private void ApprovedDictionary_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -237,7 +274,7 @@ namespace C_Activity1
                         {
                             LoginForm.instance.dictionary.Remove(selectedUsername);
                         }
-                       
+
                         AddUserToDictionaryOne(selectedUsername, (string)selectedRow.Cells["APassColumn"].Value);
                         ApprovedTable.Rows.RemoveAt(selectedRow.Index);
                         UserForm.instance.Hide();
