@@ -33,19 +33,13 @@
             LHHeaderPanel = new Panel();
             LearningHLabel = new Label();
             LHMenuStripPanel = new Panel();
-            MenuLbl = new Label();
-            MenuIcon = new PictureBox();
+            MenuBtn = new Button();
             LHMenuColumn = new Panel();
-            LogoutLinkedLbl = new LinkLabel();
-            LogoutIcon = new PictureBox();
-            BillIcon = new PictureBox();
-            BillLinkedLbl = new LinkLabel();
-            StudentSuppIcon = new PictureBox();
-            StudentSuppLinkLbl = new LinkLabel();
-            GradeIcon = new PictureBox();
-            GradeLinkLbl = new LinkLabel();
-            StudentIcon = new PictureBox();
-            ProfileLinkLbl = new LinkLabel();
+            LogoutBtn = new Button();
+            EducPlanBtn = new Button();
+            StudSuppLinkBtn = new Button();
+            GradeLinkBtn = new Button();
+            ProfileLinkedBtn = new Button();
             LHUserCalendar = new MonthCalendar();
             LHWelcome = new TextBox();
             LHBasicInfoPanel = new Panel();
@@ -70,13 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)RTUSealIcon).BeginInit();
             LHHeaderPanel.SuspendLayout();
             LHMenuStripPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)MenuIcon).BeginInit();
             LHMenuColumn.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)LogoutIcon).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)BillIcon).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)StudentSuppIcon).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)GradeIcon).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)StudentIcon).BeginInit();
             LHBasicInfoPanel.SuspendLayout();
             LHSchedPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)LHSchedTable).BeginInit();
@@ -123,186 +111,149 @@
             // LHMenuStripPanel
             // 
             LHMenuStripPanel.BackColor = Color.Transparent;
-            LHMenuStripPanel.Controls.Add(MenuLbl);
-            LHMenuStripPanel.Controls.Add(MenuIcon);
+            LHMenuStripPanel.Controls.Add(MenuBtn);
             LHMenuStripPanel.Location = new Point(15, 63);
             LHMenuStripPanel.Name = "LHMenuStripPanel";
             LHMenuStripPanel.Size = new Size(1285, 57);
             LHMenuStripPanel.TabIndex = 5;
             // 
-            // MenuLbl
+            // MenuBtn
             // 
-            MenuLbl.AutoSize = true;
-            MenuLbl.Cursor = Cursors.Hand;
-            MenuLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            MenuLbl.Location = new Point(37, 28);
-            MenuLbl.Name = "MenuLbl";
-            MenuLbl.Size = new Size(44, 16);
-            MenuLbl.TabIndex = 1;
-            MenuLbl.Text = "MENU";
-            MenuLbl.Click += label1_Click_1;
-            // 
-            // MenuIcon
-            // 
-            MenuIcon.Cursor = Cursors.Hand;
-            MenuIcon.Image = Properties.Resources.Menu1;
-            MenuIcon.Location = new Point(10, 25);
-            MenuIcon.Name = "MenuIcon";
-            MenuIcon.Size = new Size(24, 24);
-            MenuIcon.SizeMode = PictureBoxSizeMode.AutoSize;
-            MenuIcon.TabIndex = 0;
-            MenuIcon.TabStop = false;
-            MenuIcon.Click += pictureBox1_Click;
+            MenuBtn.BackColor = Color.FromArgb(250, 247, 247);
+            MenuBtn.Cursor = Cursors.Hand;
+            MenuBtn.FlatAppearance.BorderSize = 0;
+            MenuBtn.FlatStyle = FlatStyle.Flat;
+            MenuBtn.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            MenuBtn.ForeColor = Color.FromArgb(90, 115, 141);
+            MenuBtn.Image = Properties.Resources.Menu1;
+            MenuBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            MenuBtn.Location = new Point(3, 16);
+            MenuBtn.Name = "MenuBtn";
+            MenuBtn.Size = new Size(194, 38);
+            MenuBtn.TabIndex = 15;
+            MenuBtn.Text = "MENU";
+            MenuBtn.TextAlign = ContentAlignment.MiddleLeft;
+            MenuBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            MenuBtn.UseVisualStyleBackColor = false;
+            MenuBtn.Click += MenuBtn_Click;
             // 
             // LHMenuColumn
             // 
-            LHMenuColumn.BackColor = Color.FromArgb(249, 184, 74);
-            LHMenuColumn.BorderStyle = BorderStyle.Fixed3D;
-            LHMenuColumn.Controls.Add(LogoutLinkedLbl);
-            LHMenuColumn.Controls.Add(LogoutIcon);
-            LHMenuColumn.Controls.Add(BillIcon);
-            LHMenuColumn.Controls.Add(BillLinkedLbl);
-            LHMenuColumn.Controls.Add(StudentSuppIcon);
-            LHMenuColumn.Controls.Add(StudentSuppLinkLbl);
-            LHMenuColumn.Controls.Add(GradeIcon);
-            LHMenuColumn.Controls.Add(GradeLinkLbl);
-            LHMenuColumn.Controls.Add(StudentIcon);
-            LHMenuColumn.Controls.Add(ProfileLinkLbl);
-            LHMenuColumn.Location = new Point(-220, 98);
+            LHMenuColumn.BackColor = Color.FromArgb(250, 247, 247);
+            LHMenuColumn.BorderStyle = BorderStyle.FixedSingle;
+            LHMenuColumn.Controls.Add(LogoutBtn);
+            LHMenuColumn.Controls.Add(EducPlanBtn);
+            LHMenuColumn.Controls.Add(StudSuppLinkBtn);
+            LHMenuColumn.Controls.Add(GradeLinkBtn);
+            LHMenuColumn.Controls.Add(ProfileLinkedBtn);
+            LHMenuColumn.Location = new Point(-220, 115);
             LHMenuColumn.Name = "LHMenuColumn";
-            LHMenuColumn.Size = new Size(212, 590);
+            LHMenuColumn.Size = new Size(212, 573);
             LHMenuColumn.TabIndex = 4;
             LHMenuColumn.Paint += LHMenuColumn_Paint;
             // 
-            // LogoutLinkedLbl
+            // LogoutBtn
             // 
-            LogoutLinkedLbl.ActiveLinkColor = Color.RoyalBlue;
-            LogoutLinkedLbl.AutoSize = true;
-            LogoutLinkedLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Italic, GraphicsUnit.Point);
-            LogoutLinkedLbl.LinkBehavior = LinkBehavior.NeverUnderline;
-            LogoutLinkedLbl.LinkColor = Color.Black;
-            LogoutLinkedLbl.Location = new Point(118, 548);
-            LogoutLinkedLbl.Name = "LogoutLinkedLbl";
-            LogoutLinkedLbl.Size = new Size(60, 16);
-            LogoutLinkedLbl.TabIndex = 9;
-            LogoutLinkedLbl.TabStop = true;
-            LogoutLinkedLbl.Text = "LOGOUT";
-            LogoutLinkedLbl.LinkClicked += LogoutLinkedLbl_LinkClicked;
+            LogoutBtn.BackColor = Color.FromArgb(250, 247, 247);
+            LogoutBtn.Cursor = Cursors.Hand;
+            LogoutBtn.FlatAppearance.BorderSize = 0;
+            LogoutBtn.FlatStyle = FlatStyle.Flat;
+            LogoutBtn.Font = new Font("Arial Black", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            LogoutBtn.ForeColor = Color.FromArgb(90, 115, 141);
+            LogoutBtn.Image = Properties.Resources.Logout;
+            LogoutBtn.ImageAlign = ContentAlignment.MiddleRight;
+            LogoutBtn.Location = new Point(10, 531);
+            LogoutBtn.Name = "LogoutBtn";
+            LogoutBtn.Size = new Size(194, 38);
+            LogoutBtn.TabIndex = 14;
+            LogoutBtn.Text = "LOGOUT";
+            LogoutBtn.TextAlign = ContentAlignment.MiddleRight;
+            LogoutBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
+            LogoutBtn.UseVisualStyleBackColor = false;
+            LogoutBtn.Click += button1_Click_1;
             // 
-            // LogoutIcon
+            // EducPlanBtn
             // 
-            LogoutIcon.Image = Properties.Resources.Logout;
-            LogoutIcon.Location = new Point(181, 545);
-            LogoutIcon.Name = "LogoutIcon";
-            LogoutIcon.Size = new Size(24, 24);
-            LogoutIcon.SizeMode = PictureBoxSizeMode.AutoSize;
-            LogoutIcon.TabIndex = 8;
-            LogoutIcon.TabStop = false;
-            LogoutIcon.Click += LogoutIcon_Click;
+            EducPlanBtn.BackColor = Color.FromArgb(250, 247, 247);
+            EducPlanBtn.Cursor = Cursors.Hand;
+            EducPlanBtn.FlatAppearance.BorderSize = 0;
+            EducPlanBtn.FlatStyle = FlatStyle.Flat;
+            EducPlanBtn.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            EducPlanBtn.ForeColor = Color.FromArgb(90, 115, 141);
+            EducPlanBtn.Image = Properties.Resources.Bills;
+            EducPlanBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            EducPlanBtn.Location = new Point(10, 153);
+            EducPlanBtn.Name = "EducPlanBtn";
+            EducPlanBtn.Size = new Size(194, 38);
+            EducPlanBtn.TabIndex = 13;
+            EducPlanBtn.Text = "EDUCATIONAL PLAN";
+            EducPlanBtn.TextAlign = ContentAlignment.MiddleLeft;
+            EducPlanBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            EducPlanBtn.UseVisualStyleBackColor = false;
             // 
-            // BillIcon
+            // StudSuppLinkBtn
             // 
-            BillIcon.Image = Properties.Resources.Bills;
-            BillIcon.Location = new Point(12, 168);
-            BillIcon.Name = "BillIcon";
-            BillIcon.Size = new Size(24, 24);
-            BillIcon.SizeMode = PictureBoxSizeMode.AutoSize;
-            BillIcon.TabIndex = 7;
-            BillIcon.TabStop = false;
+            StudSuppLinkBtn.BackColor = Color.FromArgb(250, 247, 247);
+            StudSuppLinkBtn.Cursor = Cursors.Hand;
+            StudSuppLinkBtn.FlatAppearance.BorderSize = 0;
+            StudSuppLinkBtn.FlatStyle = FlatStyle.Flat;
+            StudSuppLinkBtn.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            StudSuppLinkBtn.ForeColor = Color.FromArgb(90, 115, 141);
+            StudSuppLinkBtn.Image = Properties.Resources.Bell;
+            StudSuppLinkBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            StudSuppLinkBtn.Location = new Point(10, 109);
+            StudSuppLinkBtn.Name = "StudSuppLinkBtn";
+            StudSuppLinkBtn.Size = new Size(194, 38);
+            StudSuppLinkBtn.TabIndex = 12;
+            StudSuppLinkBtn.Text = "STUDENT SUPPORT";
+            StudSuppLinkBtn.TextAlign = ContentAlignment.MiddleLeft;
+            StudSuppLinkBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            StudSuppLinkBtn.UseVisualStyleBackColor = false;
             // 
-            // BillLinkedLbl
+            // GradeLinkBtn
             // 
-            BillLinkedLbl.ActiveLinkColor = Color.RoyalBlue;
-            BillLinkedLbl.AutoSize = true;
-            BillLinkedLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            BillLinkedLbl.LinkBehavior = LinkBehavior.NeverUnderline;
-            BillLinkedLbl.LinkColor = Color.Black;
-            BillLinkedLbl.Location = new Point(39, 172);
-            BillLinkedLbl.Name = "BillLinkedLbl";
-            BillLinkedLbl.Size = new Size(139, 16);
-            BillLinkedLbl.TabIndex = 6;
-            BillLinkedLbl.TabStop = true;
-            BillLinkedLbl.Text = "BILLS and PAYMENTS";
+            GradeLinkBtn.BackColor = Color.FromArgb(250, 247, 247);
+            GradeLinkBtn.Cursor = Cursors.Hand;
+            GradeLinkBtn.FlatAppearance.BorderSize = 0;
+            GradeLinkBtn.FlatStyle = FlatStyle.Flat;
+            GradeLinkBtn.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            GradeLinkBtn.ForeColor = Color.FromArgb(90, 115, 141);
+            GradeLinkBtn.Image = Properties.Resources.Table;
+            GradeLinkBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            GradeLinkBtn.Location = new Point(10, 67);
+            GradeLinkBtn.Name = "GradeLinkBtn";
+            GradeLinkBtn.Size = new Size(194, 38);
+            GradeLinkBtn.TabIndex = 11;
+            GradeLinkBtn.Text = "GRADES";
+            GradeLinkBtn.TextAlign = ContentAlignment.MiddleLeft;
+            GradeLinkBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            GradeLinkBtn.UseVisualStyleBackColor = false;
+            GradeLinkBtn.Click += button1_Click;
             // 
-            // StudentSuppIcon
+            // ProfileLinkedBtn
             // 
-            StudentSuppIcon.Image = Properties.Resources.Bell;
-            StudentSuppIcon.Location = new Point(13, 123);
-            StudentSuppIcon.Name = "StudentSuppIcon";
-            StudentSuppIcon.Size = new Size(24, 24);
-            StudentSuppIcon.SizeMode = PictureBoxSizeMode.AutoSize;
-            StudentSuppIcon.TabIndex = 5;
-            StudentSuppIcon.TabStop = false;
-            // 
-            // StudentSuppLinkLbl
-            // 
-            StudentSuppLinkLbl.ActiveLinkColor = Color.RoyalBlue;
-            StudentSuppLinkLbl.AutoSize = true;
-            StudentSuppLinkLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            StudentSuppLinkLbl.LinkBehavior = LinkBehavior.NeverUnderline;
-            StudentSuppLinkLbl.LinkColor = Color.Black;
-            StudentSuppLinkLbl.Location = new Point(40, 127);
-            StudentSuppLinkLbl.Name = "StudentSuppLinkLbl";
-            StudentSuppLinkLbl.Size = new Size(118, 16);
-            StudentSuppLinkLbl.TabIndex = 4;
-            StudentSuppLinkLbl.TabStop = true;
-            StudentSuppLinkLbl.Text = "STUDENT SUPPORT";
-            // 
-            // GradeIcon
-            // 
-            GradeIcon.Image = Properties.Resources.Table;
-            GradeIcon.Location = new Point(12, 79);
-            GradeIcon.Name = "GradeIcon";
-            GradeIcon.Size = new Size(24, 24);
-            GradeIcon.SizeMode = PictureBoxSizeMode.AutoSize;
-            GradeIcon.TabIndex = 3;
-            GradeIcon.TabStop = false;
-            // 
-            // GradeLinkLbl
-            // 
-            GradeLinkLbl.ActiveLinkColor = Color.RoyalBlue;
-            GradeLinkLbl.AutoSize = true;
-            GradeLinkLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            GradeLinkLbl.LinkBehavior = LinkBehavior.NeverUnderline;
-            GradeLinkLbl.LinkColor = Color.Black;
-            GradeLinkLbl.Location = new Point(39, 83);
-            GradeLinkLbl.Name = "GradeLinkLbl";
-            GradeLinkLbl.Size = new Size(59, 16);
-            GradeLinkLbl.TabIndex = 2;
-            GradeLinkLbl.TabStop = true;
-            GradeLinkLbl.Text = "GRADES";
-            // 
-            // StudentIcon
-            // 
-            StudentIcon.Image = Properties.Resources.User;
-            StudentIcon.Location = new Point(12, 39);
-            StudentIcon.Name = "StudentIcon";
-            StudentIcon.Size = new Size(24, 24);
-            StudentIcon.SizeMode = PictureBoxSizeMode.AutoSize;
-            StudentIcon.TabIndex = 1;
-            StudentIcon.TabStop = false;
-            // 
-            // ProfileLinkLbl
-            // 
-            ProfileLinkLbl.ActiveLinkColor = Color.RoyalBlue;
-            ProfileLinkLbl.AutoSize = true;
-            ProfileLinkLbl.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            ProfileLinkLbl.LinkBehavior = LinkBehavior.NeverUnderline;
-            ProfileLinkLbl.LinkColor = Color.Black;
-            ProfileLinkLbl.Location = new Point(39, 43);
-            ProfileLinkLbl.Name = "ProfileLinkLbl";
-            ProfileLinkLbl.Size = new Size(56, 16);
-            ProfileLinkLbl.TabIndex = 0;
-            ProfileLinkLbl.TabStop = true;
-            ProfileLinkLbl.Text = "PROFILE";
-            ProfileLinkLbl.LinkClicked += linkLabel1_LinkClicked;
+            ProfileLinkedBtn.BackColor = Color.FromArgb(250, 247, 247);
+            ProfileLinkedBtn.Cursor = Cursors.Hand;
+            ProfileLinkedBtn.FlatAppearance.BorderSize = 0;
+            ProfileLinkedBtn.FlatStyle = FlatStyle.Flat;
+            ProfileLinkedBtn.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            ProfileLinkedBtn.ForeColor = Color.FromArgb(90, 115, 141);
+            ProfileLinkedBtn.Image = Properties.Resources.User;
+            ProfileLinkedBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            ProfileLinkedBtn.Location = new Point(10, 23);
+            ProfileLinkedBtn.Name = "ProfileLinkedBtn";
+            ProfileLinkedBtn.Size = new Size(194, 38);
+            ProfileLinkedBtn.TabIndex = 10;
+            ProfileLinkedBtn.Text = "PROFILE";
+            ProfileLinkedBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            ProfileLinkedBtn.UseVisualStyleBackColor = false;
             // 
             // LHUserCalendar
             // 
             LHUserCalendar.BackColor = SystemColors.Info;
             LHUserCalendar.Cursor = Cursors.Hand;
             LHUserCalendar.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            LHUserCalendar.Location = new Point(1018, 139);
+            LHUserCalendar.Location = new Point(997, 139);
             LHUserCalendar.Name = "LHUserCalendar";
             LHUserCalendar.ShowToday = false;
             LHUserCalendar.TabIndex = 2;
@@ -311,7 +262,7 @@
             // 
             // LHWelcome
             // 
-            LHWelcome.BackColor = Color.FromArgb(249, 184, 74);
+            LHWelcome.BackColor = Color.FromArgb(250, 247, 247);
             LHWelcome.BorderStyle = BorderStyle.None;
             LHWelcome.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point);
             LHWelcome.ForeColor = Color.Black;
@@ -327,7 +278,7 @@
             // 
             // LHBasicInfoPanel
             // 
-            LHBasicInfoPanel.BackColor = Color.FromArgb(249, 184, 74);
+            LHBasicInfoPanel.BackColor = Color.FromArgb(250, 247, 247);
             LHBasicInfoPanel.Controls.Add(LHSNBox);
             LHBasicInfoPanel.Controls.Add(LHNameBox);
             LHBasicInfoPanel.Controls.Add(LHSectLbl);
@@ -342,7 +293,7 @@
             // 
             // LHSNBox
             // 
-            LHSNBox.BackColor = Color.FromArgb(249, 184, 74);
+            LHSNBox.BackColor = Color.FromArgb(250, 247, 247);
             LHSNBox.BorderStyle = BorderStyle.None;
             LHSNBox.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             LHSNBox.ForeColor = Color.Black;
@@ -354,7 +305,7 @@
             // 
             // LHNameBox
             // 
-            LHNameBox.BackColor = Color.FromArgb(249, 184, 74);
+            LHNameBox.BackColor = Color.FromArgb(250, 247, 247);
             LHNameBox.BorderStyle = BorderStyle.None;
             LHNameBox.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             LHNameBox.ForeColor = Color.Black;
@@ -431,19 +382,19 @@
             // 
             // LHSchedPanel
             // 
-            LHSchedPanel.BackColor = Color.FromArgb(249, 184, 74);
+            LHSchedPanel.BackColor = Color.FromArgb(250, 247, 247);
             LHSchedPanel.Controls.Add(LHSchedTable);
             LHSchedPanel.Controls.Add(ClassSchedLbl);
             LHSchedPanel.Location = new Point(997, 315);
             LHSchedPanel.Name = "LHSchedPanel";
-            LHSchedPanel.Size = new Size(249, 338);
+            LHSchedPanel.Size = new Size(227, 338);
             LHSchedPanel.TabIndex = 7;
             // 
             // LHSchedTable
             // 
             LHSchedTable.AllowUserToDeleteRows = false;
             LHSchedTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            LHSchedTable.BackgroundColor = Color.FromArgb(249, 184, 74);
+            LHSchedTable.BackgroundColor = Color.FromArgb(250, 247, 247);
             LHSchedTable.BorderStyle = BorderStyle.None;
             LHSchedTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             LHSchedTable.Columns.AddRange(new DataGridViewColumn[] { LHSub, LHSect, LHTime, LHDay, LHRoom });
@@ -454,7 +405,7 @@
             LHSchedTable.RowHeadersVisible = false;
             LHSchedTable.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             LHSchedTable.RowTemplate.Height = 25;
-            LHSchedTable.Size = new Size(215, 275);
+            LHSchedTable.Size = new Size(194, 275);
             LHSchedTable.TabIndex = 3;
             // 
             // LHSub
@@ -502,7 +453,7 @@
             // 
             // LHEnrolledCoursePanel
             // 
-            LHEnrolledCoursePanel.BackColor = Color.FromArgb(249, 184, 74);
+            LHEnrolledCoursePanel.BackColor = Color.FromArgb(250, 247, 247);
             LHEnrolledCoursePanel.BorderStyle = BorderStyle.FixedSingle;
             LHEnrolledCoursePanel.Controls.Add(EnrolledLbl);
             LHEnrolledCoursePanel.Location = new Point(18, 141);
@@ -525,7 +476,7 @@
             // 
             // LHWcPanel
             // 
-            LHWcPanel.BackColor = Color.FromArgb(249, 184, 74);
+            LHWcPanel.BackColor = Color.FromArgb(250, 247, 247);
             LHWcPanel.Controls.Add(LHWelcome);
             LHWcPanel.Location = new Point(279, 450);
             LHWcPanel.Name = "LHWcPanel";
@@ -537,7 +488,7 @@
             AccessibleRole = AccessibleRole.TitleBar;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(24, 79, 144);
+            BackColor = Color.FromArgb(90, 115, 141);
             ClientSize = new Size(1264, 681);
             Controls.Add(LHWcPanel);
             Controls.Add(LHSchedPanel);
@@ -555,15 +506,7 @@
             LHHeaderPanel.ResumeLayout(false);
             LHHeaderPanel.PerformLayout();
             LHMenuStripPanel.ResumeLayout(false);
-            LHMenuStripPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)MenuIcon).EndInit();
             LHMenuColumn.ResumeLayout(false);
-            LHMenuColumn.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)LogoutIcon).EndInit();
-            ((System.ComponentModel.ISupportInitialize)BillIcon).EndInit();
-            ((System.ComponentModel.ISupportInitialize)StudentSuppIcon).EndInit();
-            ((System.ComponentModel.ISupportInitialize)GradeIcon).EndInit();
-            ((System.ComponentModel.ISupportInitialize)StudentIcon).EndInit();
             LHBasicInfoPanel.ResumeLayout(false);
             LHBasicInfoPanel.PerformLayout();
             LHSchedPanel.ResumeLayout(false);
@@ -583,17 +526,7 @@
         private Label LearningHLabel;
         private Panel LHMenuStripPanel;
         private Panel LHMenuColumn;
-        private PictureBox MenuIcon;
         private TextBox LHWelcome;
-        private LinkLabel ProfileLinkLbl;
-        private PictureBox StudentIcon;
-        private Label MenuLbl;
-        private PictureBox GradeIcon;
-        private LinkLabel GradeLinkLbl;
-        private PictureBox StudentSuppIcon;
-        private LinkLabel StudentSuppLinkLbl;
-        private PictureBox BillIcon;
-        private LinkLabel BillLinkedLbl;
         private Panel LHBasicInfoPanel;
         private Panel LHSchedPanel;
         private Panel LHEnrolledCoursePanel;
@@ -611,9 +544,13 @@
         private DataGridViewTextBoxColumn LHTime;
         private DataGridViewTextBoxColumn LHDay;
         private DataGridViewTextBoxColumn LHRoom;
-        private LinkLabel LogoutLinkedLbl;
-        private PictureBox LogoutIcon;
         public TextBox LHNameBox;
         public TextBox LHSNBox;
+        private Button ProfileLinkedBtn;
+        private Button EducPlanBtn;
+        private Button StudSuppLinkBtn;
+        private Button GradeLinkBtn;
+        private Button LogoutBtn;
+        private Button MenuBtn;
     }
 }

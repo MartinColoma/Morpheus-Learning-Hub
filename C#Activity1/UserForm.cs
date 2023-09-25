@@ -139,13 +139,43 @@ namespace C_Activity1
 
         private void LogoutIcon_Click(object sender, EventArgs e)
         {
-            if (this.Visible)
+
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dialogResult == DialogResult.Yes)
             {
                 this.Hide();
                 LoginForm.instance.Show();
 
             }
+            else
+            {
 
+            }
+        }
+
+        private void MenuBtn_Click(object sender, EventArgs e)
+        {
+            if (LHMenuColumn.Visible)
+            {
+                LHMenuColumn.Visible = false;
+                LHMenuColumn.Location = new Point(-220, 115);
+            }
+            else
+            {
+                LHMenuColumn.Visible = true;
+                LHMenuColumn.Location = new Point(0, 115);
+            }
         }
     }
 }
