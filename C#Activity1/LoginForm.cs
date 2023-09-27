@@ -10,8 +10,8 @@ namespace C_Activity1
     public partial class LoginForm : Form
     {
         public static LoginForm instance;
-        private MySqlConnection conn;
-
+        public static string mysqlconn = "server=localhost;user=root;database=learninghub;password=";
+        public MySqlConnection connection = new MySqlConnection(mysqlconn);
 
         AdminForm APanel = new AdminForm();
         UserForm HomePage = new UserForm();
@@ -36,23 +36,28 @@ namespace C_Activity1
             instance = this;
             FormBorderStyle = FormBorderStyle.FixedSingle;
 
-
-            string mysqlconn = "server=localhost;user=root;database=learninghub;password=";
-            conn = new MySqlConnection(mysqlconn);
-
-
-            try
-            {
-                conn.Open();
-                MessageBox.Show("Connection Successful");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
             RegiGenderComboBox.Items.AddRange(genders);
             RegiGenderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+
+            using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+            {
+                try
+                {
+                    MessageBox.Show("Connection Successful");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+                
+            }
+            
 
 
         }
@@ -589,10 +594,9 @@ namespace C_Activity1
 
         }
 
-        private void CreateBtn_Click(object sender, EventArgs e)
-        {
+        private void CreateBtn_Click(object sender, EventArgs e){
             // Create Button
-            string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender, BtnMail;
+            string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender, BtnMail, BtnRole;
             Btnname = RegiNameBox.Text;
             BtnSN = RegiSNBox.Text;
             BtnRP = RegiRPBox.Text;
@@ -601,12 +605,9 @@ namespace C_Activity1
             BtnAge = RegiAgeBox.Text;
             BtnGender = RegiGenderComboBox.Text;
             BtnMail = RegiMailBox.Text;
+            //BtnRole = "Student"; // Assuming all registrations are for students.
 
-            // Regex patterns
-            Regex nameRegex = new Regex("^[A-Z][a-zA-Z]+(?: [a-zA-Z]+)*$");
-            Regex courseRegex = new Regex("^[A-Za-z]+(?: [A-Za-z]+)*$");
-            Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
-            Regex gmailRegex = new Regex(@"^[A-Za-z0-9._%+-]+@gmail\.com$");
+            // Regex patterns (same as in your code)
 
             // Check if any of the input fields is empty
             if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) ||
@@ -631,54 +632,76 @@ namespace C_Activity1
                 return; // Exit the method since there's an error
             }
 
-            // Validate fields using regex patterns
-            if (!nameRegex.IsMatch(Btnname))
+            // Validate fields using regex patterns (same as in your code)
+
+            try
             {
-                HandleIncorrectCreateInput("Name must start with a capital letter and only contain alphabetic values.");
-                return;
-            }
-            else if (!courseRegex.IsMatch(BtnCourse))
-            {
-                HandleIncorrectCreateInput("Course must only contain alphabetic values.");
-                return;
-            }
-            else if (!int.TryParse(BtnAge, out _))
-            {
-                HandleIncorrectCreateInput("Age must only contain numeric values.");
-                return;
-            }
-            else if (!int.TryParse(BtnSN, out _))
-            {
-                HandleIncorrectCreateInput("Incorrect Student Number.");
-                return;
-            }
-            else if (!gmailRegex.IsMatch(BtnMail))
-            {
-                HandleIncorrectCreateInput("Invalid Gmail address format.");
-                return;
-            }
-            else if (!passwordRegex.IsMatch(BtnPass))
-            {
-                HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
-                return;
-            }
+                using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                {
+                    connection.Open();
+
+                    // Insert data into the pendingdb table
+                    string insertQuery = "INSERT INTO pendingdb (Name, Age, Gender, Course, Email, StudNum, RecoveryPin, PassHashed) VALUES (@Name, @Age, @Gender, @Course, @Email, @StudNum, @RecoveryPin, @Password)";
+            
+                    MySqlCommand cmd = new MySqlCommand(insertQuery, connection);
+                    cmd.Parameters.AddWithValue("@Name", Btnname);
+                    cmd.Parameters.AddWithValue("@StudNum", BtnSN);
+                    //cmd.Parameters.AddWithValue("@Role", BtnRole);
+                    cmd.Parameters.AddWithValue("@Password", BtnPass);
+                    cmd.Parameters.AddWithValue("@Course", BtnCourse);
+                    cmd.Parameters.AddWithValue("@Age", BtnAge);
+                    cmd.Parameters.AddWithValue("@Gender", BtnGender);
+                    cmd.Parameters.AddWithValue("@Email", BtnMail);
+                    cmd.Parameters.AddWithValue("@RecoveryPin", BtnRP);
 
 
-            // If everything is okay, proceed to add the record
+                    cmd.ExecuteNonQuery();
+                }
+        
+                // Successful insertion
+                MessageBox.Show("Student account is pending for approval.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                // Handle database exception (e.g., connection error or duplicate entry)
+                MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Make sure to close the connection
+                connection.Close();
+            }
+
             if (!AdminForm.instance.existingSN.Contains(BtnSN))
             {
                 AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
                 AdminForm.instance.AddDataGridView(Btnname, BtnAge, BtnGender, BtnCourse, BtnSN, BtnMail, BtnRP, BtnPass);
                 MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else
-            {
-                MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
 
+            // Clear the input fields after successful insertion
+            RegiNameBox.Text = "";
+            RegiSNBox.Text = "";
+            RegiRPBox.Text = "";
+            RegiPassBox.Text = "";
+            RegiCourseBox.Text = "";
+            RegiAgeBox.Text = "";
+            RegiGenderComboBox.Text = "";
+            RegiMailBox.Text = "";
         }
 
-        private bool IsStudentNumberInApprovedTable(string studentNumber)
+ //// If everything is okay, proceed to add the record
+            //if (!AdminForm.instance.existingSN.Contains(BtnSN))
+            //{
+            //    AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
+            //    AdminForm.instance.AddDataGridView(Btnname, BtnAge, BtnGender, BtnCourse, BtnSN, BtnMail, BtnRP, BtnPass);
+            //    MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+    //else
+    //{
+    //    MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    //}
+    private bool IsStudentNumberInApprovedTable(string studentNumber)
         {
             foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
             {
@@ -764,6 +787,10 @@ namespace C_Activity1
                 RegiSNBox.Text = "";
                 RegiRPBox.Text = "";
                 RegiPassBox.Text = "";
+                RegiCourseBox.Text = "";
+                RegiAgeBox.Text = "";
+                RegiGenderComboBox.Text = "";
+                RegiMailBox.Text = "";
             }
 
             else
@@ -950,5 +977,65 @@ namespace C_Activity1
         {
 
         }
+    }
+}
+
+public class HashHelper
+{
+    public static string HashString(string input)
+    {
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            byte[] hashBytes = sha256.ComputeHash(inputBytes);
+            string hashedString = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            return hashedString;
+        }
+    }
+}
+public class HashHelper_Salt
+{
+    public static string HashString_Salt(string input_Salt)
+    {
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            byte[] inputBytes_Salt = Encoding.UTF8.GetBytes(input_Salt);
+            byte[] hashBytes_Salt = sha256.ComputeHash(inputBytes_Salt);
+            string hashedString_Salt = BitConverter.ToString(hashBytes_Salt).Replace("-", "").ToLower();
+            return hashedString_Salt;
+        }
+    }
+}
+public class HashHelper_SaltperUser
+{
+    public static string HashString_SaltperUser(string input_SaltperUser)
+    {
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            byte[] inputBytes_SaltperUser = Encoding.UTF8.GetBytes(input_SaltperUser);
+            byte[] hashBytes_SaltperUser = sha256.ComputeHash(inputBytes_SaltperUser);
+            string hashedString_SaltperUser = BitConverter.ToString(hashBytes_SaltperUser).Replace("-", "").ToLower();
+            return hashedString_SaltperUser;
+        }
+    }
+}
+public class RandomNumberGenerator
+{
+    private static Random random = new Random();
+
+    public static string GenerateRandomNumber()
+    {
+        var digits = Enumerable.Range(0, 10).ToList();
+
+        for (int i = 0; i < digits.Count; i++)
+        {
+            int j = random.Next(i, digits.Count);
+            int temp = digits[i];
+            digits[i] = digits[j];
+            digits[j] = temp;
+        }
+        string randomNumber = string.Join("", digits.Take(4));
+
+        return randomNumber;
     }
 }

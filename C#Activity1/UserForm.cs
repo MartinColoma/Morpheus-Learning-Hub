@@ -35,9 +35,15 @@ namespace C_Activity1
             {
                 // Prevent the form from closing.
                 e.Cancel = true;
-                // Hide the form instead of closing it.
-                this.Hide();
-                LoginForm.instance.Show();
+
+                DialogResult result = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    this.Hide();
+                    LoginForm.instance.Show();
+
+                }
+
 
             }
         }
@@ -165,6 +171,20 @@ namespace C_Activity1
         }
 
         private void MenuBtn_Click(object sender, EventArgs e)
+        {
+            if (LHMenuColumn.Visible)
+            {
+                LHMenuColumn.Visible = false;
+                LHMenuColumn.Location = new Point(-220, 115);
+            }
+            else
+            {
+                LHMenuColumn.Visible = true;
+                LHMenuColumn.Location = new Point(0, 115);
+            }
+        }
+
+        private void LHMenuBtn_Click(object sender, EventArgs e)
         {
             if (LHMenuColumn.Visible)
             {

@@ -44,9 +44,15 @@ namespace C_Activity1
             {
                 // Prevent the form from closing.
                 e.Cancel = true;
-                // Hide the form instead of closing it.
-                this.Hide();
-                LoginForm.instance.Show();
+                
+                DialogResult result = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    this.Hide();
+                    LoginForm.instance.Show();
+
+                }
+
 
             }
         }
@@ -93,13 +99,6 @@ namespace C_Activity1
                 using (conn)
                 {
                     conn.Open();
-
-                    // Debugging code to print column names
-                    Debug.WriteLine("Column Names:");
-                    foreach (DataGridViewCell cell in selectedRow.Cells)
-                    {
-                        Debug.WriteLine(cell.OwningColumn.Name);
-                    }
 
                     // Assuming you have a table named "ApprovedData" in your database
                     string insertQuery = "INSERT INTO approveddb (Name, Age, Gender, Course, Email, StudNum, RecoveryPin) VALUES (@Name, @Age, @Gender, @Course, @Email, @StudNum, @RecoveryPin)";
