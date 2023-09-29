@@ -24,12 +24,12 @@ namespace C_Activity1
             string mysqlconn = "server=localhost;user=root;database=learninghub;password=";
             conn = new MySqlConnection(mysqlconn);
             conn.Open();
-            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
+            this.FormClosing += new FormClosingEventHandler(UserForm_Closing);
             FormBorderStyle = FormBorderStyle.FixedSingle;
 
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void UserForm_Closing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {

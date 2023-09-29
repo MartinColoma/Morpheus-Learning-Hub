@@ -25,6 +25,7 @@ namespace C_Activity1
         int timerInterval = 15000;
         bool disableButton = false;
         private string[] genders = { "Male", "Female", "Prefer Not to Say" };
+        string ID;
 
 
 
@@ -55,13 +56,30 @@ namespace C_Activity1
                     connection.Close();
                 }
 
-                
-            }
-            
 
+            }
+
+            this.FormClosing += new FormClosingEventHandler(LoginForm_FormClosing);
 
         }
+        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
 
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                // Prevent the form from closing.
+                e.Cancel = true;
+
+                DialogResult result = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    this.Dispose();
+
+                }
+
+
+            }
+        }
         private void RTULogin_Load(object sender, EventArgs e)
         {
 
@@ -98,6 +116,12 @@ namespace C_Activity1
 
         private void SignUpLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+
+            //Reset RegiSNBox's First 4 values
+            ID = RandomNumberGenerator.GenerateRandomNumber();
+            string BtnSN = RegiSNBox.Text;
+            RegiSNBox.Text = ID + "-" + BtnSN;
+
             //Login Panel to Register Panel Linked Label
 
             if (LoginPanel.Visible)
@@ -117,7 +141,6 @@ namespace C_Activity1
                 LoginPanel.Visible = true;
                 WCPanel.Visible = true;
             }
-
 
 
         }
@@ -486,9 +509,26 @@ namespace C_Activity1
             //Register Name Textbox
         }
 
+        private int minTextLength = 5; // Minimum required text length
+
+        private void RegiSNBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Back)
+            {
+                // If the current length is less than or equal to the minimum required length, prevent Backspace
+                if (RegiSNBox.Text.Length <= minTextLength)
+                {
+                    e.SuppressKeyPress = true; // Prevent Backspace
+                }
+            }
+        }
+
+
+
         private void RegiSNBox_TextChanged(object sender, EventArgs e)
         {
             //Register Student Number Textbox
+
         }
         private void RegiRPBox_TextChanged(object sender, EventArgs e)
         {
@@ -594,7 +634,17 @@ namespace C_Activity1
 
         }
 
-        private void CreateBtn_Click(object sender, EventArgs e){
+
+
+        private void generateIDv2()
+        {
+            string ID = RandomNumberGenerator.GenerateRandomNumber();
+            string BtnSN = RegiSNBox.Text;
+            RegiSNBox.Text = ID + "-" + BtnSN;
+        }
+
+        private void CreateBtn_Click(object sender, EventArgs e) //8506-1231
+        {
             // Create Button
             string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender, BtnMail, BtnRole;
             Btnname = RegiNameBox.Text;
@@ -605,9 +655,18 @@ namespace C_Activity1
             BtnAge = RegiAgeBox.Text;
             BtnGender = RegiGenderComboBox.Text;
             BtnMail = RegiMailBox.Text;
-            //BtnRole = "Student"; // Assuming all registrations are for students.
 
-            // Regex patterns (same as in your code)
+
+            string hashedPassword = HashHelper.HashString(BtnPass);    // Password hashed
+            string fixedSalt = HashHelper_Salt.HashString_Salt("Morpheus" + BtnPass + "01");    //Fixed Salt
+            string perUserSalt = HashHelper_SaltperUser.HashString_SaltperUser(BtnPass + ID);    //Per User salt
+
+
+            // Regex patterns
+            Regex nameRegex = new Regex("^[A-Z][a-zA-Z]+(?: [a-zA-Z]+)*$");
+            Regex courseRegex = new Regex("^[A-Za-z]+(?: [A-Za-z]+)*$");
+            Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+            Regex gmailRegex = new Regex(@"^[A-Za-z0-9._%+-]+@gmail\.com$");
 
             // Check if any of the input fields is empty
             if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) ||
@@ -632,7 +691,37 @@ namespace C_Activity1
                 return; // Exit the method since there's an error
             }
 
-            // Validate fields using regex patterns (same as in your code)
+            // Validate fields using regex patterns
+            if (!nameRegex.IsMatch(Btnname))
+            {
+                HandleIncorrectCreateInput("Name must start with a capital letter and only contain alphabetic values.");
+                return;
+            }
+            else if (!courseRegex.IsMatch(BtnCourse))
+            {
+                HandleIncorrectCreateInput("Course must only contain alphabetic values.");
+                return;
+            }
+            else if (!int.TryParse(BtnAge, out _))
+            {
+                HandleIncorrectCreateInput("Age must only contain numeric values.");
+                return;
+            }
+            //else if (!int.TryParse(BtnSN, out _))
+            //{
+            //    HandleIncorrectCreateInput("Incorrect Student Number.");
+            //    return;
+            //}
+            else if (!gmailRegex.IsMatch(BtnMail))
+            {
+                HandleIncorrectCreateInput("Invalid Gmail address format.");
+                return;
+            }
+            else if (!passwordRegex.IsMatch(BtnPass))
+            {
+                HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
+                return;
+            }
 
             try
             {
@@ -641,13 +730,16 @@ namespace C_Activity1
                     connection.Open();
 
                     // Insert data into the pendingdb table
-                    string insertQuery = "INSERT INTO pendingdb (Name, Age, Gender, Course, Email, StudNum, RecoveryPin, PassHashed) VALUES (@Name, @Age, @Gender, @Course, @Email, @StudNum, @RecoveryPin, @Password)";
-            
+                    string insertQuery = "INSERT INTO mpendingdb (Name, Age, Gender, Course, Email, StudNum, RecoveryPin, UserID, PassHashed, PassFixNa, PassPerUserNa) " +
+                                        "VALUES (@Name, @Age, @Gender, @Course, @Email, @StudNum, @RecoveryPin, @UserID, @Password, @FixedSalt, @PerUserSalt)";
+
                     MySqlCommand cmd = new MySqlCommand(insertQuery, connection);
                     cmd.Parameters.AddWithValue("@Name", Btnname);
                     cmd.Parameters.AddWithValue("@StudNum", BtnSN);
-                    //cmd.Parameters.AddWithValue("@Role", BtnRole);
-                    cmd.Parameters.AddWithValue("@Password", BtnPass);
+                    cmd.Parameters.AddWithValue("@Password", hashedPassword);
+                    cmd.Parameters.AddWithValue("@UserID", ID);
+                    cmd.Parameters.AddWithValue("@FixedSalt", fixedSalt);
+                    cmd.Parameters.AddWithValue("@PerUserSalt", perUserSalt);
                     cmd.Parameters.AddWithValue("@Course", BtnCourse);
                     cmd.Parameters.AddWithValue("@Age", BtnAge);
                     cmd.Parameters.AddWithValue("@Gender", BtnGender);
@@ -657,9 +749,9 @@ namespace C_Activity1
 
                     cmd.ExecuteNonQuery();
                 }
-        
+
                 // Successful insertion
-                MessageBox.Show("Student account is pending for approval.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Account added for approval", "Hooray!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -672,36 +764,32 @@ namespace C_Activity1
                 connection.Close();
             }
 
-            if (!AdminForm.instance.existingSN.Contains(BtnSN))
-            {
-                AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
-                AdminForm.instance.AddDataGridView(Btnname, BtnAge, BtnGender, BtnCourse, BtnSN, BtnMail, BtnRP, BtnPass);
-                MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
-            // Clear the input fields after successful insertion
             RegiNameBox.Text = "";
             RegiSNBox.Text = "";
             RegiRPBox.Text = "";
             RegiPassBox.Text = "";
             RegiCourseBox.Text = "";
             RegiAgeBox.Text = "";
-            RegiGenderComboBox.Text = "";
+            RegiGenderComboBox.SelectedIndex = -1;
             RegiMailBox.Text = "";
+
+
+
+            //generateIDv2();
         }
 
- //// If everything is okay, proceed to add the record
-            //if (!AdminForm.instance.existingSN.Contains(BtnSN))
-            //{
-            //    AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
-            //    AdminForm.instance.AddDataGridView(Btnname, BtnAge, BtnGender, BtnCourse, BtnSN, BtnMail, BtnRP, BtnPass);
-            //    MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-    //else
-    //{
-    //    MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-    //}
-    private bool IsStudentNumberInApprovedTable(string studentNumber)
+        //// If everything is okay, proceed to add the record
+        //if (!AdminForm.instance.existingSN.Contains(BtnSN))
+        //{
+        //    AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
+        //    AdminForm.instance.AddDataGridView(Btnname, BtnAge, BtnGender, BtnCourse, BtnSN, BtnMail, BtnRP, BtnPass);
+        //    MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //}
+        //else
+        //{
+        //    MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //}
+        private bool IsStudentNumberInApprovedTable(string studentNumber)
         {
             foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
             {
@@ -747,33 +835,6 @@ namespace C_Activity1
             }
         }
 
-        //private void CreateBtn_Click(object sender, EventArgs e)
-        //{
-        //    // ... (existing code)
-
-        //    // Check if the provided password is already taken in ApprovedTable or PendingTable
-
-
-        //    // ... (existing code)
-
-        //    // If everything is okay, proceed to add the record
-        //    // ... (existing code)
-        //}
-
-        //private bool IsPasswordTakenInTable(string password, DataGridView dataGridView, string passwordColumnName)
-        //{
-        //    foreach (DataGridViewRow row in dataGridView.Rows)
-        //    {
-        //        if (row.Cells[passwordColumnName].Value != null && row.Cells[passwordColumnName].Value.ToString() == password)
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
-
-
-
         private void LoginLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //Register Panel to Login Panel Link Label
@@ -789,7 +850,7 @@ namespace C_Activity1
                 RegiPassBox.Text = "";
                 RegiCourseBox.Text = "";
                 RegiAgeBox.Text = "";
-                RegiGenderComboBox.Text = "";
+                RegiGenderComboBox.SelectedIndex = -1;
                 RegiMailBox.Text = "";
             }
 
@@ -801,8 +862,6 @@ namespace C_Activity1
                 RecoveryPanel.Visible = false;
 
             }
-
-
 
         }
 
@@ -1039,3 +1098,30 @@ public class RandomNumberGenerator
         return randomNumber;
     }
 }
+
+//public class RandomNumberGenerator
+//{
+//    private static Random random = new Random();
+
+//    public static string GenerateRandomNumber()
+//    {
+//        var digits = Enumerable.Range(0, 10).ToList();
+
+//        // Shuffle the digits to ensure randomness
+//        for (int i = 0; i < digits.Count; i++)
+//        {
+//            int j = random.Next(i, digits.Count);
+//            int temp = digits[i];
+//            digits[i] = digits[j];
+//            digits[j] = temp;
+//        }
+
+//        // Create the random number with the first 4 digits being "2022"
+//        digits.InsertRange(0, new List<int> { 2, 0, 2, 2 });
+
+//        // Take the first 8 digits (in case the list has more than 8 digits)
+//        string randomNumber = string.Join("", digits.Take(8));
+
+//        return randomNumber;
+//    }
+//}
