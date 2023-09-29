@@ -386,7 +386,6 @@ namespace C_Activity1
 
             }
 
-            // You can add code here to update your UI or perform any other necessary actions
         }
 
 
@@ -398,25 +397,38 @@ namespace C_Activity1
 
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
-            // Call this method when a button is clicked to delete the selected row from ApprovedTable
-            foreach (DataGridViewRow selectedRow in ApprovedTable.SelectedRows)
+            if (ApprovedTable.SelectedRows.Count > 0)
             {
-                try
+                DialogResult dialogResult = MessageBox.Show("Do you want to delete the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dialogResult == DialogResult.Yes)
                 {
+                    // Iterate through selected rows in PendingTable
+                    
+                    foreach (DataGridViewRow selectedRow in ApprovedTable.SelectedRows)
+                    {
+                        try
+                        {
+                            //// Insert data into the database
+                            DeleteInApproveddDB(selectedRow);
 
-                    //// Insert data into the database
-                    DeleteInApproveddDB(selectedRow);
-
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle any database-related errors here
+                            MessageBox.Show("Error: " + ex.Message);
+                        }
+                    }
 
                 }
-                catch (Exception ex)
+                else if (dialogResult == DialogResult.No)
                 {
-                    // Handle any database-related errors here
-                    MessageBox.Show("Error: " + ex.Message);
+                    
                 }
-                finally {
-                    connection.Close();
-                }
+            }
+            else
+            {
+                MessageBox.Show("Select a table row first.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 

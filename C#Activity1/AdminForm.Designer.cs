@@ -313,7 +313,7 @@
             PendingApprovedTabs.Location = new Point(0, 0);
             PendingApprovedTabs.Name = "PendingApprovedTabs";
             PendingApprovedTabs.SelectedIndex = 0;
-            PendingApprovedTabs.Size = new Size(805, 511);
+            PendingApprovedTabs.Size = new Size(804, 511);
             PendingApprovedTabs.TabIndex = 30;
             // 
             // PendingTab
@@ -323,7 +323,7 @@
             PendingTab.Location = new Point(4, 24);
             PendingTab.Name = "PendingTab";
             PendingTab.Padding = new Padding(3);
-            PendingTab.Size = new Size(797, 483);
+            PendingTab.Size = new Size(796, 483);
             PendingTab.TabIndex = 0;
             PendingTab.Text = "Pending Account";
             PendingTab.Click += PendingTab_Click;
@@ -345,8 +345,10 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(90, 115, 141);
-            ClientSize = new Size(805, 511);
+            ClientSize = new Size(804, 511);
             Controls.Add(PendingApprovedTabs);
+            MaximumSize = new Size(820, 550);
+            MinimumSize = new Size(820, 550);
             Name = "AdminForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
