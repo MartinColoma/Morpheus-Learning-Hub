@@ -31,40 +31,32 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             PendingTable = new DataGridView();
-            PNameColumn = new DataGridViewTextBoxColumn();
-            PAgeColumn = new DataGridViewTextBoxColumn();
-            PGenderColumn = new DataGridViewTextBoxColumn();
-            PCourseColumn = new DataGridViewTextBoxColumn();
-            PSNColumn = new DataGridViewTextBoxColumn();
-            PMailColumn = new DataGridViewTextBoxColumn();
-            PRPinColumn = new DataGridViewTextBoxColumn();
-            PPassColumn = new DataGridViewTextBoxColumn();
             ApprovedTable = new DataGridView();
-            ANameColumn = new DataGridViewTextBoxColumn();
-            AAgeColumn = new DataGridViewTextBoxColumn();
-            AGenderColumn = new DataGridViewTextBoxColumn();
-            ACourseColumn = new DataGridViewTextBoxColumn();
-            ASNColumn = new DataGridViewTextBoxColumn();
-            AMailColumn = new DataGridViewTextBoxColumn();
-            ARPInColumn = new DataGridViewTextBoxColumn();
-            APassColumn = new DataGridViewTextBoxColumn();
             PendingLabel = new Label();
             ApprovedLbl = new Label();
             ApproveBtn = new Button();
             ApprovedPanel = new Panel();
+            AdminLoginLinkedLbl = new LinkLabel();
+            ApprovedRefreshBtn = new FontAwesome.Sharp.IconButton();
             linkLabel1 = new LinkLabel();
             MorpheusLogo2 = new PictureBox();
             DeleteBtn = new Button();
             ApprovedDictionary = new LinkLabel();
             PendingPanel = new Panel();
+            PendingRefreshBtn = new FontAwesome.Sharp.IconButton();
             MorpheusBlueLogo = new PictureBox();
-            AdminLoginLinkedLbl = new LinkLabel();
+            PendingApprovedTabs = new TabControl();
+            PendingTab = new TabPage();
+            ApprovedTab = new TabPage();
             ((System.ComponentModel.ISupportInitialize)PendingTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).BeginInit();
             ApprovedPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusLogo2).BeginInit();
             PendingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusBlueLogo).BeginInit();
+            PendingApprovedTabs.SuspendLayout();
+            PendingTab.SuspendLayout();
+            ApprovedTab.SuspendLayout();
             SuspendLayout();
             // 
             // PendingTable
@@ -77,7 +69,6 @@
             PendingTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             PendingTable.BorderStyle = BorderStyle.Fixed3D;
             PendingTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            PendingTable.Columns.AddRange(new DataGridViewColumn[] { PNameColumn, PAgeColumn, PGenderColumn, PCourseColumn, PSNColumn, PMailColumn, PRPinColumn, PPassColumn });
             PendingTable.Location = new Point(39, 126);
             PendingTable.Name = "PendingTable";
             PendingTable.ReadOnly = true;
@@ -90,61 +81,9 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             PendingTable.RowTemplate.Height = 25;
-            PendingTable.Size = new Size(664, 265);
+            PendingTable.Size = new Size(665, 220);
             PendingTable.TabIndex = 0;
             PendingTable.CellContentClick += dataGridView1_CellContentClick;
-            // 
-            // PNameColumn
-            // 
-            PNameColumn.HeaderText = "Name";
-            PNameColumn.Name = "PNameColumn";
-            PNameColumn.ReadOnly = true;
-            // 
-            // PAgeColumn
-            // 
-            PAgeColumn.HeaderText = "Age";
-            PAgeColumn.Name = "PAgeColumn";
-            PAgeColumn.ReadOnly = true;
-            // 
-            // PGenderColumn
-            // 
-            PGenderColumn.HeaderText = "Gender";
-            PGenderColumn.Name = "PGenderColumn";
-            PGenderColumn.ReadOnly = true;
-            PGenderColumn.Resizable = DataGridViewTriState.True;
-            PGenderColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // PCourseColumn
-            // 
-            PCourseColumn.HeaderText = "College Course";
-            PCourseColumn.Name = "PCourseColumn";
-            PCourseColumn.ReadOnly = true;
-            PCourseColumn.Resizable = DataGridViewTriState.True;
-            PCourseColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // PSNColumn
-            // 
-            PSNColumn.HeaderText = "Student Number";
-            PSNColumn.Name = "PSNColumn";
-            PSNColumn.ReadOnly = true;
-            // 
-            // PMailColumn
-            // 
-            PMailColumn.HeaderText = "Email";
-            PMailColumn.Name = "PMailColumn";
-            PMailColumn.ReadOnly = true;
-            // 
-            // PRPinColumn
-            // 
-            PRPinColumn.HeaderText = "Recovery Pin";
-            PRPinColumn.Name = "PRPinColumn";
-            PRPinColumn.ReadOnly = true;
-            // 
-            // PPassColumn
-            // 
-            PPassColumn.HeaderText = "Password";
-            PPassColumn.Name = "PPassColumn";
-            PPassColumn.ReadOnly = true;
             // 
             // ApprovedTable
             // 
@@ -154,68 +93,13 @@
             ApprovedTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             ApprovedTable.BorderStyle = BorderStyle.Fixed3D;
             ApprovedTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ApprovedTable.Columns.AddRange(new DataGridViewColumn[] { ANameColumn, AAgeColumn, AGenderColumn, ACourseColumn, ASNColumn, AMailColumn, ARPInColumn, APassColumn });
             ApprovedTable.Location = new Point(39, 126);
             ApprovedTable.Name = "ApprovedTable";
             ApprovedTable.ReadOnly = true;
             ApprovedTable.RowTemplate.Height = 25;
-            ApprovedTable.Size = new Size(664, 265);
+            ApprovedTable.Size = new Size(665, 220);
             ApprovedTable.TabIndex = 1;
             ApprovedTable.CellContentClick += ApprovedTable_CellContentClick;
-            // 
-            // ANameColumn
-            // 
-            ANameColumn.FillWeight = 100.582642F;
-            ANameColumn.HeaderText = "Name";
-            ANameColumn.Name = "ANameColumn";
-            ANameColumn.ReadOnly = true;
-            // 
-            // AAgeColumn
-            // 
-            AAgeColumn.HeaderText = "Age";
-            AAgeColumn.Name = "AAgeColumn";
-            AAgeColumn.ReadOnly = true;
-            // 
-            // AGenderColumn
-            // 
-            AGenderColumn.HeaderText = "Gender";
-            AGenderColumn.Name = "AGenderColumn";
-            AGenderColumn.ReadOnly = true;
-            AGenderColumn.Resizable = DataGridViewTriState.True;
-            AGenderColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ACourseColumn
-            // 
-            ACourseColumn.HeaderText = "College Course";
-            ACourseColumn.Name = "ACourseColumn";
-            ACourseColumn.ReadOnly = true;
-            // 
-            // ASNColumn
-            // 
-            ASNColumn.FillWeight = 99.37547F;
-            ASNColumn.HeaderText = "Student Number";
-            ASNColumn.Name = "ASNColumn";
-            ASNColumn.ReadOnly = true;
-            // 
-            // AMailColumn
-            // 
-            AMailColumn.HeaderText = "Email";
-            AMailColumn.Name = "AMailColumn";
-            AMailColumn.ReadOnly = true;
-            // 
-            // ARPInColumn
-            // 
-            ARPInColumn.FillWeight = 100.544395F;
-            ARPInColumn.HeaderText = "Recovery Pin";
-            ARPInColumn.Name = "ARPInColumn";
-            ARPInColumn.ReadOnly = true;
-            // 
-            // APassColumn
-            // 
-            APassColumn.FillWeight = 99.49749F;
-            APassColumn.HeaderText = "Password";
-            APassColumn.Name = "APassColumn";
-            APassColumn.ReadOnly = true;
             // 
             // PendingLabel
             // 
@@ -256,7 +140,7 @@
             ApproveBtn.FlatStyle = FlatStyle.Flat;
             ApproveBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ApproveBtn.ForeColor = Color.White;
-            ApproveBtn.Location = new Point(589, 399);
+            ApproveBtn.Location = new Point(589, 370);
             ApproveBtn.Name = "ApproveBtn";
             ApproveBtn.Size = new Size(114, 31);
             ApproveBtn.TabIndex = 10;
@@ -266,17 +150,55 @@
             // 
             // ApprovedPanel
             // 
+            ApprovedPanel.Controls.Add(AdminLoginLinkedLbl);
+            ApprovedPanel.Controls.Add(ApprovedRefreshBtn);
             ApprovedPanel.Controls.Add(linkLabel1);
             ApprovedPanel.Controls.Add(MorpheusLogo2);
             ApprovedPanel.Controls.Add(DeleteBtn);
             ApprovedPanel.Controls.Add(ApprovedDictionary);
             ApprovedPanel.Controls.Add(ApprovedLbl);
             ApprovedPanel.Controls.Add(ApprovedTable);
-            ApprovedPanel.Location = new Point(30, 9);
+            ApprovedPanel.Location = new Point(26, 6);
             ApprovedPanel.Name = "ApprovedPanel";
             ApprovedPanel.Size = new Size(747, 476);
             ApprovedPanel.TabIndex = 11;
             ApprovedPanel.Paint += ApprovedPanel_Paint;
+            // 
+            // AdminLoginLinkedLbl
+            // 
+            AdminLoginLinkedLbl.ActiveLinkColor = Color.FromArgb(24, 79, 144);
+            AdminLoginLinkedLbl.AutoSize = true;
+            AdminLoginLinkedLbl.Font = new Font("MS UI Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            AdminLoginLinkedLbl.LinkBehavior = LinkBehavior.HoverUnderline;
+            AdminLoginLinkedLbl.LinkColor = Color.White;
+            AdminLoginLinkedLbl.Location = new Point(40, 413);
+            AdminLoginLinkedLbl.Name = "AdminLoginLinkedLbl";
+            AdminLoginLinkedLbl.Size = new Size(125, 15);
+            AdminLoginLinkedLbl.TabIndex = 14;
+            AdminLoginLinkedLbl.TabStop = true;
+            AdminLoginLinkedLbl.Text = "Open Login Page...";
+            AdminLoginLinkedLbl.LinkClicked += AdminLoginLinkedLbl_LinkClicked;
+            // 
+            // ApprovedRefreshBtn
+            // 
+            ApprovedRefreshBtn.FlatAppearance.BorderSize = 0;
+            ApprovedRefreshBtn.FlatStyle = FlatStyle.Flat;
+            ApprovedRefreshBtn.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            ApprovedRefreshBtn.ForeColor = Color.FromArgb(250, 247, 247);
+            ApprovedRefreshBtn.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
+            ApprovedRefreshBtn.IconColor = Color.FromArgb(250, 247, 247);
+            ApprovedRefreshBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ApprovedRefreshBtn.IconSize = 24;
+            ApprovedRefreshBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            ApprovedRefreshBtn.Location = new Point(607, 89);
+            ApprovedRefreshBtn.Name = "ApprovedRefreshBtn";
+            ApprovedRefreshBtn.Size = new Size(106, 31);
+            ApprovedRefreshBtn.TabIndex = 21;
+            ApprovedRefreshBtn.Text = "REFRESH";
+            ApprovedRefreshBtn.TextAlign = ContentAlignment.MiddleLeft;
+            ApprovedRefreshBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
+            ApprovedRefreshBtn.UseVisualStyleBackColor = true;
+            ApprovedRefreshBtn.Click += ApprovedRefreshBtn_Click;
             // 
             // linkLabel1
             // 
@@ -285,7 +207,7 @@
             linkLabel1.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             linkLabel1.LinkBehavior = LinkBehavior.HoverUnderline;
             linkLabel1.LinkColor = Color.FromArgb(250, 247, 247);
-            linkLabel1.Location = new Point(40, 430);
+            linkLabel1.Location = new Point(40, 389);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(247, 16);
             linkLabel1.TabIndex = 19;
@@ -329,7 +251,7 @@
             ApprovedDictionary.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ApprovedDictionary.LinkBehavior = LinkBehavior.HoverUnderline;
             ApprovedDictionary.LinkColor = Color.FromArgb(250, 247, 247);
-            ApprovedDictionary.Location = new Point(39, 404);
+            ApprovedDictionary.Location = new Point(39, 363);
             ApprovedDictionary.Name = "ApprovedDictionary";
             ApprovedDictionary.Size = new Size(261, 16);
             ApprovedDictionary.TabIndex = 11;
@@ -339,15 +261,37 @@
             // 
             // PendingPanel
             // 
+            PendingPanel.Controls.Add(PendingRefreshBtn);
             PendingPanel.Controls.Add(ApproveBtn);
             PendingPanel.Controls.Add(PendingLabel);
             PendingPanel.Controls.Add(PendingTable);
             PendingPanel.Controls.Add(MorpheusBlueLogo);
-            PendingPanel.Location = new Point(30, 12);
+            PendingPanel.Location = new Point(36, 7);
             PendingPanel.Name = "PendingPanel";
             PendingPanel.Size = new Size(744, 473);
             PendingPanel.TabIndex = 13;
             PendingPanel.Paint += PendingPanel_Paint;
+            // 
+            // PendingRefreshBtn
+            // 
+            PendingRefreshBtn.FlatAppearance.BorderSize = 0;
+            PendingRefreshBtn.FlatStyle = FlatStyle.Flat;
+            PendingRefreshBtn.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            PendingRefreshBtn.ForeColor = Color.FromArgb(250, 247, 247);
+            PendingRefreshBtn.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
+            PendingRefreshBtn.IconColor = Color.FromArgb(250, 247, 247);
+            PendingRefreshBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            PendingRefreshBtn.IconSize = 24;
+            PendingRefreshBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            PendingRefreshBtn.Location = new Point(608, 89);
+            PendingRefreshBtn.Name = "PendingRefreshBtn";
+            PendingRefreshBtn.Size = new Size(106, 31);
+            PendingRefreshBtn.TabIndex = 20;
+            PendingRefreshBtn.Text = "REFRESH";
+            PendingRefreshBtn.TextAlign = ContentAlignment.MiddleLeft;
+            PendingRefreshBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
+            PendingRefreshBtn.UseVisualStyleBackColor = true;
+            PendingRefreshBtn.Click += PendingRefreshBtn_Click;
             // 
             // MorpheusBlueLogo
             // 
@@ -359,20 +303,42 @@
             MorpheusBlueLogo.TabIndex = 19;
             MorpheusBlueLogo.TabStop = false;
             // 
-            // AdminLoginLinkedLbl
+            // PendingApprovedTabs
             // 
-            AdminLoginLinkedLbl.ActiveLinkColor = Color.FromArgb(24, 79, 144);
-            AdminLoginLinkedLbl.AutoSize = true;
-            AdminLoginLinkedLbl.Font = new Font("MS UI Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            AdminLoginLinkedLbl.LinkBehavior = LinkBehavior.HoverUnderline;
-            AdminLoginLinkedLbl.LinkColor = Color.White;
-            AdminLoginLinkedLbl.Location = new Point(70, 470);
-            AdminLoginLinkedLbl.Name = "AdminLoginLinkedLbl";
-            AdminLoginLinkedLbl.Size = new Size(125, 15);
-            AdminLoginLinkedLbl.TabIndex = 14;
-            AdminLoginLinkedLbl.TabStop = true;
-            AdminLoginLinkedLbl.Text = "Open Login Page...";
-            AdminLoginLinkedLbl.LinkClicked += AdminLoginLinkedLbl_LinkClicked;
+            PendingApprovedTabs.Controls.Add(PendingTab);
+            PendingApprovedTabs.Controls.Add(ApprovedTab);
+            PendingApprovedTabs.Cursor = Cursors.Hand;
+            PendingApprovedTabs.Dock = DockStyle.Fill;
+            PendingApprovedTabs.HotTrack = true;
+            PendingApprovedTabs.Location = new Point(0, 0);
+            PendingApprovedTabs.Name = "PendingApprovedTabs";
+            PendingApprovedTabs.SelectedIndex = 0;
+            PendingApprovedTabs.Size = new Size(805, 511);
+            PendingApprovedTabs.TabIndex = 30;
+            // 
+            // PendingTab
+            // 
+            PendingTab.BackColor = Color.FromArgb(90, 115, 141);
+            PendingTab.Controls.Add(PendingPanel);
+            PendingTab.Location = new Point(4, 24);
+            PendingTab.Name = "PendingTab";
+            PendingTab.Padding = new Padding(3);
+            PendingTab.Size = new Size(797, 483);
+            PendingTab.TabIndex = 0;
+            PendingTab.Text = "Pending Account";
+            PendingTab.Click += PendingTab_Click;
+            // 
+            // ApprovedTab
+            // 
+            ApprovedTab.BackColor = Color.FromArgb(90, 115, 141);
+            ApprovedTab.Controls.Add(ApprovedPanel);
+            ApprovedTab.Location = new Point(4, 24);
+            ApprovedTab.Name = "ApprovedTab";
+            ApprovedTab.Padding = new Padding(3);
+            ApprovedTab.Size = new Size(797, 483);
+            ApprovedTab.TabIndex = 1;
+            ApprovedTab.Text = "Approved Account";
+            ApprovedTab.Click += ApprovedTab_Click;
             // 
             // AdminForm
             // 
@@ -380,9 +346,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(90, 115, 141);
             ClientSize = new Size(805, 511);
-            Controls.Add(AdminLoginLinkedLbl);
-            Controls.Add(PendingPanel);
-            Controls.Add(ApprovedPanel);
+            Controls.Add(PendingApprovedTabs);
             Name = "AdminForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
@@ -396,8 +360,10 @@
             PendingPanel.ResumeLayout(false);
             PendingPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusBlueLogo).EndInit();
+            PendingApprovedTabs.ResumeLayout(false);
+            PendingTab.ResumeLayout(false);
+            ApprovedTab.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -414,21 +380,10 @@
         private PictureBox MorpheusLogo2;
         private PictureBox MorpheusBlueLogo;
         private LinkLabel linkLabel1;
-        private DataGridViewTextBoxColumn PNameColumn;
-        private DataGridViewTextBoxColumn PAgeColumn;
-        private DataGridViewTextBoxColumn PGenderColumn;
-        private DataGridViewTextBoxColumn PCourseColumn;
-        private DataGridViewTextBoxColumn PSNColumn;
-        private DataGridViewTextBoxColumn PMailColumn;
-        private DataGridViewTextBoxColumn PRPinColumn;
-        private DataGridViewTextBoxColumn PPassColumn;
-        private DataGridViewTextBoxColumn ANameColumn;
-        private DataGridViewTextBoxColumn AAgeColumn;
-        private DataGridViewTextBoxColumn AGenderColumn;
-        private DataGridViewTextBoxColumn ACourseColumn;
-        private DataGridViewTextBoxColumn ASNColumn;
-        private DataGridViewTextBoxColumn AMailColumn;
-        private DataGridViewTextBoxColumn ARPInColumn;
-        private DataGridViewTextBoxColumn APassColumn;
+        private FontAwesome.Sharp.IconButton PendingRefreshBtn;
+        private FontAwesome.Sharp.IconButton ApprovedRefreshBtn;
+        private TabControl PendingApprovedTabs;
+        private TabPage ApprovedTab;
+        private TabPage PendingTab;
     }
 }

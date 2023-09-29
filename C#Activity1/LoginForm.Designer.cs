@@ -650,9 +650,10 @@
             RegiSNBox.Margin = new Padding(10);
             RegiSNBox.Name = "RegiSNBox";
             RegiSNBox.PlaceholderText = "Enter Student Number";
-            RegiSNBox.Size = new Size(311, 13);
+            RegiSNBox.Size = new Size(265, 13);
             RegiSNBox.TabIndex = 13;
             RegiSNBox.TextChanged += RegiSNBox_TextChanged;
+            RegiSNBox.KeyDown += RegiSNBox_KeyDown;
             // 
             // RegiAgePanel
             // 
@@ -683,9 +684,9 @@
             // 
             WCPanel.Controls.Add(WCMsgBox);
             WCPanel.Controls.Add(MorpheusWCIcon);
-            WCPanel.Location = new Point(7, 111);
+            WCPanel.Location = new Point(7, 119);
             WCPanel.Name = "WCPanel";
-            WCPanel.Size = new Size(489, 503);
+            WCPanel.Size = new Size(489, 495);
             WCPanel.TabIndex = 18;
             WCPanel.Paint += panel3_Paint;
             // 
