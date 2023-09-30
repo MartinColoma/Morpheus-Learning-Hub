@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,26 +14,38 @@ namespace C_Activity1
     public partial class UserForm : Form
     {
         public static UserForm instance;
+        private MySqlConnection conn;
+
 
         public UserForm()
         {
             InitializeComponent();
             instance = this;
-            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
+            string mysqlconn = "server=localhost;user=root;database=learninghub;password=";
+            conn = new MySqlConnection(mysqlconn);
+            conn.Open();
+            this.FormClosing += new FormClosingEventHandler(UserForm_Closing);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-
 
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void UserForm_Closing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 // Prevent the form from closing.
                 e.Cancel = true;
-                // Hide the form instead of closing it.
-                this.Hide();
-                LoginForm.instance.Show();
+
+                DialogResult result = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    LHMenuColumn.Visible = false;
+                    LHMenuColumn.Location = new Point(-220, 115);
+                    this.Hide();
+                    LoginForm.instance.Show();
+
+                }
+
 
             }
         }
@@ -40,16 +53,16 @@ namespace C_Activity1
 
         private void UserPanel_Load(object sender, EventArgs e)
         {
-
+                
         }
 
-        private void RTUSealXL_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void UserCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
+            //Calendar
+            DateTime currentDate = DateTime.Now;
+            LHUserCalendar.TodayDate = currentDate;
 
         }
 
@@ -134,13 +147,62 @@ namespace C_Activity1
 
         private void LogoutIcon_Click(object sender, EventArgs e)
         {
-            if (this.Visible)
+
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dialogResult == DialogResult.Yes)
             {
                 this.Hide();
                 LoginForm.instance.Show();
 
             }
+            else
+            {
 
+            }
+        }
+
+        private void MenuBtn_Click(object sender, EventArgs e)
+        {
+            if (LHMenuColumn.Visible)
+            {
+                LHMenuColumn.Visible = false;
+                LHMenuColumn.Location = new Point(-220, 115);
+            }
+            else
+            {
+                LHMenuColumn.Visible = true;
+                LHMenuColumn.Location = new Point(0, 115);
+            }
+        }
+
+        private void LHMenuBtn_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void LHMenuBtn_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (LHMenuColumn.Visible)
+            {
+                LHMenuColumn.Visible = false;
+                LHMenuColumn.Location = new Point(-220, 115);
+            }
+            else
+            {
+                LHMenuColumn.Visible = true;
+                LHMenuColumn.Location = new Point(0, 115);
+            }
         }
     }
 }

@@ -1,13 +1,9 @@
-using Microsoft.VisualBasic.Logging;
-using System.Drawing.Text;
-using System.Numerics;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using System.Xml.Linq;
 using MySql.Data.MySqlClient;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Drawing.Drawing2D;
+using System.Diagnostics.Eventing.Reader;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
+
 
 
 namespace C_Activity1
@@ -15,8 +11,8 @@ namespace C_Activity1
     public partial class LoginForm : Form
     {
         public static LoginForm instance;
-        private MySqlConnection conn;
-
+        public static string mysqlconn = "server=localhost;user=root;database=learninghub;password=";
+        public MySqlConnection connection = new MySqlConnection(mysqlconn);
 
         AdminForm APanel = new AdminForm();
         UserForm HomePage = new UserForm();
@@ -29,6 +25,9 @@ namespace C_Activity1
         //int failedAttempts = 0;
         int timerInterval = 15000;
         bool disableButton = false;
+        private string[] genders = { "Male", "Female", "Prefer Not to Say" };
+        string ID;
+
 
 
         public LoginForm()
@@ -38,24 +37,50 @@ namespace C_Activity1
             SN = SNBox.Text; Pass = PassBox.Text;
             instance = this;
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            string mysqlconn = "server=localhost;user=root;database=learninghub;password=";
-            conn = new MySqlConnection(mysqlconn);
+
+            RegiGenderComboBox.Items.AddRange(genders);
+            RegiGenderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
 
-            try
+            using (MySqlConnection connection = new MySqlConnection(mysqlconn))
             {
-                conn.Open();
-                MessageBox.Show("Connection Successful");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+                try
+                {
+                    MessageBox.Show("Connection Successful");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
 
 
+            }
+
+            this.FormClosing += new FormClosingEventHandler(LoginForm_FormClosing);
 
         }
+        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
 
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                // Prevent the form from closing.
+                e.Cancel = true;
+
+                DialogResult result = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    this.Dispose();
+
+                }
+
+
+            }
+        }
         private void RTULogin_Load(object sender, EventArgs e)
         {
 
@@ -92,6 +117,12 @@ namespace C_Activity1
 
         private void SignUpLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+
+            //Reset RegiSNBox's First 4 values
+            ID = RandomNumberGenerator.GenerateRandomNumber();
+            string BtnSN = RegiSNBox.Text;
+            RegiSNBox.Text = ID + "-" + BtnSN;
+
             //Login Panel to Register Panel Linked Label
 
             if (LoginPanel.Visible)
@@ -113,7 +144,6 @@ namespace C_Activity1
             }
 
 
-
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -122,6 +152,7 @@ namespace C_Activity1
             if (LoginPanel.Visible)
             {
                 LoginPanel.Visible = false;
+                //WCPanel.Visible = false;
                 RegiPanel.Visible = false;
                 RecoveryPanel.Visible = true;
                 SNBox.Text = "";
@@ -132,6 +163,8 @@ namespace C_Activity1
             {
                 RecoveryPanel.Visible = false;
                 LoginPanel.Visible = true;
+                //WCPanel.Visible = true;
+
             }
 
         }
@@ -167,95 +200,96 @@ namespace C_Activity1
                 else if (SNBox.Text == "Admin" && PassBox.Text != "Admin123")
                 {
                     HandleIncorrectInput("Incorrect Password.");
-
+                }
+                else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
+                {
+                    MessageBox.Show("Missing text on required Field.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    bool found = false;
-                    bool find = false;
-                    //bool unknown = false;
+                    string studNum = SNBox.Text;
+                    string enteredPassword = PassBox.Text;
+                    string passchecker = HashHelper.HashString(enteredPassword);
 
+                    MySqlConnection connection = null;
 
-                    int asnColumnIndex = AdminForm.instance.ApprovedTable.Columns["ASNColumn"].Index;
-                    int apassColumnIndex = AdminForm.instance.ApprovedTable.Columns["APassColumn"].Index;
-                    int anameColumnIndex = AdminForm.instance.ApprovedTable.Columns["ANameColumn"].Index;
-                    int psnColumnIndex = AdminForm.instance.PendingTable.Columns["PSNColumn"].Index;
-                    int ppassColumnIndex = AdminForm.instance.PendingTable.Columns["PPassColumn"].Index;
-
-
-                    // Iterate through rows in ApprovedTable DataGridView
-                    foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
+                    try
                     {
-                        if (!row.IsNewRow) // Skip the new row if any
+                        connection = new MySqlConnection(mysqlconn);
+                        connection.Open();
+
+                        // Query the database for the provided student number in mpendingdb
+                        string queryPending = "SELECT PassHashed FROM mpendingdb WHERE StudNum = @StudNum";
+
+                        using (MySqlCommand cmdPending = new MySqlCommand(queryPending, connection))
                         {
+                            cmdPending.Parameters.AddWithValue("@StudNum", studNum);
 
-                            string storedSN = row.Cells[asnColumnIndex].Value?.ToString();
-                            string storedPass = row.Cells[apassColumnIndex].Value?.ToString();
-
-
-                            if (storedSN == SNBox.Text && storedPass == PassBox.Text)
+                            using (MySqlDataReader readerPending = cmdPending.ExecuteReader())
                             {
-                                found = true;
-                                UserForm.instance.LHSNBox.Text = storedSN;
-                                UserForm.instance.LHNameBox.Text = row.Cells[anameColumnIndex].Value?.ToString();
-                                break;
+                                if (readerPending.Read())
+                                {
+                                    string pendinghashedPasswordFromDB = readerPending["PassHashed"].ToString();
+
+                                    // Implement your password hashing and comparison logic here
+                                    bool passwordMatches = pendinghashedPasswordFromDB.Equals(passchecker);
+
+                                    if (passwordMatches)
+                                    {
+                                        MessageBox.Show("Student account is pending for approval", "Ooooops", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                    else
+                                    {
+                                        HandleIncorrectInput("Incorrect Password.");
+                                    }
+                                    return; // Exit the method after handling the pending case
+                                }
                             }
-                            else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
-                            {
-                                HandleIncorrectInput("Incorrect Student Number.");
-
-                            }
-                            else if (storedSN == SNBox.Text && storedPass != PassBox.Text)
-                            {
-                                HandleIncorrectInput("Incorrect Password.");
-
-                            }
-
-
                         }
 
-                    }
+                        // Query the database for the provided student number in mapproveddb
+                        string queryApproved = "SELECT PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
 
-                    foreach (DataGridViewRow rows in AdminForm.instance.PendingTable.Rows)
-                    {
-                        if (!rows.IsNewRow) // Skip the new row if any
+                        using (MySqlCommand cmdApproved = new MySqlCommand(queryApproved, connection))
                         {
+                            cmdApproved.Parameters.AddWithValue("@StudNum", studNum);
 
-                            string notStoredSN = rows.Cells[psnColumnIndex].Value?.ToString();
-                            string notStoredPass = rows.Cells[ppassColumnIndex].Value?.ToString();
-
-                            if (notStoredSN == SNBox.Text && notStoredPass == PassBox.Text)
+                            using (MySqlDataReader readerApproved = cmdApproved.ExecuteReader())
                             {
-                                find = true;
-                                MessageBox.Show("Student Account is pending for approval.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
+                                if (readerApproved.Read())
+                                {
+                                    string hashedPasswordFromDB = readerApproved["PassHashed"].ToString();
+
+                                    // Implement your password hashing and comparison logic here
+                                    bool passwordMatches = hashedPasswordFromDB.Equals(passchecker);
+
+                                    if (passwordMatches)
+                                    {
+                                        MessageBox.Show("Welcome back, Dreamers.", "Login Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        HomePage.Show(); // Show the LHHomePage form
+                                        ResetHideForm();
+                                    }
+                                    else
+                                    {
+                                        HandleIncorrectInput("Incorrect Password.");
+                                    }
+                                }
+                                else
+                                {
+                                    // The entered student number does not exist in the approved database
+                                    MessageBox.Show("Account not found.", "Ooooops", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
                             }
-
-
                         }
                     }
-
-
-                    if (found)
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Welcome back RTUista.", "Greetings", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        HomePage.Show(); // Show the LHHomePage form
-                        ResetHideForm();
-
+                        MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    else if (find)
+                    finally
                     {
-                        ResetForm();
+                        connection?.Close();
                     }
-                    else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
-                    {
-                        HandleIncorrectInput("Missing Student Number and Password.");
-                    }
-                    else if (!find && !found)
-                    {
-                        MessageBox.Show("Login Failed. Please try again.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
                 }
 
 
@@ -268,7 +302,7 @@ namespace C_Activity1
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            //Login BUtton
+            // Login Button
 
             if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
             {
@@ -284,119 +318,201 @@ namespace C_Activity1
             else if (SNBox.Text == "Admin" && PassBox.Text != "Admin123")
             {
                 HandleIncorrectInput("Incorrect Password.");
-
+            }
+            else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
+            {
+                MessageBox.Show("Missing text on required Field.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                bool found = false;
-                bool find = false;
-                //bool unknown = false;
+                string studNum = SNBox.Text;
+                string enteredPassword = PassBox.Text;
+                string passchecker = HashHelper.HashString(enteredPassword);
 
+                MySqlConnection connection = null;
 
-                int asnColumnIndex = AdminForm.instance.ApprovedTable.Columns["ASNColumn"].Index;
-                int apassColumnIndex = AdminForm.instance.ApprovedTable.Columns["APassColumn"].Index;
-                int anameColumnIndex = AdminForm.instance.ApprovedTable.Columns["ANameColumn"].Index;
-
-                //Pending Table Indexes
-                int psnColumnIndex = AdminForm.instance.PendingTable.Columns["PSNColumn"].Index;
-                int ppassColumnIndex = AdminForm.instance.PendingTable.Columns["PPassColumn"].Index;
-
-
-                // Iterate through rows in ApprovedTable DataGridView
-                foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
+                try
                 {
-                    if (!row.IsNewRow) // Skip the new row if any
+                    connection = new MySqlConnection(mysqlconn);
+                    connection.Open();
+
+                    // Query the database for the provided student number in mpendingdb
+                    string queryPending = "SELECT PassHashed FROM mpendingdb WHERE StudNum = @StudNum";
+
+                    using (MySqlCommand cmdPending = new MySqlCommand(queryPending, connection))
                     {
+                        cmdPending.Parameters.AddWithValue("@StudNum", studNum);
 
-                        string storedSN = row.Cells[asnColumnIndex].Value?.ToString();
-                        string storedPass = row.Cells[apassColumnIndex].Value?.ToString();
-
-
-                        if (storedSN == SNBox.Text && storedPass == PassBox.Text)
+                        using (MySqlDataReader readerPending = cmdPending.ExecuteReader())
                         {
-                            found = true;
-                            UserForm.instance.LHSNBox.Text = storedSN;
-                            UserForm.instance.LHNameBox.Text = row.Cells[anameColumnIndex].Value?.ToString();
-                            break;
+                            if (readerPending.Read())
+                            {
+                                string pendinghashedPasswordFromDB = readerPending["PassHashed"].ToString();
+
+                                // Implement your password hashing and comparison logic here
+                                bool passwordMatches = pendinghashedPasswordFromDB.Equals(passchecker);
+
+                                if (passwordMatches)
+                                {
+                                    MessageBox.Show("Student account is pending for approval", "Ooooops", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    HandleIncorrectInput("Incorrect Password.");
+                                }
+                                return; // Exit the method after handling the pending case
+                            }
                         }
-                        else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
-                        {
-                            HandleIncorrectInput("Incorrect Student Number.");
-
-                        }
-                        else if (storedSN == SNBox.Text && storedPass != PassBox.Text)
-                        {
-                            HandleIncorrectInput("Incorrect Password.");
-
-                        }
-
-
                     }
 
-                }
+                    // Query the database for the provided student number in mapproveddb
+                    string queryApproved = "SELECT PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
 
-                foreach (DataGridViewRow rows in AdminForm.instance.PendingTable.Rows)
-                {
-                    if (!rows.IsNewRow) // Skip the new row if any
+                    using (MySqlCommand cmdApproved = new MySqlCommand(queryApproved, connection))
                     {
+                        cmdApproved.Parameters.AddWithValue("@StudNum", studNum);
 
-                        string notStoredSN = rows.Cells[psnColumnIndex].Value?.ToString();
-                        string notStoredPass = rows.Cells[ppassColumnIndex].Value?.ToString();
-
-                        if (notStoredSN == SNBox.Text && notStoredPass == PassBox.Text)
+                        using (MySqlDataReader readerApproved = cmdApproved.ExecuteReader())
                         {
-                            find = true;
-                            MessageBox.Show("Student Account is pending for approval.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (readerApproved.Read())
+                            {
+                                string hashedPasswordFromDB = readerApproved["PassHashed"].ToString();
+
+                                // Implement your password hashing and comparison logic here
+                                bool passwordMatches = hashedPasswordFromDB.Equals(passchecker);
+
+                                if (passwordMatches)
+                                {
+                                    MessageBox.Show("Welcome back, Dreamers.", "Login Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    HomePage.Show(); // Show the LHHomePage form
+                                    ResetHideForm();
+                                }
+                                else
+                                {
+                                    HandleIncorrectInput("Incorrect Password.");
+                                }
+                            }
+                            else
+                            {
+                                // The entered student number does not exist in the approved database
+                                MessageBox.Show("Account not found.", "Ooooops", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
-
-
                     }
                 }
-
-
-                if (found)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Welcome back RTUista.", "Greetings", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    HomePage.Show(); // Show the LHHomePage form
-                    ResetHideForm();
-
+                    MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                else if (find)
+                finally
                 {
-                    ResetForm();
+                    connection?.Close();
                 }
-                else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
-                {
-                    HandleIncorrectInput("Missing Student Number and Password.");
-                }
-                else if (!find && !found)
-                {
-                    MessageBox.Show("Login Failed. Please try again.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
             }
-
         }
 
 
 
-        //private void HandleIncorrectInput(string errorMessage)
-        //{
-        //    LoginfailedAttempts++;
-        //    int LoginremainingAttempts = LoginmaxAttempt - LoginfailedAttempts;
 
-        //    if (LoginremainingAttempts > 0)
+
+
+        //Previous login button parameters
+        //bool found = false;
+        //bool find = false;
+        ////bool unknown = false;
+
+
+        //int asnColumnIndex = AdminForm.instance.ApprovedTable.Columns["ASNColumn"].Index;
+        //int apassColumnIndex = AdminForm.instance.ApprovedTable.Columns["APassColumn"].Index;
+        //int anameColumnIndex = AdminForm.instance.ApprovedTable.Columns["ANameColumn"].Index;
+
+        ////Pending Table Indexes
+        //int psnColumnIndex = AdminForm.instance.PendingTable.Columns["PSNColumn"].Index;
+        //int ppassColumnIndex = AdminForm.instance.PendingTable.Columns["PPassColumn"].Index;
+
+
+        //// Iterate through rows in ApprovedTable DataGridView
+        //foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
+        //{
+        //    if (!row.IsNewRow) // Skip the new row if any
         //    {
-        //        MessageBox.Show($"Attempts remaining: {LoginremainingAttempts} \n{errorMessage} Check your input on required fields", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        //        string storedSN = row.Cells[asnColumnIndex].Value?.ToString();
+        //        string storedPass = row.Cells[apassColumnIndex].Value?.ToString();
+
+
+        //        if (storedSN == SNBox.Text && storedPass == PassBox.Text)
+        //        {
+        //            found = true;
+        //            UserForm.instance.LHSNBox.Text = storedSN;
+        //            UserForm.instance.LHNameBox.Text = row.Cells[anameColumnIndex].Value?.ToString();
+        //            break;
+        //        }
+        //        else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
+        //        {
+        //            HandleIncorrectInput("Incorrect Student Number.");
+
+        //        }
+        //        else if (storedSN == SNBox.Text && storedPass != PassBox.Text)
+        //        {
+        //            HandleIncorrectInput("Incorrect Password.");
+
+        //        }
+
+
         //    }
-        //    else
+
+        //}
+
+        //foreach (DataGridViewRow rows in AdminForm.instance.PendingTable.Rows)
+        //{
+        //    if (!rows.IsNewRow) // Skip the new row if any
         //    {
-        //        LoginBtn.Enabled = false;
-        //        LoginBtnTimer.Start();
-        //        MessageBox.Show("You run out of attempts. Please try again after 15 seconds.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        //        string notStoredSN = rows.Cells[psnColumnIndex].Value?.ToString();
+        //        string notStoredPass = rows.Cells[ppassColumnIndex].Value?.ToString();
+
+        //        if (notStoredSN == SNBox.Text && notStoredPass == PassBox.Text)
+        //        {
+        //            find = true;
+        //            MessageBox.Show("Student Account is pending for approval.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            return;
+        //        }
+
+
         //    }
         //}
+
+
+        //if (found)
+        //{
+        //    MessageBox.Show("Welcome back RTUista.", "Greetings", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    HomePage.Show(); // Show the LHHomePage form
+        //    ResetHideForm();
+
+        //}
+        //else if (find)
+        //{
+        //    ResetForm();
+        //}
+        //else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
+        //{
+        //    //HandleIncorrectInput("Missing Student Number and Password.");
+        //    MessageBox.Show("Missing text on required Field.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        //}
+        //else if (!find && !found)
+        //{
+        //    MessageBox.Show("Login Failed. Please try again.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //}
+
+
+
+
+
+
+
+
 
         private void HandleIncorrectInput(string errorMessage)
         {
@@ -475,9 +591,26 @@ namespace C_Activity1
             //Register Name Textbox
         }
 
+        private int minTextLength = 5; // Minimum required text length
+
+        private void RegiSNBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Back)
+            {
+                // If the current length is less than or equal to the minimum required length, prevent Backspace
+                if (RegiSNBox.Text.Length <= minTextLength)
+                {
+                    e.SuppressKeyPress = true; // Prevent Backspace
+                }
+            }
+        }
+
+
+
         private void RegiSNBox_TextChanged(object sender, EventArgs e)
         {
             //Register Student Number Textbox
+
         }
         private void RegiRPBox_TextChanged(object sender, EventArgs e)
         {
@@ -497,13 +630,34 @@ namespace C_Activity1
             if (e.KeyCode == Keys.Enter)
             {
 
-                string Btnname, BtnSN, BtnRP, BtnPass;
-                Btnname = RegiNameBox.Text; BtnSN = RegiSNBox.Text; BtnRP = RegiRPBox.Text; BtnPass = RegiPassBox.Text;
+                string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender, BtnMail, BtnRole;
+                Btnname = RegiNameBox.Text;
+                BtnSN = RegiSNBox.Text;
+                BtnRP = RegiRPBox.Text;
+                BtnPass = RegiPassBox.Text;
+                BtnCourse = RegiCourseBox.Text;
+                BtnAge = RegiAgeBox.Text;
+                BtnGender = RegiGenderComboBox.Text;
+                BtnMail = RegiMailBox.Text;
+
+
+                string hashedPassword = HashHelper.HashString(BtnPass);    // Password hashed
+                string fixedSalt = HashHelper_Salt.HashString_Salt("Morpheus" + BtnPass + "01");    //Fixed Salt
+                string perUserSalt = HashHelper_SaltperUser.HashString_SaltperUser(BtnPass + ID);    //Per User salt
+
+
+                // Regex patterns
+                Regex nameRegex = new Regex("^[A-Z][a-zA-Z]+(?: [a-zA-Z]+)*$");
+                Regex courseRegex = new Regex("^[A-Za-z]+(?: [A-Za-z]+)*$");
+                Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+                Regex gmailRegex = new Regex(@"^[A-Za-z0-9._%+-]*\d*@gmail\.com$");
 
                 // Check if any of the input fields is empty
-                if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) || string.IsNullOrEmpty(BtnPass))
+                if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) ||
+                    string.IsNullOrEmpty(BtnPass) || string.IsNullOrEmpty(BtnAge) || string.IsNullOrEmpty(BtnCourse) ||
+                    string.IsNullOrEmpty(BtnGender) || string.IsNullOrEmpty(BtnMail))
                 {
-                    HandleIncorrectCreateInput("Missing text on required Field.");
+                    MessageBox.Show("Missing text in required fields.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return; // Exit the method since there's an error
                 }
                 else if (Btnname == "Admin" || BtnSN == "Admin" || BtnPass == "Admin123")
@@ -512,70 +666,96 @@ namespace C_Activity1
                     return;
                 }
 
-                Regex nameRegex = new Regex("^[A-Za-z ]+$");
-
-                if (!nameRegex.IsMatch(Btnname))
-                {
-                    HandleIncorrectCreateInput("Name must only contain alphabetic values.");
-                    return
-                    ;
-                }
-
-
                 // Check if the student number (BtnSN) already exists in ApprovedTable
                 bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
+
                 if (isStudentInApprovedTable)
                 {
                     HandleApprovedUserInput("This student already has an account.");
                     return; // Exit the method since there's an error
                 }
 
-                // Validate Student Number using Lambda
-                else if (!int.TryParse(BtnSN, out _))
+                // Validate fields using regex patterns
+                if (!nameRegex.IsMatch(Btnname))
                 {
-                    HandleIncorrectCreateInput("Incorrect Student Number.");
+                    HandleIncorrectCreateInput("Name must start with a capital letter and only contain alphabetic values.");
                     return;
                 }
-                else if (IsPasswordTakenInTable(BtnPass, AdminForm.instance.ApprovedTable, "APassColumn"))
+                else if (!courseRegex.IsMatch(BtnCourse))
                 {
-                    HandleIncorrectCreateInput("Password is already taken.");
+                    HandleIncorrectCreateInput("Course must only contain alphabetic values.");
                     return;
                 }
-                // Validate Password using Lambda
-                //Regex passwordRegex = new Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
-                Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
-
-                if (!passwordRegex.IsMatch(BtnPass))
+                else if (!int.TryParse(BtnAge, out _))
+                {
+                    HandleIncorrectCreateInput("Age must only contain numeric values.");
+                    return;
+                }
+                //else if (!int.TryParse(BtnSN, out _))
+                //{
+                //    HandleIncorrectCreateInput("Incorrect Student Number.");
+                //    return;
+                //}
+                else if (!gmailRegex.IsMatch(BtnMail))
+                {
+                    HandleIncorrectCreateInput("Invalid Gmail address format.");
+                    return;
+                }
+                else if (!passwordRegex.IsMatch(BtnPass))
                 {
                     HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
                     return;
                 }
 
-
-                // If everything is okay, proceed to add the record
-                if (!AdminForm.instance.existingSN.Contains(BtnSN))
+                try
                 {
-                    AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
-                    AdminForm.instance.AddDataGridView(Btnname, BtnSN, BtnRP, BtnPass);
-                    Btnname = "";
-                    BtnSN = "";
-                    BtnRP = "";
-                    BtnPass = "";
-                    MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                    {
+                        connection.Open();
+
+                        // Insert data into the pendingdb table
+                        string insertQuery = "INSERT INTO mpendingdb (Name, Age, Gender, Course, Email, StudNum, RecoveryPin, UserID, PassHashed, PassFixNa, PassPerUserNa) " +
+                                            "VALUES (@Name, @Age, @Gender, @Course, @Email, @StudNum, @RecoveryPin, @UserID, @Password, @FixedSalt, @PerUserSalt)";
+
+                        MySqlCommand cmd = new MySqlCommand(insertQuery, connection);
+                        cmd.Parameters.AddWithValue("@Name", Btnname);
+                        cmd.Parameters.AddWithValue("@StudNum", BtnSN);
+                        cmd.Parameters.AddWithValue("@Password", hashedPassword);
+                        cmd.Parameters.AddWithValue("@UserID", ID);
+                        cmd.Parameters.AddWithValue("@FixedSalt", fixedSalt);
+                        cmd.Parameters.AddWithValue("@PerUserSalt", perUserSalt);
+                        cmd.Parameters.AddWithValue("@Course", BtnCourse);
+                        cmd.Parameters.AddWithValue("@Age", BtnAge);
+                        cmd.Parameters.AddWithValue("@Gender", BtnGender);
+                        cmd.Parameters.AddWithValue("@Email", BtnMail);
+                        cmd.Parameters.AddWithValue("@RecoveryPin", BtnRP);
+
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // Successful insertion
+                    MessageBox.Show("Account added for approval", "Hooray!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    // Handle database exception (e.g., connection error or duplicate entry)
+                    MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    // Make sure to close the connection
+                    connection.Close();
                 }
 
-                else
-                {
-                    MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-
-
-                if (CreatefailedAttempts >= CreatemaxAttempt)
-                {
-                    CreateBtn.Enabled = false;
-                    MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                RegiNameBox.Text = "";
+                RegiSNBox.Text = "";
+                RegiRPBox.Text = "";
+                RegiPassBox.Text = "";
+                RegiCourseBox.Text = "";
+                RegiAgeBox.Text = "";
+                RegiGenderComboBox.SelectedIndex = -1;
+                RegiMailBox.Text = "";
 
                 e.SuppressKeyPress = true;
             }
@@ -583,16 +763,39 @@ namespace C_Activity1
 
         }
 
-        private void CreateBtn_Click(object sender, EventArgs e)
+
+
+        private void CreateBtn_Click(object sender, EventArgs e) //8506-1231
         {
             // Create Button
-            string Btnname, BtnSN, BtnRP, BtnPass;
-            Btnname = RegiNameBox.Text; BtnSN = RegiSNBox.Text; BtnRP = RegiRPBox.Text; BtnPass = RegiPassBox.Text;
+            string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender, BtnMail, BtnRole;
+            Btnname = RegiNameBox.Text;
+            BtnSN = RegiSNBox.Text;
+            BtnRP = RegiRPBox.Text;
+            BtnPass = RegiPassBox.Text;
+            BtnCourse = RegiCourseBox.Text;
+            BtnAge = RegiAgeBox.Text;
+            BtnGender = RegiGenderComboBox.Text;
+            BtnMail = RegiMailBox.Text;
+
+
+            string hashedPassword = HashHelper.HashString(BtnPass);    // Password hashed
+            string fixedSalt = HashHelper_Salt.HashString_Salt("Morpheus" + BtnPass + "01");    //Fixed Salt
+            string perUserSalt = HashHelper_SaltperUser.HashString_SaltperUser(BtnPass + ID);    //Per User salt
+
+
+            // Regex patterns
+            Regex nameRegex = new Regex("^[A-Z][a-zA-Z]+(?: [a-zA-Z]+)*$");
+            Regex courseRegex = new Regex("^[A-Za-z]+(?: [A-Za-z]+)*$");
+            Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+            Regex gmailRegex = new Regex(@"^[A-Za-z0-9._%+-]*\d*@gmail\.com$");
 
             // Check if any of the input fields is empty
-            if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) || string.IsNullOrEmpty(BtnPass))
+            if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) ||
+                string.IsNullOrEmpty(BtnPass) || string.IsNullOrEmpty(BtnAge) || string.IsNullOrEmpty(BtnCourse) ||
+                string.IsNullOrEmpty(BtnGender) || string.IsNullOrEmpty(BtnMail))
             {
-                HandleIncorrectCreateInput("Missing text on required Field.");
+                MessageBox.Show("Missing text in required fields.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return; // Exit the method since there's an error
             }
             else if (Btnname == "Admin" || BtnSN == "Admin" || BtnPass == "Admin123")
@@ -601,75 +804,110 @@ namespace C_Activity1
                 return;
             }
 
-            Regex nameRegex = new Regex("^[A-Za-z ]+$");
-
-            if (!nameRegex.IsMatch(Btnname))
-            {
-                HandleIncorrectCreateInput("Name must only contain alphabetic values.");
-                return
-                ;
-            }
-
-
             // Check if the student number (BtnSN) already exists in ApprovedTable
             bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
+
             if (isStudentInApprovedTable)
             {
                 HandleApprovedUserInput("This student already has an account.");
                 return; // Exit the method since there's an error
             }
 
-            // Validate Student Number using Lambda
-            else if (!int.TryParse(BtnSN, out _))
+            // Validate fields using regex patterns
+            if (!nameRegex.IsMatch(Btnname))
             {
-                HandleIncorrectCreateInput("Incorrect Student Number.");
+                HandleIncorrectCreateInput("Name must start with a capital letter and only contain alphabetic values.");
                 return;
             }
-            else if (IsPasswordTakenInTable(BtnPass, AdminForm.instance.ApprovedTable, "APassColumn"))
+            else if (!courseRegex.IsMatch(BtnCourse))
             {
-                HandleIncorrectCreateInput("Password is already taken.");
+                HandleIncorrectCreateInput("Course must only contain alphabetic values.");
                 return;
             }
-            // Validate Password using Lambda
-            //Regex passwordRegex = new Regex("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
-            Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
-
-            if (!passwordRegex.IsMatch(BtnPass))
+            else if (!int.TryParse(BtnAge, out _))
+            {
+                HandleIncorrectCreateInput("Age must only contain numeric values.");
+                return;
+            }
+            //else if (!int.TryParse(BtnSN, out _))
+            //{
+            //    HandleIncorrectCreateInput("Incorrect Student Number.");
+            //    return;
+            //}
+            else if (!gmailRegex.IsMatch(BtnMail))
+            {
+                HandleIncorrectCreateInput("Invalid Gmail address format.");
+                return;
+            }
+            else if (!passwordRegex.IsMatch(BtnPass))
             {
                 HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
                 return;
             }
 
-
-            // If everything is okay, proceed to add the record
-            if (!AdminForm.instance.existingSN.Contains(BtnSN))
+            try
             {
-                AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
-                AdminForm.instance.AddDataGridView(Btnname, BtnSN, BtnRP, BtnPass);
-                Btnname = "";
-                BtnSN = "";
-                BtnRP = "";
-                BtnPass = "";
-                MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                {
+                    connection.Open();
+
+                    // Insert data into the pendingdb table
+                    string insertQuery = "INSERT INTO mpendingdb (Name, Age, Gender, Course, Email, StudNum, RecoveryPin, UserID, PassHashed, PassFixNa, PassPerUserNa) " +
+                                        "VALUES (@Name, @Age, @Gender, @Course, @Email, @StudNum, @RecoveryPin, @UserID, @Password, @FixedSalt, @PerUserSalt)";
+
+                    MySqlCommand cmd = new MySqlCommand(insertQuery, connection);
+                    cmd.Parameters.AddWithValue("@Name", Btnname);
+                    cmd.Parameters.AddWithValue("@StudNum", BtnSN);
+                    cmd.Parameters.AddWithValue("@Password", hashedPassword);
+                    cmd.Parameters.AddWithValue("@UserID", ID);
+                    cmd.Parameters.AddWithValue("@FixedSalt", fixedSalt);
+                    cmd.Parameters.AddWithValue("@PerUserSalt", perUserSalt);
+                    cmd.Parameters.AddWithValue("@Course", BtnCourse);
+                    cmd.Parameters.AddWithValue("@Age", BtnAge);
+                    cmd.Parameters.AddWithValue("@Gender", BtnGender);
+                    cmd.Parameters.AddWithValue("@Email", BtnMail);
+                    cmd.Parameters.AddWithValue("@RecoveryPin", BtnRP);
+
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                // Successful insertion
+                MessageBox.Show("Account added for approval", "Hooray!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                // Handle database exception (e.g., connection error or duplicate entry)
+                MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Make sure to close the connection
+                connection.Close();
             }
 
-            else
-            {
-                MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-
-
-            if (CreatefailedAttempts >= CreatemaxAttempt)
-            {
-                CreateBtn.Enabled = false;
-                MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            RegiNameBox.Text = "";
+            RegiSNBox.Text = "";
+            RegiRPBox.Text = "";
+            RegiPassBox.Text = "";
+            RegiCourseBox.Text = "";
+            RegiAgeBox.Text = "";
+            RegiGenderComboBox.SelectedIndex = -1;
+            RegiMailBox.Text = "";
 
         }
 
-
-
+        //// If everything is okay, proceed to add the record
+        //if (!AdminForm.instance.existingSN.Contains(BtnSN))
+        //{
+        //    AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
+        //    AdminForm.instance.AddDataGridView(Btnname, BtnAge, BtnGender, BtnCourse, BtnSN, BtnMail, BtnRP, BtnPass);
+        //    MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //}
+        //else
+        //{
+        //    MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //}
         private bool IsStudentNumberInApprovedTable(string studentNumber)
         {
             foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
@@ -716,33 +954,6 @@ namespace C_Activity1
             }
         }
 
-        //private void CreateBtn_Click(object sender, EventArgs e)
-        //{
-        //    // ... (existing code)
-
-        //    // Check if the provided password is already taken in ApprovedTable or PendingTable
-
-
-        //    // ... (existing code)
-
-        //    // If everything is okay, proceed to add the record
-        //    // ... (existing code)
-        //}
-
-        private bool IsPasswordTakenInTable(string password, DataGridView dataGridView, string passwordColumnName)
-        {
-            foreach (DataGridViewRow row in dataGridView.Rows)
-            {
-                if (row.Cells[passwordColumnName].Value != null && row.Cells[passwordColumnName].Value.ToString() == password)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-
         private void LoginLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //Register Panel to Login Panel Link Label
@@ -756,6 +967,10 @@ namespace C_Activity1
                 RegiSNBox.Text = "";
                 RegiRPBox.Text = "";
                 RegiPassBox.Text = "";
+                RegiCourseBox.Text = "";
+                RegiAgeBox.Text = "";
+                RegiGenderComboBox.SelectedIndex = -1;
+                RegiMailBox.Text = "";
             }
 
             else
@@ -766,8 +981,6 @@ namespace C_Activity1
                 RecoveryPanel.Visible = false;
 
             }
-
-
 
         }
 
@@ -802,6 +1015,7 @@ namespace C_Activity1
             if (LoginPanel.Visible)
             {
                 LoginPanel.Visible = false;
+                //WCPanel.Visible = false;
                 RecoveryPanel.Visible = true;
                 SNBox.Text = "";
                 PassBox.Text = "";
@@ -811,6 +1025,7 @@ namespace C_Activity1
             {
                 RecoveryPanel.Visible = false;
                 LoginPanel.Visible = true;
+                WCPanel.Visible = true;
             }
 
         }
@@ -830,36 +1045,78 @@ namespace C_Activity1
         private void SubmitBtn_Click(object sender, EventArgs e)
         {
             ////Recovery Pass Submit Btn
-            bool LFPass = false;
-            string PassFound = "";
 
-            foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
+            bool credentialsFound = false;
+            connection.Open();
+            string query = $"SELECT UserID FROM mapproveddb WHERE StudNum = '{RCSNBox.Text}' AND RecoveryPin = '{RPINBox.Text}'";
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
             {
-
-                string psn = row.Cells["ASNColumn"].Value?.ToString();
-                string ppin = row.Cells["ARPinColumn"].Value?.ToString();
-
-                if (psn == RCSNBox.Text && ppin == RPINBox.Text)
+                try
                 {
-                    LFPass = true;
-                    PassFound = row.Cells["APassColumn"].Value.ToString();
-                    break;
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            credentialsFound = true;
+                        }
+                    }
                 }
-
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error checking credentials: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            if (LFPass)
+
+            if (credentialsFound)
             {
-                MessageBox.Show("Your Password is " + PassFound, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //if (CPVerifyCreds.Visible)
+                //{
+                //    CPVerifyCreds.Visible = false;
+                //    CPNewPass.Visible = true;
+
+                //}
+
+                //else
+                //{
+                //    CPVerifyCreds.Visible = true;
+                //    CPNewPass.Visible = false;
+                //}
             }
             else
             {
-                MessageBox.Show("Incorrect Student Number and Recovery Pin.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                MessageBox.Show("Invalid credentials.");
             }
 
-
-
+            connection.Close();
         }
+
+        //bool LFPass = false;
+        //string PassFound = "";
+
+        //foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
+        //{
+
+        //    string psn = row.Cells["ASNColumn"].Value?.ToString();
+        //    string ppin = row.Cells["ARPinColumn"].Value?.ToString();
+
+        //    if (psn == RCSNBox.Text && ppin == RPINBox.Text)
+        //    {
+        //        LFPass = true;
+        //        PassFound = row.Cells["APassColumn"].Value.ToString();
+        //        break;
+        //    }
+
+        //}
+        //if (LFPass)
+        //{
+        //    MessageBox.Show("Your Password is " + PassFound, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //}
+        //else
+        //{
+        //    MessageBox.Show("Incorrect Student Number and Recovery Pin.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        //}
+
 
         private void PassBox_TextChanged(object sender, EventArgs e)
         {
@@ -892,11 +1149,6 @@ namespace C_Activity1
 
         }
 
-        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-
-        }
-
         private void MorpheusPB_Click(object sender, EventArgs e)
         {
             LoginfailedAttempts = 0;
@@ -917,5 +1169,198 @@ namespace C_Activity1
         {
 
         }
+
+        private void MorpheusWCIcon_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RegiRPLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GenderComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (RegiGenderComboBox.SelectedItem != null)
+            {
+                RegiGenderComboBox.Text = RegiGenderComboBox.SelectedItem.ToString();
+            }
+        }
+
+        private void RegiAgeBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CPChangeBtn_Click(object sender, EventArgs e)
+        {
+            string studNum = RCSNBox.Text;
+            string recPin = RPINBox.Text;
+            string newPass = NewPassBox.Text;
+            string newConfirm = NewPassConfirmBox.Text;
+
+            if (string.IsNullOrEmpty(newPass) || string.IsNullOrEmpty(newConfirm) || string.IsNullOrEmpty(recPin) || string.IsNullOrEmpty(studNum))
+            {
+                MessageBox.Show("Missing text in required fields.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (newPass != newConfirm)
+            {
+                MessageBox.Show("Password does not match.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                // ... Your existing code ...
+
+                try
+                {
+                    using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                    {
+                        connection.Open();
+
+                        // Query the database for the provided student number and RecoveryPin
+                        string query = "SELECT UserID FROM mapproveddb WHERE StudNum = @StudNum AND RecoveryPin = @RecoveryPin";
+
+                        using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@StudNum", studNum);
+                            cmd.Parameters.AddWithValue("@RecoveryPin", recPin);
+
+                            using (MySqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    string userID = reader["UserID"].ToString();
+
+                                    // Close the first DataReader before executing another query
+                                    reader.Close();
+
+                                    // Update the password-related columns in the database
+                                    string updatedHashedPassword = HashHelper.HashString(newPass);
+
+                                    // Update the database
+                                    string updateQuery = "UPDATE mapproveddb SET PassHashed = @NewHashedPassword WHERE UserID = @UserID";
+                                    using (MySqlCommand updateCmd = new MySqlCommand(updateQuery, connection))
+                                    {
+                                        updateCmd.Parameters.AddWithValue("@NewHashedPassword", updatedHashedPassword);
+                                        updateCmd.Parameters.AddWithValue("@UserID", userID);
+
+                                        updateCmd.ExecuteNonQuery();
+
+                                        MessageBox.Show("Password updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        HomePage.Show(); // Show the LHHomePage form
+
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Student account not found or incorrect Recovery PIN.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+
+
+
+
+        public class HashHelper
+        {
+            public static string HashString(string input)
+            {
+                using (SHA256 sha256 = SHA256.Create())
+                {
+                    byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+                    byte[] hashBytes = sha256.ComputeHash(inputBytes);
+                    string hashedString = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+                    return hashedString;
+                }
+            }
+        }
+        public class HashHelper_Salt
+        {
+            public static string HashString_Salt(string input_Salt)
+            {
+                using (SHA256 sha256 = SHA256.Create())
+                {
+                    byte[] inputBytes_Salt = Encoding.UTF8.GetBytes(input_Salt);
+                    byte[] hashBytes_Salt = sha256.ComputeHash(inputBytes_Salt);
+                    string hashedString_Salt = BitConverter.ToString(hashBytes_Salt).Replace("-", "").ToLower();
+                    return hashedString_Salt;
+                }
+            }
+        }
+        public class HashHelper_SaltperUser
+        {
+            public static string HashString_SaltperUser(string input_SaltperUser)
+            {
+                using (SHA256 sha256 = SHA256.Create())
+                {
+                    byte[] inputBytes_SaltperUser = Encoding.UTF8.GetBytes(input_SaltperUser);
+                    byte[] hashBytes_SaltperUser = sha256.ComputeHash(inputBytes_SaltperUser);
+                    string hashedString_SaltperUser = BitConverter.ToString(hashBytes_SaltperUser).Replace("-", "").ToLower();
+                    return hashedString_SaltperUser;
+                }
+            }
+        }
+        public class RandomNumberGenerator
+        {
+            private static Random random = new Random();
+
+            public static string GenerateRandomNumber()
+            {
+                var digits = Enumerable.Range(0, 10).ToList();
+
+                for (int i = 0; i < digits.Count; i++)
+                {
+                    int j = random.Next(i, digits.Count);
+                    int temp = digits[i];
+                    digits[i] = digits[j];
+                    digits[j] = temp;
+                }
+                string randomNumber = string.Join("", digits.Take(4));
+
+                return randomNumber;
+            }
+        }
     }
 }
+
+//public class RandomNumberGenerator
+//{
+//    private static Random random = new Random();
+
+//    public static string GenerateRandomNumber()
+//    {
+//        var digits = Enumerable.Range(0, 10).ToList();
+
+//        // Shuffle the digits to ensure randomness
+//        for (int i = 0; i < digits.Count; i++)
+//        {
+//            int j = random.Next(i, digits.Count);
+//            int temp = digits[i];
+//            digits[i] = digits[j];
+//            digits[j] = temp;
+//        }
+
+//        // Create the random number with the first 4 digits being "2022"
+//        digits.InsertRange(0, new List<int> { 2, 0, 2, 2 });
+
+//        // Take the first 8 digits (in case the list has more than 8 digits)
+//        string randomNumber = string.Join("", digits.Take(8));
+
+//        return randomNumber;
+//    }
+//}
