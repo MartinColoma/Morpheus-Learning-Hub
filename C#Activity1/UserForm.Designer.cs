@@ -137,6 +137,7 @@
             LHMenuBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             LHMenuBtn.UseVisualStyleBackColor = false;
             LHMenuBtn.Click += LHMenuBtn_Click;
+            LHMenuBtn.MouseDown += LHMenuBtn_MouseDown;
             // 
             // LHMenuColumn
             // 
@@ -493,7 +494,7 @@
             Name = "UserForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "RTU Learning Hub";
+            Text = "Morpheus Learning Hub";
             Load += UserPanel_Load;
             ((System.ComponentModel.ISupportInitialize)RTUSealIcon).EndInit();
             LHHeaderPanel.ResumeLayout(false);

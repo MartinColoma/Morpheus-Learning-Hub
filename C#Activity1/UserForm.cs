@@ -39,6 +39,8 @@ namespace C_Activity1
                 DialogResult result = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
+                    LHMenuColumn.Visible = false;
+                    LHMenuColumn.Location = new Point(-220, 115);
                     this.Hide();
                     LoginForm.instance.Show();
 
@@ -51,7 +53,7 @@ namespace C_Activity1
 
         private void UserPanel_Load(object sender, EventArgs e)
         {
-
+                
         }
 
 
@@ -185,6 +187,11 @@ namespace C_Activity1
         }
 
         private void LHMenuBtn_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void LHMenuBtn_MouseDown(object sender, MouseEventArgs e)
         {
             if (LHMenuColumn.Visible)
             {

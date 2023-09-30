@@ -62,7 +62,6 @@
             // PendingTable
             // 
             PendingTable.AllowUserToAddRows = false;
-            PendingTable.AllowUserToOrderColumns = true;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -88,7 +87,6 @@
             // ApprovedTable
             // 
             ApprovedTable.AllowUserToAddRows = false;
-            ApprovedTable.AllowUserToOrderColumns = true;
             ApprovedTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ApprovedTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             ApprovedTable.BorderStyle = BorderStyle.Fixed3D;
@@ -335,7 +333,7 @@
             ApprovedTab.Location = new Point(4, 24);
             ApprovedTab.Name = "ApprovedTab";
             ApprovedTab.Padding = new Padding(3);
-            ApprovedTab.Size = new Size(797, 483);
+            ApprovedTab.Size = new Size(796, 483);
             ApprovedTab.TabIndex = 1;
             ApprovedTab.Text = "Approved Account";
             ApprovedTab.Click += ApprovedTab_Click;
@@ -352,7 +350,7 @@
             Name = "AdminForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "RTU Admin Panel";
+            Text = "Morpheus Admin Panel";
             Load += AdminPanel_Load;
             ((System.ComponentModel.ISupportInitialize)PendingTable).EndInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).EndInit();
