@@ -200,52 +200,84 @@ namespace C_Activity1
                 else if (SNBox.Text == "Admin" && PassBox.Text != "Admin123")
                 {
                     HandleIncorrectInput("Incorrect Password.");
-
+                }
+                else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
+                {
+                    MessageBox.Show("Missing text on required Field.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
                     string studNum = SNBox.Text;
                     string enteredPassword = PassBox.Text;
-                    string passchecker = HashHelper.HashString(enteredPassword); //
+                    string passchecker = HashHelper.HashString(enteredPassword);
+
+                    MySqlConnection connection = null;
 
                     try
                     {
-                        using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                        connection = new MySqlConnection(mysqlconn);
+                        connection.Open();
+
+                        // Query the database for the provided student number in mpendingdb
+                        string queryPending = "SELECT PassHashed FROM mpendingdb WHERE StudNum = @StudNum";
+
+                        using (MySqlCommand cmdPending = new MySqlCommand(queryPending, connection))
                         {
-                            connection.Open();
+                            cmdPending.Parameters.AddWithValue("@StudNum", studNum);
 
-                            // Query the database for the provided student number
-                            string query = "SELECT PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
-
-                            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                            using (MySqlDataReader readerPending = cmdPending.ExecuteReader())
                             {
-                                cmd.Parameters.AddWithValue("@StudNum", studNum);
-
-                                using (MySqlDataReader reader = cmd.ExecuteReader())
+                                if (readerPending.Read())
                                 {
-                                    if (reader.Read())
+                                    string pendinghashedPasswordFromDB = readerPending["PassHashed"].ToString();
+
+                                    // Implement your password hashing and comparison logic here
+                                    bool passwordMatches = pendinghashedPasswordFromDB.Equals(passchecker);
+
+                                    if (passwordMatches)
                                     {
-                                        string hashedPasswordFromDatabase = reader["PassHashed"].ToString();
-
-                                        // TODO: Implement your password hashing and comparison logic here
-                                        bool passwordMatches = hashedPasswordFromDatabase.Equals(passchecker);
-
-
-                                        if (passwordMatches)
-                                        {
-                                            MessageBox.Show("Login successful", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                            HomePage.Show(); // Show the LHHomePage form
-                                            ResetHideForm();
-                                        }
-                                        else
-                                        {
-                                            HandleIncorrectInput("Incorrect Password.");
-                                        }
+                                        MessageBox.Show("Student account is pending for approval", "Ooooops", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     }
                                     else
                                     {
-                                        MessageBox.Show("Student account is pending for approval", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        HandleIncorrectInput("Incorrect Password.");
                                     }
+                                    return; // Exit the method after handling the pending case
+                                }
+                            }
+                        }
+
+                        // Query the database for the provided student number in mapproveddb
+                        string queryApproved = "SELECT PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
+
+                        using (MySqlCommand cmdApproved = new MySqlCommand(queryApproved, connection))
+                        {
+                            cmdApproved.Parameters.AddWithValue("@StudNum", studNum);
+
+                            using (MySqlDataReader readerApproved = cmdApproved.ExecuteReader())
+                            {
+                                if (readerApproved.Read())
+                                {
+                                    string hashedPasswordFromDB = readerApproved["PassHashed"].ToString();
+
+                                    // Implement your password hashing and comparison logic here
+                                    bool passwordMatches = hashedPasswordFromDB.Equals(passchecker);
+
+                                    if (passwordMatches)
+                                    {
+                                        MessageBox.Show("Welcome back, Dreamers.", "Login Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        HomePage.Show(); // Show the LHHomePage form
+                                        ResetHideForm();
+                                    }
+                                    else
+                                    {
+                                        HandleIncorrectInput("Incorrect Password.");
+                                    }
+                                }
+                                else
+                                {
+                                    // The entered student number does not exist in the approved database
+                                    MessageBox.Show("Account not found.", "Ooooops", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
                             }
                         }
@@ -256,9 +288,8 @@ namespace C_Activity1
                     }
                     finally
                     {
-                        connection.Close();
+                        connection?.Close();
                     }
-
                 }
 
 
