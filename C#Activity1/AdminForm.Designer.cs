@@ -62,7 +62,6 @@
             // PendingTable
             // 
             PendingTable.AllowUserToAddRows = false;
-            PendingTable.AllowUserToOrderColumns = true;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -88,7 +87,6 @@
             // ApprovedTable
             // 
             ApprovedTable.AllowUserToAddRows = false;
-            ApprovedTable.AllowUserToOrderColumns = true;
             ApprovedTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             ApprovedTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             ApprovedTable.BorderStyle = BorderStyle.Fixed3D;
@@ -313,7 +311,7 @@
             PendingApprovedTabs.Location = new Point(0, 0);
             PendingApprovedTabs.Name = "PendingApprovedTabs";
             PendingApprovedTabs.SelectedIndex = 0;
-            PendingApprovedTabs.Size = new Size(805, 511);
+            PendingApprovedTabs.Size = new Size(804, 511);
             PendingApprovedTabs.TabIndex = 30;
             // 
             // PendingTab
@@ -323,7 +321,7 @@
             PendingTab.Location = new Point(4, 24);
             PendingTab.Name = "PendingTab";
             PendingTab.Padding = new Padding(3);
-            PendingTab.Size = new Size(797, 483);
+            PendingTab.Size = new Size(796, 483);
             PendingTab.TabIndex = 0;
             PendingTab.Text = "Pending Account";
             PendingTab.Click += PendingTab_Click;
@@ -335,7 +333,7 @@
             ApprovedTab.Location = new Point(4, 24);
             ApprovedTab.Name = "ApprovedTab";
             ApprovedTab.Padding = new Padding(3);
-            ApprovedTab.Size = new Size(797, 483);
+            ApprovedTab.Size = new Size(796, 483);
             ApprovedTab.TabIndex = 1;
             ApprovedTab.Text = "Approved Account";
             ApprovedTab.Click += ApprovedTab_Click;
@@ -345,12 +343,14 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(90, 115, 141);
-            ClientSize = new Size(805, 511);
+            ClientSize = new Size(804, 511);
             Controls.Add(PendingApprovedTabs);
+            MaximumSize = new Size(820, 550);
+            MinimumSize = new Size(820, 550);
             Name = "AdminForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "RTU Admin Panel";
+            Text = "Morpheus Admin Panel";
             Load += AdminPanel_Load;
             ((System.ComponentModel.ISupportInitialize)PendingTable).EndInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).EndInit();

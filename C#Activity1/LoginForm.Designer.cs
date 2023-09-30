@@ -34,15 +34,21 @@
             MorpheusLbl = new Label();
             SignUpLinkLabel = new LinkLabel();
             RecoveryPanel = new Panel();
-            PRMorpheusLogo1 = new PictureBox();
+            NewPassCoofirmPanel = new Panel();
+            NewPassConfirmBox = new TextBox();
+            FPtoLPLinkedLbl = new LinkLabel();
             RCRPPanel = new Panel();
             RPINBox = new TextBox();
+            NewPassBoxPanel = new Panel();
+            NewPassBox = new TextBox();
             RCSNPanel = new Panel();
             RCSNBox = new TextBox();
+            NewPassLbl = new Label();
+            CPChangeBtn = new Button();
             RCSNLabel = new Label();
-            SubmitBtn = new Button();
-            FPtoLPLinkedLbl = new LinkLabel();
+            ConfirmNewPassLbl = new Label();
             RecoveryPINLabel = new Label();
+            PRMorpheusLogo1 = new PictureBox();
             RecoveryHLabel = new Label();
             RegiPanel = new Panel();
             RegiMailLbl = new Label();
@@ -92,9 +98,11 @@
             LnRPanel = new Panel();
             ((System.ComponentModel.ISupportInitialize)MorpheusLogo2).BeginInit();
             RecoveryPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)PRMorpheusLogo1).BeginInit();
+            NewPassCoofirmPanel.SuspendLayout();
             RCRPPanel.SuspendLayout();
+            NewPassBoxPanel.SuspendLayout();
             RCSNPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PRMorpheusLogo1).BeginInit();
             RegiPanel.SuspendLayout();
             RegiMailPanel.SuspendLayout();
             RegiGenderPanel.SuspendLayout();
@@ -160,37 +168,70 @@
             // RecoveryPanel
             // 
             RecoveryPanel.BackColor = Color.FromArgb(250, 247, 247);
-            RecoveryPanel.Controls.Add(PRMorpheusLogo1);
-            RecoveryPanel.Controls.Add(RCRPPanel);
-            RecoveryPanel.Controls.Add(RCSNPanel);
-            RecoveryPanel.Controls.Add(RCSNLabel);
-            RecoveryPanel.Controls.Add(SubmitBtn);
             RecoveryPanel.Controls.Add(FPtoLPLinkedLbl);
-            RecoveryPanel.Controls.Add(RecoveryPINLabel);
+            RecoveryPanel.Controls.Add(NewPassCoofirmPanel);
+            RecoveryPanel.Controls.Add(PRMorpheusLogo1);
             RecoveryPanel.Controls.Add(RecoveryHLabel);
+            RecoveryPanel.Controls.Add(RCRPPanel);
+            RecoveryPanel.Controls.Add(RCSNLabel);
+            RecoveryPanel.Controls.Add(NewPassBoxPanel);
+            RecoveryPanel.Controls.Add(RecoveryPINLabel);
+            RecoveryPanel.Controls.Add(RCSNPanel);
+            RecoveryPanel.Controls.Add(ConfirmNewPassLbl);
+            RecoveryPanel.Controls.Add(NewPassLbl);
+            RecoveryPanel.Controls.Add(CPChangeBtn);
             RecoveryPanel.Location = new Point(495, 0);
             RecoveryPanel.Name = "RecoveryPanel";
             RecoveryPanel.Size = new Size(384, 614);
             RecoveryPanel.TabIndex = 16;
             RecoveryPanel.Paint += RecoveryPanel_Paint;
             // 
-            // PRMorpheusLogo1
+            // NewPassCoofirmPanel
             // 
-            PRMorpheusLogo1.Image = Properties.Resources._4;
-            PRMorpheusLogo1.Location = new Point(135, 27);
-            PRMorpheusLogo1.Name = "PRMorpheusLogo1";
-            PRMorpheusLogo1.Size = new Size(128, 128);
-            PRMorpheusLogo1.SizeMode = PictureBoxSizeMode.AutoSize;
-            PRMorpheusLogo1.TabIndex = 14;
-            PRMorpheusLogo1.TabStop = false;
+            NewPassCoofirmPanel.BorderStyle = BorderStyle.FixedSingle;
+            NewPassCoofirmPanel.Controls.Add(NewPassConfirmBox);
+            NewPassCoofirmPanel.Location = new Point(32, 426);
+            NewPassCoofirmPanel.Name = "NewPassCoofirmPanel";
+            NewPassCoofirmPanel.Size = new Size(324, 30);
+            NewPassCoofirmPanel.TabIndex = 13;
+            // 
+            // NewPassConfirmBox
+            // 
+            NewPassConfirmBox.BackColor = Color.FromArgb(250, 247, 247);
+            NewPassConfirmBox.BorderStyle = BorderStyle.None;
+            NewPassConfirmBox.Cursor = Cursors.IBeam;
+            NewPassConfirmBox.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            NewPassConfirmBox.ForeColor = Color.FromArgb(90, 115, 141);
+            NewPassConfirmBox.Location = new Point(2, 6);
+            NewPassConfirmBox.Margin = new Padding(10);
+            NewPassConfirmBox.Name = "NewPassConfirmBox";
+            NewPassConfirmBox.PlaceholderText = "Enter Confirm New Password";
+            NewPassConfirmBox.Size = new Size(311, 18);
+            NewPassConfirmBox.TabIndex = 3;
+            // 
+            // FPtoLPLinkedLbl
+            // 
+            FPtoLPLinkedLbl.ActiveLinkColor = Color.FromArgb(249, 184, 74);
+            FPtoLPLinkedLbl.AutoSize = true;
+            FPtoLPLinkedLbl.Font = new Font("Arial Black", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            FPtoLPLinkedLbl.ForeColor = Color.FromArgb(90, 115, 141);
+            FPtoLPLinkedLbl.LinkBehavior = LinkBehavior.HoverUnderline;
+            FPtoLPLinkedLbl.LinkColor = Color.FromArgb(90, 115, 141);
+            FPtoLPLinkedLbl.Location = new Point(61, 528);
+            FPtoLPLinkedLbl.Name = "FPtoLPLinkedLbl";
+            FPtoLPLinkedLbl.Size = new Size(280, 22);
+            FPtoLPLinkedLbl.TabIndex = 8;
+            FPtoLPLinkedLbl.TabStop = true;
+            FPtoLPLinkedLbl.Text = "Got your Password? Login again.";
+            FPtoLPLinkedLbl.LinkClicked += linkLabel1_LinkClicked_1;
             // 
             // RCRPPanel
             // 
             RCRPPanel.BorderStyle = BorderStyle.FixedSingle;
             RCRPPanel.Controls.Add(RPINBox);
-            RCRPPanel.Location = new Point(26, 314);
+            RCRPPanel.Location = new Point(32, 301);
             RCRPPanel.Name = "RCRPPanel";
-            RCRPPanel.Size = new Size(324, 40);
+            RCRPPanel.Size = new Size(324, 30);
             RCRPPanel.TabIndex = 13;
             // 
             // RPINBox
@@ -200,7 +241,7 @@
             RPINBox.Cursor = Cursors.IBeam;
             RPINBox.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             RPINBox.ForeColor = Color.FromArgb(90, 115, 141);
-            RPINBox.Location = new Point(6, 9);
+            RPINBox.Location = new Point(5, 6);
             RPINBox.Margin = new Padding(10);
             RPINBox.Name = "RPINBox";
             RPINBox.PlaceholderText = "Enter PIN";
@@ -208,11 +249,34 @@
             RPINBox.TabIndex = 3;
             RPINBox.TextChanged += textBox4_TextChanged;
             // 
+            // NewPassBoxPanel
+            // 
+            NewPassBoxPanel.BorderStyle = BorderStyle.FixedSingle;
+            NewPassBoxPanel.Controls.Add(NewPassBox);
+            NewPassBoxPanel.Location = new Point(33, 363);
+            NewPassBoxPanel.Name = "NewPassBoxPanel";
+            NewPassBoxPanel.Size = new Size(324, 30);
+            NewPassBoxPanel.TabIndex = 12;
+            // 
+            // NewPassBox
+            // 
+            NewPassBox.BackColor = Color.FromArgb(250, 247, 247);
+            NewPassBox.BorderStyle = BorderStyle.None;
+            NewPassBox.Cursor = Cursors.IBeam;
+            NewPassBox.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            NewPassBox.ForeColor = Color.FromArgb(90, 115, 141);
+            NewPassBox.Location = new Point(3, 5);
+            NewPassBox.Margin = new Padding(10);
+            NewPassBox.Name = "NewPassBox";
+            NewPassBox.PlaceholderText = "Enter New Password";
+            NewPassBox.Size = new Size(311, 18);
+            NewPassBox.TabIndex = 11;
+            // 
             // RCSNPanel
             // 
             RCSNPanel.BorderStyle = BorderStyle.FixedSingle;
             RCSNPanel.Controls.Add(RCSNBox);
-            RCSNPanel.Location = new Point(26, 242);
+            RCSNPanel.Location = new Point(32, 238);
             RCSNPanel.Name = "RCSNPanel";
             RCSNPanel.Size = new Size(324, 30);
             RCSNPanel.TabIndex = 12;
@@ -232,62 +296,78 @@
             RCSNBox.TabIndex = 11;
             RCSNBox.TextChanged += RCSNBox_TextChanged;
             // 
+            // NewPassLbl
+            // 
+            NewPassLbl.AutoSize = true;
+            NewPassLbl.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            NewPassLbl.ForeColor = Color.FromArgb(90, 115, 141);
+            NewPassLbl.Location = new Point(29, 336);
+            NewPassLbl.Name = "NewPassLbl";
+            NewPassLbl.Size = new Size(146, 23);
+            NewPassLbl.TabIndex = 10;
+            NewPassLbl.Text = "New Password:";
+            // 
+            // CPChangeBtn
+            // 
+            CPChangeBtn.BackColor = Color.FromArgb(250, 247, 247);
+            CPChangeBtn.Cursor = Cursors.Hand;
+            CPChangeBtn.FlatAppearance.BorderColor = Color.FromArgb(41, 52, 64);
+            CPChangeBtn.FlatAppearance.BorderSize = 2;
+            CPChangeBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
+            CPChangeBtn.FlatStyle = FlatStyle.Flat;
+            CPChangeBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            CPChangeBtn.ForeColor = Color.FromArgb(90, 115, 141);
+            CPChangeBtn.Location = new Point(252, 479);
+            CPChangeBtn.Name = "CPChangeBtn";
+            CPChangeBtn.Size = new Size(104, 40);
+            CPChangeBtn.TabIndex = 9;
+            CPChangeBtn.Text = "CHANGE";
+            CPChangeBtn.UseVisualStyleBackColor = false;
+            CPChangeBtn.Click += CPChangeBtn_Click;
+            // 
             // RCSNLabel
             // 
             RCSNLabel.AutoSize = true;
             RCSNLabel.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
             RCSNLabel.ForeColor = Color.FromArgb(90, 115, 141);
-            RCSNLabel.Location = new Point(23, 209);
+            RCSNLabel.Location = new Point(29, 205);
             RCSNLabel.Name = "RCSNLabel";
             RCSNLabel.Size = new Size(160, 23);
             RCSNLabel.TabIndex = 10;
             RCSNLabel.Text = "Student Number:";
             // 
-            // SubmitBtn
+            // ConfirmNewPassLbl
             // 
-            SubmitBtn.BackColor = Color.FromArgb(250, 247, 247);
-            SubmitBtn.Cursor = Cursors.Hand;
-            SubmitBtn.FlatAppearance.BorderColor = Color.FromArgb(41, 52, 64);
-            SubmitBtn.FlatAppearance.BorderSize = 2;
-            SubmitBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
-            SubmitBtn.FlatStyle = FlatStyle.Flat;
-            SubmitBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            SubmitBtn.ForeColor = Color.FromArgb(90, 115, 141);
-            SubmitBtn.Location = new Point(247, 369);
-            SubmitBtn.Name = "SubmitBtn";
-            SubmitBtn.Size = new Size(104, 31);
-            SubmitBtn.TabIndex = 9;
-            SubmitBtn.Text = "SUBMIT";
-            SubmitBtn.UseVisualStyleBackColor = false;
-            SubmitBtn.Click += SubmitBtn_Click;
-            // 
-            // FPtoLPLinkedLbl
-            // 
-            FPtoLPLinkedLbl.ActiveLinkColor = Color.FromArgb(249, 184, 74);
-            FPtoLPLinkedLbl.AutoSize = true;
-            FPtoLPLinkedLbl.Font = new Font("Arial Black", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            FPtoLPLinkedLbl.ForeColor = Color.FromArgb(90, 115, 141);
-            FPtoLPLinkedLbl.LinkBehavior = LinkBehavior.HoverUnderline;
-            FPtoLPLinkedLbl.LinkColor = Color.FromArgb(90, 115, 141);
-            FPtoLPLinkedLbl.Location = new Point(50, 428);
-            FPtoLPLinkedLbl.Name = "FPtoLPLinkedLbl";
-            FPtoLPLinkedLbl.Size = new Size(280, 22);
-            FPtoLPLinkedLbl.TabIndex = 8;
-            FPtoLPLinkedLbl.TabStop = true;
-            FPtoLPLinkedLbl.Text = "Got your Password? Login again.";
-            FPtoLPLinkedLbl.LinkClicked += linkLabel1_LinkClicked_1;
+            ConfirmNewPassLbl.AutoSize = true;
+            ConfirmNewPassLbl.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ConfirmNewPassLbl.ForeColor = Color.FromArgb(90, 115, 141);
+            ConfirmNewPassLbl.Location = new Point(29, 400);
+            ConfirmNewPassLbl.Name = "ConfirmNewPassLbl";
+            ConfirmNewPassLbl.Size = new Size(176, 23);
+            ConfirmNewPassLbl.TabIndex = 2;
+            ConfirmNewPassLbl.Text = "Confirm Password:";
             // 
             // RecoveryPINLabel
             // 
             RecoveryPINLabel.AutoSize = true;
             RecoveryPINLabel.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
             RecoveryPINLabel.ForeColor = Color.FromArgb(90, 115, 141);
-            RecoveryPINLabel.Location = new Point(23, 288);
+            RecoveryPINLabel.Location = new Point(29, 275);
             RecoveryPINLabel.Name = "RecoveryPINLabel";
             RecoveryPINLabel.Size = new Size(131, 23);
             RecoveryPINLabel.TabIndex = 2;
             RecoveryPINLabel.Text = "Recovery Pin:";
             RecoveryPINLabel.Click += label4_Click;
+            // 
+            // PRMorpheusLogo1
+            // 
+            PRMorpheusLogo1.Image = Properties.Resources._4;
+            PRMorpheusLogo1.Location = new Point(135, 27);
+            PRMorpheusLogo1.Name = "PRMorpheusLogo1";
+            PRMorpheusLogo1.Size = new Size(128, 128);
+            PRMorpheusLogo1.SizeMode = PictureBoxSizeMode.AutoSize;
+            PRMorpheusLogo1.TabIndex = 14;
+            PRMorpheusLogo1.TabStop = false;
             // 
             // RecoveryHLabel
             // 
@@ -296,9 +376,9 @@
             RecoveryHLabel.ForeColor = Color.FromArgb(90, 115, 141);
             RecoveryHLabel.Location = new Point(15, 158);
             RecoveryHLabel.Name = "RecoveryHLabel";
-            RecoveryHLabel.Size = new Size(326, 38);
+            RecoveryHLabel.Size = new Size(299, 38);
             RecoveryHLabel.TabIndex = 1;
-            RecoveryHLabel.Text = "| Password Recovery";
+            RecoveryHLabel.Text = "| Change Password";
             RecoveryHLabel.TextAlign = ContentAlignment.MiddleCenter;
             RecoveryHLabel.Click += label5_Click;
             // 
@@ -684,9 +764,9 @@
             // 
             WCPanel.Controls.Add(WCMsgBox);
             WCPanel.Controls.Add(MorpheusWCIcon);
-            WCPanel.Location = new Point(7, 119);
+            WCPanel.Location = new Point(7, 125);
             WCPanel.Name = "WCPanel";
-            WCPanel.Size = new Size(489, 495);
+            WCPanel.Size = new Size(488, 489);
             WCPanel.TabIndex = 18;
             WCPanel.Paint += panel3_Paint;
             // 
@@ -728,9 +808,9 @@
             LoginPanel.Controls.Add(UNLabel);
             LoginPanel.Controls.Add(RTULHLabel);
             LoginPanel.Controls.Add(PassTextPanel);
-            LoginPanel.Location = new Point(492, 0);
+            LoginPanel.Location = new Point(492, 338);
             LoginPanel.Name = "LoginPanel";
-            LoginPanel.Size = new Size(391, 640);
+            LoginPanel.Size = new Size(391, 302);
             LoginPanel.TabIndex = 1;
             LoginPanel.Paint += panel1_Paint;
             // 
@@ -900,11 +980,11 @@
             // LnRPanel
             // 
             LnRPanel.BackColor = Color.Transparent;
+            LnRPanel.Controls.Add(RecoveryPanel);
             LnRPanel.Controls.Add(LoginPanel);
             LnRPanel.Controls.Add(WCPanel);
             LnRPanel.Controls.Add(MorpheusLbl);
             LnRPanel.Controls.Add(MorpheusLogo2);
-            LnRPanel.Controls.Add(RecoveryPanel);
             LnRPanel.Controls.Add(RegiPanel);
             LnRPanel.Location = new Point(-6, 0);
             LnRPanel.Name = "LnRPanel";
@@ -929,11 +1009,15 @@
             ((System.ComponentModel.ISupportInitialize)MorpheusLogo2).EndInit();
             RecoveryPanel.ResumeLayout(false);
             RecoveryPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)PRMorpheusLogo1).EndInit();
+            NewPassCoofirmPanel.ResumeLayout(false);
+            NewPassCoofirmPanel.PerformLayout();
             RCRPPanel.ResumeLayout(false);
             RCRPPanel.PerformLayout();
+            NewPassBoxPanel.ResumeLayout(false);
+            NewPassBoxPanel.PerformLayout();
             RCSNPanel.ResumeLayout(false);
             RCSNPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PRMorpheusLogo1).EndInit();
             RegiPanel.ResumeLayout(false);
             RegiPanel.PerformLayout();
             RegiMailPanel.ResumeLayout(false);
@@ -974,7 +1058,6 @@
         private Panel RecoveryPanel;
         private TextBox RCSNBox;
         private Label RCSNLabel;
-        private Button SubmitBtn;
         private LinkLabel FPtoLPLinkedLbl;
         private TextBox RPINBox;
         private Label RecoveryPINLabel;
@@ -1028,5 +1111,12 @@
         private Label RegiMailLbl;
         private Panel RegiMailPanel;
         private TextBox RegiMailBox;
+        private Panel NewPassCoofirmPanel;
+        private TextBox NewPassConfirmBox;
+        private Panel NewPassBoxPanel;
+        private TextBox NewPassBox;
+        private Label NewPassLbl;
+        private Button CPChangeBtn;
+        private Label ConfirmNewPassLbl;
     }
 }

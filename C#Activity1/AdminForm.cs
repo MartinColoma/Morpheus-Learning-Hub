@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using static System.Windows.Forms.DataFormats;
 
@@ -186,11 +187,11 @@ namespace C_Activity1
                         int rowsAffected = deleteCommand.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
-                            MessageBox.Show("Row deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Student account has been approved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            MessageBox.Show("No matching rows found for deletion.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("No student account row match found for deletion.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     catch (Exception ex)
@@ -282,6 +283,21 @@ namespace C_Activity1
                         LoadPendingDB();
                         LoadApprovedDB();
                     }
+
+                    if (PendingApprovedTabs.SelectedTab == PendingTab)
+                    {
+                        // Switch to the other tab (e.g., ApprovedTab)
+                        PendingApprovedTabs.SelectedTab = ApprovedTab;
+                    }
+                    else if (PendingApprovedTabs.SelectedTab == ApprovedTab)
+                    {
+                        // Switch back to the PendingTab
+                        PendingApprovedTabs.SelectedTab = PendingTab;
+                    }
+
+
+
+
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -386,7 +402,6 @@ namespace C_Activity1
 
             }
 
-            // You can add code here to update your UI or perform any other necessary actions
         }
 
 
@@ -398,25 +413,38 @@ namespace C_Activity1
 
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
-            // Call this method when a button is clicked to delete the selected row from ApprovedTable
-            foreach (DataGridViewRow selectedRow in ApprovedTable.SelectedRows)
+            if (ApprovedTable.SelectedRows.Count > 0)
             {
-                try
+                DialogResult dialogResult = MessageBox.Show("Do you want to delete the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    // Iterate through selected rows in PendingTable
+
+                    foreach (DataGridViewRow selectedRow in ApprovedTable.SelectedRows)
+                    {
+                        try
+                        {
+                            //// Insert data into the database
+                            DeleteInApproveddDB(selectedRow);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle any database-related errors here
+                            MessageBox.Show("Error: " + ex.Message);
+                        }
+                    }
+
+                }
+                else if (dialogResult == DialogResult.No)
                 {
 
-                    //// Insert data into the database
-                    DeleteInApproveddDB(selectedRow);
-
-
                 }
-                catch (Exception ex)
-                {
-                    // Handle any database-related errors here
-                    MessageBox.Show("Error: " + ex.Message);
-                }
-                finally {
-                    connection.Close();
-                }
+            }
+            else
+            {
+                MessageBox.Show("Select a table row first.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
