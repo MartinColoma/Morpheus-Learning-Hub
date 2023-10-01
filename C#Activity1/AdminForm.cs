@@ -63,6 +63,7 @@ namespace C_Activity1
             this.Location = new Point(550, 270);
             LoadPendingDB();
             LoadApprovedDB();
+            LoadArchivedDB();
         }
 
 
@@ -143,6 +144,41 @@ namespace C_Activity1
             }
         }
 
+        public void LoadArchivedDB()
+        {
+            try
+            {
+                connection.Open();
+                string sql = "SELECT * FROM `marchiveddb`";
+                MySqlCommand cmd = new MySqlCommand(sql, connection);
+                //DataTable dataTable = new DataTable();
+                System.Data.DataTable dataTable = new System.Data.DataTable();
+                //MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+
+
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                {
+                    adapter.Fill(dataTable);
+                    ArchivedTable.DataSource = dataTable;
+                    ArchivedTable.Columns[8].Visible = false; //hashedpass
+                    ArchivedTable.Columns[9].Visible = false; //fixedsalt
+                    ArchivedTable.Columns[10].Visible = false; //perusersalt
+                    PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("An error occurred: " + e.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
+
         // Function to insert data into the database
         private void InsertIntoApprovedDB(DataGridViewRow selectedRow)
         {
@@ -200,9 +236,9 @@ namespace C_Activity1
                     }
                 }
 
-
                 LoadPendingDB();
                 LoadApprovedDB();
+                LoadArchivedDB();
             }
             catch (Exception ex)
             {
@@ -216,8 +252,220 @@ namespace C_Activity1
         }
 
 
+        private void InsertIntoArchivedDB(DataGridViewRow selectedRow)
+        {
+            string selectedUID = selectedRow.Cells["UserID"].Value as string;
+            MySqlConnection connection = null;
+            try
+            {
+                connection = new MySqlConnection(mysqlconn);
+                connection.Open();
+
+                // Assuming the order of columns in the DataGridView matches the order of columns in the database table
+                using (MySqlCommand insertCommand = new MySqlCommand(
+                    "INSERT INTO marchiveddb (Name, Age, Gender, Course, Email, StudNum, RecoveryPin, UserID, PassHashed, PassFixNa, PassPerUserNa) " +
+                    "VALUES (@Name, @Age, @Gender, @Course, @Email, @StudNum, @UserID, @RecoveryPin, @Password, @FixedSalt, @PerUserSalt)", connection))
+                {
+                    // Assuming you have a 'selectedRow' object containing the data to be inserted
+                    insertCommand.Parameters.AddWithValue("@Name", selectedRow.Cells[0].Value); // Replace 0 with the index of the Name column
+                    insertCommand.Parameters.AddWithValue("@Age", selectedRow.Cells[1].Value); // Replace 1 with the index of the Age column
+                    insertCommand.Parameters.AddWithValue("@Gender", selectedRow.Cells[2].Value); // Replace 2 with the index of the Gender column
+                    insertCommand.Parameters.AddWithValue("@Course", selectedRow.Cells[3].Value); // Replace 3 with the index of the Course column
+                    insertCommand.Parameters.AddWithValue("@Email", selectedRow.Cells[4].Value); // Replace 4 with the index of the Email column
+                    insertCommand.Parameters.AddWithValue("@StudNum", selectedRow.Cells[5].Value); // Replace 5 with the index of the StudNum column
+
+                    // You need to provide values for the following parameters as well
+                    insertCommand.Parameters.AddWithValue("@UserID", selectedRow.Cells[6].Value); // Replace 6 with the index of the UserID column
+                    insertCommand.Parameters.AddWithValue("@RecoveryPin", selectedRow.Cells[7].Value); // Replace 7 with the index of the RecoveryPin column
+                    insertCommand.Parameters.AddWithValue("@Password", selectedRow.Cells[8].Value); // Replace 8 with the index of the PassHashed column
+                    insertCommand.Parameters.AddWithValue("@FixedSalt", selectedRow.Cells[9].Value); // Replace 9 with the index of the PassFixNa column
+                    insertCommand.Parameters.AddWithValue("@PerUserSalt", selectedRow.Cells[10].Value); // Replace 10 with the index of the PassPerUserNa column
+
+                    // Execute the insertion query
+                    insertCommand.ExecuteNonQuery();
 
 
+                }
+                string deletequery = "DELETE FROM mapproveddb WHERE UserID = @UserID";
+                using (MySqlCommand deleteCommand = new MySqlCommand(deletequery, connection))
+                {
+                    deleteCommand.Parameters.AddWithValue("@UserID", selectedUID);
+                    try
+                    {
+                        int rowsAffected = deleteCommand.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Student account has been archived.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No student account row match found for deletion.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                LoadPendingDB();
+                LoadApprovedDB();
+                LoadArchivedDB();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
+        }
+
+
+        private void ReinsertIntoApprovedDB(DataGridViewRow selectedRow)
+        {
+            string selectedUID = selectedRow.Cells["UserID"].Value as string;
+            MySqlConnection connection = null;
+            try
+            {
+                connection = new MySqlConnection(mysqlconn);
+                connection.Open();
+
+                // Assuming the order of columns in the DataGridView matches the order of columns in the database table
+                using (MySqlCommand insertCommand = new MySqlCommand(
+                    "INSERT INTO mapproveddb (Name, Age, Gender, Course, Email, StudNum, RecoveryPin, UserID, PassHashed, PassFixNa, PassPerUserNa) " +
+                    "VALUES (@Name, @Age, @Gender, @Course, @Email, @StudNum, @UserID, @RecoveryPin, @Password, @FixedSalt, @PerUserSalt)", connection))
+                {
+                    // Assuming you have a 'selectedRow' object containing the data to be inserted
+                    insertCommand.Parameters.AddWithValue("@Name", selectedRow.Cells[0].Value); // Replace 0 with the index of the Name column
+                    insertCommand.Parameters.AddWithValue("@Age", selectedRow.Cells[1].Value); // Replace 1 with the index of the Age column
+                    insertCommand.Parameters.AddWithValue("@Gender", selectedRow.Cells[2].Value); // Replace 2 with the index of the Gender column
+                    insertCommand.Parameters.AddWithValue("@Course", selectedRow.Cells[3].Value); // Replace 3 with the index of the Course column
+                    insertCommand.Parameters.AddWithValue("@Email", selectedRow.Cells[4].Value); // Replace 4 with the index of the Email column
+                    insertCommand.Parameters.AddWithValue("@StudNum", selectedRow.Cells[5].Value); // Replace 5 with the index of the StudNum column
+
+                    // You need to provide values for the following parameters as well
+                    insertCommand.Parameters.AddWithValue("@UserID", selectedRow.Cells[6].Value); // Replace 6 with the index of the UserID column
+                    insertCommand.Parameters.AddWithValue("@RecoveryPin", selectedRow.Cells[7].Value); // Replace 7 with the index of the RecoveryPin column
+                    insertCommand.Parameters.AddWithValue("@Password", selectedRow.Cells[8].Value); // Replace 8 with the index of the PassHashed column
+                    insertCommand.Parameters.AddWithValue("@FixedSalt", selectedRow.Cells[9].Value); // Replace 9 with the index of the PassFixNa column
+                    insertCommand.Parameters.AddWithValue("@PerUserSalt", selectedRow.Cells[10].Value); // Replace 10 with the index of the PassPerUserNa column
+
+                    // Execute the insertion query
+                    insertCommand.ExecuteNonQuery();
+
+
+                }
+                string deletequery = "DELETE FROM marchiveddb WHERE UserID = @UserID";
+                using (MySqlCommand deleteCommand = new MySqlCommand(deletequery, connection))
+                {
+                    deleteCommand.Parameters.AddWithValue("@UserID", selectedUID);
+                    try
+                    {
+                        int rowsAffected = deleteCommand.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Student account has been reactivated.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No student account row match found for deletion.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                LoadPendingDB();
+                LoadApprovedDB();
+                LoadArchivedDB();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
+        }
+
+
+        private void ReinsertIntoPendingDB(DataGridViewRow selectedRow)
+        {
+            string selectedUID = selectedRow.Cells["UserID"].Value as string;
+            MySqlConnection connection = null;
+            try
+            {
+                connection = new MySqlConnection(mysqlconn);
+                connection.Open();
+
+                // Assuming the order of columns in the DataGridView matches the order of columns in the database table
+                using (MySqlCommand insertCommand = new MySqlCommand(
+                    "INSERT INTO mpendingdb (Name, Age, Gender, Course, Email, StudNum, RecoveryPin, UserID, PassHashed, PassFixNa, PassPerUserNa) " +
+                    "VALUES (@Name, @Age, @Gender, @Course, @Email, @StudNum, @UserID, @RecoveryPin, @Password, @FixedSalt, @PerUserSalt)", connection))
+                {
+                    // Assuming you have a 'selectedRow' object containing the data to be inserted
+                    insertCommand.Parameters.AddWithValue("@Name", selectedRow.Cells[0].Value); // Replace 0 with the index of the Name column
+                    insertCommand.Parameters.AddWithValue("@Age", selectedRow.Cells[1].Value); // Replace 1 with the index of the Age column
+                    insertCommand.Parameters.AddWithValue("@Gender", selectedRow.Cells[2].Value); // Replace 2 with the index of the Gender column
+                    insertCommand.Parameters.AddWithValue("@Course", selectedRow.Cells[3].Value); // Replace 3 with the index of the Course column
+                    insertCommand.Parameters.AddWithValue("@Email", selectedRow.Cells[4].Value); // Replace 4 with the index of the Email column
+                    insertCommand.Parameters.AddWithValue("@StudNum", selectedRow.Cells[5].Value); // Replace 5 with the index of the StudNum column
+
+                    // You need to provide values for the following parameters as well
+                    insertCommand.Parameters.AddWithValue("@UserID", selectedRow.Cells[6].Value); // Replace 6 with the index of the UserID column
+                    insertCommand.Parameters.AddWithValue("@RecoveryPin", selectedRow.Cells[7].Value); // Replace 7 with the index of the RecoveryPin column
+                    insertCommand.Parameters.AddWithValue("@Password", selectedRow.Cells[8].Value); // Replace 8 with the index of the PassHashed column
+                    insertCommand.Parameters.AddWithValue("@FixedSalt", selectedRow.Cells[9].Value); // Replace 9 with the index of the PassFixNa column
+                    insertCommand.Parameters.AddWithValue("@PerUserSalt", selectedRow.Cells[10].Value); // Replace 10 with the index of the PassPerUserNa column
+
+                    // Execute the insertion query
+                    insertCommand.ExecuteNonQuery();
+
+
+                }
+                string deletequery = "DELETE FROM mapproveddb WHERE UserID = @UserID";
+                using (MySqlCommand deleteCommand = new MySqlCommand(deletequery, connection))
+                {
+                    deleteCommand.Parameters.AddWithValue("@UserID", selectedUID);
+                    try
+                    {
+                        int rowsAffected = deleteCommand.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Student account has been waitlisted.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No student account row match found for deletion.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                LoadPendingDB();
+                LoadApprovedDB();
+                LoadArchivedDB();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
+        }
 
 
         private void label1_Click(object sender, EventArgs e)
@@ -268,31 +516,16 @@ namespace C_Activity1
                         }
                     }
 
-                    // Toggle visibility of panels
-                    if (PendingTab.Visible)
-                    {
-                        PendingTab.Visible = false;
-                        ApprovedTab.Visible = true;
-                        LoadPendingDB();
-                        LoadApprovedDB();
-                    }
-                    else
-                    {
-                        ApprovedTab.Visible = false;
-                        PendingTab.Visible = true;
-                        LoadPendingDB();
-                        LoadApprovedDB();
-                    }
 
-                    if (PendingApprovedTabs.SelectedTab == PendingTab)
+                    if (AccountTabs.SelectedTab == PendingTab)
                     {
                         // Switch to the other tab (e.g., ApprovedTab)
-                        PendingApprovedTabs.SelectedTab = ApprovedTab;
+                        AccountTabs.SelectedTab = ApprovedTab;
                     }
-                    else if (PendingApprovedTabs.SelectedTab == ApprovedTab)
+                    else if (AccountTabs.SelectedTab == ApprovedTab)
                     {
                         // Switch back to the PendingTab
-                        PendingApprovedTabs.SelectedTab = PendingTab;
+                        AccountTabs.SelectedTab = PendingTab;
                     }
 
 
@@ -320,11 +553,11 @@ namespace C_Activity1
 
         private void DeleteInPendingdDB(DataGridViewRow selectedRow)
         {
-            connection.Open();
             string selectedUID = selectedRow.Cells["UserID"].Value as string;
 
             try
             {
+                connection.Open();
                 string deletequery = "DELETE FROM mpendingdb WHERE UserID = @UserID";
                 using (MySqlCommand deleteCommand = new MySqlCommand(deletequery, connection))
                 {
@@ -347,6 +580,8 @@ namespace C_Activity1
                     }
                 }
                 LoadPendingDB();
+                LoadApprovedDB();
+                LoadArchivedDB();
             }
             catch (Exception ex)
             {
@@ -364,11 +599,11 @@ namespace C_Activity1
 
         private void DeleteInApproveddDB(DataGridViewRow selectedRow)
         {
-            connection.Open();
             string selectedUID = selectedRow.Cells["UserID"].Value as string;
 
             try
             {
+                connection.Open();
                 string deletequery = "DELETE FROM mapproveddb WHERE UserID = @UserID";
                 using (MySqlCommand deleteCommand = new MySqlCommand(deletequery, connection))
                 {
@@ -390,7 +625,9 @@ namespace C_Activity1
                         MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+                LoadPendingDB();
                 LoadApprovedDB();
+                LoadArchivedDB();
             }
             catch (Exception ex)
             {
@@ -405,17 +642,58 @@ namespace C_Activity1
         }
 
 
-        private void ApprovedDictionary_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void DeleteInArchiveddDB(DataGridViewRow selectedRow)
         {
-            string dictContents = string.Join(Environment.NewLine, LoginForm.instance.dictionary.Select(kv => $"{kv.Key}: {kv.Value}"));
-            MessageBox.Show("Activated Users Dictionary Contents:" + Environment.NewLine + dictContents);
+            string selectedUID = selectedRow.Cells["UserID"].Value as string;
+
+            try
+            {
+                connection.Open();
+                string deletequery = "DELETE FROM marchiveddb WHERE UserID = @UserID";
+                using (MySqlCommand deleteCommand = new MySqlCommand(deletequery, connection))
+                {
+                    deleteCommand.Parameters.AddWithValue("@UserID", selectedUID);
+                    try
+                    {
+                        int rowsAffected = deleteCommand.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Row deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No matching rows found for deletion.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                LoadPendingDB();
+                LoadApprovedDB();
+                LoadArchivedDB();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+
+            }
+
         }
+
+
+
 
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
             if (ApprovedTable.SelectedRows.Count > 0)
             {
-                DialogResult dialogResult = MessageBox.Show("Do you want to delete the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult dialogResult = MessageBox.Show("Do you want to archive the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (dialogResult == DialogResult.Yes)
                 {
@@ -426,7 +704,8 @@ namespace C_Activity1
                         try
                         {
                             //// Insert data into the database
-                            DeleteInApproveddDB(selectedRow);
+                            //DeleteInApproveddDB(selectedRow);
+                            InsertIntoArchivedDB(selectedRow);
 
                         }
                         catch (Exception ex)
@@ -434,6 +713,21 @@ namespace C_Activity1
                             // Handle any database-related errors here
                             MessageBox.Show("Error: " + ex.Message);
                         }
+                        finally
+                        {
+                            connection.Close();
+                        }
+                    }
+
+                    if (AccountTabs.SelectedTab == ApprovedTab)
+                    {
+                        // Switch to the other tab (e.g., ApprovedTab)
+                        AccountTabs.SelectedTab = ArchivedTab;
+                    }
+                    else if (AccountTabs.SelectedTab == ArchivedTab)
+                    {
+                        // Switch back to the PendingTab
+                        AccountTabs.SelectedTab = ApprovedTab;
                     }
 
                 }
@@ -449,40 +743,6 @@ namespace C_Activity1
         }
 
 
-
-
-
-
-        //private void DeleteSelectedRowFromApprovedTable()
-        //{
-        //    if (ApprovedTable.SelectedRows.Count > 0)
-        //    {
-        //        DialogResult dialogResult = MessageBox.Show("Do you want to delete the selected row?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-        //        if (dialogResult == DialogResult.Yes)
-        //        {
-        //            foreach (DataGridViewRow selectedRow in ApprovedTable.SelectedRows)
-        //            {
-        //                string selectedUsername = selectedRow.Cells["ASNColumn"].Value.ToString();
-
-        //                // Remove the value from the dictionary
-        //                if (LoginForm.instance.dictionary.ContainsKey(selectedUsername))
-        //                {
-        //                    LoginForm.instance.dictionary.Remove(selectedUsername);
-        //                }
-
-        //                AddUserToDictionaryOne(selectedUsername, (string)selectedRow.Cells["APassColumn"].Value);
-        //                ApprovedTable.Rows.RemoveAt(selectedRow.Index);
-        //                UserForm.instance.Hide();
-        //            }
-        //        }
-        //    }
-        //}
-
-        public void AddUserToDictionaryOne(string selectedUN, string values)
-        {
-            dictionaryOne.Add(selectedUN, values);
-        }
 
         private void AdminLoginLinkedLbl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -503,11 +763,6 @@ namespace C_Activity1
 
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            string dictContents = string.Join(Environment.NewLine, dictionaryOne.Select(kv => $"{kv.Key}: {kv.Value}"));
-            MessageBox.Show("Delete Users Dictionary Contents:" + Environment.NewLine + dictContents);
-        }
 
         private void PendingRefreshBtn_Click(object sender, EventArgs e)
         {
@@ -529,6 +784,140 @@ namespace C_Activity1
         {
             LoadPendingDB();
             LoadApprovedDB();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ReactivateBtn_Click(object sender, EventArgs e)
+        {
+            //Reactivate button
+
+            if (ArchivedTable.SelectedRows.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Do you want to reactivate the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    // Iterate through selected rows in PendingTable
+                    foreach (DataGridViewRow selectedRow in ArchivedTable.SelectedRows)
+                    {
+                        try
+                        {
+                            //// Insert data into the database
+                            ReinsertIntoApprovedDB(selectedRow);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle any database-related errors here
+                            MessageBox.Show("Error: " + ex.Message);
+                        }
+                    }
+
+
+                    if (AccountTabs.SelectedTab == ArchivedTab)
+                    {
+                        // Switch to the other tab (e.g., ApprovedTab)
+                        AccountTabs.SelectedTab = ApprovedTab;
+                    }
+                    else if (AccountTabs.SelectedTab == ApprovedTab)
+                    {
+                        // Switch back to the PendingTab
+                        AccountTabs.SelectedTab = ArchivedTab;
+                    }
+
+
+
+
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    DialogResult deleteResult = MessageBox.Show("Do you want to delete the selected row?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (deleteResult == DialogResult.Yes)
+                    {
+                        foreach (DataGridViewRow selectedRow in ArchivedTable.SelectedRows)
+                        {
+                            DeleteInArchiveddDB(selectedRow);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a table row first.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+
+
+
+        }
+
+        private void AccountTabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PendingBtn_Click(object sender, EventArgs e)
+        {
+            if (ApprovedTable.SelectedRows.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Do you want to waitlist the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    // Iterate through selected rows in PendingTable
+                    foreach (DataGridViewRow selectedRow in ApprovedTable.SelectedRows)
+                    {
+                        try
+                        {
+                            //// Insert data into the database
+                            ReinsertIntoPendingDB(selectedRow);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle any database-related errors here
+                            MessageBox.Show("Error: " + ex.Message);
+                        }
+                    }
+
+
+                    if (AccountTabs.SelectedTab == ApprovedTab)
+                    {
+                        // Switch to the other tab (e.g., ApprovedTab)
+                        AccountTabs.SelectedTab = PendingTab;
+                    }
+                    else if (AccountTabs.SelectedTab == PendingTab)
+                    {
+                        // Switch back to the PendingTab
+                        AccountTabs.SelectedTab = ApprovedTab;
+                    }
+
+
+
+
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    DialogResult deleteResult = MessageBox.Show("Do you want to archive the selected row? instead?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (deleteResult == DialogResult.Yes)
+                    {
+                        foreach (DataGridViewRow selectedRow in ArchivedTable.SelectedRows)
+                        {
+                            DeleteInArchiveddDB(selectedRow);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a table row first.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
         }
     }
 }

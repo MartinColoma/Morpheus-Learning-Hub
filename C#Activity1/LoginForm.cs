@@ -411,109 +411,6 @@ namespace C_Activity1
             }
         }
 
-
-
-
-
-
-        //Previous login button parameters
-        //bool found = false;
-        //bool find = false;
-        ////bool unknown = false;
-
-
-        //int asnColumnIndex = AdminForm.instance.ApprovedTable.Columns["ASNColumn"].Index;
-        //int apassColumnIndex = AdminForm.instance.ApprovedTable.Columns["APassColumn"].Index;
-        //int anameColumnIndex = AdminForm.instance.ApprovedTable.Columns["ANameColumn"].Index;
-
-        ////Pending Table Indexes
-        //int psnColumnIndex = AdminForm.instance.PendingTable.Columns["PSNColumn"].Index;
-        //int ppassColumnIndex = AdminForm.instance.PendingTable.Columns["PPassColumn"].Index;
-
-
-        //// Iterate through rows in ApprovedTable DataGridView
-        //foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
-        //{
-        //    if (!row.IsNewRow) // Skip the new row if any
-        //    {
-
-        //        string storedSN = row.Cells[asnColumnIndex].Value?.ToString();
-        //        string storedPass = row.Cells[apassColumnIndex].Value?.ToString();
-
-
-        //        if (storedSN == SNBox.Text && storedPass == PassBox.Text)
-        //        {
-        //            found = true;
-        //            UserForm.instance.LHSNBox.Text = storedSN;
-        //            UserForm.instance.LHNameBox.Text = row.Cells[anameColumnIndex].Value?.ToString();
-        //            break;
-        //        }
-        //        else if (storedSN != SNBox.Text && storedPass == PassBox.Text)
-        //        {
-        //            HandleIncorrectInput("Incorrect Student Number.");
-
-        //        }
-        //        else if (storedSN == SNBox.Text && storedPass != PassBox.Text)
-        //        {
-        //            HandleIncorrectInput("Incorrect Password.");
-
-        //        }
-
-
-        //    }
-
-        //}
-
-        //foreach (DataGridViewRow rows in AdminForm.instance.PendingTable.Rows)
-        //{
-        //    if (!rows.IsNewRow) // Skip the new row if any
-        //    {
-
-        //        string notStoredSN = rows.Cells[psnColumnIndex].Value?.ToString();
-        //        string notStoredPass = rows.Cells[ppassColumnIndex].Value?.ToString();
-
-        //        if (notStoredSN == SNBox.Text && notStoredPass == PassBox.Text)
-        //        {
-        //            find = true;
-        //            MessageBox.Show("Student Account is pending for approval.", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            return;
-        //        }
-
-
-        //    }
-        //}
-
-
-        //if (found)
-        //{
-        //    MessageBox.Show("Welcome back RTUista.", "Greetings", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //    HomePage.Show(); // Show the LHHomePage form
-        //    ResetHideForm();
-
-        //}
-        //else if (find)
-        //{
-        //    ResetForm();
-        //}
-        //else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
-        //{
-        //    //HandleIncorrectInput("Missing Student Number and Password.");
-        //    MessageBox.Show("Missing text on required Field.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-        //}
-        //else if (!find && !found)
-        //{
-        //    MessageBox.Show("Login Failed. Please try again.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //}
-
-
-
-
-
-
-
-
-
         private void HandleIncorrectInput(string errorMessage)
         {
             LoginfailedAttempts++;
@@ -897,17 +794,7 @@ namespace C_Activity1
 
         }
 
-        //// If everything is okay, proceed to add the record
-        //if (!AdminForm.instance.existingSN.Contains(BtnSN))
-        //{
-        //    AdminForm.instance.existingSN.Add(BtnSN); // Add it to your existingSN list
-        //    AdminForm.instance.AddDataGridView(Btnname, BtnAge, BtnGender, BtnCourse, BtnSN, BtnMail, BtnRP, BtnPass);
-        //    MessageBox.Show("Account added for approval", "Congrats", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //}
-        //else
-        //{
-        //    MessageBox.Show("Student Number is pending for approval.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //}
+
         private bool IsStudentNumberInApprovedTable(string studentNumber)
         {
             foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
@@ -1042,81 +929,6 @@ namespace C_Activity1
             //recovery pin textbox
         }
 
-        private void SubmitBtn_Click(object sender, EventArgs e)
-        {
-            ////Recovery Pass Submit Btn
-
-            bool credentialsFound = false;
-            connection.Open();
-            string query = $"SELECT UserID FROM mapproveddb WHERE StudNum = '{RCSNBox.Text}' AND RecoveryPin = '{RPINBox.Text}'";
-            using (MySqlCommand cmd = new MySqlCommand(query, connection))
-            {
-                try
-                {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            credentialsFound = true;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error checking credentials: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-
-            if (credentialsFound)
-            {
-                //if (CPVerifyCreds.Visible)
-                //{
-                //    CPVerifyCreds.Visible = false;
-                //    CPNewPass.Visible = true;
-
-                //}
-
-                //else
-                //{
-                //    CPVerifyCreds.Visible = true;
-                //    CPNewPass.Visible = false;
-                //}
-            }
-            else
-            {
-                MessageBox.Show("Invalid credentials.");
-            }
-
-            connection.Close();
-        }
-
-        //bool LFPass = false;
-        //string PassFound = "";
-
-        //foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
-        //{
-
-        //    string psn = row.Cells["ASNColumn"].Value?.ToString();
-        //    string ppin = row.Cells["ARPinColumn"].Value?.ToString();
-
-        //    if (psn == RCSNBox.Text && ppin == RPINBox.Text)
-        //    {
-        //        LFPass = true;
-        //        PassFound = row.Cells["APassColumn"].Value.ToString();
-        //        break;
-        //    }
-
-        //}
-        //if (LFPass)
-        //{
-        //    MessageBox.Show("Your Password is " + PassFound, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //}
-        //else
-        //{
-        //    MessageBox.Show("Incorrect Student Number and Recovery Pin.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-        //}
-
 
         private void PassBox_TextChanged(object sender, EventArgs e)
         {
@@ -1215,8 +1027,6 @@ namespace C_Activity1
             }
             else
             {
-                // ... Your existing code ...
-
                 try
                 {
                     using (MySqlConnection connection = new MySqlConnection(mysqlconn))
@@ -1270,9 +1080,98 @@ namespace C_Activity1
                     MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
+                RCSNBox.Text = "";
+                RPINBox.Text = "";
+                NewPassBox.Text = "";
+                NewPassConfirmBox.Text = "";
+
+
             }
         }
 
+        private void NewPassConfirmBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string studNum = RCSNBox.Text;
+                string recPin = RPINBox.Text;
+                string newPass = NewPassBox.Text;
+                string newConfirm = NewPassConfirmBox.Text;
+
+                if (string.IsNullOrEmpty(newPass) || string.IsNullOrEmpty(newConfirm) || string.IsNullOrEmpty(recPin) || string.IsNullOrEmpty(studNum))
+                {
+                    MessageBox.Show("Missing text in required fields.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (newPass != newConfirm)
+                {
+                    MessageBox.Show("Password does not match.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    // ... Your existing code ...
+
+                    try
+                    {
+                        using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                        {
+                            connection.Open();
+
+                            // Query the database for the provided student number and RecoveryPin
+                            string query = "SELECT UserID FROM mapproveddb WHERE StudNum = @StudNum AND RecoveryPin = @RecoveryPin";
+
+                            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@StudNum", studNum);
+                                cmd.Parameters.AddWithValue("@RecoveryPin", recPin);
+
+                                using (MySqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.Read())
+                                    {
+                                        string userID = reader["UserID"].ToString();
+
+                                        // Close the first DataReader before executing another query
+                                        reader.Close();
+
+                                        // Update the password-related columns in the database
+                                        string updatedHashedPassword = HashHelper.HashString(newPass);
+
+                                        // Update the database
+                                        string updateQuery = "UPDATE mapproveddb SET PassHashed = @NewHashedPassword WHERE UserID = @UserID";
+                                        using (MySqlCommand updateCmd = new MySqlCommand(updateQuery, connection))
+                                        {
+                                            updateCmd.Parameters.AddWithValue("@NewHashedPassword", updatedHashedPassword);
+                                            updateCmd.Parameters.AddWithValue("@UserID", userID);
+
+                                            updateCmd.ExecuteNonQuery();
+
+                                            MessageBox.Show("Password updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                            HomePage.Show(); // Show the LHHomePage form
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Student account not found or incorrect Recovery PIN.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    RCSNBox.Text = "";
+                    RPINBox.Text = "";
+                    NewPassBox.Text = "";
+                    NewPassConfirmBox.Text = "";
+
+
+                }
+            }
+        }
 
 
 
@@ -1335,6 +1234,8 @@ namespace C_Activity1
                 return randomNumber;
             }
         }
+
+
     }
 }
 
