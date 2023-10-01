@@ -218,37 +218,8 @@ namespace C_Activity1
                         connection = new MySqlConnection(mysqlconn);
                         connection.Open();
 
-                        // Query the database for the provided student number in mpendingdb
-                        string queryPending = "SELECT PassHashed FROM mpendingdb WHERE StudNum = @StudNum";
-
-                        using (MySqlCommand cmdPending = new MySqlCommand(queryPending, connection))
-                        {
-                            cmdPending.Parameters.AddWithValue("@StudNum", studNum);
-
-                            using (MySqlDataReader readerPending = cmdPending.ExecuteReader())
-                            {
-                                if (readerPending.Read())
-                                {
-                                    string pendinghashedPasswordFromDB = readerPending["PassHashed"].ToString();
-
-                                    // Implement your password hashing and comparison logic here
-                                    bool passwordMatches = pendinghashedPasswordFromDB.Equals(passchecker);
-
-                                    if (passwordMatches)
-                                    {
-                                        MessageBox.Show("Student account is pending for approval", "Ooooops", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    }
-                                    else
-                                    {
-                                        HandleIncorrectInput("Incorrect Password.");
-                                    }
-                                    return; // Exit the method after handling the pending case
-                                }
-                            }
-                        }
-
                         // Query the database for the provided student number in mapproveddb
-                        string queryApproved = "SELECT PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
+                        string queryApproved = "SELECT Name, StudNum, Course, PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
 
                         using (MySqlCommand cmdApproved = new MySqlCommand(queryApproved, connection))
                         {
@@ -258,15 +229,27 @@ namespace C_Activity1
                             {
                                 if (readerApproved.Read())
                                 {
+                                    // Retrieve user information
+                                    string name = readerApproved["Name"].ToString();
+                                    string studentNumber = readerApproved["StudNum"].ToString();
+                                    string course = readerApproved["Course"].ToString();
+
+                                    // Retrieve the PassHashed column
                                     string hashedPasswordFromDB = readerApproved["PassHashed"].ToString();
 
-                                    // Implement your password hashing and comparison logic here
+                                    // Check if the entered password matches
                                     bool passwordMatches = hashedPasswordFromDB.Equals(passchecker);
 
                                     if (passwordMatches)
                                     {
                                         MessageBox.Show("Welcome back, Dreamers.", "Login Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         HomePage.Show(); // Show the LHHomePage form
+
+                                        // Populate the textboxes in HomePage form
+                                        HomePage.LHNameBox.Text = name;
+                                        HomePage.LHSNBox.Text = studentNumber;
+                                        HomePage.LHCourseBox.Text = course;
+
                                         ResetHideForm();
                                     }
                                     else
@@ -336,37 +319,8 @@ namespace C_Activity1
                     connection = new MySqlConnection(mysqlconn);
                     connection.Open();
 
-                    // Query the database for the provided student number in mpendingdb
-                    string queryPending = "SELECT PassHashed FROM mpendingdb WHERE StudNum = @StudNum";
-
-                    using (MySqlCommand cmdPending = new MySqlCommand(queryPending, connection))
-                    {
-                        cmdPending.Parameters.AddWithValue("@StudNum", studNum);
-
-                        using (MySqlDataReader readerPending = cmdPending.ExecuteReader())
-                        {
-                            if (readerPending.Read())
-                            {
-                                string pendinghashedPasswordFromDB = readerPending["PassHashed"].ToString();
-
-                                // Implement your password hashing and comparison logic here
-                                bool passwordMatches = pendinghashedPasswordFromDB.Equals(passchecker);
-
-                                if (passwordMatches)
-                                {
-                                    MessageBox.Show("Student account is pending for approval", "Ooooops", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                                else
-                                {
-                                    HandleIncorrectInput("Incorrect Password.");
-                                }
-                                return; // Exit the method after handling the pending case
-                            }
-                        }
-                    }
-
                     // Query the database for the provided student number in mapproveddb
-                    string queryApproved = "SELECT PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
+                    string queryApproved = "SELECT Name, StudNum, Course, PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
 
                     using (MySqlCommand cmdApproved = new MySqlCommand(queryApproved, connection))
                     {
@@ -376,15 +330,27 @@ namespace C_Activity1
                         {
                             if (readerApproved.Read())
                             {
+                                // Retrieve user information
+                                string name = readerApproved["Name"].ToString();
+                                string studentNumber = readerApproved["StudNum"].ToString();
+                                string course = readerApproved["Course"].ToString();
+
+                                // Retrieve the PassHashed column
                                 string hashedPasswordFromDB = readerApproved["PassHashed"].ToString();
 
-                                // Implement your password hashing and comparison logic here
+                                // Check if the entered password matches
                                 bool passwordMatches = hashedPasswordFromDB.Equals(passchecker);
 
                                 if (passwordMatches)
                                 {
                                     MessageBox.Show("Welcome back, Dreamers.", "Login Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     HomePage.Show(); // Show the LHHomePage form
+
+                                    // Populate the textboxes in HomePage form
+                                    HomePage.LHNameBox.Text = name;
+                                    HomePage.LHSNBox.Text = studentNumber;
+                                    HomePage.LHCourseBox.Text = course;
+
                                     ResetHideForm();
                                 }
                                 else
@@ -410,6 +376,10 @@ namespace C_Activity1
                 }
             }
         }
+
+
+
+
 
         private void HandleIncorrectInput(string errorMessage)
         {
@@ -557,7 +527,7 @@ namespace C_Activity1
                     MessageBox.Show("Missing text in required fields.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return; // Exit the method since there's an error
                 }
-                else if (Btnname == "Admin" || BtnSN == "Admin" || BtnPass == "Admin123")
+                else if (Btnname.Contains("Admin") || BtnSN.Contains("Admin") || BtnPass.Contains("Admin123"))
                 {
                     HandleIncorrectCreateInput("This student already has an account.");
                     return;
@@ -695,7 +665,7 @@ namespace C_Activity1
                 MessageBox.Show("Missing text in required fields.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return; // Exit the method since there's an error
             }
-            else if (Btnname == "Admin" || BtnSN == "Admin" || BtnPass == "Admin123")
+            else if (Btnname.Contains("Admin") || BtnSN.Contains("Admin") || BtnPass.Contains("Admin123"))
             {
                 HandleIncorrectCreateInput("This student already has an account.");
                 return;

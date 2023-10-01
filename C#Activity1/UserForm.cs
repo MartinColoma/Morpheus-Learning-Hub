@@ -53,7 +53,7 @@ namespace C_Activity1
 
         private void UserPanel_Load(object sender, EventArgs e)
         {
-                
+
         }
 
 
@@ -188,7 +188,7 @@ namespace C_Activity1
 
         private void LHMenuBtn_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void LHMenuBtn_MouseDown(object sender, MouseEventArgs e)

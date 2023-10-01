@@ -43,7 +43,7 @@
             LHUserCalendar = new MonthCalendar();
             LHWelcome = new TextBox();
             LHBasicInfoPanel = new Panel();
-            textBox1 = new TextBox();
+            LHCourseBox = new TextBox();
             LHSchedPanel = new Panel();
             LHSchedTable = new DataGridView();
             LHSub = new DataGridViewTextBoxColumn();
@@ -253,13 +253,14 @@
             // LHUserCalendar
             // 
             LHUserCalendar.BackColor = Color.FromArgb(90, 115, 141);
+            LHUserCalendar.BoldedDates = new DateTime[] { new DateTime(2023, 10, 2, 1, 36, 5, 0) };
             LHUserCalendar.Cursor = Cursors.Hand;
             LHUserCalendar.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
             LHUserCalendar.Location = new Point(997, 139);
             LHUserCalendar.Name = "LHUserCalendar";
             LHUserCalendar.ShowToday = false;
             LHUserCalendar.TabIndex = 2;
-            LHUserCalendar.TodayDate = new DateTime(2023, 9, 25, 0, 0, 0, 0);
+            LHUserCalendar.TodayDate = new DateTime(2023, 10, 2, 0, 0, 0, 0);
             LHUserCalendar.DateChanged += UserCalendar_DateChanged;
             // 
             // LHWelcome
@@ -282,7 +283,7 @@
             // 
             LHBasicInfoPanel.BackColor = Color.FromArgb(90, 115, 141);
             LHBasicInfoPanel.Controls.Add(LHWelcome);
-            LHBasicInfoPanel.Controls.Add(textBox1);
+            LHBasicInfoPanel.Controls.Add(LHCourseBox);
             LHBasicInfoPanel.Controls.Add(LHSchedPanel);
             LHBasicInfoPanel.Controls.Add(LHSNBox);
             LHBasicInfoPanel.Controls.Add(LHNameBox);
@@ -295,17 +296,17 @@
             LHBasicInfoPanel.Size = new Size(706, 512);
             LHBasicInfoPanel.TabIndex = 6;
             // 
-            // textBox1
+            // LHCourseBox
             // 
-            textBox1.BackColor = Color.FromArgb(90, 115, 141);
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox1.ForeColor = Color.FromArgb(250, 247, 247);
-            textBox1.Location = new Point(152, 105);
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.Size = new Size(305, 19);
-            textBox1.TabIndex = 8;
+            LHCourseBox.BackColor = Color.FromArgb(90, 115, 141);
+            LHCourseBox.BorderStyle = BorderStyle.None;
+            LHCourseBox.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            LHCourseBox.ForeColor = Color.FromArgb(250, 247, 247);
+            LHCourseBox.Location = new Point(152, 105);
+            LHCourseBox.Name = "LHCourseBox";
+            LHCourseBox.ReadOnly = true;
+            LHCourseBox.Size = new Size(305, 19);
+            LHCourseBox.TabIndex = 8;
             // 
             // LHSchedPanel
             // 
@@ -541,7 +542,7 @@
         private Button StudSuppLinkBtn;
         private Button GradeLinkBtn;
         private Button LogoutBtn;
-        public TextBox textBox1;
+        public TextBox LHCourseBox;
         private FontAwesome.Sharp.IconButton LHMenuBtn;
     }
 }

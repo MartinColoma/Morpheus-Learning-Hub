@@ -28,20 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             PendingTable = new DataGridView();
             ApprovedTable = new DataGridView();
             PendingLabel = new Label();
             ApprovedLbl = new Label();
             ApproveBtn = new Button();
             ApprovedPanel = new Panel();
+            ApprovedSearchPanel = new Panel();
+            ApprovedSearchBtn = new FontAwesome.Sharp.IconButton();
+            ApprovedSearchBox = new TextBox();
             PendingBtn = new Button();
             AdminLoginLinkedLbl = new LinkLabel();
             ApprovedRefreshBtn = new FontAwesome.Sharp.IconButton();
             MorpheusLogo2 = new PictureBox();
             ArchiveBtn = new Button();
             PendingPanel = new Panel();
+            PendingSearchPanel = new Panel();
+            PendingSearchBtn = new FontAwesome.Sharp.IconButton();
+            PendingSearchBox = new TextBox();
             PendingRefreshBtn = new FontAwesome.Sharp.IconButton();
             MorpheusBlueLogo = new PictureBox();
             AccountTabs = new TabControl();
@@ -49,6 +55,9 @@
             ApprovedTab = new TabPage();
             ArchivedTab = new TabPage();
             ArchivedPanel = new Panel();
+            ArchivedSearchPanel = new Panel();
+            ArchivedSearchBtn = new FontAwesome.Sharp.IconButton();
+            ArchivedSearchBox = new TextBox();
             linkLabel1 = new LinkLabel();
             ArchivedRefreshBtn = new FontAwesome.Sharp.IconButton();
             ArchivedLogo = new PictureBox();
@@ -58,14 +67,17 @@
             ((System.ComponentModel.ISupportInitialize)PendingTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).BeginInit();
             ApprovedPanel.SuspendLayout();
+            ApprovedSearchPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusLogo2).BeginInit();
             PendingPanel.SuspendLayout();
+            PendingSearchPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusBlueLogo).BeginInit();
             AccountTabs.SuspendLayout();
             PendingTab.SuspendLayout();
             ApprovedTab.SuspendLayout();
             ArchivedTab.SuspendLayout();
             ArchivedPanel.SuspendLayout();
+            ArchivedSearchPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ArchivedLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ArchivedTable).BeginInit();
             SuspendLayout();
@@ -73,23 +85,23 @@
             // PendingTable
             // 
             PendingTable.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PendingTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             PendingTable.BorderStyle = BorderStyle.Fixed3D;
             PendingTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            PendingTable.Location = new Point(39, 126);
+            PendingTable.Location = new Point(42, 152);
             PendingTable.Name = "PendingTable";
             PendingTable.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(250, 247, 247);
-            dataGridViewCellStyle2.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(250, 247, 247);
+            dataGridViewCellStyle6.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             PendingTable.RowTemplate.Height = 25;
             PendingTable.Size = new Size(665, 220);
             PendingTable.TabIndex = 0;
@@ -102,7 +114,7 @@
             ApprovedTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             ApprovedTable.BorderStyle = BorderStyle.Fixed3D;
             ApprovedTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ApprovedTable.Location = new Point(39, 126);
+            ApprovedTable.Location = new Point(43, 157);
             ApprovedTable.Name = "ApprovedTable";
             ApprovedTable.ReadOnly = true;
             ApprovedTable.RowTemplate.Height = 25;
@@ -149,7 +161,7 @@
             ApproveBtn.FlatStyle = FlatStyle.Flat;
             ApproveBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ApproveBtn.ForeColor = Color.White;
-            ApproveBtn.Location = new Point(589, 370);
+            ApproveBtn.Location = new Point(592, 396);
             ApproveBtn.Name = "ApproveBtn";
             ApproveBtn.Size = new Size(114, 37);
             ApproveBtn.TabIndex = 10;
@@ -159,6 +171,7 @@
             // 
             // ApprovedPanel
             // 
+            ApprovedPanel.Controls.Add(ApprovedSearchPanel);
             ApprovedPanel.Controls.Add(PendingBtn);
             ApprovedPanel.Controls.Add(AdminLoginLinkedLbl);
             ApprovedPanel.Controls.Add(ApprovedRefreshBtn);
@@ -166,11 +179,50 @@
             ApprovedPanel.Controls.Add(ArchiveBtn);
             ApprovedPanel.Controls.Add(ApprovedLbl);
             ApprovedPanel.Controls.Add(ApprovedTable);
-            ApprovedPanel.Location = new Point(26, 6);
+            ApprovedPanel.Location = new Point(20, 0);
             ApprovedPanel.Name = "ApprovedPanel";
             ApprovedPanel.Size = new Size(747, 476);
             ApprovedPanel.TabIndex = 11;
             ApprovedPanel.Paint += ApprovedPanel_Paint;
+            // 
+            // ApprovedSearchPanel
+            // 
+            ApprovedSearchPanel.BackColor = Color.FromArgb(250, 247, 247);
+            ApprovedSearchPanel.BorderStyle = BorderStyle.FixedSingle;
+            ApprovedSearchPanel.Controls.Add(ApprovedSearchBtn);
+            ApprovedSearchPanel.Controls.Add(ApprovedSearchBox);
+            ApprovedSearchPanel.Location = new Point(43, 120);
+            ApprovedSearchPanel.Name = "ApprovedSearchPanel";
+            ApprovedSearchPanel.Size = new Size(396, 28);
+            ApprovedSearchPanel.TabIndex = 23;
+            // 
+            // ApprovedSearchBtn
+            // 
+            ApprovedSearchBtn.BackColor = Color.Transparent;
+            ApprovedSearchBtn.FlatAppearance.BorderSize = 0;
+            ApprovedSearchBtn.FlatStyle = FlatStyle.Flat;
+            ApprovedSearchBtn.IconChar = FontAwesome.Sharp.IconChar.Searchengin;
+            ApprovedSearchBtn.IconColor = Color.FromArgb(90, 115, 141);
+            ApprovedSearchBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ApprovedSearchBtn.IconSize = 24;
+            ApprovedSearchBtn.Location = new Point(336, -4);
+            ApprovedSearchBtn.Name = "ApprovedSearchBtn";
+            ApprovedSearchBtn.Size = new Size(75, 36);
+            ApprovedSearchBtn.TabIndex = 1;
+            ApprovedSearchBtn.UseVisualStyleBackColor = false;
+            // 
+            // ApprovedSearchBox
+            // 
+            ApprovedSearchBox.BackColor = Color.FromArgb(250, 247, 247);
+            ApprovedSearchBox.BorderStyle = BorderStyle.None;
+            ApprovedSearchBox.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            ApprovedSearchBox.ForeColor = Color.FromArgb(90, 115, 141);
+            ApprovedSearchBox.Location = new Point(3, 5);
+            ApprovedSearchBox.Name = "ApprovedSearchBox";
+            ApprovedSearchBox.PlaceholderText = "Search..";
+            ApprovedSearchBox.Size = new Size(356, 17);
+            ApprovedSearchBox.TabIndex = 0;
+            ApprovedSearchBox.TextChanged += ApprovedSearchBox_TextChanged;
             // 
             // PendingBtn
             // 
@@ -183,7 +235,7 @@
             PendingBtn.FlatStyle = FlatStyle.Flat;
             PendingBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
             PendingBtn.ForeColor = Color.White;
-            PendingBtn.Location = new Point(470, 374);
+            PendingBtn.Location = new Point(474, 405);
             PendingBtn.Name = "PendingBtn";
             PendingBtn.Size = new Size(114, 36);
             PendingBtn.TabIndex = 22;
@@ -217,7 +269,7 @@
             ApprovedRefreshBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ApprovedRefreshBtn.IconSize = 24;
             ApprovedRefreshBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            ApprovedRefreshBtn.Location = new Point(607, 89);
+            ApprovedRefreshBtn.Location = new Point(611, 120);
             ApprovedRefreshBtn.Name = "ApprovedRefreshBtn";
             ApprovedRefreshBtn.Size = new Size(106, 31);
             ApprovedRefreshBtn.TabIndex = 21;
@@ -248,7 +300,7 @@
             ArchiveBtn.FlatStyle = FlatStyle.Flat;
             ArchiveBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ArchiveBtn.ForeColor = Color.White;
-            ArchiveBtn.Location = new Point(590, 374);
+            ArchiveBtn.Location = new Point(594, 405);
             ArchiveBtn.Name = "ArchiveBtn";
             ArchiveBtn.Size = new Size(114, 36);
             ArchiveBtn.TabIndex = 12;
@@ -258,16 +310,58 @@
             // 
             // PendingPanel
             // 
+            PendingPanel.Controls.Add(PendingSearchPanel);
             PendingPanel.Controls.Add(PendingRefreshBtn);
             PendingPanel.Controls.Add(ApproveBtn);
             PendingPanel.Controls.Add(PendingLabel);
             PendingPanel.Controls.Add(PendingTable);
             PendingPanel.Controls.Add(MorpheusBlueLogo);
-            PendingPanel.Location = new Point(36, 7);
+            PendingPanel.Location = new Point(22, 7);
             PendingPanel.Name = "PendingPanel";
             PendingPanel.Size = new Size(744, 473);
             PendingPanel.TabIndex = 13;
             PendingPanel.Paint += PendingPanel_Paint;
+            // 
+            // PendingSearchPanel
+            // 
+            PendingSearchPanel.BackColor = Color.FromArgb(250, 247, 247);
+            PendingSearchPanel.BorderStyle = BorderStyle.FixedSingle;
+            PendingSearchPanel.Controls.Add(PendingSearchBtn);
+            PendingSearchPanel.Controls.Add(PendingSearchBox);
+            PendingSearchPanel.Location = new Point(42, 115);
+            PendingSearchPanel.Name = "PendingSearchPanel";
+            PendingSearchPanel.Size = new Size(396, 28);
+            PendingSearchPanel.TabIndex = 21;
+            PendingSearchPanel.Paint += PendingSearchPanel_Paint;
+            // 
+            // PendingSearchBtn
+            // 
+            PendingSearchBtn.BackColor = Color.Transparent;
+            PendingSearchBtn.FlatAppearance.BorderSize = 0;
+            PendingSearchBtn.FlatStyle = FlatStyle.Flat;
+            PendingSearchBtn.IconChar = FontAwesome.Sharp.IconChar.Searchengin;
+            PendingSearchBtn.IconColor = Color.FromArgb(90, 115, 141);
+            PendingSearchBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            PendingSearchBtn.IconSize = 24;
+            PendingSearchBtn.Location = new Point(336, -4);
+            PendingSearchBtn.Name = "PendingSearchBtn";
+            PendingSearchBtn.Size = new Size(75, 36);
+            PendingSearchBtn.TabIndex = 1;
+            PendingSearchBtn.UseVisualStyleBackColor = false;
+            PendingSearchBtn.Click += iconButton1_Click;
+            // 
+            // PendingSearchBox
+            // 
+            PendingSearchBox.BackColor = Color.FromArgb(250, 247, 247);
+            PendingSearchBox.BorderStyle = BorderStyle.None;
+            PendingSearchBox.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            PendingSearchBox.ForeColor = Color.FromArgb(90, 115, 141);
+            PendingSearchBox.Location = new Point(3, 5);
+            PendingSearchBox.Name = "PendingSearchBox";
+            PendingSearchBox.PlaceholderText = "Search..";
+            PendingSearchBox.Size = new Size(356, 17);
+            PendingSearchBox.TabIndex = 0;
+            PendingSearchBox.TextChanged += PendingSearchBox_TextChanged;
             // 
             // PendingRefreshBtn
             // 
@@ -280,7 +374,7 @@
             PendingRefreshBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             PendingRefreshBtn.IconSize = 24;
             PendingRefreshBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            PendingRefreshBtn.Location = new Point(608, 89);
+            PendingRefreshBtn.Location = new Point(611, 115);
             PendingRefreshBtn.Name = "PendingRefreshBtn";
             PendingRefreshBtn.Size = new Size(106, 31);
             PendingRefreshBtn.TabIndex = 20;
@@ -352,6 +446,7 @@
             // 
             // ArchivedPanel
             // 
+            ArchivedPanel.Controls.Add(ArchivedSearchPanel);
             ArchivedPanel.Controls.Add(linkLabel1);
             ArchivedPanel.Controls.Add(ArchivedRefreshBtn);
             ArchivedPanel.Controls.Add(ArchivedLogo);
@@ -363,6 +458,45 @@
             ArchivedPanel.Size = new Size(747, 476);
             ArchivedPanel.TabIndex = 12;
             ArchivedPanel.Paint += panel1_Paint;
+            // 
+            // ArchivedSearchPanel
+            // 
+            ArchivedSearchPanel.BackColor = Color.FromArgb(250, 247, 247);
+            ArchivedSearchPanel.BorderStyle = BorderStyle.FixedSingle;
+            ArchivedSearchPanel.Controls.Add(ArchivedSearchBtn);
+            ArchivedSearchPanel.Controls.Add(ArchivedSearchBox);
+            ArchivedSearchPanel.Location = new Point(40, 113);
+            ArchivedSearchPanel.Name = "ArchivedSearchPanel";
+            ArchivedSearchPanel.Size = new Size(396, 28);
+            ArchivedSearchPanel.TabIndex = 22;
+            // 
+            // ArchivedSearchBtn
+            // 
+            ArchivedSearchBtn.BackColor = Color.Transparent;
+            ArchivedSearchBtn.FlatAppearance.BorderSize = 0;
+            ArchivedSearchBtn.FlatStyle = FlatStyle.Flat;
+            ArchivedSearchBtn.IconChar = FontAwesome.Sharp.IconChar.Searchengin;
+            ArchivedSearchBtn.IconColor = Color.FromArgb(90, 115, 141);
+            ArchivedSearchBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ArchivedSearchBtn.IconSize = 24;
+            ArchivedSearchBtn.Location = new Point(336, -4);
+            ArchivedSearchBtn.Name = "ArchivedSearchBtn";
+            ArchivedSearchBtn.Size = new Size(75, 36);
+            ArchivedSearchBtn.TabIndex = 1;
+            ArchivedSearchBtn.UseVisualStyleBackColor = false;
+            // 
+            // ArchivedSearchBox
+            // 
+            ArchivedSearchBox.BackColor = Color.FromArgb(250, 247, 247);
+            ArchivedSearchBox.BorderStyle = BorderStyle.None;
+            ArchivedSearchBox.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            ArchivedSearchBox.ForeColor = Color.FromArgb(90, 115, 141);
+            ArchivedSearchBox.Location = new Point(3, 5);
+            ArchivedSearchBox.Name = "ArchivedSearchBox";
+            ArchivedSearchBox.PlaceholderText = "Search..";
+            ArchivedSearchBox.Size = new Size(356, 17);
+            ArchivedSearchBox.TabIndex = 0;
+            ArchivedSearchBox.TextChanged += ArchivedSearchBox_TextChanged;
             // 
             // linkLabel1
             // 
@@ -389,7 +523,7 @@
             ArchivedRefreshBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ArchivedRefreshBtn.IconSize = 24;
             ArchivedRefreshBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            ArchivedRefreshBtn.Location = new Point(607, 89);
+            ArchivedRefreshBtn.Location = new Point(607, 122);
             ArchivedRefreshBtn.Name = "ArchivedRefreshBtn";
             ArchivedRefreshBtn.Size = new Size(106, 31);
             ArchivedRefreshBtn.TabIndex = 21;
@@ -419,7 +553,7 @@
             ReactivateBtn.FlatStyle = FlatStyle.Flat;
             ReactivateBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
             ReactivateBtn.ForeColor = Color.White;
-            ReactivateBtn.Location = new Point(559, 374);
+            ReactivateBtn.Location = new Point(559, 407);
             ReactivateBtn.Name = "ReactivateBtn";
             ReactivateBtn.Size = new Size(145, 36);
             ReactivateBtn.TabIndex = 12;
@@ -447,7 +581,7 @@
             ArchivedTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             ArchivedTable.BorderStyle = BorderStyle.Fixed3D;
             ArchivedTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ArchivedTable.Location = new Point(39, 126);
+            ArchivedTable.Location = new Point(39, 159);
             ArchivedTable.Name = "ArchivedTable";
             ArchivedTable.ReadOnly = true;
             ArchivedTable.RowTemplate.Height = 25;
@@ -472,9 +606,13 @@
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).EndInit();
             ApprovedPanel.ResumeLayout(false);
             ApprovedPanel.PerformLayout();
+            ApprovedSearchPanel.ResumeLayout(false);
+            ApprovedSearchPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusLogo2).EndInit();
             PendingPanel.ResumeLayout(false);
             PendingPanel.PerformLayout();
+            PendingSearchPanel.ResumeLayout(false);
+            PendingSearchPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusBlueLogo).EndInit();
             AccountTabs.ResumeLayout(false);
             PendingTab.ResumeLayout(false);
@@ -482,6 +620,8 @@
             ArchivedTab.ResumeLayout(false);
             ArchivedPanel.ResumeLayout(false);
             ArchivedPanel.PerformLayout();
+            ArchivedSearchPanel.ResumeLayout(false);
+            ArchivedSearchPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)ArchivedLogo).EndInit();
             ((System.ComponentModel.ISupportInitialize)ArchivedTable).EndInit();
             ResumeLayout(false);
@@ -513,5 +653,14 @@
         private Label ArchivedAccLbl;
         public DataGridView ArchivedTable;
         private Button PendingBtn;
+        private Panel PendingSearchPanel;
+        private TextBox PendingSearchBox;
+        private FontAwesome.Sharp.IconButton PendingSearchBtn;
+        private Panel ApprovedSearchPanel;
+        private FontAwesome.Sharp.IconButton ApprovedSearchBtn;
+        private TextBox ApprovedSearchBox;
+        private Panel ArchivedSearchPanel;
+        private FontAwesome.Sharp.IconButton ArchivedSearchBtn;
+        private TextBox ArchivedSearchBox;
     }
 }
