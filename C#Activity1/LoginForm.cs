@@ -557,7 +557,7 @@ namespace C_Activity1
                     MessageBox.Show("Missing text in required fields.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return; // Exit the method since there's an error
                 }
-                else if (Btnname == "Admin" || BtnSN == "Admin" || BtnPass == "Admin123")
+                else if (Btnname.Contains("Admin") || BtnSN.Contains("Admin") || BtnPass.Contains("Admin123"))
                 {
                     HandleIncorrectCreateInput("This student already has an account.");
                     return;
@@ -695,7 +695,7 @@ namespace C_Activity1
                 MessageBox.Show("Missing text in required fields.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return; // Exit the method since there's an error
             }
-            else if (Btnname == "Admin" || BtnSN == "Admin" || BtnPass == "Admin123")
+            else if (Btnname.Contains("Admin") || BtnSN.Contains("Admin") || BtnPass.Contains("Admin123"))
             {
                 HandleIncorrectCreateInput("This student already has an account.");
                 return;

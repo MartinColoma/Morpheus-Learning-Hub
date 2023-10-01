@@ -24,6 +24,7 @@ namespace C_Activity1
         public List<string> existingSN = new List<string>();
         public new Dictionary<string, string> dictionaryOne = new Dictionary<string, string>();
         private string selectedUN;
+        private DataTable mpendingdb = new DataTable(); // Declare your DataTable
 
         public AdminForm()
         {
@@ -918,6 +919,124 @@ namespace C_Activity1
             {
                 MessageBox.Show("Select a table row first.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+        }
+
+        private void PendingSearchBox_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = PendingSearchBox.Text;
+            SearchPendingDB(searchText);
+        }
+
+        private void SearchPendingDB(string searchText)
+        {
+            connection.Open();
+            // Modify your MySQL query to search in specific columns of the table
+            string query = "SELECT * FROM mpendingdb WHERE " +
+                           "Name LIKE @searchText OR " +
+                           "Age LIKE @searchText OR " +
+                           "Gender LIKE @searchText OR " +
+                           "Course LIKE @searchText OR " +
+                           "Email LIKE @searchText OR " +
+                           "StudNum LIKE @searchText OR " +
+                           "RecoveryPin LIKE @searchText OR " +
+                           "UserID LIKE @searchText";
+
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@searchText", "%" + searchText + "%"); // Adjust the parameter name and value accordingly
+
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                {
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    // Bind the DataGridView (PendingTable) to the search results
+                    PendingTable.DataSource = dataTable;
+                }
+            }
+            connection.Close();
+        }
+
+        private void SearchApprovedDB(string searchText)
+        {
+            connection.Open();
+            // Modify your MySQL query to search in specific columns of the table
+            string query = "SELECT * FROM mapproveddb WHERE " +
+                           "Name LIKE @searchText OR " +
+                           "Age LIKE @searchText OR " +
+                           "Gender LIKE @searchText OR " +
+                           "Course LIKE @searchText OR " +
+                           "Email LIKE @searchText OR " +
+                           "StudNum LIKE @searchText OR " +
+                           "RecoveryPin LIKE @searchText OR " +
+                           "UserID LIKE @searchText";
+
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@searchText", "%" + searchText + "%"); // Adjust the parameter name and value accordingly
+
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                {
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    // Bind the DataGridView (PendingTable) to the search results
+                    ApprovedTable.DataSource = dataTable;
+                }
+            }
+            connection.Close();
+        }
+
+        private void SearchArchivedDB(string searchText)
+        {
+            connection.Open();
+            // Modify your MySQL query to search in specific columns of the table
+            string query = "SELECT * FROM marchiveddb WHERE " +
+                           "Name LIKE @searchText OR " +
+                           "Age LIKE @searchText OR " +
+                           "Gender LIKE @searchText OR " +
+                           "Course LIKE @searchText OR " +
+                           "Email LIKE @searchText OR " +
+                           "StudNum LIKE @searchText OR " +
+                           "RecoveryPin LIKE @searchText OR " +
+                           "UserID LIKE @searchText";
+
+            using (MySqlCommand cmd = new MySqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@searchText", "%" + searchText + "%"); // Adjust the parameter name and value accordingly
+
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                {
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    // Bind the DataGridView (PendingTable) to the search results
+                    ArchivedTable.DataSource = dataTable;
+                }
+            }
+            connection.Close();
+        }
+
+
+        private void PendingSearchPanel_Paint(object sender, PaintEventArgs e)
+        {
+        }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ApprovedSearchBox_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = ApprovedSearchBox.Text;
+            SearchApprovedDB(searchText);
+        }
+
+        private void ArchivedSearchBox_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = ArchivedSearchBox.Text;
+            SearchArchivedDB(searchText);
         }
     }
 }
