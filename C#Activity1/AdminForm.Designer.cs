@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             PendingTable = new DataGridView();
             ApprovedTable = new DataGridView();
             PendingLabel = new Label();
             ApprovedLbl = new Label();
             ApproveBtn = new Button();
             ApprovedPanel = new Panel();
+            PendingBtn = new Button();
             AdminLoginLinkedLbl = new LinkLabel();
             ApprovedRefreshBtn = new FontAwesome.Sharp.IconButton();
             MorpheusLogo2 = new PictureBox();
@@ -54,7 +55,6 @@
             ReactivateBtn = new Button();
             ArchivedAccLbl = new Label();
             ArchivedTable = new DataGridView();
-            PendingBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)PendingTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).BeginInit();
             ApprovedPanel.SuspendLayout();
@@ -73,8 +73,8 @@
             // PendingTable
             // 
             PendingTable.AllowUserToAddRows = false;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PendingTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             PendingTable.BorderStyle = BorderStyle.Fixed3D;
@@ -82,14 +82,14 @@
             PendingTable.Location = new Point(39, 126);
             PendingTable.Name = "PendingTable";
             PendingTable.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(250, 247, 247);
-            dataGridViewCellStyle4.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(250, 247, 247);
+            dataGridViewCellStyle2.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             PendingTable.RowTemplate.Height = 25;
             PendingTable.Size = new Size(665, 220);
             PendingTable.TabIndex = 0;
@@ -171,6 +171,25 @@
             ApprovedPanel.Size = new Size(747, 476);
             ApprovedPanel.TabIndex = 11;
             ApprovedPanel.Paint += ApprovedPanel_Paint;
+            // 
+            // PendingBtn
+            // 
+            PendingBtn.BackColor = Color.Transparent;
+            PendingBtn.Cursor = Cursors.Hand;
+            PendingBtn.FlatAppearance.BorderColor = Color.FromArgb(41, 52, 64);
+            PendingBtn.FlatAppearance.BorderSize = 2;
+            PendingBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(250, 247, 247);
+            PendingBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
+            PendingBtn.FlatStyle = FlatStyle.Flat;
+            PendingBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            PendingBtn.ForeColor = Color.White;
+            PendingBtn.Location = new Point(470, 374);
+            PendingBtn.Name = "PendingBtn";
+            PendingBtn.Size = new Size(114, 36);
+            PendingBtn.TabIndex = 22;
+            PendingBtn.Text = "WAITLIST";
+            PendingBtn.UseVisualStyleBackColor = false;
+            PendingBtn.Click += PendingBtn_Click;
             // 
             // AdminLoginLinkedLbl
             // 
@@ -434,24 +453,6 @@
             ArchivedTable.RowTemplate.Height = 25;
             ArchivedTable.Size = new Size(665, 220);
             ArchivedTable.TabIndex = 1;
-            // 
-            // PendingBtn
-            // 
-            PendingBtn.BackColor = Color.Transparent;
-            PendingBtn.Cursor = Cursors.Hand;
-            PendingBtn.FlatAppearance.BorderColor = Color.FromArgb(41, 52, 64);
-            PendingBtn.FlatAppearance.BorderSize = 2;
-            PendingBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(250, 247, 247);
-            PendingBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
-            PendingBtn.FlatStyle = FlatStyle.Flat;
-            PendingBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            PendingBtn.ForeColor = Color.White;
-            PendingBtn.Location = new Point(470, 374);
-            PendingBtn.Name = "PendingBtn";
-            PendingBtn.Size = new Size(114, 36);
-            PendingBtn.TabIndex = 22;
-            PendingBtn.Text = "WAITLIST";
-            PendingBtn.UseVisualStyleBackColor = false;
             // 
             // AdminForm
             // 
