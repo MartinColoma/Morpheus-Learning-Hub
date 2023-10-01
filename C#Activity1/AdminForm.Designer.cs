@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             PendingTable = new DataGridView();
             ApprovedTable = new DataGridView();
             PendingLabel = new Label();
@@ -43,7 +43,7 @@
             PendingPanel = new Panel();
             PendingRefreshBtn = new FontAwesome.Sharp.IconButton();
             MorpheusBlueLogo = new PictureBox();
-            PendingApprovedTabs = new TabControl();
+            AccountTabs = new TabControl();
             PendingTab = new TabPage();
             ApprovedTab = new TabPage();
             ArchivedTab = new TabPage();
@@ -60,7 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)MorpheusLogo2).BeginInit();
             PendingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusBlueLogo).BeginInit();
-            PendingApprovedTabs.SuspendLayout();
+            AccountTabs.SuspendLayout();
             PendingTab.SuspendLayout();
             ApprovedTab.SuspendLayout();
             ArchivedTab.SuspendLayout();
@@ -72,8 +72,8 @@
             // PendingTable
             // 
             PendingTable.AllowUserToAddRows = false;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PendingTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             PendingTable.BorderStyle = BorderStyle.Fixed3D;
@@ -81,14 +81,14 @@
             PendingTable.Location = new Point(39, 126);
             PendingTable.Name = "PendingTable";
             PendingTable.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(250, 247, 247);
-            dataGridViewCellStyle4.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(250, 247, 247);
+            dataGridViewCellStyle6.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             PendingTable.RowTemplate.Height = 25;
             PendingTable.Size = new Size(665, 220);
             PendingTable.TabIndex = 0;
@@ -279,19 +279,20 @@
             MorpheusBlueLogo.TabIndex = 19;
             MorpheusBlueLogo.TabStop = false;
             // 
-            // PendingApprovedTabs
+            // AccountTabs
             // 
-            PendingApprovedTabs.Controls.Add(PendingTab);
-            PendingApprovedTabs.Controls.Add(ApprovedTab);
-            PendingApprovedTabs.Controls.Add(ArchivedTab);
-            PendingApprovedTabs.Cursor = Cursors.Hand;
-            PendingApprovedTabs.Dock = DockStyle.Fill;
-            PendingApprovedTabs.HotTrack = true;
-            PendingApprovedTabs.Location = new Point(0, 0);
-            PendingApprovedTabs.Name = "PendingApprovedTabs";
-            PendingApprovedTabs.SelectedIndex = 0;
-            PendingApprovedTabs.Size = new Size(804, 511);
-            PendingApprovedTabs.TabIndex = 30;
+            AccountTabs.Controls.Add(PendingTab);
+            AccountTabs.Controls.Add(ApprovedTab);
+            AccountTabs.Controls.Add(ArchivedTab);
+            AccountTabs.Cursor = Cursors.Hand;
+            AccountTabs.Dock = DockStyle.Fill;
+            AccountTabs.HotTrack = true;
+            AccountTabs.Location = new Point(0, 0);
+            AccountTabs.Name = "AccountTabs";
+            AccountTabs.SelectedIndex = 0;
+            AccountTabs.Size = new Size(804, 511);
+            AccountTabs.TabIndex = 30;
+            AccountTabs.SelectedIndexChanged += AccountTabs_SelectedIndexChanged;
             // 
             // PendingTab
             // 
@@ -403,6 +404,7 @@
             ReactivateBtn.TabIndex = 12;
             ReactivateBtn.Text = "REACTIVATE";
             ReactivateBtn.UseVisualStyleBackColor = false;
+            ReactivateBtn.Click += ReactivateBtn_Click;
             // 
             // ArchivedAccLbl
             // 
@@ -437,7 +439,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(90, 115, 141);
             ClientSize = new Size(804, 511);
-            Controls.Add(PendingApprovedTabs);
+            Controls.Add(AccountTabs);
             MaximumSize = new Size(820, 550);
             MinimumSize = new Size(820, 550);
             Name = "AdminForm";
@@ -453,7 +455,7 @@
             PendingPanel.ResumeLayout(false);
             PendingPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusBlueLogo).EndInit();
-            PendingApprovedTabs.ResumeLayout(false);
+            AccountTabs.ResumeLayout(false);
             PendingTab.ResumeLayout(false);
             ApprovedTab.ResumeLayout(false);
             ArchivedTab.ResumeLayout(false);
@@ -478,7 +480,7 @@
         private PictureBox MorpheusBlueLogo;
         private FontAwesome.Sharp.IconButton PendingRefreshBtn;
         private FontAwesome.Sharp.IconButton ApprovedRefreshBtn;
-        private TabControl PendingApprovedTabs;
+        private TabControl AccountTabs;
         private TabPage ApprovedTab;
         private TabPage PendingTab;
         private TabPage ArchivedTab;
