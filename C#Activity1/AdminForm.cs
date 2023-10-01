@@ -143,6 +143,41 @@ namespace C_Activity1
             }
         }
 
+        public void LoadArchivedDB()
+        {
+            try
+            {
+                connection.Open();
+                string sql = "SELECT * FROM `marchiveddb`";
+                MySqlCommand cmd = new MySqlCommand(sql, connection);
+                //DataTable dataTable = new DataTable();
+                System.Data.DataTable dataTable = new System.Data.DataTable();
+                //MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+
+
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                {
+                    adapter.Fill(dataTable);
+                    PendingTable.DataSource = dataTable;
+                    PendingTable.Columns[8].Visible = false; //hashedpass
+                    PendingTable.Columns[9].Visible = false; //fixedsalt
+                    PendingTable.Columns[10].Visible = false; //perusersalt
+                    PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("An error occurred: " + e.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
+
         // Function to insert data into the database
         private void InsertIntoApprovedDB(DataGridViewRow selectedRow)
         {
@@ -216,7 +251,55 @@ namespace C_Activity1
         }
 
 
+        private void InsertIntoArchivedDB(DataGridViewRow selectedRow)
+        {
+            string selectedUID = selectedRow.Cells["UserID"].Value as string;
+            MySqlConnection connection = null;
+            try
+            {
+                connection = new MySqlConnection(mysqlconn);
+                connection.Open();
 
+                // Assuming the order of columns in the DataGridView matches the order of columns in the database table
+                using (MySqlCommand insertCommand = new MySqlCommand(
+                    "INSERT INTO marchiveddb (Name, Age, Gender, Course, Email, StudNum, RecoveryPin, UserID, PassHashed, PassFixNa, PassPerUserNa) " +
+                    "VALUES (@Name, @Age, @Gender, @Course, @Email, @StudNum, @UserID, @RecoveryPin, @Password, @FixedSalt, @PerUserSalt)", connection))
+                {
+                    // Assuming you have a 'selectedRow' object containing the data to be inserted
+                    insertCommand.Parameters.AddWithValue("@Name", selectedRow.Cells[0].Value); // Replace 0 with the index of the Name column
+                    insertCommand.Parameters.AddWithValue("@Age", selectedRow.Cells[1].Value); // Replace 1 with the index of the Age column
+                    insertCommand.Parameters.AddWithValue("@Gender", selectedRow.Cells[2].Value); // Replace 2 with the index of the Gender column
+                    insertCommand.Parameters.AddWithValue("@Course", selectedRow.Cells[3].Value); // Replace 3 with the index of the Course column
+                    insertCommand.Parameters.AddWithValue("@Email", selectedRow.Cells[4].Value); // Replace 4 with the index of the Email column
+                    insertCommand.Parameters.AddWithValue("@StudNum", selectedRow.Cells[5].Value); // Replace 5 with the index of the StudNum column
+
+                    // You need to provide values for the following parameters as well
+                    insertCommand.Parameters.AddWithValue("@UserID", selectedRow.Cells[6].Value); // Replace 6 with the index of the UserID column
+                    insertCommand.Parameters.AddWithValue("@RecoveryPin", selectedRow.Cells[7].Value); // Replace 7 with the index of the RecoveryPin column
+                    insertCommand.Parameters.AddWithValue("@Password", selectedRow.Cells[8].Value); // Replace 8 with the index of the PassHashed column
+                    insertCommand.Parameters.AddWithValue("@FixedSalt", selectedRow.Cells[9].Value); // Replace 9 with the index of the PassFixNa column
+                    insertCommand.Parameters.AddWithValue("@PerUserSalt", selectedRow.Cells[10].Value); // Replace 10 with the index of the PassPerUserNa column
+
+                    // Execute the insertion query
+                    insertCommand.ExecuteNonQuery();
+
+
+                }
+                DeleteInApproveddDB(selectedRow);
+
+
+                LoadPendingDB();
+                LoadApprovedDB();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
 
 
 
@@ -364,7 +447,6 @@ namespace C_Activity1
 
         private void DeleteInApproveddDB(DataGridViewRow selectedRow)
         {
-            connection.Open();
             string selectedUID = selectedRow.Cells["UserID"].Value as string;
 
             try
@@ -426,13 +508,18 @@ namespace C_Activity1
                         try
                         {
                             //// Insert data into the database
-                            DeleteInApproveddDB(selectedRow);
+                            //DeleteInApproveddDB(selectedRow);
+                            InsertIntoArchivedDB(selectedRow);
 
                         }
                         catch (Exception ex)
                         {
                             // Handle any database-related errors here
                             MessageBox.Show("Error: " + ex.Message);
+                        }
+                        finally
+                        {
+                            connection.Close();
                         }
                     }
 
@@ -529,6 +616,11 @@ namespace C_Activity1
         {
             LoadPendingDB();
             LoadApprovedDB();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
