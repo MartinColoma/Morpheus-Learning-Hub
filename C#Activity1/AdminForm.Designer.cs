@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             PendingTable = new DataGridView();
             ApprovedTable = new DataGridView();
             PendingLabel = new Label();
@@ -39,7 +39,7 @@
             AdminLoginLinkedLbl = new LinkLabel();
             ApprovedRefreshBtn = new FontAwesome.Sharp.IconButton();
             MorpheusLogo2 = new PictureBox();
-            DeleteBtn = new Button();
+            ArchiveBtn = new Button();
             PendingPanel = new Panel();
             PendingRefreshBtn = new FontAwesome.Sharp.IconButton();
             MorpheusBlueLogo = new PictureBox();
@@ -54,6 +54,7 @@
             ReactivateBtn = new Button();
             ArchivedAccLbl = new Label();
             ArchivedTable = new DataGridView();
+            PendingBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)PendingTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).BeginInit();
             ApprovedPanel.SuspendLayout();
@@ -72,8 +73,8 @@
             // PendingTable
             // 
             PendingTable.AllowUserToAddRows = false;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PendingTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             PendingTable.BorderStyle = BorderStyle.Fixed3D;
@@ -81,14 +82,14 @@
             PendingTable.Location = new Point(39, 126);
             PendingTable.Name = "PendingTable";
             PendingTable.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(250, 247, 247);
-            dataGridViewCellStyle6.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(250, 247, 247);
+            dataGridViewCellStyle4.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             PendingTable.RowTemplate.Height = 25;
             PendingTable.Size = new Size(665, 220);
             PendingTable.TabIndex = 0;
@@ -158,10 +159,11 @@
             // 
             // ApprovedPanel
             // 
+            ApprovedPanel.Controls.Add(PendingBtn);
             ApprovedPanel.Controls.Add(AdminLoginLinkedLbl);
             ApprovedPanel.Controls.Add(ApprovedRefreshBtn);
             ApprovedPanel.Controls.Add(MorpheusLogo2);
-            ApprovedPanel.Controls.Add(DeleteBtn);
+            ApprovedPanel.Controls.Add(ArchiveBtn);
             ApprovedPanel.Controls.Add(ApprovedLbl);
             ApprovedPanel.Controls.Add(ApprovedTable);
             ApprovedPanel.Location = new Point(26, 6);
@@ -216,24 +218,24 @@
             MorpheusLogo2.TabIndex = 18;
             MorpheusLogo2.TabStop = false;
             // 
-            // DeleteBtn
+            // ArchiveBtn
             // 
-            DeleteBtn.BackColor = Color.Transparent;
-            DeleteBtn.Cursor = Cursors.Hand;
-            DeleteBtn.FlatAppearance.BorderColor = Color.FromArgb(41, 52, 64);
-            DeleteBtn.FlatAppearance.BorderSize = 2;
-            DeleteBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(250, 247, 247);
-            DeleteBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
-            DeleteBtn.FlatStyle = FlatStyle.Flat;
-            DeleteBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            DeleteBtn.ForeColor = Color.White;
-            DeleteBtn.Location = new Point(590, 374);
-            DeleteBtn.Name = "DeleteBtn";
-            DeleteBtn.Size = new Size(114, 36);
-            DeleteBtn.TabIndex = 12;
-            DeleteBtn.Text = "DELETE";
-            DeleteBtn.UseVisualStyleBackColor = false;
-            DeleteBtn.Click += DeleteBtn_Click;
+            ArchiveBtn.BackColor = Color.Transparent;
+            ArchiveBtn.Cursor = Cursors.Hand;
+            ArchiveBtn.FlatAppearance.BorderColor = Color.FromArgb(41, 52, 64);
+            ArchiveBtn.FlatAppearance.BorderSize = 2;
+            ArchiveBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(250, 247, 247);
+            ArchiveBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
+            ArchiveBtn.FlatStyle = FlatStyle.Flat;
+            ArchiveBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ArchiveBtn.ForeColor = Color.White;
+            ArchiveBtn.Location = new Point(590, 374);
+            ArchiveBtn.Name = "ArchiveBtn";
+            ArchiveBtn.Size = new Size(114, 36);
+            ArchiveBtn.TabIndex = 12;
+            ArchiveBtn.Text = "ARCHIVE";
+            ArchiveBtn.UseVisualStyleBackColor = false;
+            ArchiveBtn.Click += DeleteBtn_Click;
             // 
             // PendingPanel
             // 
@@ -433,6 +435,24 @@
             ArchivedTable.Size = new Size(665, 220);
             ArchivedTable.TabIndex = 1;
             // 
+            // PendingBtn
+            // 
+            PendingBtn.BackColor = Color.Transparent;
+            PendingBtn.Cursor = Cursors.Hand;
+            PendingBtn.FlatAppearance.BorderColor = Color.FromArgb(41, 52, 64);
+            PendingBtn.FlatAppearance.BorderSize = 2;
+            PendingBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(250, 247, 247);
+            PendingBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
+            PendingBtn.FlatStyle = FlatStyle.Flat;
+            PendingBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            PendingBtn.ForeColor = Color.White;
+            PendingBtn.Location = new Point(470, 374);
+            PendingBtn.Name = "PendingBtn";
+            PendingBtn.Size = new Size(114, 36);
+            PendingBtn.TabIndex = 22;
+            PendingBtn.Text = "WAITLIST";
+            PendingBtn.UseVisualStyleBackColor = false;
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -473,7 +493,7 @@
         private Panel ApprovedPanel;
         public DataGridView PendingTable;
         public DataGridView ApprovedTable;
-        private Button DeleteBtn;
+        private Button ArchiveBtn;
         private Panel PendingPanel;
         private LinkLabel AdminLoginLinkedLbl;
         private PictureBox MorpheusLogo2;
@@ -491,5 +511,6 @@
         private Button ReactivateBtn;
         private Label ArchivedAccLbl;
         public DataGridView ArchivedTable;
+        private Button PendingBtn;
     }
 }
