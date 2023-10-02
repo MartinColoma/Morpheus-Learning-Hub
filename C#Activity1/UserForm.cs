@@ -158,16 +158,13 @@ namespace C_Activity1
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (dialogResult == DialogResult.Yes)
+            DialogResult result = MessageBox.Show("Do you want to close this window?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
             {
+                LHMenuColumn.Visible = false;
+                LHMenuColumn.Location = new Point(-220, 115);
                 this.Hide();
                 LoginForm.instance.Show();
-
-            }
-            else
-            {
 
             }
         }

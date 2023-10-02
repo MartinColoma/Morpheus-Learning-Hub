@@ -780,9 +780,9 @@
             // 
             WCPanel.Controls.Add(WCMsgBox);
             WCPanel.Controls.Add(MorpheusWCIcon);
-            WCPanel.Location = new Point(7, 113);
+            WCPanel.Location = new Point(7, 119);
             WCPanel.Name = "WCPanel";
-            WCPanel.Size = new Size(488, 501);
+            WCPanel.Size = new Size(488, 495);
             WCPanel.TabIndex = 18;
             WCPanel.Paint += panel3_Paint;
             // 
