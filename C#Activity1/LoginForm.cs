@@ -46,7 +46,7 @@ namespace C_Activity1
             {
                 try
                 {
-                    MessageBox.Show("Connection Successful");
+                    MessageBox.Show("Welcome to Morpheus. Do you wish to continue?", "Welcome Dreamers!", MessageBoxButtons.OK, MessageBoxIcon.Question);
                 }
                 catch (Exception ex)
                 {
