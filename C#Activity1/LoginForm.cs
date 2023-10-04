@@ -29,7 +29,6 @@ namespace C_Activity1
         string ID;
 
 
-
         public LoginForm()
         {
             InitializeComponent();
@@ -41,6 +40,7 @@ namespace C_Activity1
             RegiGenderComboBox.Items.AddRange(genders);
             RegiGenderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 
             using (MySqlConnection connection = new MySqlConnection(mysqlconn))
             {
