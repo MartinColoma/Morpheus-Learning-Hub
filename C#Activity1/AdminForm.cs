@@ -8,9 +8,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using static C_Activity1.LoginForm;
 using static System.Windows.Forms.DataFormats;
 
 namespace C_Activity1
@@ -26,6 +28,11 @@ namespace C_Activity1
         private string selectedUN;
         private DataTable mpendingdb = new DataTable(); // Declare your DataTable
 
+        private string[] genders = { "Male", "Female", "Prefer Not to Say" };
+        string ID;
+
+        private const int CreatemaxAttempt = 3;
+        int CreatefailedAttempts = 0;
         public AdminForm()
         {
             InitializeComponent();
@@ -35,6 +42,8 @@ namespace C_Activity1
 
             this.FormClosing += new FormClosingEventHandler(AdminPanel_FormClosing);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            RegiGenderComboBox.Items.AddRange(genders);
+            RegiGenderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
         }
 
@@ -65,6 +74,9 @@ namespace C_Activity1
             LoadPendingDB();
             LoadApprovedDB();
             LoadArchivedDB();
+            ID = RandomNumberGenerator.GenerateRandomNumber();
+            string BtnSN = RegiSNBox.Text;
+            RegiSNBox.Text = ID + "-" + BtnSN;
         }
 
 
@@ -1037,6 +1049,355 @@ namespace C_Activity1
         {
             string searchText = ArchivedSearchBox.Text;
             SearchArchivedDB(searchText);
+        }
+
+        private void RegiGenderComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (RegiGenderComboBox.SelectedItem != null)
+            {
+                RegiGenderComboBox.Text = RegiGenderComboBox.SelectedItem.ToString();
+            }
+        }
+
+        private void CreateBtn_Click(object sender, EventArgs e)
+        {
+            string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender, BtnMail, BtnRole;
+            Btnname = RegiNameBox.Text;
+            BtnSN = RegiSNBox.Text;
+            BtnRP = RegiRPBox.Text;
+            BtnPass = RegiPassBox.Text;
+            BtnCourse = RegiCourseBox.Text;
+            BtnAge = RegiAgeBox.Text;
+            BtnGender = RegiGenderComboBox.Text;
+            BtnMail = RegiMailBox.Text;
+
+
+            string hashedPassword = HashHelper.HashString(BtnPass);    // Password hashed
+            string fixedSalt = HashHelper_Salt.HashString_Salt("Morpheus" + BtnPass + "01");    //Fixed Salt
+            string perUserSalt = HashHelper_SaltperUser.HashString_SaltperUser(BtnPass + ID);    //Per User salt
+
+
+            // Regex patterns
+            Regex nameRegex = new Regex("^[A-Z][a-zA-Z]+(?: [a-zA-Z]+)*$");
+            Regex courseRegex = new Regex("^[A-Za-z]+(?: [A-Za-z]+)*$");
+            Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+            Regex gmailRegex = new Regex(@"^[A-Za-z0-9._%+-]*\d*@gmail\.com$");
+
+            // Check if any of the input fields is empty
+            if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) ||
+                string.IsNullOrEmpty(BtnPass) || string.IsNullOrEmpty(BtnAge) || string.IsNullOrEmpty(BtnCourse) ||
+                string.IsNullOrEmpty(BtnGender) || string.IsNullOrEmpty(BtnMail))
+            {
+                MessageBox.Show("Missing text in required fields.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // Exit the method since there's an error
+            }
+            else if (Btnname.Contains("Admin") || BtnSN.Contains("Admin") || BtnPass.Contains("Admin123"))
+            {
+                HandleIncorrectCreateInput("This student already has an account.");
+                return;
+            }
+
+            // Check if the student number (BtnSN) already exists in ApprovedTable
+            //bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
+
+            //if (isStudentInApprovedTable)
+            //{
+            //    HandleApprovedUserInput("This student already has an account.");
+            //    return; // Exit the method since there's an error
+            //}
+
+            // Validate fields using regex patterns
+            else if (!nameRegex.IsMatch(Btnname))
+            {
+                HandleIncorrectCreateInput("Name must start with a capital letter and only contain alphabetic values.");
+                return;
+            }
+            else if (!courseRegex.IsMatch(BtnCourse))
+            {
+                HandleIncorrectCreateInput("Course must only contain alphabetic values.");
+                return;
+            }
+            else if (!int.TryParse(BtnAge, out _))
+            {
+                HandleIncorrectCreateInput("Age must only contain numeric values.");
+                return;
+            }
+            //else if (!int.TryParse(BtnSN, out _))
+            //{
+            //    HandleIncorrectCreateInput("Incorrect Student Number.");
+            //    return;
+            //}
+            else if (!gmailRegex.IsMatch(BtnMail))
+            {
+                HandleIncorrectCreateInput("Invalid Gmail address format.");
+                return;
+            }
+            else if (!passwordRegex.IsMatch(BtnPass))
+            {
+                HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
+                return;
+            }
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                {
+                    connection.Open();
+
+                    // Insert data into the pendingdb table
+                    string insertQuery = "INSERT INTO mpendingdb (Name, Age, Gender, Course, Email, StudNum, RecoveryPin, UserID, PassHashed, PassFixNa, PassPerUserNa) " +
+                                        "VALUES (@Name, @Age, @Gender, @Course, @Email, @StudNum, @RecoveryPin, @UserID, @Password, @FixedSalt, @PerUserSalt)";
+
+                    MySqlCommand cmd = new MySqlCommand(insertQuery, connection);
+                    cmd.Parameters.AddWithValue("@Name", Btnname);
+                    cmd.Parameters.AddWithValue("@StudNum", BtnSN);
+                    cmd.Parameters.AddWithValue("@Password", hashedPassword);
+                    cmd.Parameters.AddWithValue("@UserID", ID);
+                    cmd.Parameters.AddWithValue("@FixedSalt", fixedSalt);
+                    cmd.Parameters.AddWithValue("@PerUserSalt", perUserSalt);
+                    cmd.Parameters.AddWithValue("@Course", BtnCourse);
+                    cmd.Parameters.AddWithValue("@Age", BtnAge);
+                    cmd.Parameters.AddWithValue("@Gender", BtnGender);
+                    cmd.Parameters.AddWithValue("@Email", BtnMail);
+                    cmd.Parameters.AddWithValue("@RecoveryPin", BtnRP);
+
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                // Successful insertion
+                MessageBox.Show("Account added for approval", "Hooray!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                // Handle database exception (e.g., connection error or duplicate entry)
+                MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Make sure to close the connection
+                connection.Close();
+            }
+
+            RegiNameBox.Text = "";
+            RegiSNBox.Text = "";
+            RegiRPBox.Text = "";
+            RegiPassBox.Text = "";
+            RegiCourseBox.Text = "";
+            RegiAgeBox.Text = "";
+            RegiGenderComboBox.SelectedIndex = -1;
+            RegiMailBox.Text = "";
+        }
+
+        private bool IsStudentNumberInApprovedTable(string studentNumber)
+        {
+            foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
+            {
+                if (row.Cells["ASNColumn"].Value != null && row.Cells["ASNColumn"].Value.ToString() == studentNumber)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void HandleIncorrectCreateInput(string errorMessage)
+        {
+            CreatefailedAttempts++;
+
+            int CreateRemainingAttempts = CreatemaxAttempt - CreatefailedAttempts;
+
+            if (CreateRemainingAttempts > 0)
+            {
+                MessageBox.Show($"Attempts remaining: {CreateRemainingAttempts} \n{errorMessage} ", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                CreateBtn.Enabled = false;
+                MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void HandleApprovedUserInput(string errorMessage)
+        {
+            CreatefailedAttempts++;
+            int CreateRemainingAttempts = CreatemaxAttempt - CreatefailedAttempts;
+
+
+            if (CreateRemainingAttempts > 0)
+            {
+                MessageBox.Show($"Attempts remaining: {CreateRemainingAttempts} \n{errorMessage} Please try again. ", "Oooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                CreateBtn.Enabled = false;
+                MessageBox.Show("You've exceeded the maximum number of attempts. Please contact an administrator.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void RegiPassBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+
+                string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender, BtnMail, BtnRole;
+                Btnname = RegiNameBox.Text;
+                BtnSN = RegiSNBox.Text;
+                BtnRP = RegiRPBox.Text;
+                BtnPass = RegiPassBox.Text;
+                BtnCourse = RegiCourseBox.Text;
+                BtnAge = RegiAgeBox.Text;
+                BtnGender = RegiGenderComboBox.Text;
+                BtnMail = RegiMailBox.Text;
+
+
+                string hashedPassword = HashHelper.HashString(BtnPass);    // Password hashed
+                string fixedSalt = HashHelper_Salt.HashString_Salt("Morpheus" + BtnPass + "01");    //Fixed Salt
+                string perUserSalt = HashHelper_SaltperUser.HashString_SaltperUser(BtnPass + ID);    //Per User salt
+
+
+                // Regex patterns
+                Regex nameRegex = new Regex("^[A-Z][a-zA-Z]+(?: [a-zA-Z]+)*$");
+                Regex courseRegex = new Regex("^[A-Za-z]+(?: [A-Za-z]+)*$");
+                Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+                Regex gmailRegex = new Regex(@"^[A-Za-z0-9._%+-]*\d*@gmail\.com$");
+
+                // Check if any of the input fields is empty
+                if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) ||
+                    string.IsNullOrEmpty(BtnPass) || string.IsNullOrEmpty(BtnAge) || string.IsNullOrEmpty(BtnCourse) ||
+                    string.IsNullOrEmpty(BtnGender) || string.IsNullOrEmpty(BtnMail))
+                {
+                    MessageBox.Show("Missing text in required fields.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return; // Exit the method since there's an error
+                }
+                else if (Btnname.Contains("Admin") || BtnSN.Contains("Admin") || BtnPass.Contains("Admin123"))
+                {
+                    HandleIncorrectCreateInput("This student already has an account.");
+                    return;
+                }
+
+                // Check if the student number (BtnSN) already exists in ApprovedTable
+                //bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
+
+                //if (isStudentInApprovedTable)
+                //{
+                //    HandleApprovedUserInput("This student already has an account.");
+                //    return; // Exit the method since there's an error
+                //}
+
+                // Validate fields using regex patterns
+                else if (!nameRegex.IsMatch(Btnname))
+                {
+                    HandleIncorrectCreateInput("Name must start with a capital letter and only contain alphabetic values.");
+                    return;
+                }
+                else if (!courseRegex.IsMatch(BtnCourse))
+                {
+                    HandleIncorrectCreateInput("Course must only contain alphabetic values.");
+                    return;
+                }
+                else if (!int.TryParse(BtnAge, out _))
+                {
+                    HandleIncorrectCreateInput("Age must only contain numeric values.");
+                    return;
+                }
+                //else if (!int.TryParse(BtnSN, out _))
+                //{
+                //    HandleIncorrectCreateInput("Incorrect Student Number.");
+                //    return;
+                //}
+                else if (!gmailRegex.IsMatch(BtnMail))
+                {
+                    HandleIncorrectCreateInput("Invalid Gmail address format.");
+                    return;
+                }
+                else if (!passwordRegex.IsMatch(BtnPass))
+                {
+                    HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
+                    return;
+                }
+
+                try
+                {
+                    using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                    {
+                        connection.Open();
+
+                        // Insert data into the pendingdb table
+                        string insertQuery = "INSERT INTO mpendingdb (Name, Age, Gender, Course, Email, StudNum, RecoveryPin, UserID, PassHashed, PassFixNa, PassPerUserNa) " +
+                                            "VALUES (@Name, @Age, @Gender, @Course, @Email, @StudNum, @RecoveryPin, @UserID, @Password, @FixedSalt, @PerUserSalt)";
+
+                        MySqlCommand cmd = new MySqlCommand(insertQuery, connection);
+                        cmd.Parameters.AddWithValue("@Name", Btnname);
+                        cmd.Parameters.AddWithValue("@StudNum", BtnSN);
+                        cmd.Parameters.AddWithValue("@Password", hashedPassword);
+                        cmd.Parameters.AddWithValue("@UserID", ID);
+                        cmd.Parameters.AddWithValue("@FixedSalt", fixedSalt);
+                        cmd.Parameters.AddWithValue("@PerUserSalt", perUserSalt);
+                        cmd.Parameters.AddWithValue("@Course", BtnCourse);
+                        cmd.Parameters.AddWithValue("@Age", BtnAge);
+                        cmd.Parameters.AddWithValue("@Gender", BtnGender);
+                        cmd.Parameters.AddWithValue("@Email", BtnMail);
+                        cmd.Parameters.AddWithValue("@RecoveryPin", BtnRP);
+
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // Successful insertion
+                    MessageBox.Show("Account added for approval", "Hooray!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    // Handle database exception (e.g., connection error or duplicate entry)
+                    MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    // Make sure to close the connection
+                    connection.Close();
+                }
+
+                RegiNameBox.Text = "";
+                RegiSNBox.Text = "";
+                RegiRPBox.Text = "";
+                RegiPassBox.Text = "";
+                RegiCourseBox.Text = "";
+                RegiAgeBox.Text = "";
+                RegiGenderComboBox.SelectedIndex = -1;
+                RegiMailBox.Text = "";
+
+                e.SuppressKeyPress = true;
+            }
+        }
+        private int minTextLength = 5; // Minimum required text length
+
+        private void RegiSNBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Back)
+            {
+                // If the current length is less than or equal to the minimum required length, prevent Backspace
+                if (RegiSNBox.Text.Length <= minTextLength)
+                {
+                    e.SuppressKeyPress = true; // Prevent Backspace
+                }
+            }
+        }
+
+
+
+        private void iconButton1_Click_1(object sender, EventArgs e)
+        {
+            RegiSNBox.Text = "";
+            ID = RandomNumberGenerator.GenerateRandomNumber();
+            string BtnSN = RegiSNBox.Text;
+            RegiSNBox.Text = ID + "-" + BtnSN;
+        }
+
+        private void RegiShowPass_CheckedChanged(object sender, EventArgs e)
+        {
+            RegiPassBox.UseSystemPasswordChar = !RegiShowPass.Checked;
+
         }
     }
 }

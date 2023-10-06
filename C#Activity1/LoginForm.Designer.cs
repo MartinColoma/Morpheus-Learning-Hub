@@ -77,6 +77,7 @@
             RegiRPPanel = new Panel();
             RegiRPBox = new TextBox();
             RegiSNBoxPanel = new Panel();
+            StudNumRefreshBtn = new FontAwesome.Sharp.IconButton();
             RegiSNBox = new TextBox();
             RegiAgePanel = new Panel();
             RegiAgeBox = new TextBox();
@@ -85,7 +86,7 @@
             MorpheusWCIcon = new PictureBox();
             LoginPanel = new Panel();
             UNTextPanel = new Panel();
-            SNBox = new TextBox();
+            SNComboBox = new ComboBox();
             RMBRCheckbox = new CheckBox();
             ForgotLinkLabel = new LinkLabel();
             LoginBtn = new Button();
@@ -600,7 +601,7 @@
             CreateBtn.ForeColor = Color.FromArgb(90, 115, 141);
             CreateBtn.Location = new Point(254, 332);
             CreateBtn.Name = "CreateBtn";
-            CreateBtn.Size = new Size(104, 31);
+            CreateBtn.Size = new Size(104, 36);
             CreateBtn.TabIndex = 9;
             CreateBtn.Text = "CREATE";
             CreateBtn.UseVisualStyleBackColor = false;
@@ -728,11 +729,33 @@
             // RegiSNBoxPanel
             // 
             RegiSNBoxPanel.BorderStyle = BorderStyle.FixedSingle;
+            RegiSNBoxPanel.Controls.Add(StudNumRefreshBtn);
             RegiSNBoxPanel.Controls.Add(RegiSNBox);
             RegiSNBoxPanel.Location = new Point(38, 223);
             RegiSNBoxPanel.Name = "RegiSNBoxPanel";
             RegiSNBoxPanel.Size = new Size(282, 32);
             RegiSNBoxPanel.TabIndex = 18;
+            // 
+            // StudNumRefreshBtn
+            // 
+            StudNumRefreshBtn.BackColor = Color.Transparent;
+            StudNumRefreshBtn.FlatAppearance.BorderSize = 0;
+            StudNumRefreshBtn.FlatStyle = FlatStyle.Flat;
+            StudNumRefreshBtn.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            StudNumRefreshBtn.ForeColor = Color.FromArgb(250, 247, 247);
+            StudNumRefreshBtn.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
+            StudNumRefreshBtn.IconColor = Color.FromArgb(90, 115, 141);
+            StudNumRefreshBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            StudNumRefreshBtn.IconSize = 24;
+            StudNumRefreshBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            StudNumRefreshBtn.Location = new Point(249, 0);
+            StudNumRefreshBtn.Name = "StudNumRefreshBtn";
+            StudNumRefreshBtn.Size = new Size(32, 31);
+            StudNumRefreshBtn.TabIndex = 31;
+            StudNumRefreshBtn.TextAlign = ContentAlignment.MiddleLeft;
+            StudNumRefreshBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
+            StudNumRefreshBtn.UseVisualStyleBackColor = false;
+            StudNumRefreshBtn.Click += iconButton1_Click;
             // 
             // RegiSNBox
             // 
@@ -746,7 +769,7 @@
             RegiSNBox.MaxLength = 9;
             RegiSNBox.Name = "RegiSNBox";
             RegiSNBox.PlaceholderText = "Enter Student Number";
-            RegiSNBox.Size = new Size(269, 13);
+            RegiSNBox.Size = new Size(243, 13);
             RegiSNBox.TabIndex = 13;
             RegiSNBox.TextChanged += RegiSNBox_TextChanged;
             RegiSNBox.KeyDown += RegiSNBox_KeyDown;
@@ -780,9 +803,9 @@
             // 
             WCPanel.Controls.Add(WCMsgBox);
             WCPanel.Controls.Add(MorpheusWCIcon);
-            WCPanel.Location = new Point(7, 119);
+            WCPanel.Location = new Point(7, 117);
             WCPanel.Name = "WCPanel";
-            WCPanel.Size = new Size(488, 495);
+            WCPanel.Size = new Size(488, 497);
             WCPanel.TabIndex = 18;
             WCPanel.Paint += panel3_Paint;
             // 
@@ -833,28 +856,30 @@
             // UNTextPanel
             // 
             UNTextPanel.BorderStyle = BorderStyle.FixedSingle;
-            UNTextPanel.Controls.Add(SNBox);
+            UNTextPanel.Controls.Add(SNComboBox);
             UNTextPanel.ForeColor = Color.Black;
             UNTextPanel.Location = new Point(37, 256);
             UNTextPanel.Name = "UNTextPanel";
-            UNTextPanel.Size = new Size(315, 34);
+            UNTextPanel.Size = new Size(315, 26);
             UNTextPanel.TabIndex = 13;
             // 
-            // SNBox
+            // SNComboBox
             // 
-            SNBox.BackColor = Color.FromArgb(250, 247, 247);
-            SNBox.BorderStyle = BorderStyle.None;
-            SNBox.Cursor = Cursors.IBeam;
-            SNBox.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            SNBox.ForeColor = Color.FromArgb(90, 115, 141);
-            SNBox.Location = new Point(6, 4);
-            SNBox.Margin = new Padding(10);
-            SNBox.MaxLength = 9;
-            SNBox.Name = "SNBox";
-            SNBox.PlaceholderText = "Enter Student Number";
-            SNBox.Size = new Size(297, 19);
-            SNBox.TabIndex = 3;
-            SNBox.TextChanged += SNBox_TextChanged;
+            SNComboBox.BackColor = Color.FromArgb(250, 247, 247);
+            SNComboBox.Cursor = Cursors.Hand;
+            SNComboBox.Dock = DockStyle.Fill;
+            SNComboBox.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            SNComboBox.ForeColor = Color.FromArgb(90, 115, 141);
+            SNComboBox.FormattingEnabled = true;
+            SNComboBox.Location = new Point(0, 0);
+            SNComboBox.Margin = new Padding(10);
+            SNComboBox.MaxDropDownItems = 5;
+            SNComboBox.MaxLength = 9;
+            SNComboBox.Name = "SNComboBox";
+            SNComboBox.Size = new Size(313, 26);
+            SNComboBox.TabIndex = 15;
+            SNComboBox.SelectedIndexChanged += SNComboBox_SelectedIndexChanged;
+            SNComboBox.KeyDown += SNComboBox_KeyDown;
             // 
             // RMBRCheckbox
             // 
@@ -863,7 +888,7 @@
             RMBRCheckbox.Cursor = Cursors.Hand;
             RMBRCheckbox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
             RMBRCheckbox.ForeColor = Color.FromArgb(90, 115, 141);
-            RMBRCheckbox.Location = new Point(44, 390);
+            RMBRCheckbox.Location = new Point(44, 358);
             RMBRCheckbox.Name = "RMBRCheckbox";
             RMBRCheckbox.Size = new Size(108, 18);
             RMBRCheckbox.TabIndex = 12;
@@ -878,7 +903,7 @@
             ForgotLinkLabel.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
             ForgotLinkLabel.LinkBehavior = LinkBehavior.HoverUnderline;
             ForgotLinkLabel.LinkColor = Color.FromArgb(90, 115, 141);
-            ForgotLinkLabel.Location = new Point(252, 395);
+            ForgotLinkLabel.Location = new Point(252, 363);
             ForgotLinkLabel.Name = "ForgotLinkLabel";
             ForgotLinkLabel.Size = new Size(109, 14);
             ForgotLinkLabel.TabIndex = 10;
@@ -897,7 +922,7 @@
             LoginBtn.FlatStyle = FlatStyle.Flat;
             LoginBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
             LoginBtn.ForeColor = Color.FromArgb(90, 115, 141);
-            LoginBtn.Location = new Point(253, 428);
+            LoginBtn.Location = new Point(253, 396);
             LoginBtn.Name = "LoginBtn";
             LoginBtn.Size = new Size(100, 35);
             LoginBtn.TabIndex = 9;
@@ -910,7 +935,7 @@
             PassLabel.AutoSize = true;
             PassLabel.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
             PassLabel.ForeColor = Color.FromArgb(90, 115, 141);
-            PassLabel.Location = new Point(31, 327);
+            PassLabel.Location = new Point(31, 295);
             PassLabel.Name = "PassLabel";
             PassLabel.Size = new Size(102, 23);
             PassLabel.TabIndex = 4;
@@ -958,7 +983,7 @@
             PassTextPanel.Controls.Add(PassBox);
             PassTextPanel.Controls.Add(ShowPassCheck);
             PassTextPanel.ForeColor = Color.Black;
-            PassTextPanel.Location = new Point(37, 354);
+            PassTextPanel.Location = new Point(37, 322);
             PassTextPanel.Name = "PassTextPanel";
             PassTextPanel.Size = new Size(315, 34);
             PassTextPanel.TabIndex = 14;
@@ -1058,7 +1083,6 @@
             LoginPanel.ResumeLayout(false);
             LoginPanel.PerformLayout();
             UNTextPanel.ResumeLayout(false);
-            UNTextPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusLogo1).EndInit();
             PassTextPanel.ResumeLayout(false);
             PassTextPanel.PerformLayout();
@@ -1099,7 +1123,6 @@
         private Button LoginBtn;
         private TextBox PassBox;
         private Label PassLabel;
-        private TextBox SNBox;
         private Label UNLabel;
         private Label RTULHLabel;
         private Panel LnRPanel;
@@ -1136,5 +1159,7 @@
         private Button CPChangeBtn;
         private Label ConfirmNewPassLbl;
         private Label SNMaxChar;
+        private ComboBox SNComboBox;
+        private FontAwesome.Sharp.IconButton StudNumRefreshBtn;
     }
 }

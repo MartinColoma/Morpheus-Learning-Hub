@@ -27,20 +27,21 @@ namespace C_Activity1
         bool disableButton = false;
         private string[] genders = { "Male", "Female", "Prefer Not to Say" };
         string ID;
-
+        private int minTextLength = 5; // Minimum required text length
 
 
         public LoginForm()
         {
             InitializeComponent();
             String SN, Pass;
-            SN = SNBox.Text; Pass = PassBox.Text;
+            SN = SNComboBox.Text; Pass = PassBox.Text;
             instance = this;
             FormBorderStyle = FormBorderStyle.FixedSingle;
 
             RegiGenderComboBox.Items.AddRange(genders);
             RegiGenderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 
             using (MySqlConnection connection = new MySqlConnection(mysqlconn))
             {
@@ -131,7 +132,7 @@ namespace C_Activity1
                 RecoveryPanel.Visible = false;
                 WCPanel.Visible = false;
                 RegiPanel.Visible = true;
-                SNBox.Text = "";
+                SNComboBox.Text = "";
                 PassBox.Text = "";
             }
 
@@ -155,7 +156,7 @@ namespace C_Activity1
                 //WCPanel.Visible = false;
                 RegiPanel.Visible = false;
                 RecoveryPanel.Visible = true;
-                SNBox.Text = "";
+                SNComboBox.Text = "";
                 PassBox.Text = "";
             }
 
@@ -186,28 +187,30 @@ namespace C_Activity1
             //Login Password Textbox
             if (e.KeyCode == Keys.Enter)
             {
-                if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
+                if (SNComboBox.Text == "Admin" && PassBox.Text == "Admin123")
                 {
                     MessageBox.Show("Welcome back Admin.", "Greetings", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     APanel.Show();
-                    ResetForm();
+                    rememberAccount();
+                    ResetHideForm();
+
                 }
-                else if (SNBox.Text != "Admin" && PassBox.Text == "Admin123")
+                else if (SNComboBox.Text != "Admin" && PassBox.Text == "Admin123")
                 {
                     HandleIncorrectInput("Incorrect Student Number.");
                 }
-                else if (SNBox.Text == "Admin" && PassBox.Text != "Admin123")
+                else if (SNComboBox.Text == "Admin" && PassBox.Text != "Admin123")
                 {
                     HandleIncorrectInput("Incorrect Password.");
                 }
-                else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
+                else if (string.IsNullOrEmpty(SNComboBox.Text) || string.IsNullOrEmpty(PassBox.Text))
                 {
                     MessageBox.Show("Missing text on required Field.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    string studNum = SNBox.Text;
+                    string studNum = SNComboBox.Text;
                     string enteredPassword = PassBox.Text;
                     string passchecker = HashHelper.HashString(enteredPassword);
 
@@ -218,8 +221,37 @@ namespace C_Activity1
                         connection = new MySqlConnection(mysqlconn);
                         connection.Open();
 
+                        // Query the database for the provided student number in mpendingdb
+                        string queryPending = "SELECT PassHashed FROM mpendingdb WHERE StudNum = @StudNum";
+
+                        using (MySqlCommand cmdPending = new MySqlCommand(queryPending, connection))
+                        {
+                            cmdPending.Parameters.AddWithValue("@StudNum", studNum);
+
+                            using (MySqlDataReader readerPending = cmdPending.ExecuteReader())
+                            {
+                                if (readerPending.Read())
+                                {
+                                    string pendinghashedPasswordFromDB = readerPending["PassHashed"].ToString();
+
+                                    // Implement your password hashing and comparison logic here
+                                    bool passwordMatches = pendinghashedPasswordFromDB.Equals(passchecker);
+
+                                    if (passwordMatches)
+                                    {
+                                        MessageBox.Show("Student account is pending for approval", "Ooooops", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                    else
+                                    {
+                                        HandleIncorrectInput("Incorrect Password.");
+                                    }
+                                    return; // Exit the method after handling the pending case
+                                }
+                            }
+                        }
+
                         // Query the database for the provided student number in mapproveddb
-                        string queryApproved = "SELECT Name, StudNum, Course, PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
+                        string queryApproved = "SELECT PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
 
                         using (MySqlCommand cmdApproved = new MySqlCommand(queryApproved, connection))
                         {
@@ -229,28 +261,18 @@ namespace C_Activity1
                             {
                                 if (readerApproved.Read())
                                 {
-                                    // Retrieve user information
-                                    string name = readerApproved["Name"].ToString();
-                                    string studentNumber = readerApproved["StudNum"].ToString();
-                                    string course = readerApproved["Course"].ToString();
-
-                                    // Retrieve the PassHashed column
                                     string hashedPasswordFromDB = readerApproved["PassHashed"].ToString();
 
-                                    // Check if the entered password matches
+                                    // Implement your password hashing and comparison logic here
                                     bool passwordMatches = hashedPasswordFromDB.Equals(passchecker);
 
                                     if (passwordMatches)
                                     {
                                         MessageBox.Show("Welcome back, Dreamers.", "Login Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         HomePage.Show(); // Show the LHHomePage form
-
-                                        // Populate the textboxes in HomePage form
-                                        HomePage.LHNameBox.Text = name;
-                                        HomePage.LHSNBox.Text = studentNumber;
-                                        HomePage.LHCourseBox.Text = course;
-
+                                        rememberAccount();
                                         ResetHideForm();
+
                                     }
                                     else
                                     {
@@ -277,6 +299,7 @@ namespace C_Activity1
 
 
 
+
                 // Prevent further event handling for the Enter key
 
                 e.SuppressKeyPress = true;
@@ -287,28 +310,30 @@ namespace C_Activity1
         {
             // Login Button
 
-            if (SNBox.Text == "Admin" && PassBox.Text == "Admin123")
+            if (SNComboBox.Text == "Admin" && PassBox.Text == "Admin123")
             {
                 MessageBox.Show("Welcome back Admin.", "Greetings", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 APanel.Show();
-                ResetForm();
+                rememberAccount();
+                ResetHideForm();
+
             }
-            else if (SNBox.Text != "Admin" && PassBox.Text == "Admin123")
+            else if (SNComboBox.Text != "Admin" && PassBox.Text == "Admin123")
             {
                 HandleIncorrectInput("Incorrect Student Number.");
             }
-            else if (SNBox.Text == "Admin" && PassBox.Text != "Admin123")
+            else if (SNComboBox.Text == "Admin" && PassBox.Text != "Admin123")
             {
                 HandleIncorrectInput("Incorrect Password.");
             }
-            else if (string.IsNullOrEmpty(SNBox.Text) || string.IsNullOrEmpty(PassBox.Text))
+            else if (string.IsNullOrEmpty(SNComboBox.Text) || string.IsNullOrEmpty(PassBox.Text))
             {
                 MessageBox.Show("Missing text on required Field.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                string studNum = SNBox.Text;
+                string studNum = SNComboBox.Text;
                 string enteredPassword = PassBox.Text;
                 string passchecker = HashHelper.HashString(enteredPassword);
 
@@ -319,8 +344,37 @@ namespace C_Activity1
                     connection = new MySqlConnection(mysqlconn);
                     connection.Open();
 
+                    // Query the database for the provided student number in mpendingdb
+                    string queryPending = "SELECT PassHashed FROM mpendingdb WHERE StudNum = @StudNum";
+
+                    using (MySqlCommand cmdPending = new MySqlCommand(queryPending, connection))
+                    {
+                        cmdPending.Parameters.AddWithValue("@StudNum", studNum);
+
+                        using (MySqlDataReader readerPending = cmdPending.ExecuteReader())
+                        {
+                            if (readerPending.Read())
+                            {
+                                string pendinghashedPasswordFromDB = readerPending["PassHashed"].ToString();
+
+                                // Implement your password hashing and comparison logic here
+                                bool passwordMatches = pendinghashedPasswordFromDB.Equals(passchecker);
+
+                                if (passwordMatches)
+                                {
+                                    MessageBox.Show("Student account is pending for approval", "Ooooops", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    HandleIncorrectInput("Incorrect Password.");
+                                }
+                                return; // Exit the method after handling the pending case
+                            }
+                        }
+                    }
+
                     // Query the database for the provided student number in mapproveddb
-                    string queryApproved = "SELECT Name, StudNum, Course, PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
+                    string queryApproved = "SELECT PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
 
                     using (MySqlCommand cmdApproved = new MySqlCommand(queryApproved, connection))
                     {
@@ -330,27 +384,16 @@ namespace C_Activity1
                         {
                             if (readerApproved.Read())
                             {
-                                // Retrieve user information
-                                string name = readerApproved["Name"].ToString();
-                                string studentNumber = readerApproved["StudNum"].ToString();
-                                string course = readerApproved["Course"].ToString();
-
-                                // Retrieve the PassHashed column
                                 string hashedPasswordFromDB = readerApproved["PassHashed"].ToString();
 
-                                // Check if the entered password matches
+                                // Implement your password hashing and comparison logic here
                                 bool passwordMatches = hashedPasswordFromDB.Equals(passchecker);
 
                                 if (passwordMatches)
                                 {
                                     MessageBox.Show("Welcome back, Dreamers.", "Login Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     HomePage.Show(); // Show the LHHomePage form
-
-                                    // Populate the textboxes in HomePage form
-                                    HomePage.LHNameBox.Text = name;
-                                    HomePage.LHSNBox.Text = studentNumber;
-                                    HomePage.LHCourseBox.Text = course;
-
+                                    rememberAccount();
                                     ResetHideForm();
                                 }
                                 else
@@ -375,6 +418,7 @@ namespace C_Activity1
                     connection?.Close();
                 }
             }
+
         }
 
 
@@ -437,20 +481,57 @@ namespace C_Activity1
 
         private void ResetForm()
         {
-            SNBox.Text = "";
+            SNComboBox.Text = "";
             PassBox.Text = "";
             LoginfailedAttempts = 0;
             LoginBtn.Enabled = true;
+
         }
         private void ResetHideForm()
         {
-            SNBox.Text = "";
+            SNComboBox.Text = "";
             PassBox.Text = "";
             LoginfailedAttempts = 0;
             LoginBtn.Enabled = true;
             this.Hide();
+
         }
 
+
+        private Dictionary<string, string> accountData = new Dictionary<string, string>();
+
+        private void rememberAccount()
+        {
+            string newItem = SNComboBox.Text.Trim();
+            string newPassword = PassBox.Text.Trim();
+
+            bool itemExists = SNComboBox.Items.Contains(newItem);
+
+            if (RMBRCheckbox.Checked == true && !itemExists)
+            {
+                // Store username and password in the dictionary
+                accountData[newItem] = newPassword;
+
+                // Add the username to the combo box
+                SNComboBox.Items.Add(newItem);
+
+                // Clear the textboxes
+                SNComboBox.SelectedIndex = SNComboBox.Items.IndexOf(newItem);
+                SNComboBox.Text = "";
+                PassBox.Text = "";
+            }
+        }
+
+        private void SNComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // When a username is selected from the combo box,
+            // fill the username and password textboxes
+            string selectedItem = SNComboBox.SelectedItem as string;
+            if (selectedItem != null && accountData.ContainsKey(selectedItem))
+            {
+                PassBox.Text = accountData[selectedItem];
+            }
+        }
 
 
         private void RegiNameBox_TextChanged(object sender, EventArgs e)
@@ -458,7 +539,6 @@ namespace C_Activity1
             //Register Name Textbox
         }
 
-        private int minTextLength = 5; // Minimum required text length
 
         private void RegiSNBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -534,16 +614,16 @@ namespace C_Activity1
                 }
 
                 // Check if the student number (BtnSN) already exists in ApprovedTable
-                bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
+                //bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
 
-                if (isStudentInApprovedTable)
-                {
-                    HandleApprovedUserInput("This student already has an account.");
-                    return; // Exit the method since there's an error
-                }
+                //if (isStudentInApprovedTable)
+                //{
+                //    HandleApprovedUserInput("This student already has an account.");
+                //    return; // Exit the method since there's an error
+                //}
 
                 // Validate fields using regex patterns
-                if (!nameRegex.IsMatch(Btnname))
+                else if (!nameRegex.IsMatch(Btnname))
                 {
                     HandleIncorrectCreateInput("Name must start with a capital letter and only contain alphabetic values.");
                     return;
@@ -672,16 +752,16 @@ namespace C_Activity1
             }
 
             // Check if the student number (BtnSN) already exists in ApprovedTable
-            bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
+            //bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
 
-            if (isStudentInApprovedTable)
-            {
-                HandleApprovedUserInput("This student already has an account.");
-                return; // Exit the method since there's an error
-            }
+            //if (isStudentInApprovedTable)
+            //{
+            //    HandleApprovedUserInput("This student already has an account.");
+            //    return; // Exit the method since there's an error
+            //}
 
             // Validate fields using regex patterns
-            if (!nameRegex.IsMatch(Btnname))
+            else if (!nameRegex.IsMatch(Btnname))
             {
                 HandleIncorrectCreateInput("Name must start with a capital letter and only contain alphabetic values.");
                 return;
@@ -765,17 +845,17 @@ namespace C_Activity1
         }
 
 
-        private bool IsStudentNumberInApprovedTable(string studentNumber)
-        {
-            foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
-            {
-                if (row.Cells["ASNColumn"].Value != null && row.Cells["ASNColumn"].Value.ToString() == studentNumber)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        //private bool IsStudentNumberInApprovedTable(string studentNumber)
+        //{
+        //    foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
+        //    {
+        //        if (row.Cells["ASNColumn"].Value != null && row.Cells["ASNColumn"].Value.ToString() == studentNumber)
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
 
         private void HandleIncorrectCreateInput(string errorMessage)
         {
@@ -874,7 +954,7 @@ namespace C_Activity1
                 LoginPanel.Visible = false;
                 //WCPanel.Visible = false;
                 RecoveryPanel.Visible = true;
-                SNBox.Text = "";
+                SNComboBox.Text = "";
                 PassBox.Text = "";
             }
 
@@ -920,6 +1000,8 @@ namespace C_Activity1
         {
 
         }
+
+
 
         private void RTUBg_Click(object sender, EventArgs e)
         {
@@ -1143,6 +1225,25 @@ namespace C_Activity1
             }
         }
 
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            RegiSNBox.Text = "";
+            ID = RandomNumberGenerator.GenerateRandomNumber();
+            string BtnSN = RegiSNBox.Text;
+            RegiSNBox.Text = ID + "-" + BtnSN;
+        }
+
+        private void SNComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.KeyCode == Keys.Back)
+            //{
+            //    // If the current length is less than or equal to the minimum required length, prevent Backspace
+            //    if (RegiSNBox.Text.Length <= minTextLength)
+            //    {
+            //        e.SuppressKeyPress = true; // Prevent Backspace
+            //    }
+            //}
+        }
 
 
         public class HashHelper
