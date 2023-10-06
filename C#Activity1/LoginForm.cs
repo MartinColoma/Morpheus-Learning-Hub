@@ -27,6 +27,7 @@ namespace C_Activity1
         bool disableButton = false;
         private string[] genders = { "Male", "Female", "Prefer Not to Say" };
         string ID;
+        private int minTextLength = 5; // Minimum required text length
 
 
         public LoginForm()
@@ -495,18 +496,42 @@ namespace C_Activity1
             this.Hide();
 
         }
+
+
+        private Dictionary<string, string> accountData = new Dictionary<string, string>();
+
         private void rememberAccount()
         {
             string newItem = SNComboBox.Text.Trim();
+            string newPassword = PassBox.Text.Trim();
+
             bool itemExists = SNComboBox.Items.Contains(newItem);
+
             if (RMBRCheckbox.Checked == true && !itemExists)
             {
+                // Store username and password in the dictionary
+                accountData[newItem] = newPassword;
+
+                // Add the username to the combo box
                 SNComboBox.Items.Add(newItem);
+
+                // Clear the textboxes
                 SNComboBox.SelectedIndex = SNComboBox.Items.IndexOf(newItem);
                 SNComboBox.Text = "";
+                PassBox.Text = "";
             }
         }
 
+        private void SNComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // When a username is selected from the combo box,
+            // fill the username and password textboxes
+            string selectedItem = SNComboBox.SelectedItem as string;
+            if (selectedItem != null && accountData.ContainsKey(selectedItem))
+            {
+                PassBox.Text = accountData[selectedItem];
+            }
+        }
 
 
         private void RegiNameBox_TextChanged(object sender, EventArgs e)
@@ -514,7 +539,6 @@ namespace C_Activity1
             //Register Name Textbox
         }
 
-        private int minTextLength = 5; // Minimum required text length
 
         private void RegiSNBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1201,6 +1225,25 @@ namespace C_Activity1
             }
         }
 
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            RegiSNBox.Text = "";
+            ID = RandomNumberGenerator.GenerateRandomNumber();
+            string BtnSN = RegiSNBox.Text;
+            RegiSNBox.Text = ID + "-" + BtnSN;
+        }
+
+        private void SNComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.KeyCode == Keys.Back)
+            //{
+            //    // If the current length is less than or equal to the minimum required length, prevent Backspace
+            //    if (RegiSNBox.Text.Length <= minTextLength)
+            //    {
+            //        e.SuppressKeyPress = true; // Prevent Backspace
+            //    }
+            //}
+        }
 
 
         public class HashHelper
@@ -1263,18 +1306,7 @@ namespace C_Activity1
             }
         }
 
-        private void SNComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void iconButton1_Click(object sender, EventArgs e)
-        {
-            RegiSNBox.Text = "";
-            ID = RandomNumberGenerator.GenerateRandomNumber();
-            string BtnSN = RegiSNBox.Text;
-            RegiSNBox.Text = ID + "-" + BtnSN;
-        }
     }
 }
 

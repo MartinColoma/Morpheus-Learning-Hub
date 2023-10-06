@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             PendingTable = new DataGridView();
             ApprovedTable = new DataGridView();
             PendingLabel = new Label();
@@ -78,7 +78,7 @@
             RegiRPPanel = new Panel();
             RegiRPBox = new TextBox();
             RegiSNBoxPanel = new Panel();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
+            StudNumRefreshBtn = new FontAwesome.Sharp.IconButton();
             RegiSNBox = new TextBox();
             RegiAgePanel = new Panel();
             RegiAgeBox = new TextBox();
@@ -89,7 +89,7 @@
             ArchivedSearchPanel = new Panel();
             ArchivedSearchBtn = new FontAwesome.Sharp.IconButton();
             ArchivedSearchBox = new TextBox();
-            linkLabel1 = new LinkLabel();
+            LoginCallerLinkLbl = new LinkLabel();
             ArchivedRefreshBtn = new FontAwesome.Sharp.IconButton();
             ArchivedLogo = new PictureBox();
             ReactivateBtn = new Button();
@@ -126,8 +126,8 @@
             // PendingTable
             // 
             PendingTable.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PendingTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             PendingTable.BorderStyle = BorderStyle.Fixed3D;
@@ -135,14 +135,14 @@
             PendingTable.Location = new Point(42, 152);
             PendingTable.Name = "PendingTable";
             PendingTable.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(250, 247, 247);
-            dataGridViewCellStyle2.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(250, 247, 247);
+            dataGridViewCellStyle4.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             PendingTable.RowTemplate.Height = 25;
             PendingTable.Size = new Size(665, 220);
             PendingTable.TabIndex = 0;
@@ -669,7 +669,7 @@
             CreateBtn.FlatStyle = FlatStyle.Flat;
             CreateBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
             CreateBtn.ForeColor = Color.FromArgb(90, 115, 141);
-            CreateBtn.Location = new Point(238, 334);
+            CreateBtn.Location = new Point(238, 347);
             CreateBtn.Name = "CreateBtn";
             CreateBtn.Size = new Size(104, 35);
             CreateBtn.TabIndex = 9;
@@ -780,33 +780,33 @@
             // RegiSNBoxPanel
             // 
             RegiSNBoxPanel.BorderStyle = BorderStyle.FixedSingle;
-            RegiSNBoxPanel.Controls.Add(iconButton1);
+            RegiSNBoxPanel.Controls.Add(StudNumRefreshBtn);
             RegiSNBoxPanel.Controls.Add(RegiSNBox);
             RegiSNBoxPanel.Location = new Point(38, 233);
             RegiSNBoxPanel.Name = "RegiSNBoxPanel";
             RegiSNBoxPanel.Size = new Size(282, 32);
             RegiSNBoxPanel.TabIndex = 18;
             // 
-            // iconButton1
+            // StudNumRefreshBtn
             // 
-            iconButton1.BackColor = Color.Transparent;
-            iconButton1.FlatAppearance.BorderSize = 0;
-            iconButton1.FlatStyle = FlatStyle.Flat;
-            iconButton1.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            iconButton1.ForeColor = Color.FromArgb(250, 247, 247);
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
-            iconButton1.IconColor = Color.FromArgb(90, 115, 141);
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.IconSize = 24;
-            iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton1.Location = new Point(249, 0);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(32, 31);
-            iconButton1.TabIndex = 30;
-            iconButton1.TextAlign = ContentAlignment.MiddleLeft;
-            iconButton1.TextImageRelation = TextImageRelation.TextBeforeImage;
-            iconButton1.UseVisualStyleBackColor = false;
-            iconButton1.Click += iconButton1_Click_1;
+            StudNumRefreshBtn.BackColor = Color.Transparent;
+            StudNumRefreshBtn.FlatAppearance.BorderSize = 0;
+            StudNumRefreshBtn.FlatStyle = FlatStyle.Flat;
+            StudNumRefreshBtn.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            StudNumRefreshBtn.ForeColor = Color.FromArgb(250, 247, 247);
+            StudNumRefreshBtn.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
+            StudNumRefreshBtn.IconColor = Color.FromArgb(90, 115, 141);
+            StudNumRefreshBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            StudNumRefreshBtn.IconSize = 24;
+            StudNumRefreshBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            StudNumRefreshBtn.Location = new Point(249, 0);
+            StudNumRefreshBtn.Name = "StudNumRefreshBtn";
+            StudNumRefreshBtn.Size = new Size(32, 31);
+            StudNumRefreshBtn.TabIndex = 30;
+            StudNumRefreshBtn.TextAlign = ContentAlignment.MiddleLeft;
+            StudNumRefreshBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
+            StudNumRefreshBtn.UseVisualStyleBackColor = false;
+            StudNumRefreshBtn.Click += iconButton1_Click_1;
             // 
             // RegiSNBox
             // 
@@ -886,7 +886,7 @@
             // ArchivedPanel
             // 
             ArchivedPanel.Controls.Add(ArchivedSearchPanel);
-            ArchivedPanel.Controls.Add(linkLabel1);
+            ArchivedPanel.Controls.Add(LoginCallerLinkLbl);
             ArchivedPanel.Controls.Add(ArchivedRefreshBtn);
             ArchivedPanel.Controls.Add(ArchivedLogo);
             ArchivedPanel.Controls.Add(ReactivateBtn);
@@ -937,19 +937,19 @@
             ArchivedSearchBox.TabIndex = 0;
             ArchivedSearchBox.TextChanged += ArchivedSearchBox_TextChanged;
             // 
-            // linkLabel1
+            // LoginCallerLinkLbl
             // 
-            linkLabel1.ActiveLinkColor = Color.FromArgb(24, 79, 144);
-            linkLabel1.AutoSize = true;
-            linkLabel1.Font = new Font("MS UI Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            linkLabel1.LinkBehavior = LinkBehavior.HoverUnderline;
-            linkLabel1.LinkColor = Color.White;
-            linkLabel1.Location = new Point(40, 413);
-            linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(125, 15);
-            linkLabel1.TabIndex = 14;
-            linkLabel1.TabStop = true;
-            linkLabel1.Text = "Open Login Page...";
+            LoginCallerLinkLbl.ActiveLinkColor = Color.FromArgb(24, 79, 144);
+            LoginCallerLinkLbl.AutoSize = true;
+            LoginCallerLinkLbl.Font = new Font("MS UI Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            LoginCallerLinkLbl.LinkBehavior = LinkBehavior.HoverUnderline;
+            LoginCallerLinkLbl.LinkColor = Color.White;
+            LoginCallerLinkLbl.Location = new Point(40, 413);
+            LoginCallerLinkLbl.Name = "LoginCallerLinkLbl";
+            LoginCallerLinkLbl.Size = new Size(125, 15);
+            LoginCallerLinkLbl.TabIndex = 14;
+            LoginCallerLinkLbl.TabStop = true;
+            LoginCallerLinkLbl.Text = "Open Login Page...";
             // 
             // ArchivedRefreshBtn
             // 
@@ -1102,7 +1102,7 @@
         private TabPage PendingTab;
         private TabPage ArchivedTab;
         private Panel ArchivedPanel;
-        private LinkLabel linkLabel1;
+        private LinkLabel LoginCallerLinkLbl;
         private FontAwesome.Sharp.IconButton ArchivedRefreshBtn;
         private PictureBox ArchivedLogo;
         private Button ReactivateBtn;
@@ -1148,6 +1148,6 @@
         private TextBox RegiSNBox;
         private Panel RegiAgePanel;
         private TextBox RegiAgeBox;
-        private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton StudNumRefreshBtn;
     }
 }

@@ -77,7 +77,7 @@
             RegiRPPanel = new Panel();
             RegiRPBox = new TextBox();
             RegiSNBoxPanel = new Panel();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
+            StudNumRefreshBtn = new FontAwesome.Sharp.IconButton();
             RegiSNBox = new TextBox();
             RegiAgePanel = new Panel();
             RegiAgeBox = new TextBox();
@@ -729,33 +729,33 @@
             // RegiSNBoxPanel
             // 
             RegiSNBoxPanel.BorderStyle = BorderStyle.FixedSingle;
-            RegiSNBoxPanel.Controls.Add(iconButton1);
+            RegiSNBoxPanel.Controls.Add(StudNumRefreshBtn);
             RegiSNBoxPanel.Controls.Add(RegiSNBox);
             RegiSNBoxPanel.Location = new Point(38, 223);
             RegiSNBoxPanel.Name = "RegiSNBoxPanel";
             RegiSNBoxPanel.Size = new Size(282, 32);
             RegiSNBoxPanel.TabIndex = 18;
             // 
-            // iconButton1
+            // StudNumRefreshBtn
             // 
-            iconButton1.BackColor = Color.Transparent;
-            iconButton1.FlatAppearance.BorderSize = 0;
-            iconButton1.FlatStyle = FlatStyle.Flat;
-            iconButton1.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            iconButton1.ForeColor = Color.FromArgb(250, 247, 247);
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
-            iconButton1.IconColor = Color.FromArgb(90, 115, 141);
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.IconSize = 24;
-            iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton1.Location = new Point(249, 0);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(32, 31);
-            iconButton1.TabIndex = 31;
-            iconButton1.TextAlign = ContentAlignment.MiddleLeft;
-            iconButton1.TextImageRelation = TextImageRelation.TextBeforeImage;
-            iconButton1.UseVisualStyleBackColor = false;
-            iconButton1.Click += iconButton1_Click;
+            StudNumRefreshBtn.BackColor = Color.Transparent;
+            StudNumRefreshBtn.FlatAppearance.BorderSize = 0;
+            StudNumRefreshBtn.FlatStyle = FlatStyle.Flat;
+            StudNumRefreshBtn.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            StudNumRefreshBtn.ForeColor = Color.FromArgb(250, 247, 247);
+            StudNumRefreshBtn.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
+            StudNumRefreshBtn.IconColor = Color.FromArgb(90, 115, 141);
+            StudNumRefreshBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            StudNumRefreshBtn.IconSize = 24;
+            StudNumRefreshBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            StudNumRefreshBtn.Location = new Point(249, 0);
+            StudNumRefreshBtn.Name = "StudNumRefreshBtn";
+            StudNumRefreshBtn.Size = new Size(32, 31);
+            StudNumRefreshBtn.TabIndex = 31;
+            StudNumRefreshBtn.TextAlign = ContentAlignment.MiddleLeft;
+            StudNumRefreshBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
+            StudNumRefreshBtn.UseVisualStyleBackColor = false;
+            StudNumRefreshBtn.Click += iconButton1_Click;
             // 
             // RegiSNBox
             // 
@@ -866,6 +866,7 @@
             // SNComboBox
             // 
             SNComboBox.BackColor = Color.FromArgb(250, 247, 247);
+            SNComboBox.Cursor = Cursors.Hand;
             SNComboBox.Dock = DockStyle.Fill;
             SNComboBox.Font = new Font("Arial Black", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             SNComboBox.ForeColor = Color.FromArgb(90, 115, 141);
@@ -878,6 +879,7 @@
             SNComboBox.Size = new Size(313, 26);
             SNComboBox.TabIndex = 15;
             SNComboBox.SelectedIndexChanged += SNComboBox_SelectedIndexChanged;
+            SNComboBox.KeyDown += SNComboBox_KeyDown;
             // 
             // RMBRCheckbox
             // 
@@ -1158,6 +1160,6 @@
         private Label ConfirmNewPassLbl;
         private Label SNMaxChar;
         private ComboBox SNComboBox;
-        private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton StudNumRefreshBtn;
     }
 }
