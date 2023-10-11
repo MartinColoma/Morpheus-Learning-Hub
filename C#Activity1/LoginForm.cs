@@ -3,7 +3,10 @@ using System.Diagnostics.Eventing.Reader;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 
 namespace C_Activity1
@@ -29,6 +32,51 @@ namespace C_Activity1
         string ID;
         private int minTextLength = 5; // Minimum required text length
 
+        private Dictionary<string, string> accountData = new Dictionary<string, string>();
+
+
+        //College Program List
+        private List<string> collegePrograms = new List<string>
+        {
+            "Enter College Program",
+            "Bachelor of Science in Mechanical Engineering",
+            "Bachelor of Science in Architecture",
+            "Bachelor of Science in Civil Engineering",
+            "Bachelor of Science in Electrical Engineering",
+            "Bachelor of Science in Electronics Engineering",
+            "Bachelor of Science in Computer Engineering",
+            "Bachelor of Science in Industrial Engineering",
+            "Bachelor of Science in Information Technology",
+            "Bachelor of Science in Instrumentation and Control Engineering",
+            "Bachelor of Science in Mechatronics",
+            "Bachelor of Science in Accountancy",
+            "Bachelor of Science in Entrepreneurship",
+            "Bachelor of Science in Office Administration",
+            "Bachelor of Science in Business Administration major in Operations Management",
+            "Bachelor of Science in Business Administration major in Marketing Management",
+            "Bachelor of Science in Business Administration major in Financial Management",
+            "Bachelor of Science in Business Administration major in Human Resource Management",
+            "Bachelor of Secondary Education major in English",
+            "Bachelor of Secondary Education major in Math",
+            "Bachelor of Secondary Education major in Science",
+            "Bachelor of Secondary Education major in Social Studies",
+            "Bachelor of Secondary Education Major in Filipino",
+            "Bachelor of Technical-Vocational Teacher Education major in Animation",
+            "Bachelor of Technical-Vocational Teacher Education major in Computer Hardware Servicing",
+            "Bachelor of Technical-Vocational Teacher Education major in Visual Graphic Design",
+            "Bachelor or Technical-Vocational Teacher Education Major in Garments Fashion and Design",
+            "Bachelor or Technical-Vocational Teacher Education Major in Electronics Technology",
+            "Bachelor or Technical-Vocational Teacher Education Major in Welding and Fabrications Technology",
+            "Bachelor of Science in Psychology",
+            "Bachelor of Arts in Political Science",
+            "Bachelor of Science in Statistics",
+            "Bachelor of Science in Biology",
+            "Bachelor of Science in Astronomy",
+            "Bachelor of Science in Physical Education"
+        };
+        private List<string> suggestions = new List<string>();
+        private bool placeholderShown = true; // Flag to track if the placeholder is currently displayed
+
 
         public LoginForm()
         {
@@ -42,6 +90,8 @@ namespace C_Activity1
             RegiGenderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+
+
 
             using (MySqlConnection connection = new MySqlConnection(mysqlconn))
             {
@@ -82,10 +132,20 @@ namespace C_Activity1
 
             }
         }
+
         private void RTULogin_Load(object sender, EventArgs e)
         {
 
+            studNumRefresher();
 
+            CollegeProgramComboBox.Items.AddRange(collegePrograms.ToArray());
+
+            CollegeProgramComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            CollegeProgramComboBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            CollegeProgramComboBox.AutoCompleteCustomSource = new AutoCompleteStringCollection();
+            CollegeProgramComboBox.AutoCompleteCustomSource.AddRange(collegePrograms.ToArray());
+
+            CollegeProgramComboBox.KeyUp += CollegeProgramComboBox_KeyUp;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -119,10 +179,7 @@ namespace C_Activity1
         private void SignUpLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
-            //Reset RegiSNBox's First 4 values
-            ID = RandomNumberGenerator.GenerateRandomNumber();
-            string BtnSN = RegiSNBox.Text;
-            RegiSNBox.Text = ID + "-" + BtnSN;
+            studNumRefresher();
 
             //Login Panel to Register Panel Linked Label
 
@@ -187,6 +244,7 @@ namespace C_Activity1
             //Login Password Textbox
             if (e.KeyCode == Keys.Enter)
             {
+
                 if (SNComboBox.Text == "Admin" && PassBox.Text == "Admin123")
                 {
                     MessageBox.Show("Welcome back Admin.", "Greetings", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -251,7 +309,7 @@ namespace C_Activity1
                         }
 
                         // Query the database for the provided student number in mapproveddb
-                        string queryApproved = "SELECT PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
+                        string queryApproved = "SELECT Name, StudNum, Course, PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
 
                         using (MySqlCommand cmdApproved = new MySqlCommand(queryApproved, connection))
                         {
@@ -261,18 +319,28 @@ namespace C_Activity1
                             {
                                 if (readerApproved.Read())
                                 {
+                                    // Retrieve user information
+                                    string name = readerApproved["Name"].ToString();
+                                    string studentNumber = readerApproved["StudNum"].ToString();
+                                    string course = readerApproved["Course"].ToString();
+
+                                    // Retrieve the PassHashed column
                                     string hashedPasswordFromDB = readerApproved["PassHashed"].ToString();
 
-                                    // Implement your password hashing and comparison logic here
+                                    // Check if the entered password matches
                                     bool passwordMatches = hashedPasswordFromDB.Equals(passchecker);
 
                                     if (passwordMatches)
                                     {
                                         MessageBox.Show("Welcome back, Dreamers.", "Login Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         HomePage.Show(); // Show the LHHomePage form
+
+                                        // Populate the textboxes in HomePage form
+                                        HomePage.LHNameBox.Text = name;
+                                        HomePage.LHSNBox.Text = studentNumber;
+                                        HomePage.LHCourseBox.Text = course;
                                         rememberAccount();
                                         ResetHideForm();
-
                                     }
                                     else
                                     {
@@ -374,7 +442,7 @@ namespace C_Activity1
                     }
 
                     // Query the database for the provided student number in mapproveddb
-                    string queryApproved = "SELECT PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
+                    string queryApproved = "SELECT Name, StudNum, Course, PassHashed FROM mapproveddb WHERE StudNum = @StudNum";
 
                     using (MySqlCommand cmdApproved = new MySqlCommand(queryApproved, connection))
                     {
@@ -384,15 +452,26 @@ namespace C_Activity1
                         {
                             if (readerApproved.Read())
                             {
+                                // Retrieve user information
+                                string name = readerApproved["Name"].ToString();
+                                string studentNumber = readerApproved["StudNum"].ToString();
+                                string course = readerApproved["Course"].ToString();
+
+                                // Retrieve the PassHashed column
                                 string hashedPasswordFromDB = readerApproved["PassHashed"].ToString();
 
-                                // Implement your password hashing and comparison logic here
+                                // Check if the entered password matches
                                 bool passwordMatches = hashedPasswordFromDB.Equals(passchecker);
 
                                 if (passwordMatches)
                                 {
                                     MessageBox.Show("Welcome back, Dreamers.", "Login Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     HomePage.Show(); // Show the LHHomePage form
+
+                                    // Populate the textboxes in HomePage form
+                                    HomePage.LHNameBox.Text = name;
+                                    HomePage.LHSNBox.Text = studentNumber;
+                                    HomePage.LHCourseBox.Text = course;
                                     rememberAccount();
                                     ResetHideForm();
                                 }
@@ -420,10 +499,6 @@ namespace C_Activity1
             }
 
         }
-
-
-
-
 
         private void HandleIncorrectInput(string errorMessage)
         {
@@ -487,6 +562,7 @@ namespace C_Activity1
             LoginBtn.Enabled = true;
 
         }
+
         private void ResetHideForm()
         {
             SNComboBox.Text = "";
@@ -496,9 +572,6 @@ namespace C_Activity1
             this.Hide();
 
         }
-
-
-        private Dictionary<string, string> accountData = new Dictionary<string, string>();
 
         private void rememberAccount()
         {
@@ -533,12 +606,10 @@ namespace C_Activity1
             }
         }
 
-
         private void RegiNameBox_TextChanged(object sender, EventArgs e)
         {
             //Register Name Textbox
         }
-
 
         private void RegiSNBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -552,37 +623,37 @@ namespace C_Activity1
             }
         }
 
-
-
         private void RegiSNBox_TextChanged(object sender, EventArgs e)
         {
             //Register Student Number Textbox
 
         }
+
         private void RegiRPBox_TextChanged(object sender, EventArgs e)
         {
             //Register PIN TextBox
 
 
         }
+
         private void RegiPassBox_TextChanged(object sender, EventArgs e)
         {
             //Register Password Textbox
 
 
         }
+
         private void RegiPassBox_KeyDown(object sender, KeyEventArgs e)
         {
             //Register Password Textbox
             if (e.KeyCode == Keys.Enter)
             {
-
                 string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender, BtnMail, BtnRole;
                 Btnname = RegiNameBox.Text;
                 BtnSN = RegiSNBox.Text;
                 BtnRP = RegiRPBox.Text;
                 BtnPass = RegiPassBox.Text;
-                BtnCourse = RegiCourseBox.Text;
+                BtnCourse = CollegeProgramComboBox.Text;//RegiCourseBox.Text;
                 BtnAge = RegiAgeBox.Text;
                 BtnGender = RegiGenderComboBox.Text;
                 BtnMail = RegiMailBox.Text;
@@ -696,7 +767,7 @@ namespace C_Activity1
                 }
 
                 RegiNameBox.Text = "";
-                RegiSNBox.Text = "";
+                studNumRefresher();
                 RegiRPBox.Text = "";
                 RegiPassBox.Text = "";
                 RegiCourseBox.Text = "";
@@ -710,9 +781,7 @@ namespace C_Activity1
 
         }
 
-
-
-        private void CreateBtn_Click(object sender, EventArgs e) //8506-1231
+        private void CreateBtn_Click(object sender, EventArgs e)
         {
             // Create Button
             string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender, BtnMail, BtnRole;
@@ -720,7 +789,7 @@ namespace C_Activity1
             BtnSN = RegiSNBox.Text;
             BtnRP = RegiRPBox.Text;
             BtnPass = RegiPassBox.Text;
-            BtnCourse = RegiCourseBox.Text;
+            BtnCourse = CollegeProgramComboBox.Text;//RegiCourseBox.Text;
             BtnAge = RegiAgeBox.Text;
             BtnGender = RegiGenderComboBox.Text;
             BtnMail = RegiMailBox.Text;
@@ -834,7 +903,7 @@ namespace C_Activity1
             }
 
             RegiNameBox.Text = "";
-            RegiSNBox.Text = "";
+            studNumRefresher();
             RegiRPBox.Text = "";
             RegiPassBox.Text = "";
             RegiCourseBox.Text = "";
@@ -843,19 +912,6 @@ namespace C_Activity1
             RegiMailBox.Text = "";
 
         }
-
-
-        //private bool IsStudentNumberInApprovedTable(string studentNumber)
-        //{
-        //    foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
-        //    {
-        //        if (row.Cells["ASNColumn"].Value != null && row.Cells["ASNColumn"].Value.ToString() == studentNumber)
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
 
         private void HandleIncorrectCreateInput(string errorMessage)
         {
@@ -966,6 +1022,7 @@ namespace C_Activity1
             }
 
         }
+
         private void RCSNBox_TextChanged(object sender, EventArgs e)
         {
             //recovery student number textbox
@@ -978,7 +1035,6 @@ namespace C_Activity1
         {
             //recovery pin textbox
         }
-
 
         private void PassBox_TextChanged(object sender, EventArgs e)
         {
@@ -1000,8 +1056,6 @@ namespace C_Activity1
         {
 
         }
-
-
 
         private void RTUBg_Click(object sender, EventArgs e)
         {
@@ -1067,7 +1121,7 @@ namespace C_Activity1
             string studNum = RCSNBox.Text;
             string recPin = RPINBox.Text;
             string newPass = NewPassBox.Text;
-            string newConfirm = NewPassConfirmBox.Text;
+            string newConfirm = ConfirmNewPassBox.Text;
 
             if (string.IsNullOrEmpty(newPass) || string.IsNullOrEmpty(newConfirm) || string.IsNullOrEmpty(recPin) || string.IsNullOrEmpty(studNum))
             {
@@ -1135,7 +1189,7 @@ namespace C_Activity1
                 RCSNBox.Text = "";
                 RPINBox.Text = "";
                 NewPassBox.Text = "";
-                NewPassConfirmBox.Text = "";
+                ConfirmNewPassBox.Text = "";
 
 
             }
@@ -1148,7 +1202,7 @@ namespace C_Activity1
                 string studNum = RCSNBox.Text;
                 string recPin = RPINBox.Text;
                 string newPass = NewPassBox.Text;
-                string newConfirm = NewPassConfirmBox.Text;
+                string newConfirm = ConfirmNewPassBox.Text;
 
                 if (string.IsNullOrEmpty(newPass) || string.IsNullOrEmpty(newConfirm) || string.IsNullOrEmpty(recPin) || string.IsNullOrEmpty(studNum))
                 {
@@ -1218,7 +1272,7 @@ namespace C_Activity1
                     RCSNBox.Text = "";
                     RPINBox.Text = "";
                     NewPassBox.Text = "";
-                    NewPassConfirmBox.Text = "";
+                    ConfirmNewPassBox.Text = "";
 
 
                 }
@@ -1227,22 +1281,85 @@ namespace C_Activity1
 
         private void iconButton1_Click(object sender, EventArgs e)
         {
+            studNumRefresher();
+        }
+
+        private void studNumRefresher()
+        {
             RegiSNBox.Text = "";
             ID = RandomNumberGenerator.GenerateRandomNumber();
             string BtnSN = RegiSNBox.Text;
             RegiSNBox.Text = ID + "-" + BtnSN;
         }
 
+        private void NewPassCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            NewPassBox.UseSystemPasswordChar = !ShowPassCheck.Checked;
+
+        }
+
+        private void ConfirmNewPassCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfirmNewPassBox.UseSystemPasswordChar = !ShowPassCheck.Checked;
+
+        }
+
         private void SNComboBox_KeyDown(object sender, KeyEventArgs e)
         {
-            //if (e.KeyCode == Keys.Back)
+
+        }
+
+        private void CollegeProgramComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CollegeProgramComboBox.SelectedIndex == 0) // Placeholder item selected
+            {
+                // Handle the selection of the placeholder item (e.g., display a message)
+            }
+        }
+
+        private void CollegeProgramComboBox_TextChanged(object sender, EventArgs e)
+        {
+            //string userInput = CollegeProgramComboBox.Text;
+
+            //if (!placeholderShown)
             //{
-            //    // If the current length is less than or equal to the minimum required length, prevent Backspace
-            //    if (RegiSNBox.Text.Length <= minTextLength)
+            //    // Filter the suggestions based on user input
+            //    var filteredSuggestions = collegePrograms
+            //        .Where(program => program.Contains(userInput, StringComparison.OrdinalIgnoreCase))
+            //        .ToList();
+
+            //    CollegeProgramComboBox.AutoCompleteCustomSource.Clear();
+            //    CollegeProgramComboBox.AutoCompleteCustomSource.AddRange(filteredSuggestions.ToArray());
+
+            //    if (string.IsNullOrWhiteSpace(userInput))
             //    {
-            //        e.SuppressKeyPress = true; // Prevent Backspace
+            //        suggestions.Add("Enter College Program");
+            //        placeholderShown = true;
+            //        CollegeProgramComboBox.Text = "Enter College Program";
             //    }
             //}
+        }
+        private void CollegeProgramComboBox_GotFocus(object sender, EventArgs e)
+        {
+            if (placeholderShown)
+            {
+                CollegeProgramComboBox.Text = "";
+                placeholderShown = false;
+            }
+        }
+
+        private void CollegeProgramComboBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
+            {
+                string userInput = CollegeProgramComboBox.Text;
+                var filteredSuggestions = collegePrograms
+                    .Where(program => program.Contains(userInput, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                CollegeProgramComboBox.AutoCompleteCustomSource.Clear();
+                CollegeProgramComboBox.AutoCompleteCustomSource.AddRange(filteredSuggestions.ToArray());
+            }
         }
 
 
@@ -1305,6 +1422,7 @@ namespace C_Activity1
                 return randomNumber;
             }
         }
+
 
 
     }
