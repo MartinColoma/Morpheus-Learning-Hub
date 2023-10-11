@@ -1388,6 +1388,11 @@ namespace C_Activity1
 
         private void iconButton1_Click_1(object sender, EventArgs e)
         {
+            studNumRefresher();
+        }
+
+        private void studNumRefresher()
+        {
             RegiSNBox.Text = "";
             ID = RandomNumberGenerator.GenerateRandomNumber();
             string BtnSN = RegiSNBox.Text;

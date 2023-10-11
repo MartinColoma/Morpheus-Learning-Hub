@@ -36,13 +36,15 @@
             RecoveryPanel = new Panel();
             FPtoLPLinkedLbl = new LinkLabel();
             ConfirmNewPassPanel = new Panel();
-            NewPassConfirmBox = new TextBox();
+            ConfirmNewPassCheckBox = new CheckBox();
+            ConfirmNewPassBox = new TextBox();
             PRMorpheusLogo1 = new PictureBox();
             RecoveryHLabel = new Label();
             RCRPPanel = new Panel();
             RPINBox = new TextBox();
             RCSNLabel = new Label();
             NewPassBoxPanel = new Panel();
+            NewPassCheckBox = new CheckBox();
             NewPassBox = new TextBox();
             RecoveryPINLabel = new Label();
             RCSNPanel = new Panel();
@@ -51,6 +53,7 @@
             NewPassLbl = new Label();
             CPChangeBtn = new Button();
             RegiPanel = new Panel();
+            RegiCourseBox = new TextBox();
             SNMaxChar = new Label();
             RegiMailLbl = new Label();
             RegiMailPanel = new Panel();
@@ -61,7 +64,7 @@
             RegiGenderComboBox = new ComboBox();
             RegiCourseLbl = new Label();
             RegiCoursePanel = new Panel();
-            RegiCourseBox = new TextBox();
+            CollegeProgramComboBox = new ComboBox();
             RegiNamePanel = new Panel();
             RegiNameBox = new TextBox();
             RegiRPLabel = new Label();
@@ -132,7 +135,7 @@
             // MorpheusLogo2
             // 
             MorpheusLogo2.Image = Properties.Resources._3;
-            MorpheusLogo2.Location = new Point(12, 12);
+            MorpheusLogo2.Location = new Point(12, -17);
             MorpheusLogo2.Name = "MorpheusLogo2";
             MorpheusLogo2.Size = new Size(128, 128);
             MorpheusLogo2.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -145,7 +148,7 @@
             MorpheusLbl.AutoSize = true;
             MorpheusLbl.Font = new Font("Arial Black", 30F, FontStyle.Bold, GraphicsUnit.Point);
             MorpheusLbl.ForeColor = Color.FromArgb(250, 247, 247);
-            MorpheusLbl.Location = new Point(125, 38);
+            MorpheusLbl.Location = new Point(125, 9);
             MorpheusLbl.Name = "MorpheusLbl";
             MorpheusLbl.Size = new Size(243, 56);
             MorpheusLbl.TabIndex = 14;
@@ -155,6 +158,7 @@
             // SignUpLinkLabel
             // 
             SignUpLinkLabel.ActiveLinkColor = Color.RoyalBlue;
+            SignUpLinkLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             SignUpLinkLabel.AutoSize = true;
             SignUpLinkLabel.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             SignUpLinkLabel.LinkBehavior = LinkBehavior.HoverUnderline;
@@ -207,26 +211,41 @@
             // ConfirmNewPassPanel
             // 
             ConfirmNewPassPanel.BorderStyle = BorderStyle.FixedSingle;
-            ConfirmNewPassPanel.Controls.Add(NewPassConfirmBox);
+            ConfirmNewPassPanel.Controls.Add(ConfirmNewPassCheckBox);
+            ConfirmNewPassPanel.Controls.Add(ConfirmNewPassBox);
             ConfirmNewPassPanel.Location = new Point(32, 426);
             ConfirmNewPassPanel.Name = "ConfirmNewPassPanel";
             ConfirmNewPassPanel.Size = new Size(324, 30);
             ConfirmNewPassPanel.TabIndex = 13;
             // 
-            // NewPassConfirmBox
+            // ConfirmNewPassCheckBox
             // 
-            NewPassConfirmBox.BackColor = Color.FromArgb(250, 247, 247);
-            NewPassConfirmBox.BorderStyle = BorderStyle.None;
-            NewPassConfirmBox.Cursor = Cursors.IBeam;
-            NewPassConfirmBox.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            NewPassConfirmBox.ForeColor = Color.FromArgb(90, 115, 141);
-            NewPassConfirmBox.Location = new Point(2, 6);
-            NewPassConfirmBox.Margin = new Padding(10);
-            NewPassConfirmBox.Name = "NewPassConfirmBox";
-            NewPassConfirmBox.PlaceholderText = "Enter Confirm New Password";
-            NewPassConfirmBox.Size = new Size(311, 18);
-            NewPassConfirmBox.TabIndex = 3;
-            NewPassConfirmBox.KeyDown += NewPassConfirmBox_KeyDown;
+            ConfirmNewPassCheckBox.AutoSize = true;
+            ConfirmNewPassCheckBox.BackColor = Color.White;
+            ConfirmNewPassCheckBox.Cursor = Cursors.Hand;
+            ConfirmNewPassCheckBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
+            ConfirmNewPassCheckBox.ForeColor = Color.White;
+            ConfirmNewPassCheckBox.Location = new Point(303, 6);
+            ConfirmNewPassCheckBox.Name = "ConfirmNewPassCheckBox";
+            ConfirmNewPassCheckBox.Size = new Size(15, 14);
+            ConfirmNewPassCheckBox.TabIndex = 16;
+            ConfirmNewPassCheckBox.UseVisualStyleBackColor = false;
+            ConfirmNewPassCheckBox.CheckedChanged += ConfirmNewPassCheckBox_CheckedChanged;
+            // 
+            // ConfirmNewPassBox
+            // 
+            ConfirmNewPassBox.BackColor = Color.FromArgb(250, 247, 247);
+            ConfirmNewPassBox.BorderStyle = BorderStyle.None;
+            ConfirmNewPassBox.Cursor = Cursors.IBeam;
+            ConfirmNewPassBox.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            ConfirmNewPassBox.ForeColor = Color.FromArgb(90, 115, 141);
+            ConfirmNewPassBox.Location = new Point(2, 6);
+            ConfirmNewPassBox.Margin = new Padding(10);
+            ConfirmNewPassBox.Name = "ConfirmNewPassBox";
+            ConfirmNewPassBox.PlaceholderText = "Enter Confirm New Password";
+            ConfirmNewPassBox.Size = new Size(311, 18);
+            ConfirmNewPassBox.TabIndex = 3;
+            ConfirmNewPassBox.KeyDown += NewPassConfirmBox_KeyDown;
             // 
             // PRMorpheusLogo1
             // 
@@ -289,11 +308,26 @@
             // NewPassBoxPanel
             // 
             NewPassBoxPanel.BorderStyle = BorderStyle.FixedSingle;
+            NewPassBoxPanel.Controls.Add(NewPassCheckBox);
             NewPassBoxPanel.Controls.Add(NewPassBox);
             NewPassBoxPanel.Location = new Point(33, 363);
             NewPassBoxPanel.Name = "NewPassBoxPanel";
             NewPassBoxPanel.Size = new Size(324, 30);
             NewPassBoxPanel.TabIndex = 12;
+            // 
+            // NewPassCheckBox
+            // 
+            NewPassCheckBox.AutoSize = true;
+            NewPassCheckBox.BackColor = Color.White;
+            NewPassCheckBox.Cursor = Cursors.Hand;
+            NewPassCheckBox.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
+            NewPassCheckBox.ForeColor = Color.White;
+            NewPassCheckBox.Location = new Point(302, 5);
+            NewPassCheckBox.Name = "NewPassCheckBox";
+            NewPassCheckBox.Size = new Size(15, 14);
+            NewPassCheckBox.TabIndex = 15;
+            NewPassCheckBox.UseVisualStyleBackColor = false;
+            NewPassCheckBox.CheckedChanged += NewPassCheckBox_CheckedChanged;
             // 
             // NewPassBox
             // 
@@ -306,7 +340,7 @@
             NewPassBox.Margin = new Padding(10);
             NewPassBox.Name = "NewPassBox";
             NewPassBox.PlaceholderText = "Enter New Password";
-            NewPassBox.Size = new Size(311, 18);
+            NewPassBox.Size = new Size(291, 18);
             NewPassBox.TabIndex = 11;
             // 
             // RecoveryPINLabel
@@ -388,6 +422,7 @@
             // RegiPanel
             // 
             RegiPanel.BackColor = Color.FromArgb(250, 247, 247);
+            RegiPanel.Controls.Add(RegiCourseBox);
             RegiPanel.Controls.Add(SNMaxChar);
             RegiPanel.Controls.Add(RegiMailLbl);
             RegiPanel.Controls.Add(RegiMailPanel);
@@ -408,11 +443,25 @@
             RegiPanel.Controls.Add(RegiRPPanel);
             RegiPanel.Controls.Add(RegiSNBoxPanel);
             RegiPanel.Controls.Add(RegiAgePanel);
-            RegiPanel.Location = new Point(149, 125);
+            RegiPanel.Location = new Point(144, 78);
             RegiPanel.Name = "RegiPanel";
             RegiPanel.Size = new Size(580, 455);
             RegiPanel.TabIndex = 12;
             RegiPanel.Paint += RegiPanel_Paint;
+            // 
+            // RegiCourseBox
+            // 
+            RegiCourseBox.BackColor = Color.FromArgb(250, 247, 247);
+            RegiCourseBox.BorderStyle = BorderStyle.None;
+            RegiCourseBox.Cursor = Cursors.IBeam;
+            RegiCourseBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            RegiCourseBox.ForeColor = Color.FromArgb(24, 79, 144);
+            RegiCourseBox.Location = new Point(105, 140);
+            RegiCourseBox.Margin = new Padding(10);
+            RegiCourseBox.Name = "RegiCourseBox";
+            RegiCourseBox.PlaceholderText = "Enter College Course";
+            RegiCourseBox.Size = new Size(265, 13);
+            RegiCourseBox.TabIndex = 13;
             // 
             // SNMaxChar
             // 
@@ -497,7 +546,9 @@
             // 
             // RegiGenderComboBox
             // 
+            RegiGenderComboBox.BackColor = Color.FromArgb(250, 247, 247);
             RegiGenderComboBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            RegiGenderComboBox.ForeColor = Color.FromArgb(90, 115, 141);
             RegiGenderComboBox.FormattingEnabled = true;
             RegiGenderComboBox.Location = new Point(3, 6);
             RegiGenderComboBox.Name = "RegiGenderComboBox";
@@ -513,32 +564,33 @@
             RegiCourseLbl.ForeColor = Color.FromArgb(90, 115, 141);
             RegiCourseLbl.Location = new Point(33, 136);
             RegiCourseLbl.Name = "RegiCourseLbl";
-            RegiCourseLbl.Size = new Size(148, 23);
+            RegiCourseLbl.Size = new Size(161, 23);
             RegiCourseLbl.TabIndex = 21;
-            RegiCourseLbl.Text = "College Course:";
+            RegiCourseLbl.Text = "College Program:";
             // 
             // RegiCoursePanel
             // 
             RegiCoursePanel.BorderStyle = BorderStyle.FixedSingle;
-            RegiCoursePanel.Controls.Add(RegiCourseBox);
+            RegiCoursePanel.Controls.Add(CollegeProgramComboBox);
             RegiCoursePanel.Location = new Point(38, 162);
             RegiCoursePanel.Name = "RegiCoursePanel";
             RegiCoursePanel.Size = new Size(282, 32);
             RegiCoursePanel.TabIndex = 22;
             // 
-            // RegiCourseBox
+            // CollegeProgramComboBox
             // 
-            RegiCourseBox.BackColor = Color.FromArgb(250, 247, 247);
-            RegiCourseBox.BorderStyle = BorderStyle.None;
-            RegiCourseBox.Cursor = Cursors.IBeam;
-            RegiCourseBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiCourseBox.ForeColor = Color.FromArgb(24, 79, 144);
-            RegiCourseBox.Location = new Point(5, 6);
-            RegiCourseBox.Margin = new Padding(10);
-            RegiCourseBox.Name = "RegiCourseBox";
-            RegiCourseBox.PlaceholderText = "Enter College Course";
-            RegiCourseBox.Size = new Size(265, 13);
-            RegiCourseBox.TabIndex = 13;
+            CollegeProgramComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            CollegeProgramComboBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            CollegeProgramComboBox.BackColor = Color.FromArgb(250, 247, 247);
+            CollegeProgramComboBox.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            CollegeProgramComboBox.ForeColor = Color.FromArgb(90, 115, 141);
+            CollegeProgramComboBox.FormattingEnabled = true;
+            CollegeProgramComboBox.Location = new Point(3, 4);
+            CollegeProgramComboBox.Name = "CollegeProgramComboBox";
+            CollegeProgramComboBox.Size = new Size(274, 25);
+            CollegeProgramComboBox.TabIndex = 0;
+            CollegeProgramComboBox.SelectedIndexChanged += CollegeProgramComboBox_SelectedIndexChanged;
+            CollegeProgramComboBox.TextChanged += CollegeProgramComboBox_TextChanged;
             // 
             // RegiNamePanel
             // 
@@ -599,11 +651,11 @@
             CreateBtn.FlatStyle = FlatStyle.Flat;
             CreateBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
             CreateBtn.ForeColor = Color.FromArgb(90, 115, 141);
-            CreateBtn.Location = new Point(254, 332);
+            CreateBtn.Location = new Point(214, 341);
             CreateBtn.Name = "CreateBtn";
-            CreateBtn.Size = new Size(104, 36);
+            CreateBtn.Size = new Size(153, 36);
             CreateBtn.TabIndex = 9;
-            CreateBtn.Text = "CREATE";
+            CreateBtn.Text = "GET STARTED";
             CreateBtn.UseVisualStyleBackColor = false;
             CreateBtn.Click += CreateBtn_Click;
             // 
@@ -615,7 +667,7 @@
             LoginLinkLabel.ForeColor = Color.White;
             LoginLinkLabel.LinkBehavior = LinkBehavior.HoverUnderline;
             LoginLinkLabel.LinkColor = Color.FromArgb(90, 115, 141);
-            LoginLinkLabel.Location = new Point(156, 381);
+            LoginLinkLabel.Location = new Point(130, 392);
             LoginLinkLabel.Name = "LoginLinkLabel";
             LoginLinkLabel.Size = new Size(320, 22);
             LoginLinkLabel.TabIndex = 8;
@@ -651,13 +703,13 @@
             // 
             GSLabel.AutoSize = true;
             GSLabel.BackColor = Color.Transparent;
-            GSLabel.Font = new Font("Arial Black", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            GSLabel.Font = new Font("Arial Black", 24F, FontStyle.Bold, GraphicsUnit.Point);
             GSLabel.ForeColor = Color.FromArgb(90, 115, 141);
-            GSLabel.Location = new Point(198, 19);
+            GSLabel.Location = new Point(17, 19);
             GSLabel.Name = "GSLabel";
-            GSLabel.Size = new Size(189, 38);
+            GSLabel.Size = new Size(270, 45);
             GSLabel.TabIndex = 1;
-            GSLabel.Text = "Get Started";
+            GSLabel.Text = "| Sign Up Here";
             GSLabel.TextAlign = ContentAlignment.MiddleCenter;
             GSLabel.Click += GSLabel_Click;
             // 
@@ -803,9 +855,9 @@
             // 
             WCPanel.Controls.Add(WCMsgBox);
             WCPanel.Controls.Add(MorpheusWCIcon);
-            WCPanel.Location = new Point(7, 117);
+            WCPanel.Location = new Point(7, 78);
             WCPanel.Name = "WCPanel";
-            WCPanel.Size = new Size(488, 497);
+            WCPanel.Size = new Size(488, 536);
             WCPanel.TabIndex = 18;
             WCPanel.Paint += panel3_Paint;
             // 
@@ -926,7 +978,7 @@
             LoginBtn.Name = "LoginBtn";
             LoginBtn.Size = new Size(100, 35);
             LoginBtn.TabIndex = 9;
-            LoginBtn.Text = "LOGIN";
+            LoginBtn.Text = "SIGN IN";
             LoginBtn.UseVisualStyleBackColor = false;
             LoginBtn.Click += LoginButton_Click;
             // 
@@ -1023,12 +1075,12 @@
             // 
             LnRPanel.BackColor = Color.Transparent;
             LnRPanel.Controls.Add(LoginPanel);
-            LnRPanel.Controls.Add(WCPanel);
             LnRPanel.Controls.Add(MorpheusLbl);
             LnRPanel.Controls.Add(MorpheusLogo2);
             LnRPanel.Controls.Add(RecoveryPanel);
+            LnRPanel.Controls.Add(WCPanel);
             LnRPanel.Controls.Add(RegiPanel);
-            LnRPanel.Location = new Point(-6, 0);
+            LnRPanel.Location = new Point(-5, -2);
             LnRPanel.Name = "LnRPanel";
             LnRPanel.Size = new Size(879, 614);
             LnRPanel.TabIndex = 17;
@@ -1066,7 +1118,6 @@
             RegiMailPanel.PerformLayout();
             RegiGenderPanel.ResumeLayout(false);
             RegiCoursePanel.ResumeLayout(false);
-            RegiCoursePanel.PerformLayout();
             RegiNamePanel.ResumeLayout(false);
             RegiNamePanel.PerformLayout();
             RegiPassPanel.ResumeLayout(false);
@@ -1152,7 +1203,7 @@
         private Panel RegiMailPanel;
         private TextBox RegiMailBox;
         private Panel ConfirmNewPassPanel;
-        private TextBox NewPassConfirmBox;
+        private TextBox ConfirmNewPassBox;
         private Panel NewPassBoxPanel;
         private TextBox NewPassBox;
         private Label NewPassLbl;
@@ -1161,5 +1212,8 @@
         private Label SNMaxChar;
         private ComboBox SNComboBox;
         private FontAwesome.Sharp.IconButton StudNumRefreshBtn;
+        private CheckBox ConfirmNewPassCheckBox;
+        private CheckBox NewPassCheckBox;
+        private ComboBox CollegeProgramComboBox;
     }
 }

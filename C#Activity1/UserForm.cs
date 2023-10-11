@@ -15,15 +15,14 @@ namespace C_Activity1
     {
         public static UserForm instance;
         private MySqlConnection conn;
-
+        public static string mysqlconn = "server=localhost;user=root;database=learninghub;password=";
+        public MySqlConnection connection = new MySqlConnection(mysqlconn);
 
         public UserForm()
         {
             InitializeComponent();
             instance = this;
-            string mysqlconn = "server=localhost;user=root;database=learninghub;password=";
-            conn = new MySqlConnection(mysqlconn);
-            conn.Open();
+
             this.FormClosing += new FormClosingEventHandler(UserForm_Closing);
             FormBorderStyle = FormBorderStyle.FixedSingle;
 
