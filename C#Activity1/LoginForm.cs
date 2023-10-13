@@ -1339,6 +1339,7 @@ namespace C_Activity1
             //    }
             //}
         }
+
         private void CollegeProgramComboBox_GotFocus(object sender, EventArgs e)
         {
             if (placeholderShown)

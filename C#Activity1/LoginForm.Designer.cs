@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             LoginBtnTimer = new System.Windows.Forms.Timer(components);
             MorpheusLogo2 = new PictureBox();
             MorpheusLbl = new Label();
@@ -1093,10 +1094,10 @@
             ClientSize = new Size(869, 611);
             Controls.Add(LnRPanel);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximumSize = new Size(885, 650);
             MinimumSize = new Size(885, 650);
             Name = "LoginForm";
-            ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Morpheus Learning Hub";
             Load += RTULogin_Load;
