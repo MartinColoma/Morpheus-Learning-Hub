@@ -653,7 +653,7 @@ namespace C_Activity1
                 BtnSN = RegiSNBox.Text;
                 BtnRP = RegiRPBox.Text;
                 BtnPass = RegiPassBox.Text;
-                BtnCourse = CollegeProgramComboBox.Text;//RegiCourseBox.Text;
+                BtnCourse = CollegeProgramComboBox.Text;//CollegeProgramComboBox.Text;
                 BtnAge = RegiAgeBox.Text;
                 BtnGender = RegiGenderComboBox.Text;
                 BtnMail = RegiMailBox.Text;
@@ -770,7 +770,7 @@ namespace C_Activity1
                 studNumRefresher();
                 RegiRPBox.Text = "";
                 RegiPassBox.Text = "";
-                RegiCourseBox.Text = "";
+                CollegeProgramComboBox.Text = "";
                 RegiAgeBox.Text = "";
                 RegiGenderComboBox.SelectedIndex = -1;
                 RegiMailBox.Text = "";
@@ -789,7 +789,7 @@ namespace C_Activity1
             BtnSN = RegiSNBox.Text;
             BtnRP = RegiRPBox.Text;
             BtnPass = RegiPassBox.Text;
-            BtnCourse = CollegeProgramComboBox.Text;//RegiCourseBox.Text;
+            BtnCourse = CollegeProgramComboBox.Text;//;
             BtnAge = RegiAgeBox.Text;
             BtnGender = RegiGenderComboBox.Text;
             BtnMail = RegiMailBox.Text;
@@ -906,7 +906,7 @@ namespace C_Activity1
             studNumRefresher();
             RegiRPBox.Text = "";
             RegiPassBox.Text = "";
-            RegiCourseBox.Text = "";
+            CollegeProgramComboBox.Text = "";
             RegiAgeBox.Text = "";
             RegiGenderComboBox.SelectedIndex = -1;
             RegiMailBox.Text = "";
@@ -960,7 +960,7 @@ namespace C_Activity1
                 RegiSNBox.Text = "";
                 RegiRPBox.Text = "";
                 RegiPassBox.Text = "";
-                RegiCourseBox.Text = "";
+                CollegeProgramComboBox.Text = "";
                 RegiAgeBox.Text = "";
                 RegiGenderComboBox.SelectedIndex = -1;
                 RegiMailBox.Text = "";
