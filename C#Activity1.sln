@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C#Activity1", "C#Activity1\C#Activity1.csproj", "{0EDD6C1A-16A6-42E2-B9FB-B94AC0AC96BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "C#Activity1", "C#Activity1\C#Activity1.csproj", "{0EDD6C1A-16A6-42E2-B9FB-B94AC0AC96BF}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Morpheus", "Morpheus\Morpheus.vdproj", "{DE5466D5-ED98-4D7C-B068-63C450621431}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{0EDD6C1A-16A6-42E2-B9FB-B94AC0AC96BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EDD6C1A-16A6-42E2-B9FB-B94AC0AC96BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EDD6C1A-16A6-42E2-B9FB-B94AC0AC96BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE5466D5-ED98-4D7C-B068-63C450621431}.Debug|Any CPU.ActiveCfg = Debug
+		{DE5466D5-ED98-4D7C-B068-63C450621431}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
