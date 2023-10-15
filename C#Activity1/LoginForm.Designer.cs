@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             LoginBtnTimer = new System.Windows.Forms.Timer(components);
             MorpheusLogo2 = new PictureBox();
             MorpheusLbl = new Label();
@@ -53,7 +54,6 @@
             NewPassLbl = new Label();
             CPChangeBtn = new Button();
             RegiPanel = new Panel();
-            RegiCourseBox = new TextBox();
             SNMaxChar = new Label();
             RegiMailLbl = new Label();
             RegiMailPanel = new Panel();
@@ -422,7 +422,6 @@
             // RegiPanel
             // 
             RegiPanel.BackColor = Color.FromArgb(250, 247, 247);
-            RegiPanel.Controls.Add(RegiCourseBox);
             RegiPanel.Controls.Add(SNMaxChar);
             RegiPanel.Controls.Add(RegiMailLbl);
             RegiPanel.Controls.Add(RegiMailPanel);
@@ -448,20 +447,6 @@
             RegiPanel.Size = new Size(580, 455);
             RegiPanel.TabIndex = 12;
             RegiPanel.Paint += RegiPanel_Paint;
-            // 
-            // RegiCourseBox
-            // 
-            RegiCourseBox.BackColor = Color.FromArgb(250, 247, 247);
-            RegiCourseBox.BorderStyle = BorderStyle.None;
-            RegiCourseBox.Cursor = Cursors.IBeam;
-            RegiCourseBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiCourseBox.ForeColor = Color.FromArgb(24, 79, 144);
-            RegiCourseBox.Location = new Point(105, 140);
-            RegiCourseBox.Margin = new Padding(10);
-            RegiCourseBox.Name = "RegiCourseBox";
-            RegiCourseBox.PlaceholderText = "Enter College Course";
-            RegiCourseBox.Size = new Size(265, 13);
-            RegiCourseBox.TabIndex = 13;
             // 
             // SNMaxChar
             // 
@@ -1093,10 +1078,10 @@
             ClientSize = new Size(869, 611);
             Controls.Add(LnRPanel);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximumSize = new Size(885, 650);
             MinimumSize = new Size(885, 650);
             Name = "LoginForm";
-            ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Morpheus Learning Hub";
             Load += RTULogin_Load;
