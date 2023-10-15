@@ -93,11 +93,19 @@ namespace C_Activity1
 
 
 
+
             using (MySqlConnection connection = new MySqlConnection(mysqlconn))
             {
                 try
                 {
-                    MessageBox.Show("Welcome to Morpheus. Do you wish to continue?", "Welcome Dreamers!", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    DialogResult result = MessageBox.Show("Welcome to Morpheus. Do you wish to continue?", "Welcome Dreamers!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        this.Show();
+                    }
+                    else
+                    {
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -107,8 +115,6 @@ namespace C_Activity1
                 {
                     connection.Close();
                 }
-
-
             }
 
             this.FormClosing += new FormClosingEventHandler(LoginForm_FormClosing);
