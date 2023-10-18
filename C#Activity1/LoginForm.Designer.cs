@@ -981,7 +981,7 @@
             // MorpheusLogo1
             // 
             MorpheusLogo1.Image = Properties.Resources._4;
-            MorpheusLogo1.Location = new Point(135, 25);
+            MorpheusLogo1.Location = new Point(138, 43);
             MorpheusLogo1.Name = "MorpheusLogo1";
             MorpheusLogo1.Size = new Size(128, 128);
             MorpheusLogo1.SizeMode = PictureBoxSizeMode.AutoSize;
