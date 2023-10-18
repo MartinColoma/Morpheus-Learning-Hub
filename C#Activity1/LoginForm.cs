@@ -1,4 +1,5 @@
 using MySql.Data.MySqlClient;
+using System.Data.SQLite;
 using System.Diagnostics.Eventing.Reader;
 using System.Security.Cryptography;
 using System.Text;
