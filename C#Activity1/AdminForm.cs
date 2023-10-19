@@ -42,8 +42,14 @@ namespace C_Activity1
 
             this.FormClosing += new FormClosingEventHandler(AdminPanel_FormClosing);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            RegiGenderComboBox.Items.AddRange(genders);
-            RegiGenderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            //Combo Boxes
+            InsertRegiGenderComboBox.Items.AddRange(genders);
+            InsertRegiGenderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            UpdateGenderComboBox.Items.AddRange(genders);
+            UpdateGenderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            //AccountTabs.SizeMode = TabSizeMode.Fixed;
+            //AccountTabs.TabPages.Clear();
 
         }
 
@@ -75,8 +81,8 @@ namespace C_Activity1
             LoadApprovedDB();
             LoadArchivedDB();
             ID = RandomNumberGenerator.GenerateRandomNumber();
-            string BtnSN = RegiSNBox.Text;
-            RegiSNBox.Text = ID + "-" + BtnSN;
+            string BtnSN = InsertRegiSNBox.Text;
+            InsertRegiSNBox.Text = ID + "-" + BtnSN;
         }
 
 
@@ -91,6 +97,15 @@ namespace C_Activity1
             //// Here, you can also insert the data into the database
             //InsertIntoApprovedDB(selectedRow);
         }
+
+        private void TabControl_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            // Set the item size height to zero to hide the tab headers
+            AccountTabs.ItemSize = new Size(0, 1);
+        }
+
+
+
 
         public void LoadPendingDB()
         {
@@ -190,7 +205,12 @@ namespace C_Activity1
             }
         }
 
-
+        private void DBRefresher()
+        {
+            LoadPendingDB();
+            LoadApprovedDB();
+            LoadArchivedDB();
+        }
 
         // Function to insert data into the database
         private void InsertIntoApprovedDB(DataGridViewRow selectedRow)
@@ -249,9 +269,7 @@ namespace C_Activity1
                     }
                 }
 
-                LoadPendingDB();
-                LoadApprovedDB();
-                LoadArchivedDB();
+                DBRefresher();
             }
             catch (Exception ex)
             {
@@ -321,9 +339,7 @@ namespace C_Activity1
                     }
                 }
 
-                LoadPendingDB();
-                LoadApprovedDB();
-                LoadArchivedDB();
+                DBRefresher();
             }
             catch (Exception ex)
             {
@@ -392,10 +408,7 @@ namespace C_Activity1
                         MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-
-                LoadPendingDB();
-                LoadApprovedDB();
-                LoadArchivedDB();
+                DBRefresher();
             }
             catch (Exception ex)
             {
@@ -465,9 +478,7 @@ namespace C_Activity1
                     }
                 }
 
-                LoadPendingDB();
-                LoadApprovedDB();
-                LoadArchivedDB();
+                DBRefresher();
             }
             catch (Exception ex)
             {
@@ -564,6 +575,301 @@ namespace C_Activity1
             }
         }
 
+        private void PendingUpdateBtn_Click(object sender, EventArgs e)
+        {
+            //Pending Update Btn
+            if (PendingTable.SelectedRows.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Do you want to edit the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    // Iterate through selected rows in PendingTable
+                    foreach (DataGridViewRow selectedRow in PendingTable.SelectedRows)
+                    {
+                        try
+                        {
+                            //// Insert data into the database
+                            RetrieveDataPendingDB(selectedRow);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle any database-related errors here
+                            MessageBox.Show("Error: " + ex.Message);
+                        }
+                    }
+
+                    if (AccountTabs.SelectedTab == PendingTab)
+                    {
+                        // Switch to the other tab (e.g., ApprovedTab)
+                        AccountTabs.SelectedTab = UpdateTab;
+                    }
+                    else if (AccountTabs.SelectedTab == UpdateTab)
+                    {
+                        // Switch back to the PendingTab
+                        AccountTabs.SelectedTab = PendingTab;
+                    }
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a table row first.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void ApprovedUpdateBtn_Click(object sender, EventArgs e)
+        {
+            if (ApprovedTable.SelectedRows.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Do you want to edit the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    // Iterate through selected rows in PendingTable
+                    foreach (DataGridViewRow selectedRow in ApprovedTable.SelectedRows)
+                    {
+                        try
+                        {
+                            //// Insert data into the database
+                            RetrieveDataApprovedDB(selectedRow);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle any database-related errors here
+                            MessageBox.Show("Error: " + ex.Message);
+                        }
+                    }
+
+                    if (AccountTabs.SelectedTab == ApprovedTab)
+                    {
+                        // Switch to the other tab (e.g., ApprovedTab)
+                        AccountTabs.SelectedTab = UpdateTab;
+                    }
+                    else if (AccountTabs.SelectedTab == UpdateTab)
+                    {
+                        // Switch back to the PendingTab
+                        AccountTabs.SelectedTab = ApprovedTab;
+                    }
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a table row first.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void ArchivedUpdateBtn_Click(object sender, EventArgs e)
+        {
+            if (ArchivedTable.SelectedRows.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Do you want to edit the selected data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    // Iterate through selected rows in PendingTable
+                    foreach (DataGridViewRow selectedRow in ArchivedTable.SelectedRows)
+                    {
+                        try
+                        {
+                            //// Insert data into the database
+                            RetrieveDataArchivedDB(selectedRow);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle any database-related errors here
+                            MessageBox.Show("Error: " + ex.Message);
+                        }
+                    }
+
+                    if (AccountTabs.SelectedTab == ArchivedTab)
+                    {
+                        // Switch to the other tab (e.g., ApprovedTab)
+                        AccountTabs.SelectedTab = UpdateTab;
+                    }
+                    else if (AccountTabs.SelectedTab == UpdateTab)
+                    {
+                        // Switch back to the PendingTab
+                        AccountTabs.SelectedTab = ArchivedTab;
+                    }
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a table row first.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void RetrieveDataPendingDB(DataGridViewRow selectedRow)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                {
+                    connection.Open();
+
+                    // Get the student number from the selected row
+                    string studentNumber = selectedRow.Cells["StudNum"].Value.ToString();
+
+                    // Check if the student number exists in the database
+                    string selectQuery = "SELECT * FROM mpendingdb WHERE StudNum = @StudNum";
+                    MySqlCommand selectCmd = new MySqlCommand(selectQuery, connection);
+                    selectCmd.Parameters.AddWithValue("@StudNum", studentNumber);
+
+                    using (MySqlDataReader reader = selectCmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Retrieve data from the database
+                            string name = reader["Name"].ToString();
+                            string sn = reader["StudNum"].ToString();
+                            string rp = reader["RecoveryPin"].ToString();
+                            string course = reader["Course"].ToString();
+                            string age = reader["Age"].ToString();
+                            string gender = reader["Gender"].ToString();
+                            string email = reader["Email"].ToString();
+
+                            // Populate the text boxes with the retrieved data
+                            UpdateNameBox.Text = name;
+                            UpdateSNBox.Text = sn;
+                            UpdateRPBox.Text = rp;
+                            UpdateCourseBox.Text = course;
+                            UpdateAgeBox.Text = age;
+                            UpdateGenderComboBox.Text = gender;
+                            UpdateEmailBox.Text = email;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle database exception (e.g., connection error or duplicate entry)
+                MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        private void RetrieveDataApprovedDB(DataGridViewRow selectedRow)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                {
+                    connection.Open();
+
+                    // Get the student number from the selected row
+                    string studentNumber = selectedRow.Cells["StudNum"].Value.ToString();
+
+                    // Check if the student number exists in the database
+                    string selectQuery = "SELECT * FROM mapproveddb WHERE StudNum = @StudNum";
+                    MySqlCommand selectCmd = new MySqlCommand(selectQuery, connection);
+                    selectCmd.Parameters.AddWithValue("@StudNum", studentNumber);
+
+                    using (MySqlDataReader reader = selectCmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Retrieve data from the database
+                            string name = reader["Name"].ToString();
+                            string sn = reader["StudNum"].ToString();
+                            string rp = reader["RecoveryPin"].ToString();
+                            string course = reader["Course"].ToString();
+                            string age = reader["Age"].ToString();
+                            string gender = reader["Gender"].ToString();
+                            string email = reader["Email"].ToString();
+
+                            // Populate the text boxes with the retrieved data
+                            UpdateNameBox.Text = name;
+                            UpdateSNBox.Text = sn;
+                            UpdateRPBox.Text = rp;
+                            UpdateCourseBox.Text = course;
+                            UpdateAgeBox.Text = age;
+                            UpdateGenderComboBox.Text = gender;
+                            UpdateEmailBox.Text = email;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle database exception (e.g., connection error or duplicate entry)
+                MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        private void RetrieveDataArchivedDB(DataGridViewRow selectedRow)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                {
+                    connection.Open();
+
+                    // Get the student number from the selected row
+                    string studentNumber = selectedRow.Cells["StudNum"].Value.ToString();
+
+                    // Check if the student number exists in the database
+                    string selectQuery = "SELECT * FROM marchiveddb WHERE StudNum = @StudNum";
+                    MySqlCommand selectCmd = new MySqlCommand(selectQuery, connection);
+                    selectCmd.Parameters.AddWithValue("@StudNum", studentNumber);
+
+                    using (MySqlDataReader reader = selectCmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Retrieve data from the database
+                            string name = reader["Name"].ToString();
+                            string sn = reader["StudNum"].ToString();
+                            string rp = reader["RecoveryPin"].ToString();
+                            string course = reader["Course"].ToString();
+                            string age = reader["Age"].ToString();
+                            string gender = reader["Gender"].ToString();
+                            string email = reader["Email"].ToString();
+
+                            // Populate the text boxes with the retrieved data
+                            UpdateNameBox.Text = name;
+                            UpdateSNBox.Text = sn;
+                            UpdateRPBox.Text = rp;
+                            UpdateCourseBox.Text = course;
+                            UpdateAgeBox.Text = age;
+                            UpdateGenderComboBox.Text = gender;
+                            UpdateEmailBox.Text = email;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle database exception (e.g., connection error or duplicate entry)
+                MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
         private void DeleteInPendingdDB(DataGridViewRow selectedRow)
         {
             string selectedUID = selectedRow.Cells["UserID"].Value as string;
@@ -592,9 +898,7 @@ namespace C_Activity1
                         MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                LoadPendingDB();
-                LoadApprovedDB();
-                LoadArchivedDB();
+                DBRefresher();
             }
             catch (Exception ex)
             {
@@ -638,9 +942,7 @@ namespace C_Activity1
                         MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                LoadPendingDB();
-                LoadApprovedDB();
-                LoadArchivedDB();
+                DBRefresher();
             }
             catch (Exception ex)
             {
@@ -683,9 +985,7 @@ namespace C_Activity1
                         MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                LoadPendingDB();
-                LoadApprovedDB();
-                LoadArchivedDB();
+                DBRefresher();
             }
             catch (Exception ex)
             {
@@ -1053,23 +1353,23 @@ namespace C_Activity1
 
         private void RegiGenderComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (RegiGenderComboBox.SelectedItem != null)
+            if (InsertRegiGenderComboBox.SelectedItem != null)
             {
-                RegiGenderComboBox.Text = RegiGenderComboBox.SelectedItem.ToString();
+                InsertRegiGenderComboBox.Text = InsertRegiGenderComboBox.SelectedItem.ToString();
             }
         }
 
         private void CreateBtn_Click(object sender, EventArgs e)
         {
             string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender, BtnMail, BtnRole;
-            Btnname = RegiNameBox.Text;
-            BtnSN = RegiSNBox.Text;
-            BtnRP = RegiRPBox.Text;
-            BtnPass = RegiPassBox.Text;
-            BtnCourse = RegiCourseBox.Text;
-            BtnAge = RegiAgeBox.Text;
-            BtnGender = RegiGenderComboBox.Text;
-            BtnMail = RegiMailBox.Text;
+            Btnname = InsertRegiNameBox.Text;
+            BtnSN = InsertRegiSNBox.Text;
+            BtnRP = InsertRegiRPBox.Text;
+            BtnPass = InsertRegiPassBox.Text;
+            BtnCourse = InsertRegiCourseBox.Text;
+            BtnAge = InsertRegiAgeBox.Text;
+            BtnGender = InsertRegiGenderComboBox.Text;
+            BtnMail = InsertRegiMailBox.Text;
 
 
             string hashedPassword = HashHelper.HashString(BtnPass);    // Password hashed
@@ -1164,6 +1464,7 @@ namespace C_Activity1
 
                     cmd.ExecuteNonQuery();
                 }
+                DBRefresher();
 
                 // Successful insertion
                 MessageBox.Show("Account added for approval", "Hooray!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1178,27 +1479,19 @@ namespace C_Activity1
                 // Make sure to close the connection
                 connection.Close();
             }
-
-            RegiNameBox.Text = "";
-            RegiSNBox.Text = "";
-            RegiRPBox.Text = "";
-            RegiPassBox.Text = "";
-            RegiCourseBox.Text = "";
-            RegiAgeBox.Text = "";
-            RegiGenderComboBox.SelectedIndex = -1;
-            RegiMailBox.Text = "";
+            InsertTextboxClear();
         }
 
-        private bool IsStudentNumberInApprovedTable(string studentNumber)
+        private void InsertTextboxClear()
         {
-            foreach (DataGridViewRow row in AdminForm.instance.ApprovedTable.Rows)
-            {
-                if (row.Cells["ASNColumn"].Value != null && row.Cells["ASNColumn"].Value.ToString() == studentNumber)
-                {
-                    return true;
-                }
-            }
-            return false;
+            InsertRegiNameBox.Text = "";
+            InsertRegiSNBox.Text = "";
+            InsertRegiRPBox.Text = "";
+            InsertRegiPassBox.Text = "";
+            InsertRegiCourseBox.Text = "";
+            InsertRegiAgeBox.Text = "";
+            InsertRegiGenderComboBox.SelectedIndex = -1;
+            InsertRegiMailBox.Text = "";
         }
 
         private void HandleIncorrectCreateInput(string errorMessage)
@@ -1241,14 +1534,14 @@ namespace C_Activity1
             {
 
                 string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender, BtnMail, BtnRole;
-                Btnname = RegiNameBox.Text;
-                BtnSN = RegiSNBox.Text;
-                BtnRP = RegiRPBox.Text;
-                BtnPass = RegiPassBox.Text;
-                BtnCourse = RegiCourseBox.Text;
-                BtnAge = RegiAgeBox.Text;
-                BtnGender = RegiGenderComboBox.Text;
-                BtnMail = RegiMailBox.Text;
+                Btnname = InsertRegiNameBox.Text;
+                BtnSN = InsertRegiSNBox.Text;
+                BtnRP = InsertRegiRPBox.Text;
+                BtnPass = InsertRegiPassBox.Text;
+                BtnCourse = InsertRegiCourseBox.Text;
+                BtnAge = InsertRegiAgeBox.Text;
+                BtnGender = InsertRegiGenderComboBox.Text;
+                BtnMail = InsertRegiMailBox.Text;
 
 
                 string hashedPassword = HashHelper.HashString(BtnPass);    // Password hashed
@@ -1343,7 +1636,7 @@ namespace C_Activity1
 
                         cmd.ExecuteNonQuery();
                     }
-
+                    DBRefresher();
                     // Successful insertion
                     MessageBox.Show("Account added for approval", "Hooray!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -1358,14 +1651,8 @@ namespace C_Activity1
                     connection.Close();
                 }
 
-                RegiNameBox.Text = "";
-                RegiSNBox.Text = "";
-                RegiRPBox.Text = "";
-                RegiPassBox.Text = "";
-                RegiCourseBox.Text = "";
-                RegiAgeBox.Text = "";
-                RegiGenderComboBox.SelectedIndex = -1;
-                RegiMailBox.Text = "";
+                InsertTextboxClear();
+
 
                 e.SuppressKeyPress = true;
             }
@@ -1377,7 +1664,7 @@ namespace C_Activity1
             if (e.KeyCode == Keys.Back)
             {
                 // If the current length is less than or equal to the minimum required length, prevent Backspace
-                if (RegiSNBox.Text.Length <= minTextLength)
+                if (InsertRegiSNBox.Text.Length <= minTextLength)
                 {
                     e.SuppressKeyPress = true; // Prevent Backspace
                 }
@@ -1393,16 +1680,308 @@ namespace C_Activity1
 
         private void studNumRefresher()
         {
-            RegiSNBox.Text = "";
+            InsertRegiSNBox.Text = "";
             ID = RandomNumberGenerator.GenerateRandomNumber();
-            string BtnSN = RegiSNBox.Text;
-            RegiSNBox.Text = ID + "-" + BtnSN;
+            string BtnSN = InsertRegiSNBox.Text;
+            InsertRegiSNBox.Text = ID + "-" + BtnSN;
         }
 
         private void RegiShowPass_CheckedChanged(object sender, EventArgs e)
         {
-            RegiPassBox.UseSystemPasswordChar = !RegiShowPass.Checked;
+            InsertRegiPassBox.UseSystemPasswordChar = !RegiShowPass.Checked;
 
         }
+
+        private void Update_Click(object sender, EventArgs e)
+        {
+            string Btnname, BtnSN, BtnRP, BtnPass, BtnCourse, BtnAge, BtnGender, BtnMail, BtnRole;
+            Btnname = UpdateNameBox.Text;
+            BtnSN = UpdateSNBox.Text;
+            BtnRP = UpdateRPBox.Text;
+            BtnPass = UpdatePassBox.Text;
+            BtnCourse = UpdateCourseBox.Text;
+            BtnAge = UpdateAgeBox.Text;
+            BtnGender = UpdateGenderComboBox.Text;
+            BtnMail = UpdateEmailBox.Text;
+
+
+            string hashedPassword = HashHelper.HashString(BtnPass);    // Password hashed
+            string fixedSalt = HashHelper_Salt.HashString_Salt("Morpheus" + BtnPass + "01");    //Fixed Salt
+            string perUserSalt = HashHelper_SaltperUser.HashString_SaltperUser(BtnPass + ID);    //Per User salt
+
+
+            // Regex patterns
+            Regex nameRegex = new Regex("^[A-Z][a-zA-Z]+(?: [a-zA-Z]+)*$");
+            Regex courseRegex = new Regex("^[A-Za-z]+(?: [A-Za-z]+)*$");
+            Regex passwordRegex = new Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]{8,}$");
+            Regex gmailRegex = new Regex(@"^[A-Za-z0-9._%+-]*\d*@gmail\.com$");
+
+            // Check if any of the input fields is empty
+            if (string.IsNullOrEmpty(Btnname) || string.IsNullOrEmpty(BtnSN) || string.IsNullOrEmpty(BtnRP) ||
+                string.IsNullOrEmpty(BtnPass) || string.IsNullOrEmpty(BtnAge) || string.IsNullOrEmpty(BtnCourse) ||
+                string.IsNullOrEmpty(BtnGender) || string.IsNullOrEmpty(BtnMail))
+            {
+                MessageBox.Show("Missing text in required fields.", "Ooooops!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // Exit the method since there's an error
+            }
+            else if (Btnname.Contains("Admin") || BtnSN.Contains("Admin") || BtnPass.Contains("Admin123"))
+            {
+                HandleIncorrectCreateInput("This student already has an account.");
+                return;
+            }
+
+            // Check if the student number (BtnSN) already exists in ApprovedTable
+            //bool isStudentInApprovedTable = IsStudentNumberInApprovedTable(BtnSN);
+
+            //if (isStudentInApprovedTable)
+            //{
+            //    HandleApprovedUserInput("This student already has an account.");
+            //    return; // Exit the method since there's an error
+            //}
+
+            // Validate fields using regex patterns
+            else if (!nameRegex.IsMatch(Btnname))
+            {
+                HandleIncorrectCreateInput("Name must start with a capital letter and only contain alphabetic values.");
+                return;
+            }
+            else if (!courseRegex.IsMatch(BtnCourse))
+            {
+                HandleIncorrectCreateInput("Course must only contain alphabetic values.");
+                return;
+            }
+            else if (!int.TryParse(BtnAge, out _))
+            {
+                HandleIncorrectCreateInput("Age must only contain numeric values.");
+                return;
+            }
+            //else if (!int.TryParse(BtnSN, out _))
+            //{
+            //    HandleIncorrectCreateInput("Incorrect Student Number.");
+            //    return;
+            //}
+            else if (!gmailRegex.IsMatch(BtnMail))
+            {
+                HandleIncorrectCreateInput("Invalid Gmail address format.");
+                return;
+            }
+            else if (!passwordRegex.IsMatch(BtnPass))
+            {
+                HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
+                return;
+            }
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                {
+                    connection.Open();
+
+                    // Check if the student number (BtnSN) exists in the database
+                    string selectQuery = "SELECT * FROM mpendingdb WHERE StudNum = @StudNum";
+                    MySqlCommand selectCmd = new MySqlCommand(selectQuery, connection);
+                    selectCmd.Parameters.AddWithValue("@StudNum", BtnSN);
+
+                    using (MySqlDataReader reader = selectCmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // The student number exists, so perform an update
+                            reader.Close(); // Close the DataReader
+
+                            string updateQuery = "UPDATE mpendingdb SET Name = @Name, Age = @Age, Gender = @Gender, Course = @Course, " +
+                                                "Email = @Email, RecoveryPin = @RecoveryPin, PassHashed = @Password, " +
+                                                "PassFixNa = @FixedSalt, PassPerUserNa = @PerUserSalt WHERE StudNum = @StudNum";
+
+                            MySqlCommand updateCmd = new MySqlCommand(updateQuery, connection);
+                            updateCmd.Parameters.AddWithValue("@Name", Btnname);
+                            updateCmd.Parameters.AddWithValue("@StudNum", BtnSN);
+                            updateCmd.Parameters.AddWithValue("@Password", hashedPassword);
+                            updateCmd.Parameters.AddWithValue("@FixedSalt", fixedSalt);
+                            updateCmd.Parameters.AddWithValue("@PerUserSalt", perUserSalt);
+                            updateCmd.Parameters.AddWithValue("@Course", BtnCourse);
+                            updateCmd.Parameters.AddWithValue("@Age", BtnAge);
+                            updateCmd.Parameters.AddWithValue("@Gender", BtnGender);
+                            updateCmd.Parameters.AddWithValue("@Email", BtnMail);
+                            updateCmd.Parameters.AddWithValue("@RecoveryPin", BtnRP);
+
+                            updateCmd.ExecuteNonQuery();
+                            MessageBox.Show("User data updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            // The student number does not exist, so show an error message
+                            MessageBox.Show("Student not found in the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle database exception (e.g., connection error or duplicate entry)
+                MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Make sure to close the connection
+                connection.Close();
+            }
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                {
+                    connection.Open();
+
+                    // Check if the student number (BtnSN) exists in the pendingdb table
+                    string selectPendingQuery = "SELECT * FROM mpendingdb WHERE StudNum = @StudNum";
+                    MySqlCommand selectPendingCmd = new MySqlCommand(selectPendingQuery, connection);
+                    selectPendingCmd.Parameters.AddWithValue("@StudNum", BtnSN);
+
+                    // Check if the student number (BtnSN) exists in the approveddb table
+                    string selectApprovedQuery = "SELECT * FROM mapproveddb WHERE StudNum = @StudNum";
+                    MySqlCommand selectApprovedCmd = new MySqlCommand(selectApprovedQuery, connection);
+                    selectApprovedCmd.Parameters.AddWithValue("@StudNum", BtnSN);
+
+                    // Check if the student number (BtnSN) exists in the archiveddb table
+                    string selectArchivedQuery = "SELECT * FROM marchiveddb WHERE StudNum = @StudNum";
+                    MySqlCommand selectArchivedCmd = new MySqlCommand(selectArchivedQuery, connection);
+                    selectArchivedCmd.Parameters.AddWithValue("@StudNum", BtnSN);
+
+                    using (MySqlDataReader pendingReader = selectPendingCmd.ExecuteReader())
+                    using (MySqlDataReader approvedReader = selectApprovedCmd.ExecuteReader())
+                    using (MySqlDataReader archivedReader = selectArchivedCmd.ExecuteReader())
+                    {
+                        if (pendingReader.Read())
+                        {
+                            // The student number exists in the pendingdb table, so perform an update
+                            // ... (update code for mpendingdb)
+                            pendingReader.Close(); // Close the DataReader
+
+                            string updateQuery = "UPDATE mpendingdb SET Name = @Name, Age = @Age, Gender = @Gender, Course = @Course, " +
+                                                "Email = @Email, RecoveryPin = @RecoveryPin, PassHashed = @Password, " +
+                                                "PassFixNa = @FixedSalt, PassPerUserNa = @PerUserSalt WHERE StudNum = @StudNum";
+
+                            MySqlCommand updateCmd = new MySqlCommand(updateQuery, connection);
+                            updateCmd.Parameters.AddWithValue("@Name", Btnname);
+                            updateCmd.Parameters.AddWithValue("@StudNum", BtnSN);
+                            updateCmd.Parameters.AddWithValue("@Password", hashedPassword);
+                            updateCmd.Parameters.AddWithValue("@FixedSalt", fixedSalt);
+                            updateCmd.Parameters.AddWithValue("@PerUserSalt", perUserSalt);
+                            updateCmd.Parameters.AddWithValue("@Course", BtnCourse);
+                            updateCmd.Parameters.AddWithValue("@Age", BtnAge);
+                            updateCmd.Parameters.AddWithValue("@Gender", BtnGender);
+                            updateCmd.Parameters.AddWithValue("@Email", BtnMail);
+                            updateCmd.Parameters.AddWithValue("@RecoveryPin", BtnRP);
+
+                            updateCmd.ExecuteNonQuery();
+                            MessageBox.Show("User data updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                        else if (approvedReader.Read())
+                        {
+                            // The student number exists in the approveddb table, so perform an update
+                            // ... (update code for mapproveddb)
+                            approvedReader.Close(); // Close the DataReader
+
+                            string updateQuery = "UPDATE mapproveddb SET Name = @Name, Age = @Age, Gender = @Gender, Course = @Course, " +
+                                                "Email = @Email, RecoveryPin = @RecoveryPin, PassHashed = @Password, " +
+                                                "PassFixNa = @FixedSalt, PassPerUserNa = @PerUserSalt WHERE StudNum = @StudNum";
+
+                            MySqlCommand updateCmd = new MySqlCommand(updateQuery, connection);
+                            updateCmd.Parameters.AddWithValue("@Name", Btnname);
+                            updateCmd.Parameters.AddWithValue("@StudNum", BtnSN);
+                            updateCmd.Parameters.AddWithValue("@Password", hashedPassword);
+                            updateCmd.Parameters.AddWithValue("@FixedSalt", fixedSalt);
+                            updateCmd.Parameters.AddWithValue("@PerUserSalt", perUserSalt);
+                            updateCmd.Parameters.AddWithValue("@Course", BtnCourse);
+                            updateCmd.Parameters.AddWithValue("@Age", BtnAge);
+                            updateCmd.Parameters.AddWithValue("@Gender", BtnGender);
+                            updateCmd.Parameters.AddWithValue("@Email", BtnMail);
+                            updateCmd.Parameters.AddWithValue("@RecoveryPin", BtnRP);
+
+                            updateCmd.ExecuteNonQuery();
+                            MessageBox.Show("User data updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                        else if (archivedReader.Read())
+                        {
+                            // The student number exists in the archiveddb table, so perform an update
+                            // ... (update code for marchiveddb)
+                            archivedReader.Close(); // Close the DataReader
+
+                            string updateQuery = "UPDATE marchiveddb SET Name = @Name, Age = @Age, Gender = @Gender, Course = @Course, " +
+                                                "Email = @Email, RecoveryPin = @RecoveryPin, PassHashed = @Password, " +
+                                                "PassFixNa = @FixedSalt, PassPerUserNa = @PerUserSalt WHERE StudNum = @StudNum";
+
+                            MySqlCommand updateCmd = new MySqlCommand(updateQuery, connection);
+                            updateCmd.Parameters.AddWithValue("@Name", Btnname);
+                            updateCmd.Parameters.AddWithValue("@StudNum", BtnSN);
+                            updateCmd.Parameters.AddWithValue("@Password", hashedPassword);
+                            updateCmd.Parameters.AddWithValue("@FixedSalt", fixedSalt);
+                            updateCmd.Parameters.AddWithValue("@PerUserSalt", perUserSalt);
+                            updateCmd.Parameters.AddWithValue("@Course", BtnCourse);
+                            updateCmd.Parameters.AddWithValue("@Age", BtnAge);
+                            updateCmd.Parameters.AddWithValue("@Gender", BtnGender);
+                            updateCmd.Parameters.AddWithValue("@Email", BtnMail);
+                            updateCmd.Parameters.AddWithValue("@RecoveryPin", BtnRP);
+
+                            updateCmd.ExecuteNonQuery();
+                            MessageBox.Show("User data updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                        else
+                        {
+                            // The student number does not exist in any of the tables, show an error message
+                            MessageBox.Show("Student not found in any of the database tables.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle database exception (e.g., connection error or duplicate entry)
+                MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Make sure to close the connection
+                connection.Close();
+            }
+
+            DBRefresher();
+
+            UpdateTextboxClear();
+
+
+        }
+
+        private void UpdateTextboxClear()
+        {
+            UpdateNameBox.Text = "";
+            UpdateSNBox.Text = "";
+            UpdateRPBox.Text = "";
+            UpdatePassBox.Text = "";
+            UpdateCourseBox.Text = "";
+            UpdateAgeBox.Text = "";
+            UpdateGenderComboBox.SelectedIndex = -1;
+            UpdateEmailBox.Text = "";
+        }
+
+        private void UpdateShowPass_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdatePassBox.UseSystemPasswordChar = !UpdateShowPass.Checked;
+
+        }
+
+        private void UpdateGenderComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (UpdateGenderComboBox.SelectedItem != null)
+            {
+                UpdateGenderComboBox.Text = UpdateGenderComboBox.SelectedItem.ToString();
+            }
+        }
+
     }
 }

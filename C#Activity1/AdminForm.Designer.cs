@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             PendingTable = new DataGridView();
             ApprovedTable = new DataGridView();
             PendingLabel = new Label();
             ApprovedLbl = new Label();
             ApproveBtn = new Button();
             ApprovedPanel = new Panel();
+            ApprovedUpdateBtn = new Button();
             ApprovedSearchPanel = new Panel();
             ApprovedSearchBtn = new FontAwesome.Sharp.IconButton();
             ApprovedSearchBox = new TextBox();
@@ -45,43 +46,13 @@
             MorpheusLogo2 = new PictureBox();
             ArchiveBtn = new Button();
             PendingPanel = new Panel();
+            PendingUpdateBtn = new Button();
             PendingSearchPanel = new Panel();
             PendingSearchBtn = new FontAwesome.Sharp.IconButton();
             PendingSearchBox = new TextBox();
             PendingRefreshBtn = new FontAwesome.Sharp.IconButton();
             MorpheusBlueLogo = new PictureBox();
             AccountTabs = new TabControl();
-            InsertTab = new TabPage();
-            RegiPanel = new Panel();
-            SNMaxChar = new Label();
-            RegiMailLbl = new Label();
-            RegiMailPanel = new Panel();
-            RegiMailBox = new TextBox();
-            RegiAgeLbl = new Label();
-            GenderLbl = new Label();
-            RegiGenderPanel = new Panel();
-            RegiGenderComboBox = new ComboBox();
-            RegiCourseLbl = new Label();
-            RegiCoursePanel = new Panel();
-            RegiCourseBox = new TextBox();
-            RegiNamePanel = new Panel();
-            RegiNameBox = new TextBox();
-            RegiRPLabel = new Label();
-            RegiSNLabel = new Label();
-            CreateBtn = new Button();
-            RegiPassLabel = new Label();
-            RegiNameLabel = new Label();
-            GSLabel = new Label();
-            RegiPassPanel = new Panel();
-            RegiShowPass = new CheckBox();
-            RegiPassBox = new TextBox();
-            RegiRPPanel = new Panel();
-            RegiRPBox = new TextBox();
-            RegiSNBoxPanel = new Panel();
-            StudNumRefreshBtn = new FontAwesome.Sharp.IconButton();
-            RegiSNBox = new TextBox();
-            RegiAgePanel = new Panel();
-            RegiAgeBox = new TextBox();
             PendingTab = new TabPage();
             ApprovedTab = new TabPage();
             ArchivedTab = new TabPage();
@@ -95,6 +66,68 @@
             ReactivateBtn = new Button();
             ArchivedAccLbl = new Label();
             ArchivedTable = new DataGridView();
+            InsertTab = new TabPage();
+            RegiPanel = new Panel();
+            SNMaxChar = new Label();
+            RegiMailLbl = new Label();
+            RegiMailPanel = new Panel();
+            InsertRegiMailBox = new TextBox();
+            RegiAgeLbl = new Label();
+            GenderLbl = new Label();
+            RegiGenderPanel = new Panel();
+            InsertRegiGenderComboBox = new ComboBox();
+            RegiCourseLbl = new Label();
+            RegiCoursePanel = new Panel();
+            InsertRegiCourseBox = new TextBox();
+            RegiNamePanel = new Panel();
+            InsertRegiNameBox = new TextBox();
+            RegiRPLabel = new Label();
+            RegiSNLabel = new Label();
+            CreateBtn = new Button();
+            RegiPassLabel = new Label();
+            RegiNameLabel = new Label();
+            GSLabel = new Label();
+            RegiPassPanel = new Panel();
+            RegiShowPass = new CheckBox();
+            InsertRegiPassBox = new TextBox();
+            RegiRPPanel = new Panel();
+            InsertRegiRPBox = new TextBox();
+            RegiSNBoxPanel = new Panel();
+            StudNumRefreshBtn = new FontAwesome.Sharp.IconButton();
+            InsertRegiSNBox = new TextBox();
+            RegiAgePanel = new Panel();
+            InsertRegiAgeBox = new TextBox();
+            UpdateTab = new TabPage();
+            panel1 = new Panel();
+            label1 = new Label();
+            label2 = new Label();
+            panel2 = new Panel();
+            UpdateEmailBox = new TextBox();
+            label3 = new Label();
+            label4 = new Label();
+            panel3 = new Panel();
+            UpdateGenderComboBox = new ComboBox();
+            label5 = new Label();
+            panel4 = new Panel();
+            UpdateCourseBox = new TextBox();
+            panel5 = new Panel();
+            UpdateNameBox = new TextBox();
+            label6 = new Label();
+            label7 = new Label();
+            UpdateBtn = new Button();
+            label8 = new Label();
+            label9 = new Label();
+            label10 = new Label();
+            panel6 = new Panel();
+            UpdateShowPass = new CheckBox();
+            UpdatePassBox = new TextBox();
+            panel7 = new Panel();
+            UpdateRPBox = new TextBox();
+            panel8 = new Panel();
+            UpdateSNBox = new TextBox();
+            panel9 = new Panel();
+            UpdateAgeBox = new TextBox();
+            ArchivedUpdateBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)PendingTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)ApprovedTable).BeginInit();
             ApprovedPanel.SuspendLayout();
@@ -104,6 +137,13 @@
             PendingSearchPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusBlueLogo).BeginInit();
             AccountTabs.SuspendLayout();
+            PendingTab.SuspendLayout();
+            ApprovedTab.SuspendLayout();
+            ArchivedTab.SuspendLayout();
+            ArchivedPanel.SuspendLayout();
+            ArchivedSearchPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)ArchivedLogo).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ArchivedTable).BeginInit();
             InsertTab.SuspendLayout();
             RegiPanel.SuspendLayout();
             RegiMailPanel.SuspendLayout();
@@ -114,20 +154,23 @@
             RegiRPPanel.SuspendLayout();
             RegiSNBoxPanel.SuspendLayout();
             RegiAgePanel.SuspendLayout();
-            PendingTab.SuspendLayout();
-            ApprovedTab.SuspendLayout();
-            ArchivedTab.SuspendLayout();
-            ArchivedPanel.SuspendLayout();
-            ArchivedSearchPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)ArchivedLogo).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)ArchivedTable).BeginInit();
+            UpdateTab.SuspendLayout();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            panel3.SuspendLayout();
+            panel4.SuspendLayout();
+            panel5.SuspendLayout();
+            panel6.SuspendLayout();
+            panel7.SuspendLayout();
+            panel8.SuspendLayout();
+            panel9.SuspendLayout();
             SuspendLayout();
             // 
             // PendingTable
             // 
             PendingTable.AllowUserToAddRows = false;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PendingTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             PendingTable.BorderStyle = BorderStyle.Fixed3D;
@@ -135,14 +178,14 @@
             PendingTable.Location = new Point(42, 152);
             PendingTable.Name = "PendingTable";
             PendingTable.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(250, 247, 247);
-            dataGridViewCellStyle4.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(250, 247, 247);
+            dataGridViewCellStyle2.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             PendingTable.RowTemplate.Height = 25;
             PendingTable.Size = new Size(665, 220);
             PendingTable.TabIndex = 0;
@@ -212,6 +255,7 @@
             // 
             // ApprovedPanel
             // 
+            ApprovedPanel.Controls.Add(ApprovedUpdateBtn);
             ApprovedPanel.Controls.Add(ApprovedSearchPanel);
             ApprovedPanel.Controls.Add(PendingBtn);
             ApprovedPanel.Controls.Add(AdminLoginLinkedLbl);
@@ -225,6 +269,25 @@
             ApprovedPanel.Size = new Size(747, 476);
             ApprovedPanel.TabIndex = 11;
             ApprovedPanel.Paint += ApprovedPanel_Paint;
+            // 
+            // ApprovedUpdateBtn
+            // 
+            ApprovedUpdateBtn.BackColor = Color.Transparent;
+            ApprovedUpdateBtn.Cursor = Cursors.Hand;
+            ApprovedUpdateBtn.FlatAppearance.BorderColor = Color.FromArgb(41, 52, 64);
+            ApprovedUpdateBtn.FlatAppearance.BorderSize = 2;
+            ApprovedUpdateBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(250, 247, 247);
+            ApprovedUpdateBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
+            ApprovedUpdateBtn.FlatStyle = FlatStyle.Flat;
+            ApprovedUpdateBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ApprovedUpdateBtn.ForeColor = Color.White;
+            ApprovedUpdateBtn.Location = new Point(354, 405);
+            ApprovedUpdateBtn.Name = "ApprovedUpdateBtn";
+            ApprovedUpdateBtn.Size = new Size(114, 37);
+            ApprovedUpdateBtn.TabIndex = 24;
+            ApprovedUpdateBtn.Text = "UPDATE";
+            ApprovedUpdateBtn.UseVisualStyleBackColor = false;
+            ApprovedUpdateBtn.Click += ApprovedUpdateBtn_Click;
             // 
             // ApprovedSearchPanel
             // 
@@ -350,6 +413,7 @@
             // 
             // PendingPanel
             // 
+            PendingPanel.Controls.Add(PendingUpdateBtn);
             PendingPanel.Controls.Add(PendingSearchPanel);
             PendingPanel.Controls.Add(PendingRefreshBtn);
             PendingPanel.Controls.Add(ApproveBtn);
@@ -361,6 +425,25 @@
             PendingPanel.Size = new Size(744, 473);
             PendingPanel.TabIndex = 13;
             PendingPanel.Paint += PendingPanel_Paint;
+            // 
+            // PendingUpdateBtn
+            // 
+            PendingUpdateBtn.BackColor = Color.Transparent;
+            PendingUpdateBtn.Cursor = Cursors.Hand;
+            PendingUpdateBtn.FlatAppearance.BorderColor = Color.FromArgb(41, 52, 64);
+            PendingUpdateBtn.FlatAppearance.BorderSize = 2;
+            PendingUpdateBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(250, 247, 247);
+            PendingUpdateBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
+            PendingUpdateBtn.FlatStyle = FlatStyle.Flat;
+            PendingUpdateBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            PendingUpdateBtn.ForeColor = Color.White;
+            PendingUpdateBtn.Location = new Point(472, 396);
+            PendingUpdateBtn.Name = "PendingUpdateBtn";
+            PendingUpdateBtn.Size = new Size(114, 37);
+            PendingUpdateBtn.TabIndex = 22;
+            PendingUpdateBtn.Text = "UPDATE";
+            PendingUpdateBtn.UseVisualStyleBackColor = false;
+            PendingUpdateBtn.Click += PendingUpdateBtn_Click;
             // 
             // PendingSearchPanel
             // 
@@ -435,10 +518,11 @@
             // 
             // AccountTabs
             // 
-            AccountTabs.Controls.Add(InsertTab);
             AccountTabs.Controls.Add(PendingTab);
             AccountTabs.Controls.Add(ApprovedTab);
             AccountTabs.Controls.Add(ArchivedTab);
+            AccountTabs.Controls.Add(InsertTab);
+            AccountTabs.Controls.Add(UpdateTab);
             AccountTabs.Cursor = Cursors.Hand;
             AccountTabs.Dock = DockStyle.Fill;
             AccountTabs.HotTrack = true;
@@ -447,406 +531,8 @@
             AccountTabs.SelectedIndex = 0;
             AccountTabs.Size = new Size(804, 511);
             AccountTabs.TabIndex = 30;
+            AccountTabs.DrawItem += TabControl_DrawItem;
             AccountTabs.SelectedIndexChanged += AccountTabs_SelectedIndexChanged;
-            // 
-            // InsertTab
-            // 
-            InsertTab.BackColor = Color.FromArgb(90, 115, 141);
-            InsertTab.Controls.Add(RegiPanel);
-            InsertTab.Location = new Point(4, 24);
-            InsertTab.Name = "InsertTab";
-            InsertTab.Padding = new Padding(3);
-            InsertTab.Size = new Size(796, 483);
-            InsertTab.TabIndex = 3;
-            InsertTab.Text = "Insert Account";
-            // 
-            // RegiPanel
-            // 
-            RegiPanel.BackColor = Color.FromArgb(250, 247, 247);
-            RegiPanel.Controls.Add(SNMaxChar);
-            RegiPanel.Controls.Add(RegiMailLbl);
-            RegiPanel.Controls.Add(RegiMailPanel);
-            RegiPanel.Controls.Add(RegiAgeLbl);
-            RegiPanel.Controls.Add(GenderLbl);
-            RegiPanel.Controls.Add(RegiGenderPanel);
-            RegiPanel.Controls.Add(RegiCourseLbl);
-            RegiPanel.Controls.Add(RegiCoursePanel);
-            RegiPanel.Controls.Add(RegiNamePanel);
-            RegiPanel.Controls.Add(RegiRPLabel);
-            RegiPanel.Controls.Add(RegiSNLabel);
-            RegiPanel.Controls.Add(CreateBtn);
-            RegiPanel.Controls.Add(RegiPassLabel);
-            RegiPanel.Controls.Add(RegiNameLabel);
-            RegiPanel.Controls.Add(GSLabel);
-            RegiPanel.Controls.Add(RegiPassPanel);
-            RegiPanel.Controls.Add(RegiRPPanel);
-            RegiPanel.Controls.Add(RegiSNBoxPanel);
-            RegiPanel.Controls.Add(RegiAgePanel);
-            RegiPanel.Location = new Point(108, 14);
-            RegiPanel.Name = "RegiPanel";
-            RegiPanel.Size = new Size(580, 455);
-            RegiPanel.TabIndex = 13;
-            // 
-            // SNMaxChar
-            // 
-            SNMaxChar.AutoSize = true;
-            SNMaxChar.BackColor = Color.Transparent;
-            SNMaxChar.Font = new Font("Arial", 8.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
-            SNMaxChar.ForeColor = Color.FromArgb(90, 115, 141);
-            SNMaxChar.Location = new Point(187, 212);
-            SNMaxChar.Name = "SNMaxChar";
-            SNMaxChar.Size = new Size(133, 13);
-            SNMaxChar.TabIndex = 29;
-            SNMaxChar.Text = "(input another 4 digits)";
-            // 
-            // RegiMailLbl
-            // 
-            RegiMailLbl.AutoSize = true;
-            RegiMailLbl.BackColor = Color.Transparent;
-            RegiMailLbl.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiMailLbl.ForeColor = Color.FromArgb(90, 115, 141);
-            RegiMailLbl.Location = new Point(323, 146);
-            RegiMailLbl.Name = "RegiMailLbl";
-            RegiMailLbl.Size = new Size(64, 23);
-            RegiMailLbl.TabIndex = 27;
-            RegiMailLbl.Text = "Email:";
-            // 
-            // RegiMailPanel
-            // 
-            RegiMailPanel.BorderStyle = BorderStyle.FixedSingle;
-            RegiMailPanel.Controls.Add(RegiMailBox);
-            RegiMailPanel.Location = new Point(326, 172);
-            RegiMailPanel.Name = "RegiMailPanel";
-            RegiMailPanel.Size = new Size(219, 32);
-            RegiMailPanel.TabIndex = 28;
-            // 
-            // RegiMailBox
-            // 
-            RegiMailBox.BackColor = Color.FromArgb(250, 247, 247);
-            RegiMailBox.BorderStyle = BorderStyle.None;
-            RegiMailBox.Cursor = Cursors.IBeam;
-            RegiMailBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiMailBox.ForeColor = Color.FromArgb(24, 79, 144);
-            RegiMailBox.Location = new Point(5, 6);
-            RegiMailBox.Margin = new Padding(10);
-            RegiMailBox.Name = "RegiMailBox";
-            RegiMailBox.PlaceholderText = "Enter Email Address";
-            RegiMailBox.Size = new Size(201, 13);
-            RegiMailBox.TabIndex = 13;
-            // 
-            // RegiAgeLbl
-            // 
-            RegiAgeLbl.AutoSize = true;
-            RegiAgeLbl.BackColor = Color.Transparent;
-            RegiAgeLbl.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiAgeLbl.ForeColor = Color.FromArgb(90, 115, 141);
-            RegiAgeLbl.Location = new Point(323, 81);
-            RegiAgeLbl.Name = "RegiAgeLbl";
-            RegiAgeLbl.Size = new Size(49, 23);
-            RegiAgeLbl.TabIndex = 26;
-            RegiAgeLbl.Text = "Age:";
-            // 
-            // GenderLbl
-            // 
-            GenderLbl.AutoSize = true;
-            GenderLbl.BackColor = Color.Transparent;
-            GenderLbl.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            GenderLbl.ForeColor = Color.FromArgb(90, 115, 141);
-            GenderLbl.Location = new Point(407, 81);
-            GenderLbl.Name = "GenderLbl";
-            GenderLbl.Size = new Size(80, 23);
-            GenderLbl.TabIndex = 24;
-            GenderLbl.Text = "Gender:";
-            // 
-            // RegiGenderPanel
-            // 
-            RegiGenderPanel.BorderStyle = BorderStyle.FixedSingle;
-            RegiGenderPanel.Controls.Add(RegiGenderComboBox);
-            RegiGenderPanel.Location = new Point(407, 109);
-            RegiGenderPanel.Name = "RegiGenderPanel";
-            RegiGenderPanel.Size = new Size(140, 34);
-            RegiGenderPanel.TabIndex = 23;
-            // 
-            // RegiGenderComboBox
-            // 
-            RegiGenderComboBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiGenderComboBox.FormattingEnabled = true;
-            RegiGenderComboBox.Location = new Point(3, 6);
-            RegiGenderComboBox.Name = "RegiGenderComboBox";
-            RegiGenderComboBox.Size = new Size(132, 22);
-            RegiGenderComboBox.TabIndex = 20;
-            RegiGenderComboBox.SelectedIndexChanged += RegiGenderComboBox_SelectedIndexChanged;
-            // 
-            // RegiCourseLbl
-            // 
-            RegiCourseLbl.AutoSize = true;
-            RegiCourseLbl.BackColor = Color.Transparent;
-            RegiCourseLbl.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiCourseLbl.ForeColor = Color.FromArgb(90, 115, 141);
-            RegiCourseLbl.Location = new Point(33, 146);
-            RegiCourseLbl.Name = "RegiCourseLbl";
-            RegiCourseLbl.Size = new Size(148, 23);
-            RegiCourseLbl.TabIndex = 21;
-            RegiCourseLbl.Text = "College Course:";
-            // 
-            // RegiCoursePanel
-            // 
-            RegiCoursePanel.BorderStyle = BorderStyle.FixedSingle;
-            RegiCoursePanel.Controls.Add(RegiCourseBox);
-            RegiCoursePanel.Location = new Point(38, 172);
-            RegiCoursePanel.Name = "RegiCoursePanel";
-            RegiCoursePanel.Size = new Size(282, 32);
-            RegiCoursePanel.TabIndex = 22;
-            // 
-            // RegiCourseBox
-            // 
-            RegiCourseBox.BackColor = Color.FromArgb(250, 247, 247);
-            RegiCourseBox.BorderStyle = BorderStyle.None;
-            RegiCourseBox.Cursor = Cursors.IBeam;
-            RegiCourseBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiCourseBox.ForeColor = Color.FromArgb(24, 79, 144);
-            RegiCourseBox.Location = new Point(5, 6);
-            RegiCourseBox.Margin = new Padding(10);
-            RegiCourseBox.Name = "RegiCourseBox";
-            RegiCourseBox.PlaceholderText = "Enter College Course";
-            RegiCourseBox.Size = new Size(265, 13);
-            RegiCourseBox.TabIndex = 13;
-            // 
-            // RegiNamePanel
-            // 
-            RegiNamePanel.BorderStyle = BorderStyle.FixedSingle;
-            RegiNamePanel.Controls.Add(RegiNameBox);
-            RegiNamePanel.Location = new Point(38, 109);
-            RegiNamePanel.Name = "RegiNamePanel";
-            RegiNamePanel.Size = new Size(282, 34);
-            RegiNamePanel.TabIndex = 17;
-            // 
-            // RegiNameBox
-            // 
-            RegiNameBox.BackColor = Color.FromArgb(250, 247, 247);
-            RegiNameBox.BorderStyle = BorderStyle.None;
-            RegiNameBox.Cursor = Cursors.IBeam;
-            RegiNameBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiNameBox.ForeColor = Color.FromArgb(24, 79, 144);
-            RegiNameBox.Location = new Point(5, 8);
-            RegiNameBox.Margin = new Padding(10);
-            RegiNameBox.Name = "RegiNameBox";
-            RegiNameBox.PlaceholderText = "Enter Name";
-            RegiNameBox.Size = new Size(265, 13);
-            RegiNameBox.TabIndex = 3;
-            // 
-            // RegiRPLabel
-            // 
-            RegiRPLabel.AutoSize = true;
-            RegiRPLabel.BackColor = Color.Transparent;
-            RegiRPLabel.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiRPLabel.ForeColor = Color.FromArgb(90, 115, 141);
-            RegiRPLabel.Location = new Point(323, 206);
-            RegiRPLabel.Name = "RegiRPLabel";
-            RegiRPLabel.Size = new Size(126, 23);
-            RegiRPLabel.TabIndex = 14;
-            RegiRPLabel.Text = "Recovery Pin";
-            // 
-            // RegiSNLabel
-            // 
-            RegiSNLabel.AutoSize = true;
-            RegiSNLabel.BackColor = Color.Transparent;
-            RegiSNLabel.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiSNLabel.ForeColor = Color.FromArgb(90, 115, 141);
-            RegiSNLabel.Location = new Point(33, 206);
-            RegiSNLabel.Name = "RegiSNLabel";
-            RegiSNLabel.Size = new Size(160, 23);
-            RegiSNLabel.TabIndex = 12;
-            RegiSNLabel.Text = "Student Number:";
-            // 
-            // CreateBtn
-            // 
-            CreateBtn.BackColor = Color.FromArgb(250, 247, 247);
-            CreateBtn.Cursor = Cursors.Hand;
-            CreateBtn.FlatAppearance.BorderColor = Color.FromArgb(41, 52, 64);
-            CreateBtn.FlatAppearance.BorderSize = 2;
-            CreateBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
-            CreateBtn.FlatStyle = FlatStyle.Flat;
-            CreateBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            CreateBtn.ForeColor = Color.FromArgb(90, 115, 141);
-            CreateBtn.Location = new Point(238, 347);
-            CreateBtn.Name = "CreateBtn";
-            CreateBtn.Size = new Size(104, 35);
-            CreateBtn.TabIndex = 9;
-            CreateBtn.Text = "CREATE";
-            CreateBtn.UseVisualStyleBackColor = false;
-            CreateBtn.Click += CreateBtn_Click;
-            // 
-            // RegiPassLabel
-            // 
-            RegiPassLabel.AutoSize = true;
-            RegiPassLabel.BackColor = Color.Transparent;
-            RegiPassLabel.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiPassLabel.ForeColor = Color.FromArgb(90, 115, 141);
-            RegiPassLabel.Location = new Point(33, 268);
-            RegiPassLabel.Name = "RegiPassLabel";
-            RegiPassLabel.Size = new Size(102, 23);
-            RegiPassLabel.TabIndex = 4;
-            RegiPassLabel.Text = "Password:";
-            // 
-            // RegiNameLabel
-            // 
-            RegiNameLabel.AutoSize = true;
-            RegiNameLabel.BackColor = Color.Transparent;
-            RegiNameLabel.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiNameLabel.ForeColor = Color.FromArgb(90, 115, 141);
-            RegiNameLabel.Location = new Point(33, 85);
-            RegiNameLabel.Name = "RegiNameLabel";
-            RegiNameLabel.Size = new Size(66, 23);
-            RegiNameLabel.TabIndex = 2;
-            RegiNameLabel.Text = "Name:";
-            // 
-            // GSLabel
-            // 
-            GSLabel.AutoSize = true;
-            GSLabel.BackColor = Color.Transparent;
-            GSLabel.Font = new Font("Arial Black", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
-            GSLabel.ForeColor = Color.FromArgb(90, 115, 141);
-            GSLabel.Location = new Point(171, 19);
-            GSLabel.Name = "GSLabel";
-            GSLabel.Size = new Size(238, 38);
-            GSLabel.TabIndex = 1;
-            GSLabel.Text = "Insert Account";
-            GSLabel.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // RegiPassPanel
-            // 
-            RegiPassPanel.BorderStyle = BorderStyle.FixedSingle;
-            RegiPassPanel.Controls.Add(RegiShowPass);
-            RegiPassPanel.Controls.Add(RegiPassBox);
-            RegiPassPanel.Location = new Point(38, 296);
-            RegiPassPanel.Name = "RegiPassPanel";
-            RegiPassPanel.Size = new Size(507, 32);
-            RegiPassPanel.TabIndex = 19;
-            // 
-            // RegiShowPass
-            // 
-            RegiShowPass.AutoSize = true;
-            RegiShowPass.BackColor = Color.White;
-            RegiShowPass.Cursor = Cursors.Hand;
-            RegiShowPass.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
-            RegiShowPass.ForeColor = Color.White;
-            RegiShowPass.Location = new Point(481, 8);
-            RegiShowPass.Name = "RegiShowPass";
-            RegiShowPass.Size = new Size(15, 14);
-            RegiShowPass.TabIndex = 16;
-            RegiShowPass.UseVisualStyleBackColor = false;
-            RegiShowPass.CheckedChanged += RegiShowPass_CheckedChanged;
-            // 
-            // RegiPassBox
-            // 
-            RegiPassBox.BackColor = Color.FromArgb(250, 247, 247);
-            RegiPassBox.BorderStyle = BorderStyle.None;
-            RegiPassBox.Cursor = Cursors.IBeam;
-            RegiPassBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiPassBox.ForeColor = Color.FromArgb(24, 79, 144);
-            RegiPassBox.Location = new Point(5, 7);
-            RegiPassBox.Margin = new Padding(10);
-            RegiPassBox.Name = "RegiPassBox";
-            RegiPassBox.PlaceholderText = "Enter Password";
-            RegiPassBox.Size = new Size(471, 13);
-            RegiPassBox.TabIndex = 5;
-            RegiPassBox.UseSystemPasswordChar = true;
-            RegiPassBox.KeyDown += RegiPassBox_KeyDown;
-            // 
-            // RegiRPPanel
-            // 
-            RegiRPPanel.BorderStyle = BorderStyle.FixedSingle;
-            RegiRPPanel.Controls.Add(RegiRPBox);
-            RegiRPPanel.Location = new Point(326, 233);
-            RegiRPPanel.Name = "RegiRPPanel";
-            RegiRPPanel.Size = new Size(219, 32);
-            RegiRPPanel.TabIndex = 19;
-            // 
-            // RegiRPBox
-            // 
-            RegiRPBox.BackColor = Color.FromArgb(250, 247, 247);
-            RegiRPBox.BorderStyle = BorderStyle.None;
-            RegiRPBox.Cursor = Cursors.IBeam;
-            RegiRPBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiRPBox.ForeColor = Color.FromArgb(24, 79, 144);
-            RegiRPBox.Location = new Point(8, 7);
-            RegiRPBox.Margin = new Padding(10);
-            RegiRPBox.Name = "RegiRPBox";
-            RegiRPBox.PlaceholderText = "Enter PIN";
-            RegiRPBox.Size = new Size(162, 13);
-            RegiRPBox.TabIndex = 15;
-            // 
-            // RegiSNBoxPanel
-            // 
-            RegiSNBoxPanel.BorderStyle = BorderStyle.FixedSingle;
-            RegiSNBoxPanel.Controls.Add(StudNumRefreshBtn);
-            RegiSNBoxPanel.Controls.Add(RegiSNBox);
-            RegiSNBoxPanel.Location = new Point(38, 233);
-            RegiSNBoxPanel.Name = "RegiSNBoxPanel";
-            RegiSNBoxPanel.Size = new Size(282, 32);
-            RegiSNBoxPanel.TabIndex = 18;
-            // 
-            // StudNumRefreshBtn
-            // 
-            StudNumRefreshBtn.BackColor = Color.Transparent;
-            StudNumRefreshBtn.FlatAppearance.BorderSize = 0;
-            StudNumRefreshBtn.FlatStyle = FlatStyle.Flat;
-            StudNumRefreshBtn.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            StudNumRefreshBtn.ForeColor = Color.FromArgb(250, 247, 247);
-            StudNumRefreshBtn.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
-            StudNumRefreshBtn.IconColor = Color.FromArgb(90, 115, 141);
-            StudNumRefreshBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            StudNumRefreshBtn.IconSize = 24;
-            StudNumRefreshBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            StudNumRefreshBtn.Location = new Point(249, 0);
-            StudNumRefreshBtn.Name = "StudNumRefreshBtn";
-            StudNumRefreshBtn.Size = new Size(32, 31);
-            StudNumRefreshBtn.TabIndex = 30;
-            StudNumRefreshBtn.TextAlign = ContentAlignment.MiddleLeft;
-            StudNumRefreshBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
-            StudNumRefreshBtn.UseVisualStyleBackColor = false;
-            StudNumRefreshBtn.Click += iconButton1_Click_1;
-            // 
-            // RegiSNBox
-            // 
-            RegiSNBox.BackColor = Color.FromArgb(250, 247, 247);
-            RegiSNBox.BorderStyle = BorderStyle.None;
-            RegiSNBox.Cursor = Cursors.IBeam;
-            RegiSNBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiSNBox.ForeColor = Color.FromArgb(24, 79, 144);
-            RegiSNBox.Location = new Point(5, 6);
-            RegiSNBox.Margin = new Padding(10);
-            RegiSNBox.MaxLength = 9;
-            RegiSNBox.Name = "RegiSNBox";
-            RegiSNBox.PlaceholderText = "Enter Student Number";
-            RegiSNBox.Size = new Size(248, 13);
-            RegiSNBox.TabIndex = 13;
-            RegiSNBox.KeyDown += RegiSNBox_KeyDown;
-            // 
-            // RegiAgePanel
-            // 
-            RegiAgePanel.BorderStyle = BorderStyle.FixedSingle;
-            RegiAgePanel.Controls.Add(RegiAgeBox);
-            RegiAgePanel.Location = new Point(324, 109);
-            RegiAgePanel.Name = "RegiAgePanel";
-            RegiAgePanel.Size = new Size(77, 34);
-            RegiAgePanel.TabIndex = 25;
-            // 
-            // RegiAgeBox
-            // 
-            RegiAgeBox.BackColor = Color.FromArgb(250, 247, 247);
-            RegiAgeBox.BorderStyle = BorderStyle.None;
-            RegiAgeBox.Cursor = Cursors.IBeam;
-            RegiAgeBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
-            RegiAgeBox.ForeColor = Color.FromArgb(24, 79, 144);
-            RegiAgeBox.Location = new Point(6, 8);
-            RegiAgeBox.Margin = new Padding(10);
-            RegiAgeBox.Multiline = true;
-            RegiAgeBox.Name = "RegiAgeBox";
-            RegiAgeBox.PlaceholderText = "Enter Age ";
-            RegiAgeBox.Size = new Size(63, 25);
-            RegiAgeBox.TabIndex = 17;
             // 
             // PendingTab
             // 
@@ -885,6 +571,7 @@
             // 
             // ArchivedPanel
             // 
+            ArchivedPanel.Controls.Add(ArchivedUpdateBtn);
             ArchivedPanel.Controls.Add(ArchivedSearchPanel);
             ArchivedPanel.Controls.Add(LoginCallerLinkLbl);
             ArchivedPanel.Controls.Add(ArchivedRefreshBtn);
@@ -1026,6 +713,798 @@
             ArchivedTable.Size = new Size(665, 220);
             ArchivedTable.TabIndex = 1;
             // 
+            // InsertTab
+            // 
+            InsertTab.BackColor = Color.FromArgb(90, 115, 141);
+            InsertTab.Controls.Add(RegiPanel);
+            InsertTab.Location = new Point(4, 24);
+            InsertTab.Name = "InsertTab";
+            InsertTab.Padding = new Padding(3);
+            InsertTab.Size = new Size(796, 483);
+            InsertTab.TabIndex = 3;
+            InsertTab.Text = "Insert Account";
+            // 
+            // RegiPanel
+            // 
+            RegiPanel.BackColor = Color.FromArgb(250, 247, 247);
+            RegiPanel.Controls.Add(SNMaxChar);
+            RegiPanel.Controls.Add(RegiMailLbl);
+            RegiPanel.Controls.Add(RegiMailPanel);
+            RegiPanel.Controls.Add(RegiAgeLbl);
+            RegiPanel.Controls.Add(GenderLbl);
+            RegiPanel.Controls.Add(RegiGenderPanel);
+            RegiPanel.Controls.Add(RegiCourseLbl);
+            RegiPanel.Controls.Add(RegiCoursePanel);
+            RegiPanel.Controls.Add(RegiNamePanel);
+            RegiPanel.Controls.Add(RegiRPLabel);
+            RegiPanel.Controls.Add(RegiSNLabel);
+            RegiPanel.Controls.Add(CreateBtn);
+            RegiPanel.Controls.Add(RegiPassLabel);
+            RegiPanel.Controls.Add(RegiNameLabel);
+            RegiPanel.Controls.Add(GSLabel);
+            RegiPanel.Controls.Add(RegiPassPanel);
+            RegiPanel.Controls.Add(RegiRPPanel);
+            RegiPanel.Controls.Add(RegiSNBoxPanel);
+            RegiPanel.Controls.Add(RegiAgePanel);
+            RegiPanel.Location = new Point(108, 46);
+            RegiPanel.Name = "RegiPanel";
+            RegiPanel.Size = new Size(580, 390);
+            RegiPanel.TabIndex = 13;
+            // 
+            // SNMaxChar
+            // 
+            SNMaxChar.AutoSize = true;
+            SNMaxChar.BackColor = Color.Transparent;
+            SNMaxChar.Font = new Font("Arial", 8.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            SNMaxChar.ForeColor = Color.FromArgb(90, 115, 141);
+            SNMaxChar.Location = new Point(187, 212);
+            SNMaxChar.Name = "SNMaxChar";
+            SNMaxChar.Size = new Size(133, 13);
+            SNMaxChar.TabIndex = 29;
+            SNMaxChar.Text = "(input another 4 digits)";
+            // 
+            // RegiMailLbl
+            // 
+            RegiMailLbl.AutoSize = true;
+            RegiMailLbl.BackColor = Color.Transparent;
+            RegiMailLbl.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            RegiMailLbl.ForeColor = Color.FromArgb(90, 115, 141);
+            RegiMailLbl.Location = new Point(323, 146);
+            RegiMailLbl.Name = "RegiMailLbl";
+            RegiMailLbl.Size = new Size(64, 23);
+            RegiMailLbl.TabIndex = 27;
+            RegiMailLbl.Text = "Email:";
+            // 
+            // RegiMailPanel
+            // 
+            RegiMailPanel.BorderStyle = BorderStyle.FixedSingle;
+            RegiMailPanel.Controls.Add(InsertRegiMailBox);
+            RegiMailPanel.Location = new Point(326, 172);
+            RegiMailPanel.Name = "RegiMailPanel";
+            RegiMailPanel.Size = new Size(219, 32);
+            RegiMailPanel.TabIndex = 28;
+            // 
+            // InsertRegiMailBox
+            // 
+            InsertRegiMailBox.BackColor = Color.FromArgb(250, 247, 247);
+            InsertRegiMailBox.BorderStyle = BorderStyle.None;
+            InsertRegiMailBox.Cursor = Cursors.IBeam;
+            InsertRegiMailBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            InsertRegiMailBox.ForeColor = Color.FromArgb(24, 79, 144);
+            InsertRegiMailBox.Location = new Point(5, 6);
+            InsertRegiMailBox.Margin = new Padding(10);
+            InsertRegiMailBox.Name = "InsertRegiMailBox";
+            InsertRegiMailBox.PlaceholderText = "Enter Email Address";
+            InsertRegiMailBox.Size = new Size(201, 13);
+            InsertRegiMailBox.TabIndex = 13;
+            // 
+            // RegiAgeLbl
+            // 
+            RegiAgeLbl.AutoSize = true;
+            RegiAgeLbl.BackColor = Color.Transparent;
+            RegiAgeLbl.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            RegiAgeLbl.ForeColor = Color.FromArgb(90, 115, 141);
+            RegiAgeLbl.Location = new Point(323, 81);
+            RegiAgeLbl.Name = "RegiAgeLbl";
+            RegiAgeLbl.Size = new Size(49, 23);
+            RegiAgeLbl.TabIndex = 26;
+            RegiAgeLbl.Text = "Age:";
+            // 
+            // GenderLbl
+            // 
+            GenderLbl.AutoSize = true;
+            GenderLbl.BackColor = Color.Transparent;
+            GenderLbl.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            GenderLbl.ForeColor = Color.FromArgb(90, 115, 141);
+            GenderLbl.Location = new Point(407, 81);
+            GenderLbl.Name = "GenderLbl";
+            GenderLbl.Size = new Size(80, 23);
+            GenderLbl.TabIndex = 24;
+            GenderLbl.Text = "Gender:";
+            // 
+            // RegiGenderPanel
+            // 
+            RegiGenderPanel.BorderStyle = BorderStyle.FixedSingle;
+            RegiGenderPanel.Controls.Add(InsertRegiGenderComboBox);
+            RegiGenderPanel.Location = new Point(407, 109);
+            RegiGenderPanel.Name = "RegiGenderPanel";
+            RegiGenderPanel.Size = new Size(140, 34);
+            RegiGenderPanel.TabIndex = 23;
+            // 
+            // InsertRegiGenderComboBox
+            // 
+            InsertRegiGenderComboBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            InsertRegiGenderComboBox.FormattingEnabled = true;
+            InsertRegiGenderComboBox.Location = new Point(3, 6);
+            InsertRegiGenderComboBox.Name = "InsertRegiGenderComboBox";
+            InsertRegiGenderComboBox.Size = new Size(132, 22);
+            InsertRegiGenderComboBox.TabIndex = 20;
+            InsertRegiGenderComboBox.SelectedIndexChanged += RegiGenderComboBox_SelectedIndexChanged;
+            // 
+            // RegiCourseLbl
+            // 
+            RegiCourseLbl.AutoSize = true;
+            RegiCourseLbl.BackColor = Color.Transparent;
+            RegiCourseLbl.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            RegiCourseLbl.ForeColor = Color.FromArgb(90, 115, 141);
+            RegiCourseLbl.Location = new Point(33, 146);
+            RegiCourseLbl.Name = "RegiCourseLbl";
+            RegiCourseLbl.Size = new Size(148, 23);
+            RegiCourseLbl.TabIndex = 21;
+            RegiCourseLbl.Text = "College Course:";
+            // 
+            // RegiCoursePanel
+            // 
+            RegiCoursePanel.BorderStyle = BorderStyle.FixedSingle;
+            RegiCoursePanel.Controls.Add(InsertRegiCourseBox);
+            RegiCoursePanel.Location = new Point(38, 172);
+            RegiCoursePanel.Name = "RegiCoursePanel";
+            RegiCoursePanel.Size = new Size(282, 32);
+            RegiCoursePanel.TabIndex = 22;
+            // 
+            // InsertRegiCourseBox
+            // 
+            InsertRegiCourseBox.BackColor = Color.FromArgb(250, 247, 247);
+            InsertRegiCourseBox.BorderStyle = BorderStyle.None;
+            InsertRegiCourseBox.Cursor = Cursors.IBeam;
+            InsertRegiCourseBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            InsertRegiCourseBox.ForeColor = Color.FromArgb(24, 79, 144);
+            InsertRegiCourseBox.Location = new Point(5, 6);
+            InsertRegiCourseBox.Margin = new Padding(10);
+            InsertRegiCourseBox.Name = "InsertRegiCourseBox";
+            InsertRegiCourseBox.PlaceholderText = "Enter College Course";
+            InsertRegiCourseBox.Size = new Size(265, 13);
+            InsertRegiCourseBox.TabIndex = 13;
+            // 
+            // RegiNamePanel
+            // 
+            RegiNamePanel.BorderStyle = BorderStyle.FixedSingle;
+            RegiNamePanel.Controls.Add(InsertRegiNameBox);
+            RegiNamePanel.Location = new Point(38, 109);
+            RegiNamePanel.Name = "RegiNamePanel";
+            RegiNamePanel.Size = new Size(282, 34);
+            RegiNamePanel.TabIndex = 17;
+            // 
+            // InsertRegiNameBox
+            // 
+            InsertRegiNameBox.BackColor = Color.FromArgb(250, 247, 247);
+            InsertRegiNameBox.BorderStyle = BorderStyle.None;
+            InsertRegiNameBox.Cursor = Cursors.IBeam;
+            InsertRegiNameBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            InsertRegiNameBox.ForeColor = Color.FromArgb(24, 79, 144);
+            InsertRegiNameBox.Location = new Point(5, 8);
+            InsertRegiNameBox.Margin = new Padding(10);
+            InsertRegiNameBox.Name = "InsertRegiNameBox";
+            InsertRegiNameBox.PlaceholderText = "Enter Name";
+            InsertRegiNameBox.Size = new Size(265, 13);
+            InsertRegiNameBox.TabIndex = 3;
+            // 
+            // RegiRPLabel
+            // 
+            RegiRPLabel.AutoSize = true;
+            RegiRPLabel.BackColor = Color.Transparent;
+            RegiRPLabel.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            RegiRPLabel.ForeColor = Color.FromArgb(90, 115, 141);
+            RegiRPLabel.Location = new Point(323, 206);
+            RegiRPLabel.Name = "RegiRPLabel";
+            RegiRPLabel.Size = new Size(126, 23);
+            RegiRPLabel.TabIndex = 14;
+            RegiRPLabel.Text = "Recovery Pin";
+            // 
+            // RegiSNLabel
+            // 
+            RegiSNLabel.AutoSize = true;
+            RegiSNLabel.BackColor = Color.Transparent;
+            RegiSNLabel.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            RegiSNLabel.ForeColor = Color.FromArgb(90, 115, 141);
+            RegiSNLabel.Location = new Point(33, 206);
+            RegiSNLabel.Name = "RegiSNLabel";
+            RegiSNLabel.Size = new Size(160, 23);
+            RegiSNLabel.TabIndex = 12;
+            RegiSNLabel.Text = "Student Number:";
+            // 
+            // CreateBtn
+            // 
+            CreateBtn.BackColor = Color.FromArgb(250, 247, 247);
+            CreateBtn.Cursor = Cursors.Hand;
+            CreateBtn.FlatAppearance.BorderColor = Color.FromArgb(41, 52, 64);
+            CreateBtn.FlatAppearance.BorderSize = 2;
+            CreateBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
+            CreateBtn.FlatStyle = FlatStyle.Flat;
+            CreateBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            CreateBtn.ForeColor = Color.FromArgb(90, 115, 141);
+            CreateBtn.Location = new Point(454, 334);
+            CreateBtn.Name = "CreateBtn";
+            CreateBtn.Size = new Size(93, 35);
+            CreateBtn.TabIndex = 9;
+            CreateBtn.Text = "INSERT";
+            CreateBtn.UseVisualStyleBackColor = false;
+            CreateBtn.Click += CreateBtn_Click;
+            // 
+            // RegiPassLabel
+            // 
+            RegiPassLabel.AutoSize = true;
+            RegiPassLabel.BackColor = Color.Transparent;
+            RegiPassLabel.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            RegiPassLabel.ForeColor = Color.FromArgb(90, 115, 141);
+            RegiPassLabel.Location = new Point(33, 268);
+            RegiPassLabel.Name = "RegiPassLabel";
+            RegiPassLabel.Size = new Size(102, 23);
+            RegiPassLabel.TabIndex = 4;
+            RegiPassLabel.Text = "Password:";
+            // 
+            // RegiNameLabel
+            // 
+            RegiNameLabel.AutoSize = true;
+            RegiNameLabel.BackColor = Color.Transparent;
+            RegiNameLabel.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            RegiNameLabel.ForeColor = Color.FromArgb(90, 115, 141);
+            RegiNameLabel.Location = new Point(33, 85);
+            RegiNameLabel.Name = "RegiNameLabel";
+            RegiNameLabel.Size = new Size(66, 23);
+            RegiNameLabel.TabIndex = 2;
+            RegiNameLabel.Text = "Name:";
+            // 
+            // GSLabel
+            // 
+            GSLabel.AutoSize = true;
+            GSLabel.BackColor = Color.Transparent;
+            GSLabel.Font = new Font("Arial Black", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            GSLabel.ForeColor = Color.FromArgb(90, 115, 141);
+            GSLabel.Location = new Point(171, 19);
+            GSLabel.Name = "GSLabel";
+            GSLabel.Size = new Size(238, 38);
+            GSLabel.TabIndex = 1;
+            GSLabel.Text = "Insert Account";
+            GSLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // RegiPassPanel
+            // 
+            RegiPassPanel.BorderStyle = BorderStyle.FixedSingle;
+            RegiPassPanel.Controls.Add(RegiShowPass);
+            RegiPassPanel.Controls.Add(InsertRegiPassBox);
+            RegiPassPanel.Location = new Point(38, 296);
+            RegiPassPanel.Name = "RegiPassPanel";
+            RegiPassPanel.Size = new Size(507, 32);
+            RegiPassPanel.TabIndex = 19;
+            // 
+            // RegiShowPass
+            // 
+            RegiShowPass.AutoSize = true;
+            RegiShowPass.BackColor = Color.White;
+            RegiShowPass.Cursor = Cursors.Hand;
+            RegiShowPass.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
+            RegiShowPass.ForeColor = Color.White;
+            RegiShowPass.Location = new Point(481, 8);
+            RegiShowPass.Name = "RegiShowPass";
+            RegiShowPass.Size = new Size(15, 14);
+            RegiShowPass.TabIndex = 16;
+            RegiShowPass.UseVisualStyleBackColor = false;
+            RegiShowPass.CheckedChanged += RegiShowPass_CheckedChanged;
+            // 
+            // InsertRegiPassBox
+            // 
+            InsertRegiPassBox.BackColor = Color.FromArgb(250, 247, 247);
+            InsertRegiPassBox.BorderStyle = BorderStyle.None;
+            InsertRegiPassBox.Cursor = Cursors.IBeam;
+            InsertRegiPassBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            InsertRegiPassBox.ForeColor = Color.FromArgb(24, 79, 144);
+            InsertRegiPassBox.Location = new Point(5, 7);
+            InsertRegiPassBox.Margin = new Padding(10);
+            InsertRegiPassBox.Name = "InsertRegiPassBox";
+            InsertRegiPassBox.PlaceholderText = "Enter Password";
+            InsertRegiPassBox.Size = new Size(471, 13);
+            InsertRegiPassBox.TabIndex = 5;
+            InsertRegiPassBox.UseSystemPasswordChar = true;
+            InsertRegiPassBox.KeyDown += RegiPassBox_KeyDown;
+            // 
+            // RegiRPPanel
+            // 
+            RegiRPPanel.BorderStyle = BorderStyle.FixedSingle;
+            RegiRPPanel.Controls.Add(InsertRegiRPBox);
+            RegiRPPanel.Location = new Point(326, 233);
+            RegiRPPanel.Name = "RegiRPPanel";
+            RegiRPPanel.Size = new Size(219, 32);
+            RegiRPPanel.TabIndex = 19;
+            // 
+            // InsertRegiRPBox
+            // 
+            InsertRegiRPBox.BackColor = Color.FromArgb(250, 247, 247);
+            InsertRegiRPBox.BorderStyle = BorderStyle.None;
+            InsertRegiRPBox.Cursor = Cursors.IBeam;
+            InsertRegiRPBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            InsertRegiRPBox.ForeColor = Color.FromArgb(24, 79, 144);
+            InsertRegiRPBox.Location = new Point(8, 7);
+            InsertRegiRPBox.Margin = new Padding(10);
+            InsertRegiRPBox.Name = "InsertRegiRPBox";
+            InsertRegiRPBox.PlaceholderText = "Enter PIN";
+            InsertRegiRPBox.Size = new Size(200, 13);
+            InsertRegiRPBox.TabIndex = 15;
+            // 
+            // RegiSNBoxPanel
+            // 
+            RegiSNBoxPanel.BorderStyle = BorderStyle.FixedSingle;
+            RegiSNBoxPanel.Controls.Add(StudNumRefreshBtn);
+            RegiSNBoxPanel.Controls.Add(InsertRegiSNBox);
+            RegiSNBoxPanel.Location = new Point(38, 233);
+            RegiSNBoxPanel.Name = "RegiSNBoxPanel";
+            RegiSNBoxPanel.Size = new Size(282, 32);
+            RegiSNBoxPanel.TabIndex = 18;
+            // 
+            // StudNumRefreshBtn
+            // 
+            StudNumRefreshBtn.BackColor = Color.Transparent;
+            StudNumRefreshBtn.FlatAppearance.BorderSize = 0;
+            StudNumRefreshBtn.FlatStyle = FlatStyle.Flat;
+            StudNumRefreshBtn.Font = new Font("Arial Black", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            StudNumRefreshBtn.ForeColor = Color.FromArgb(250, 247, 247);
+            StudNumRefreshBtn.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
+            StudNumRefreshBtn.IconColor = Color.FromArgb(90, 115, 141);
+            StudNumRefreshBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            StudNumRefreshBtn.IconSize = 24;
+            StudNumRefreshBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            StudNumRefreshBtn.Location = new Point(249, 0);
+            StudNumRefreshBtn.Name = "StudNumRefreshBtn";
+            StudNumRefreshBtn.Size = new Size(32, 31);
+            StudNumRefreshBtn.TabIndex = 30;
+            StudNumRefreshBtn.TextAlign = ContentAlignment.MiddleLeft;
+            StudNumRefreshBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
+            StudNumRefreshBtn.UseVisualStyleBackColor = false;
+            StudNumRefreshBtn.Click += iconButton1_Click_1;
+            // 
+            // InsertRegiSNBox
+            // 
+            InsertRegiSNBox.BackColor = Color.FromArgb(250, 247, 247);
+            InsertRegiSNBox.BorderStyle = BorderStyle.None;
+            InsertRegiSNBox.Cursor = Cursors.IBeam;
+            InsertRegiSNBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            InsertRegiSNBox.ForeColor = Color.FromArgb(24, 79, 144);
+            InsertRegiSNBox.Location = new Point(5, 6);
+            InsertRegiSNBox.Margin = new Padding(10);
+            InsertRegiSNBox.MaxLength = 9;
+            InsertRegiSNBox.Name = "InsertRegiSNBox";
+            InsertRegiSNBox.PlaceholderText = "Enter Student Number";
+            InsertRegiSNBox.Size = new Size(248, 13);
+            InsertRegiSNBox.TabIndex = 13;
+            InsertRegiSNBox.KeyDown += RegiSNBox_KeyDown;
+            // 
+            // RegiAgePanel
+            // 
+            RegiAgePanel.BorderStyle = BorderStyle.FixedSingle;
+            RegiAgePanel.Controls.Add(InsertRegiAgeBox);
+            RegiAgePanel.Location = new Point(324, 109);
+            RegiAgePanel.Name = "RegiAgePanel";
+            RegiAgePanel.Size = new Size(77, 34);
+            RegiAgePanel.TabIndex = 25;
+            // 
+            // InsertRegiAgeBox
+            // 
+            InsertRegiAgeBox.BackColor = Color.FromArgb(250, 247, 247);
+            InsertRegiAgeBox.BorderStyle = BorderStyle.None;
+            InsertRegiAgeBox.Cursor = Cursors.IBeam;
+            InsertRegiAgeBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            InsertRegiAgeBox.ForeColor = Color.FromArgb(24, 79, 144);
+            InsertRegiAgeBox.Location = new Point(6, 8);
+            InsertRegiAgeBox.Margin = new Padding(10);
+            InsertRegiAgeBox.Multiline = true;
+            InsertRegiAgeBox.Name = "InsertRegiAgeBox";
+            InsertRegiAgeBox.PlaceholderText = "Enter Age ";
+            InsertRegiAgeBox.Size = new Size(63, 25);
+            InsertRegiAgeBox.TabIndex = 17;
+            // 
+            // UpdateTab
+            // 
+            UpdateTab.BackColor = Color.FromArgb(90, 115, 141);
+            UpdateTab.Controls.Add(panel1);
+            UpdateTab.Location = new Point(4, 24);
+            UpdateTab.Name = "UpdateTab";
+            UpdateTab.Size = new Size(796, 483);
+            UpdateTab.TabIndex = 4;
+            UpdateTab.Text = "Update Account";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(250, 247, 247);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(panel2);
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(label4);
+            panel1.Controls.Add(panel3);
+            panel1.Controls.Add(label5);
+            panel1.Controls.Add(panel4);
+            panel1.Controls.Add(panel5);
+            panel1.Controls.Add(label6);
+            panel1.Controls.Add(label7);
+            panel1.Controls.Add(UpdateBtn);
+            panel1.Controls.Add(label8);
+            panel1.Controls.Add(label9);
+            panel1.Controls.Add(label10);
+            panel1.Controls.Add(panel6);
+            panel1.Controls.Add(panel7);
+            panel1.Controls.Add(panel8);
+            panel1.Controls.Add(panel9);
+            panel1.Location = new Point(108, 43);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(580, 397);
+            panel1.TabIndex = 14;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Arial", 8.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            label1.ForeColor = Color.FromArgb(90, 115, 141);
+            label1.Location = new Point(187, 212);
+            label1.Name = "label1";
+            label1.Size = new Size(133, 13);
+            label1.TabIndex = 29;
+            label1.Text = "(input another 4 digits)";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.ForeColor = Color.FromArgb(90, 115, 141);
+            label2.Location = new Point(323, 146);
+            label2.Name = "label2";
+            label2.Size = new Size(64, 23);
+            label2.TabIndex = 27;
+            label2.Text = "Email:";
+            // 
+            // panel2
+            // 
+            panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(UpdateEmailBox);
+            panel2.Location = new Point(326, 172);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(219, 32);
+            panel2.TabIndex = 28;
+            // 
+            // UpdateEmailBox
+            // 
+            UpdateEmailBox.BackColor = Color.FromArgb(250, 247, 247);
+            UpdateEmailBox.BorderStyle = BorderStyle.None;
+            UpdateEmailBox.Cursor = Cursors.IBeam;
+            UpdateEmailBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            UpdateEmailBox.ForeColor = Color.FromArgb(24, 79, 144);
+            UpdateEmailBox.Location = new Point(5, 6);
+            UpdateEmailBox.Margin = new Padding(10);
+            UpdateEmailBox.Name = "UpdateEmailBox";
+            UpdateEmailBox.PlaceholderText = "Enter Email Address";
+            UpdateEmailBox.Size = new Size(201, 13);
+            UpdateEmailBox.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.ForeColor = Color.FromArgb(90, 115, 141);
+            label3.Location = new Point(323, 81);
+            label3.Name = "label3";
+            label3.Size = new Size(49, 23);
+            label3.TabIndex = 26;
+            label3.Text = "Age:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = Color.Transparent;
+            label4.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.ForeColor = Color.FromArgb(90, 115, 141);
+            label4.Location = new Point(407, 81);
+            label4.Name = "label4";
+            label4.Size = new Size(80, 23);
+            label4.TabIndex = 24;
+            label4.Text = "Gender:";
+            // 
+            // panel3
+            // 
+            panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(UpdateGenderComboBox);
+            panel3.Location = new Point(407, 109);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(140, 34);
+            panel3.TabIndex = 23;
+            // 
+            // UpdateGenderComboBox
+            // 
+            UpdateGenderComboBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            UpdateGenderComboBox.FormattingEnabled = true;
+            UpdateGenderComboBox.Location = new Point(3, 6);
+            UpdateGenderComboBox.Name = "UpdateGenderComboBox";
+            UpdateGenderComboBox.Size = new Size(132, 22);
+            UpdateGenderComboBox.TabIndex = 0;
+            UpdateGenderComboBox.SelectedIndexChanged += UpdateGenderComboBox_SelectedIndexChanged;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.Transparent;
+            label5.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.ForeColor = Color.FromArgb(90, 115, 141);
+            label5.Location = new Point(33, 146);
+            label5.Name = "label5";
+            label5.Size = new Size(148, 23);
+            label5.TabIndex = 21;
+            label5.Text = "College Course:";
+            // 
+            // panel4
+            // 
+            panel4.BorderStyle = BorderStyle.FixedSingle;
+            panel4.Controls.Add(UpdateCourseBox);
+            panel4.Location = new Point(38, 172);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(282, 32);
+            panel4.TabIndex = 22;
+            // 
+            // UpdateCourseBox
+            // 
+            UpdateCourseBox.BackColor = Color.FromArgb(250, 247, 247);
+            UpdateCourseBox.BorderStyle = BorderStyle.None;
+            UpdateCourseBox.Cursor = Cursors.IBeam;
+            UpdateCourseBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            UpdateCourseBox.ForeColor = Color.FromArgb(24, 79, 144);
+            UpdateCourseBox.Location = new Point(5, 6);
+            UpdateCourseBox.Margin = new Padding(10);
+            UpdateCourseBox.Name = "UpdateCourseBox";
+            UpdateCourseBox.PlaceholderText = "Enter College Course";
+            UpdateCourseBox.Size = new Size(265, 13);
+            UpdateCourseBox.TabIndex = 0;
+            // 
+            // panel5
+            // 
+            panel5.BorderStyle = BorderStyle.FixedSingle;
+            panel5.Controls.Add(UpdateNameBox);
+            panel5.Location = new Point(38, 109);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(282, 34);
+            panel5.TabIndex = 17;
+            // 
+            // UpdateNameBox
+            // 
+            UpdateNameBox.BackColor = Color.FromArgb(250, 247, 247);
+            UpdateNameBox.BorderStyle = BorderStyle.None;
+            UpdateNameBox.Cursor = Cursors.IBeam;
+            UpdateNameBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            UpdateNameBox.ForeColor = Color.FromArgb(24, 79, 144);
+            UpdateNameBox.Location = new Point(5, 8);
+            UpdateNameBox.Margin = new Padding(10);
+            UpdateNameBox.Name = "UpdateNameBox";
+            UpdateNameBox.PlaceholderText = "Enter Name";
+            UpdateNameBox.Size = new Size(265, 13);
+            UpdateNameBox.TabIndex = 0;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.BackColor = Color.Transparent;
+            label6.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.ForeColor = Color.FromArgb(90, 115, 141);
+            label6.Location = new Point(323, 206);
+            label6.Name = "label6";
+            label6.Size = new Size(126, 23);
+            label6.TabIndex = 14;
+            label6.Text = "Recovery Pin";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.BackColor = Color.Transparent;
+            label7.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.ForeColor = Color.FromArgb(90, 115, 141);
+            label7.Location = new Point(33, 206);
+            label7.Name = "label7";
+            label7.Size = new Size(160, 23);
+            label7.TabIndex = 12;
+            label7.Text = "Student Number:";
+            // 
+            // UpdateBtn
+            // 
+            UpdateBtn.BackColor = Color.FromArgb(250, 247, 247);
+            UpdateBtn.Cursor = Cursors.Hand;
+            UpdateBtn.FlatAppearance.BorderColor = Color.FromArgb(41, 52, 64);
+            UpdateBtn.FlatAppearance.BorderSize = 2;
+            UpdateBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
+            UpdateBtn.FlatStyle = FlatStyle.Flat;
+            UpdateBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            UpdateBtn.ForeColor = Color.FromArgb(90, 115, 141);
+            UpdateBtn.Location = new Point(441, 334);
+            UpdateBtn.Name = "UpdateBtn";
+            UpdateBtn.Size = new Size(104, 35);
+            UpdateBtn.TabIndex = 9;
+            UpdateBtn.Text = "UPDATE";
+            UpdateBtn.UseVisualStyleBackColor = false;
+            UpdateBtn.Click += Update_Click;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.BackColor = Color.Transparent;
+            label8.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label8.ForeColor = Color.FromArgb(90, 115, 141);
+            label8.Location = new Point(33, 268);
+            label8.Name = "label8";
+            label8.Size = new Size(146, 23);
+            label8.TabIndex = 4;
+            label8.Text = "New Password:";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.BackColor = Color.Transparent;
+            label9.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label9.ForeColor = Color.FromArgb(90, 115, 141);
+            label9.Location = new Point(33, 85);
+            label9.Name = "label9";
+            label9.Size = new Size(66, 23);
+            label9.TabIndex = 2;
+            label9.Text = "Name:";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.BackColor = Color.Transparent;
+            label10.Font = new Font("Arial Black", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label10.ForeColor = Color.FromArgb(90, 115, 141);
+            label10.Location = new Point(163, 19);
+            label10.Name = "label10";
+            label10.Size = new Size(255, 38);
+            label10.TabIndex = 1;
+            label10.Text = "Update Account";
+            label10.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // panel6
+            // 
+            panel6.BorderStyle = BorderStyle.FixedSingle;
+            panel6.Controls.Add(UpdateShowPass);
+            panel6.Controls.Add(UpdatePassBox);
+            panel6.Location = new Point(38, 296);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(507, 32);
+            panel6.TabIndex = 19;
+            // 
+            // UpdateShowPass
+            // 
+            UpdateShowPass.AutoSize = true;
+            UpdateShowPass.BackColor = Color.White;
+            UpdateShowPass.Cursor = Cursors.Hand;
+            UpdateShowPass.Font = new Font("STZhongsong", 9.749998F, FontStyle.Regular, GraphicsUnit.Point);
+            UpdateShowPass.ForeColor = Color.White;
+            UpdateShowPass.Location = new Point(481, 8);
+            UpdateShowPass.Name = "UpdateShowPass";
+            UpdateShowPass.Size = new Size(15, 14);
+            UpdateShowPass.TabIndex = 16;
+            UpdateShowPass.UseVisualStyleBackColor = false;
+            UpdateShowPass.CheckedChanged += UpdateShowPass_CheckedChanged;
+            // 
+            // UpdatePassBox
+            // 
+            UpdatePassBox.BackColor = Color.FromArgb(250, 247, 247);
+            UpdatePassBox.BorderStyle = BorderStyle.None;
+            UpdatePassBox.Cursor = Cursors.IBeam;
+            UpdatePassBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            UpdatePassBox.ForeColor = Color.FromArgb(24, 79, 144);
+            UpdatePassBox.Location = new Point(5, 7);
+            UpdatePassBox.Margin = new Padding(10);
+            UpdatePassBox.Name = "UpdatePassBox";
+            UpdatePassBox.PlaceholderText = "Enter New Password";
+            UpdatePassBox.Size = new Size(471, 13);
+            UpdatePassBox.TabIndex = 0;
+            UpdatePassBox.UseSystemPasswordChar = true;
+            // 
+            // panel7
+            // 
+            panel7.BorderStyle = BorderStyle.FixedSingle;
+            panel7.Controls.Add(UpdateRPBox);
+            panel7.Location = new Point(326, 233);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(219, 32);
+            panel7.TabIndex = 19;
+            // 
+            // UpdateRPBox
+            // 
+            UpdateRPBox.BackColor = Color.FromArgb(250, 247, 247);
+            UpdateRPBox.BorderStyle = BorderStyle.None;
+            UpdateRPBox.Cursor = Cursors.IBeam;
+            UpdateRPBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            UpdateRPBox.ForeColor = Color.FromArgb(24, 79, 144);
+            UpdateRPBox.Location = new Point(8, 7);
+            UpdateRPBox.Margin = new Padding(10);
+            UpdateRPBox.Name = "UpdateRPBox";
+            UpdateRPBox.PlaceholderText = "Enter PIN";
+            UpdateRPBox.Size = new Size(198, 13);
+            UpdateRPBox.TabIndex = 0;
+            // 
+            // panel8
+            // 
+            panel8.BorderStyle = BorderStyle.FixedSingle;
+            panel8.Controls.Add(UpdateSNBox);
+            panel8.Location = new Point(38, 233);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(282, 32);
+            panel8.TabIndex = 18;
+            // 
+            // UpdateSNBox
+            // 
+            UpdateSNBox.BackColor = Color.FromArgb(250, 247, 247);
+            UpdateSNBox.BorderStyle = BorderStyle.None;
+            UpdateSNBox.Cursor = Cursors.IBeam;
+            UpdateSNBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            UpdateSNBox.ForeColor = Color.FromArgb(24, 79, 144);
+            UpdateSNBox.Location = new Point(5, 6);
+            UpdateSNBox.Margin = new Padding(10);
+            UpdateSNBox.MaxLength = 9;
+            UpdateSNBox.Name = "UpdateSNBox";
+            UpdateSNBox.PlaceholderText = "Enter Student Number";
+            UpdateSNBox.Size = new Size(265, 13);
+            UpdateSNBox.TabIndex = 0;
+            // 
+            // panel9
+            // 
+            panel9.BorderStyle = BorderStyle.FixedSingle;
+            panel9.Controls.Add(UpdateAgeBox);
+            panel9.Location = new Point(324, 109);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(77, 34);
+            panel9.TabIndex = 25;
+            // 
+            // UpdateAgeBox
+            // 
+            UpdateAgeBox.BackColor = Color.FromArgb(250, 247, 247);
+            UpdateAgeBox.BorderStyle = BorderStyle.None;
+            UpdateAgeBox.Cursor = Cursors.IBeam;
+            UpdateAgeBox.Font = new Font("Arial", 8.25F, FontStyle.Bold, GraphicsUnit.Point);
+            UpdateAgeBox.ForeColor = Color.FromArgb(24, 79, 144);
+            UpdateAgeBox.Location = new Point(6, 8);
+            UpdateAgeBox.Margin = new Padding(10);
+            UpdateAgeBox.Multiline = true;
+            UpdateAgeBox.Name = "UpdateAgeBox";
+            UpdateAgeBox.PlaceholderText = "Enter Age ";
+            UpdateAgeBox.Size = new Size(63, 25);
+            UpdateAgeBox.TabIndex = 0;
+            // 
+            // ArchivedUpdateBtn
+            // 
+            ArchivedUpdateBtn.BackColor = Color.Transparent;
+            ArchivedUpdateBtn.Cursor = Cursors.Hand;
+            ArchivedUpdateBtn.FlatAppearance.BorderColor = Color.FromArgb(41, 52, 64);
+            ArchivedUpdateBtn.FlatAppearance.BorderSize = 2;
+            ArchivedUpdateBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(250, 247, 247);
+            ArchivedUpdateBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(138, 177, 217);
+            ArchivedUpdateBtn.FlatStyle = FlatStyle.Flat;
+            ArchivedUpdateBtn.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            ArchivedUpdateBtn.ForeColor = Color.White;
+            ArchivedUpdateBtn.Location = new Point(439, 406);
+            ArchivedUpdateBtn.Name = "ArchivedUpdateBtn";
+            ArchivedUpdateBtn.Size = new Size(114, 37);
+            ArchivedUpdateBtn.TabIndex = 25;
+            ArchivedUpdateBtn.Text = "UPDATE";
+            ArchivedUpdateBtn.UseVisualStyleBackColor = false;
+            ArchivedUpdateBtn.Click += ArchivedUpdateBtn_Click;
+            // 
             // AdminForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1053,6 +1532,15 @@
             PendingSearchPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusBlueLogo).EndInit();
             AccountTabs.ResumeLayout(false);
+            PendingTab.ResumeLayout(false);
+            ApprovedTab.ResumeLayout(false);
+            ArchivedTab.ResumeLayout(false);
+            ArchivedPanel.ResumeLayout(false);
+            ArchivedPanel.PerformLayout();
+            ArchivedSearchPanel.ResumeLayout(false);
+            ArchivedSearchPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)ArchivedLogo).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ArchivedTable).EndInit();
             InsertTab.ResumeLayout(false);
             RegiPanel.ResumeLayout(false);
             RegiPanel.PerformLayout();
@@ -1071,15 +1559,24 @@
             RegiSNBoxPanel.PerformLayout();
             RegiAgePanel.ResumeLayout(false);
             RegiAgePanel.PerformLayout();
-            PendingTab.ResumeLayout(false);
-            ApprovedTab.ResumeLayout(false);
-            ArchivedTab.ResumeLayout(false);
-            ArchivedPanel.ResumeLayout(false);
-            ArchivedPanel.PerformLayout();
-            ArchivedSearchPanel.ResumeLayout(false);
-            ArchivedSearchPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)ArchivedLogo).EndInit();
-            ((System.ComponentModel.ISupportInitialize)ArchivedTable).EndInit();
+            UpdateTab.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1123,16 +1620,16 @@
         private Label SNMaxChar;
         private Label RegiMailLbl;
         private Panel RegiMailPanel;
-        private TextBox RegiMailBox;
+        private TextBox InsertRegiMailBox;
         private Label RegiAgeLbl;
         private Label GenderLbl;
         private Panel RegiGenderPanel;
-        private ComboBox RegiGenderComboBox;
+        private ComboBox InsertRegiGenderComboBox;
         private Label RegiCourseLbl;
         private Panel RegiCoursePanel;
-        private TextBox RegiCourseBox;
+        private TextBox InsertRegiCourseBox;
         private Panel RegiNamePanel;
-        private TextBox RegiNameBox;
+        private TextBox InsertRegiNameBox;
         private Label RegiRPLabel;
         private Label RegiSNLabel;
         private Button CreateBtn;
@@ -1141,13 +1638,46 @@
         private Label GSLabel;
         private Panel RegiPassPanel;
         private CheckBox RegiShowPass;
-        private TextBox RegiPassBox;
+        private TextBox InsertRegiPassBox;
         private Panel RegiRPPanel;
-        private TextBox RegiRPBox;
+        private TextBox InsertRegiRPBox;
         private Panel RegiSNBoxPanel;
-        private TextBox RegiSNBox;
+        private TextBox InsertRegiSNBox;
         private Panel RegiAgePanel;
-        private TextBox RegiAgeBox;
+        private TextBox InsertRegiAgeBox;
         private FontAwesome.Sharp.IconButton StudNumRefreshBtn;
+        private TabPage UpdateTab;
+        private Panel panel1;
+        private Label label1;
+        private Label label2;
+        private Panel panel2;
+        private TextBox UpdateEmailBox;
+        private Label label3;
+        private Label label4;
+        private Panel panel3;
+        private ComboBox UpdateGenderComboBox;
+        private Label label5;
+        private Panel panel4;
+        private TextBox UpdateCourseBox;
+        private Panel panel5;
+        private TextBox UpdateNameBox;
+        private Label label6;
+        private Label label7;
+        private Button UpdateBtn;
+        private Label label8;
+        private Label label9;
+        private Label label10;
+        private Panel panel6;
+        private CheckBox UpdateShowPass;
+        private TextBox UpdatePassBox;
+        private Panel panel7;
+        private TextBox UpdateRPBox;
+        private Panel panel8;
+        private TextBox UpdateSNBox;
+        private Panel panel9;
+        private TextBox UpdateAgeBox;
+        private Button PendingUpdateBtn;
+        private Button ApprovedUpdateBtn;
+        private Button ArchivedUpdateBtn;
     }
 }

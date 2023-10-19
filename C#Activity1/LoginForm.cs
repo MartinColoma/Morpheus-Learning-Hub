@@ -1,13 +1,7 @@
 using MySql.Data.MySqlClient;
-using System.Data.SQLite;
-using System.Diagnostics.Eventing.Reader;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 
 
 namespace C_Activity1
@@ -94,11 +88,19 @@ namespace C_Activity1
 
 
 
+
             using (MySqlConnection connection = new MySqlConnection(mysqlconn))
             {
                 try
                 {
-                    MessageBox.Show("Welcome to Morpheus. Do you wish to continue?", "Welcome Dreamers!", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    DialogResult result = MessageBox.Show("Welcome to Morpheus. Do you wish to continue?", "Welcome Dreamers!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        this.Show();
+                    }
+                    else
+                    {
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -108,8 +110,6 @@ namespace C_Activity1
                 {
                     connection.Close();
                 }
-
-
             }
 
             this.FormClosing += new FormClosingEventHandler(LoginForm_FormClosing);
