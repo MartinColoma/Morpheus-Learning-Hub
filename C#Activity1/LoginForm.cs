@@ -1,13 +1,7 @@
 using MySql.Data.MySqlClient;
-using System.Data.SQLite;
-using System.Diagnostics.Eventing.Reader;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 
 
 namespace C_Activity1

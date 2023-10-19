@@ -163,7 +163,7 @@
             SignUpLinkLabel.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             SignUpLinkLabel.LinkBehavior = LinkBehavior.HoverUnderline;
             SignUpLinkLabel.LinkColor = Color.FromArgb(90, 115, 141);
-            SignUpLinkLabel.Location = new Point(30, 506);
+            SignUpLinkLabel.Location = new Point(30, 491);
             SignUpLinkLabel.Name = "SignUpLinkLabel";
             SignUpLinkLabel.Size = new Size(324, 18);
             SignUpLinkLabel.TabIndex = 8;
@@ -886,7 +886,7 @@
             LoginPanel.Controls.Add(PassTextPanel);
             LoginPanel.Location = new Point(492, 0);
             LoginPanel.Name = "LoginPanel";
-            LoginPanel.Size = new Size(391, 640);
+            LoginPanel.Size = new Size(391, 625);
             LoginPanel.TabIndex = 1;
             LoginPanel.Paint += panel1_Paint;
             // 
@@ -1062,8 +1062,8 @@
             LnRPanel.Controls.Add(LoginPanel);
             LnRPanel.Controls.Add(MorpheusLbl);
             LnRPanel.Controls.Add(MorpheusLogo2);
-            LnRPanel.Controls.Add(RecoveryPanel);
             LnRPanel.Controls.Add(WCPanel);
+            LnRPanel.Controls.Add(RecoveryPanel);
             LnRPanel.Controls.Add(RegiPanel);
             LnRPanel.Location = new Point(-5, -2);
             LnRPanel.Name = "LnRPanel";
