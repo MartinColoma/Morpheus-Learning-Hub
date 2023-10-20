@@ -48,6 +48,8 @@ namespace C_Activity1
             InsertRegiGenderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             UpdateGenderComboBox.Items.AddRange(genders);
             UpdateGenderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            //Tab Header remover
             //AccountTabs.SizeMode = TabSizeMode.Fixed;
             //AccountTabs.TabPages.Clear();
 
@@ -1770,29 +1772,66 @@ namespace C_Activity1
                 HandleIncorrectCreateInput("Password must be at least 8 characters long and contain a combination of alphabetic characters, numeric digits, and special characters like (!, @, #, $, %, ^, &, *).");
                 return;
             }
-
-            try
+            else
             {
-                using (MySqlConnection connection = new MySqlConnection(mysqlconn))
+                try
                 {
-                    connection.Open();
-
-                    // Check if the student number (BtnSN) exists in the database
-                    string selectQuery = "SELECT * FROM mpendingdb WHERE StudNum = @StudNum";
-                    MySqlCommand selectCmd = new MySqlCommand(selectQuery, connection);
-                    selectCmd.Parameters.AddWithValue("@StudNum", BtnSN);
-
-                    using (MySqlDataReader reader = selectCmd.ExecuteReader())
+                    using (MySqlConnection connection = new MySqlConnection(mysqlconn))
                     {
-                        if (reader.Read())
+                        connection.Open();
+
+                        bool pendingUpdate = false;
+                        bool approvedUpdate = false;
+                        bool archivedUpdate = false;
+
+                        // Check if the student number (BtnSN) exists in the pendingdb table
+                        string selectPendingQuery = "SELECT * FROM mpendingdb WHERE StudNum = @StudNum";
+                        MySqlCommand selectPendingCmd = new MySqlCommand(selectPendingQuery, connection);
+                        selectPendingCmd.Parameters.AddWithValue("@StudNum", BtnSN);
+
+                        // Check if the student number (BtnSN) exists in the approveddb table
+                        string selectApprovedQuery = "SELECT * FROM mapproveddb WHERE StudNum = @StudNum";
+                        MySqlCommand selectApprovedCmd = new MySqlCommand(selectApprovedQuery, connection);
+                        selectApprovedCmd.Parameters.AddWithValue("@StudNum", BtnSN);
+
+                        // Check if the student number (BtnSN) exists in the archiveddb table
+                        string selectArchivedQuery = "SELECT * FROM marchiveddb WHERE StudNum = @StudNum";
+                        MySqlCommand selectArchivedCmd = new MySqlCommand(selectArchivedQuery, connection);
+                        selectArchivedCmd.Parameters.AddWithValue("@StudNum", BtnSN);
+
+                        using (MySqlDataReader pendingReader = selectPendingCmd.ExecuteReader())
                         {
-                            // The student number exists, so perform an update
-                            reader.Close(); // Close the DataReader
+                            if (pendingReader.Read())
+                            {
+                                // The student number exists in the pendingdb table, so set the pendingUpdate flag
+                                pendingUpdate = true;
+                            }
+                        }
 
+                        using (MySqlDataReader approvedReader = selectApprovedCmd.ExecuteReader())
+                        {
+                            if (approvedReader.Read())
+                            {
+                                // The student number exists in the approveddb table, so set the approvedUpdate flag
+                                approvedUpdate = true;
+                            }
+                        }
+
+                        using (MySqlDataReader archivedReader = selectArchivedCmd.ExecuteReader())
+                        {
+                            if (archivedReader.Read())
+                            {
+                                // The student number exists in the archiveddb table, so set the archivedUpdate flag
+                                archivedUpdate = true;
+                            }
+                        }
+
+                        if (pendingUpdate)
+                        {
+                            // The student number exists in the pendingdb table, so perform an update for pendingdb
                             string updateQuery = "UPDATE mpendingdb SET Name = @Name, Age = @Age, Gender = @Gender, Course = @Course, " +
-                                                "Email = @Email, RecoveryPin = @RecoveryPin, PassHashed = @Password, " +
-                                                "PassFixNa = @FixedSalt, PassPerUserNa = @PerUserSalt WHERE StudNum = @StudNum";
-
+                                "Email = @Email, RecoveryPin = @RecoveryPin, PassHashed = @Password, " +
+                                "PassFixNa = @FixedSalt, PassPerUserNa = @PerUserSalt WHERE StudNum = @StudNum";
                             MySqlCommand updateCmd = new MySqlCommand(updateQuery, connection);
                             updateCmd.Parameters.AddWithValue("@Name", Btnname);
                             updateCmd.Parameters.AddWithValue("@StudNum", BtnSN);
@@ -1804,91 +1843,15 @@ namespace C_Activity1
                             updateCmd.Parameters.AddWithValue("@Gender", BtnGender);
                             updateCmd.Parameters.AddWithValue("@Email", BtnMail);
                             updateCmd.Parameters.AddWithValue("@RecoveryPin", BtnRP);
-
                             updateCmd.ExecuteNonQuery();
-                            MessageBox.Show("User data updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("User data updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        else
+                        else if (approvedUpdate)
                         {
-                            // The student number does not exist, so show an error message
-                            MessageBox.Show("Student not found in the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle database exception (e.g., connection error or duplicate entry)
-                MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                // Make sure to close the connection
-                connection.Close();
-            }
-
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(mysqlconn))
-                {
-                    connection.Open();
-
-                    // Check if the student number (BtnSN) exists in the pendingdb table
-                    string selectPendingQuery = "SELECT * FROM mpendingdb WHERE StudNum = @StudNum";
-                    MySqlCommand selectPendingCmd = new MySqlCommand(selectPendingQuery, connection);
-                    selectPendingCmd.Parameters.AddWithValue("@StudNum", BtnSN);
-
-                    // Check if the student number (BtnSN) exists in the approveddb table
-                    string selectApprovedQuery = "SELECT * FROM mapproveddb WHERE StudNum = @StudNum";
-                    MySqlCommand selectApprovedCmd = new MySqlCommand(selectApprovedQuery, connection);
-                    selectApprovedCmd.Parameters.AddWithValue("@StudNum", BtnSN);
-
-                    // Check if the student number (BtnSN) exists in the archiveddb table
-                    string selectArchivedQuery = "SELECT * FROM marchiveddb WHERE StudNum = @StudNum";
-                    MySqlCommand selectArchivedCmd = new MySqlCommand(selectArchivedQuery, connection);
-                    selectArchivedCmd.Parameters.AddWithValue("@StudNum", BtnSN);
-
-                    using (MySqlDataReader pendingReader = selectPendingCmd.ExecuteReader())
-                    using (MySqlDataReader approvedReader = selectApprovedCmd.ExecuteReader())
-                    using (MySqlDataReader archivedReader = selectArchivedCmd.ExecuteReader())
-                    {
-                        if (pendingReader.Read())
-                        {
-                            // The student number exists in the pendingdb table, so perform an update
-                            // ... (update code for mpendingdb)
-                            pendingReader.Close(); // Close the DataReader
-
-                            string updateQuery = "UPDATE mpendingdb SET Name = @Name, Age = @Age, Gender = @Gender, Course = @Course, " +
-                                                "Email = @Email, RecoveryPin = @RecoveryPin, PassHashed = @Password, " +
-                                                "PassFixNa = @FixedSalt, PassPerUserNa = @PerUserSalt WHERE StudNum = @StudNum";
-
-                            MySqlCommand updateCmd = new MySqlCommand(updateQuery, connection);
-                            updateCmd.Parameters.AddWithValue("@Name", Btnname);
-                            updateCmd.Parameters.AddWithValue("@StudNum", BtnSN);
-                            updateCmd.Parameters.AddWithValue("@Password", hashedPassword);
-                            updateCmd.Parameters.AddWithValue("@FixedSalt", fixedSalt);
-                            updateCmd.Parameters.AddWithValue("@PerUserSalt", perUserSalt);
-                            updateCmd.Parameters.AddWithValue("@Course", BtnCourse);
-                            updateCmd.Parameters.AddWithValue("@Age", BtnAge);
-                            updateCmd.Parameters.AddWithValue("@Gender", BtnGender);
-                            updateCmd.Parameters.AddWithValue("@Email", BtnMail);
-                            updateCmd.Parameters.AddWithValue("@RecoveryPin", BtnRP);
-
-                            updateCmd.ExecuteNonQuery();
-                            MessageBox.Show("User data updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            return;
-                        }
-                        else if (approvedReader.Read())
-                        {
-                            // The student number exists in the approveddb table, so perform an update
-                            // ... (update code for mapproveddb)
-                            approvedReader.Close(); // Close the DataReader
-
+                            // The student number exists in the approveddb table, so perform an update for approveddb
                             string updateQuery = "UPDATE mapproveddb SET Name = @Name, Age = @Age, Gender = @Gender, Course = @Course, " +
-                                                "Email = @Email, RecoveryPin = @RecoveryPin, PassHashed = @Password, " +
-                                                "PassFixNa = @FixedSalt, PassPerUserNa = @PerUserSalt WHERE StudNum = @StudNum";
-
+                                "Email = @Email, RecoveryPin = @RecoveryPin, PassHashed = @Password, " +
+                                "PassFixNa = @FixedSalt, PassPerUserNa = @PerUserSalt WHERE StudNum = @StudNum";
                             MySqlCommand updateCmd = new MySqlCommand(updateQuery, connection);
                             updateCmd.Parameters.AddWithValue("@Name", Btnname);
                             updateCmd.Parameters.AddWithValue("@StudNum", BtnSN);
@@ -1900,21 +1863,15 @@ namespace C_Activity1
                             updateCmd.Parameters.AddWithValue("@Gender", BtnGender);
                             updateCmd.Parameters.AddWithValue("@Email", BtnMail);
                             updateCmd.Parameters.AddWithValue("@RecoveryPin", BtnRP);
-
                             updateCmd.ExecuteNonQuery();
-                            MessageBox.Show("User data updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            return;
+                            MessageBox.Show("User data updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        else if (archivedReader.Read())
+                        else if (archivedUpdate)
                         {
-                            // The student number exists in the archiveddb table, so perform an update
-                            // ... (update code for marchiveddb)
-                            archivedReader.Close(); // Close the DataReader
-
+                            // The student number exists in the archiveddb table, so perform an update for archiveddb
                             string updateQuery = "UPDATE marchiveddb SET Name = @Name, Age = @Age, Gender = @Gender, Course = @Course, " +
-                                                "Email = @Email, RecoveryPin = @RecoveryPin, PassHashed = @Password, " +
-                                                "PassFixNa = @FixedSalt, PassPerUserNa = @PerUserSalt WHERE StudNum = @StudNum";
-
+                                "Email = @Email, RecoveryPin = @RecoveryPin, PassHashed = @Password, " +
+                                "PassFixNa = @FixedSalt, PassPerUserNa = @PerUserSalt WHERE StudNum = @StudNum";
                             MySqlCommand updateCmd = new MySqlCommand(updateQuery, connection);
                             updateCmd.Parameters.AddWithValue("@Name", Btnname);
                             updateCmd.Parameters.AddWithValue("@StudNum", BtnSN);
@@ -1926,10 +1883,8 @@ namespace C_Activity1
                             updateCmd.Parameters.AddWithValue("@Gender", BtnGender);
                             updateCmd.Parameters.AddWithValue("@Email", BtnMail);
                             updateCmd.Parameters.AddWithValue("@RecoveryPin", BtnRP);
-
                             updateCmd.ExecuteNonQuery();
-                            MessageBox.Show("User data updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            return;
+                            MessageBox.Show("User data updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
@@ -1938,22 +1893,23 @@ namespace C_Activity1
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                // Handle database exception (e.g., connection error or duplicate entry)
-                MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                // Make sure to close the connection
-                connection.Close();
-            }
+                catch (Exception ex)
+                {
+                    // Handle database exception (e.g., connection error or duplicate entry)
+                    MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    // Make sure to close the connection
+                    connection.Close();
+                }
 
-            DBRefresher();
+                DBRefresher();
 
-            UpdateTextboxClear();
+                UpdateTextboxClear();
 
+
+            }
 
         }
 
@@ -1983,5 +1939,48 @@ namespace C_Activity1
             }
         }
 
+        private void ApprovedTabLinkLbl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AccountTabs.SelectedIndex = 1;
+        }
+
+        private void ArchivedTabLinkLbl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AccountTabs.SelectedIndex = 2;
+
+        }
+
+        private void PendingLinkLbl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AccountTabs.SelectedIndex = 0;
+            //if (AccountTabs.SelectedTab == PendingTab)
+            //{
+            //    // Switch to the other tab (e.g., ApprovedTab)
+            //    AccountTabs.SelectedTab = ApprovedTab;
+            //    AccountTabs.SelectedTab = ArchivedTab;
+            //    AccountTabs.SelectedTab = InsertTab;
+            //    AccountTabs.SelectedTab = UpdateTab;
+
+            //}
+            //else if (AccountTabs.SelectedTab == ApprovedTab)
+            //{
+            //    // Switch back to the PendingTab
+            //    AccountTabs.SelectedTab = PendingTab;
+            //}
+
+        }
+
+        private void InsertTabLinkLbl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AccountTabs.SelectedIndex = 3;
+
+        }
+
+        private void UpdateTabLinkLbl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AccountTabs.SelectedIndex = 4
+                ;
+
+        }
     }
 }
