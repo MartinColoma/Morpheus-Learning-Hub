@@ -50,9 +50,9 @@ namespace C_Activity1
             UpdateGenderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             //Tab Header remover
-            //AccountTabs.SizeMode = TabSizeMode.Fixed;
+            AccountTabs.SizeMode = TabSizeMode.Fixed;
             //AccountTabs.TabPages.Clear();
-
+            AccountTabs.ItemSize = new Size(0, 1);
         }
 
         private void AdminPanel_FormClosing(object sender, FormClosingEventArgs e)

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             PendingTable = new DataGridView();
             ApprovedTable = new DataGridView();
             PendingLabel = new Label();
@@ -46,18 +46,18 @@
             MorpheusLogo2 = new PictureBox();
             ArchiveBtn = new Button();
             PendingPanel = new Panel();
-            TabBtnsPanel = new Panel();
-            PendingLinkLbl = new LinkLabel();
-            UpdateTabLinkLbl = new LinkLabel();
-            InsertTabLinkLbl = new LinkLabel();
-            ArchivedTabLinkLbl = new LinkLabel();
-            ApprovedTabLinkLbl = new LinkLabel();
             PendingUpdateBtn = new Button();
             PendingSearchPanel = new Panel();
             PendingSearchBtn = new FontAwesome.Sharp.IconButton();
             PendingSearchBox = new TextBox();
             PendingRefreshBtn = new FontAwesome.Sharp.IconButton();
             MorpheusBlueLogo = new PictureBox();
+            TabBtnsPanel = new Panel();
+            PendingLinkLbl = new LinkLabel();
+            UpdateTabLinkLbl = new LinkLabel();
+            InsertTabLinkLbl = new LinkLabel();
+            ArchivedTabLinkLbl = new LinkLabel();
+            ApprovedTabLinkLbl = new LinkLabel();
             AccountTabs = new TabControl();
             PendingTab = new TabPage();
             ApprovedTab = new TabPage();
@@ -140,9 +140,9 @@
             ApprovedSearchPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusLogo2).BeginInit();
             PendingPanel.SuspendLayout();
-            TabBtnsPanel.SuspendLayout();
             PendingSearchPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusBlueLogo).BeginInit();
+            TabBtnsPanel.SuspendLayout();
             AccountTabs.SuspendLayout();
             PendingTab.SuspendLayout();
             ApprovedTab.SuspendLayout();
@@ -176,8 +176,8 @@
             // PendingTable
             // 
             PendingTable.AllowUserToAddRows = false;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            PendingTable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             PendingTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             PendingTable.BackgroundColor = Color.FromArgb(90, 115, 141);
             PendingTable.BorderStyle = BorderStyle.Fixed3D;
@@ -185,14 +185,14 @@
             PendingTable.Location = new Point(42, 152);
             PendingTable.Name = "PendingTable";
             PendingTable.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(250, 247, 247);
-            dataGridViewCellStyle4.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(250, 247, 247);
+            dataGridViewCellStyle2.Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            PendingTable.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             PendingTable.RowTemplate.Height = 25;
             PendingTable.Size = new Size(665, 220);
             PendingTable.TabIndex = 0;
@@ -433,88 +433,6 @@
             PendingPanel.TabIndex = 13;
             PendingPanel.Paint += PendingPanel_Paint;
             // 
-            // TabBtnsPanel
-            // 
-            TabBtnsPanel.Controls.Add(PendingLinkLbl);
-            TabBtnsPanel.Controls.Add(UpdateTabLinkLbl);
-            TabBtnsPanel.Controls.Add(InsertTabLinkLbl);
-            TabBtnsPanel.Controls.Add(ArchivedTabLinkLbl);
-            TabBtnsPanel.Controls.Add(ApprovedTabLinkLbl);
-            TabBtnsPanel.Location = new Point(810, 61);
-            TabBtnsPanel.Name = "TabBtnsPanel";
-            TabBtnsPanel.Size = new Size(126, 232);
-            TabBtnsPanel.TabIndex = 27;
-            // 
-            // PendingLinkLbl
-            // 
-            PendingLinkLbl.ActiveLinkColor = Color.FromArgb(41, 52, 64);
-            PendingLinkLbl.AutoSize = true;
-            PendingLinkLbl.LinkBehavior = LinkBehavior.NeverUnderline;
-            PendingLinkLbl.LinkColor = Color.FromArgb(250, 247, 247);
-            PendingLinkLbl.Location = new Point(3, 12);
-            PendingLinkLbl.Name = "PendingLinkLbl";
-            PendingLinkLbl.Size = new Size(104, 15);
-            PendingLinkLbl.TabIndex = 27;
-            PendingLinkLbl.TabStop = true;
-            PendingLinkLbl.Text = "Pending Accounts";
-            PendingLinkLbl.LinkClicked += PendingLinkLbl_LinkClicked;
-            // 
-            // UpdateTabLinkLbl
-            // 
-            UpdateTabLinkLbl.ActiveLinkColor = Color.FromArgb(41, 52, 64);
-            UpdateTabLinkLbl.AutoSize = true;
-            UpdateTabLinkLbl.LinkBehavior = LinkBehavior.NeverUnderline;
-            UpdateTabLinkLbl.LinkColor = Color.FromArgb(250, 247, 247);
-            UpdateTabLinkLbl.Location = new Point(3, 121);
-            UpdateTabLinkLbl.Name = "UpdateTabLinkLbl";
-            UpdateTabLinkLbl.Size = new Size(98, 15);
-            UpdateTabLinkLbl.TabIndex = 26;
-            UpdateTabLinkLbl.TabStop = true;
-            UpdateTabLinkLbl.Text = "Update Accounts";
-            UpdateTabLinkLbl.LinkClicked += UpdateTabLinkLbl_LinkClicked;
-            // 
-            // InsertTabLinkLbl
-            // 
-            InsertTabLinkLbl.ActiveLinkColor = Color.FromArgb(41, 52, 64);
-            InsertTabLinkLbl.AutoSize = true;
-            InsertTabLinkLbl.LinkBehavior = LinkBehavior.NeverUnderline;
-            InsertTabLinkLbl.LinkColor = Color.FromArgb(250, 247, 247);
-            InsertTabLinkLbl.Location = new Point(3, 96);
-            InsertTabLinkLbl.Name = "InsertTabLinkLbl";
-            InsertTabLinkLbl.Size = new Size(89, 15);
-            InsertTabLinkLbl.TabIndex = 25;
-            InsertTabLinkLbl.TabStop = true;
-            InsertTabLinkLbl.Text = "Insert Accounts";
-            InsertTabLinkLbl.LinkClicked += InsertTabLinkLbl_LinkClicked;
-            // 
-            // ArchivedTabLinkLbl
-            // 
-            ArchivedTabLinkLbl.ActiveLinkColor = Color.FromArgb(41, 52, 64);
-            ArchivedTabLinkLbl.AutoSize = true;
-            ArchivedTabLinkLbl.LinkBehavior = LinkBehavior.NeverUnderline;
-            ArchivedTabLinkLbl.LinkColor = Color.FromArgb(250, 247, 247);
-            ArchivedTabLinkLbl.Location = new Point(3, 68);
-            ArchivedTabLinkLbl.Name = "ArchivedTabLinkLbl";
-            ArchivedTabLinkLbl.Size = new Size(107, 15);
-            ArchivedTabLinkLbl.TabIndex = 24;
-            ArchivedTabLinkLbl.TabStop = true;
-            ArchivedTabLinkLbl.Text = "Archived Accounts";
-            ArchivedTabLinkLbl.LinkClicked += ArchivedTabLinkLbl_LinkClicked;
-            // 
-            // ApprovedTabLinkLbl
-            // 
-            ApprovedTabLinkLbl.ActiveLinkColor = Color.FromArgb(41, 52, 64);
-            ApprovedTabLinkLbl.AutoSize = true;
-            ApprovedTabLinkLbl.LinkBehavior = LinkBehavior.NeverUnderline;
-            ApprovedTabLinkLbl.LinkColor = Color.FromArgb(250, 247, 247);
-            ApprovedTabLinkLbl.Location = new Point(3, 37);
-            ApprovedTabLinkLbl.Name = "ApprovedTabLinkLbl";
-            ApprovedTabLinkLbl.Size = new Size(112, 15);
-            ApprovedTabLinkLbl.TabIndex = 23;
-            ApprovedTabLinkLbl.TabStop = true;
-            ApprovedTabLinkLbl.Text = "Approved Accounts";
-            ApprovedTabLinkLbl.LinkClicked += ApprovedTabLinkLbl_LinkClicked;
-            // 
             // PendingUpdateBtn
             // 
             PendingUpdateBtn.BackColor = Color.Transparent;
@@ -605,6 +523,88 @@
             MorpheusBlueLogo.TabIndex = 19;
             MorpheusBlueLogo.TabStop = false;
             // 
+            // TabBtnsPanel
+            // 
+            TabBtnsPanel.Controls.Add(PendingLinkLbl);
+            TabBtnsPanel.Controls.Add(UpdateTabLinkLbl);
+            TabBtnsPanel.Controls.Add(InsertTabLinkLbl);
+            TabBtnsPanel.Controls.Add(ArchivedTabLinkLbl);
+            TabBtnsPanel.Controls.Add(ApprovedTabLinkLbl);
+            TabBtnsPanel.Location = new Point(810, 61);
+            TabBtnsPanel.Name = "TabBtnsPanel";
+            TabBtnsPanel.Size = new Size(126, 232);
+            TabBtnsPanel.TabIndex = 27;
+            // 
+            // PendingLinkLbl
+            // 
+            PendingLinkLbl.ActiveLinkColor = Color.FromArgb(41, 52, 64);
+            PendingLinkLbl.AutoSize = true;
+            PendingLinkLbl.LinkBehavior = LinkBehavior.NeverUnderline;
+            PendingLinkLbl.LinkColor = Color.FromArgb(250, 247, 247);
+            PendingLinkLbl.Location = new Point(3, 12);
+            PendingLinkLbl.Name = "PendingLinkLbl";
+            PendingLinkLbl.Size = new Size(104, 15);
+            PendingLinkLbl.TabIndex = 27;
+            PendingLinkLbl.TabStop = true;
+            PendingLinkLbl.Text = "Pending Accounts";
+            PendingLinkLbl.LinkClicked += PendingLinkLbl_LinkClicked;
+            // 
+            // UpdateTabLinkLbl
+            // 
+            UpdateTabLinkLbl.ActiveLinkColor = Color.FromArgb(41, 52, 64);
+            UpdateTabLinkLbl.AutoSize = true;
+            UpdateTabLinkLbl.LinkBehavior = LinkBehavior.NeverUnderline;
+            UpdateTabLinkLbl.LinkColor = Color.FromArgb(250, 247, 247);
+            UpdateTabLinkLbl.Location = new Point(3, 121);
+            UpdateTabLinkLbl.Name = "UpdateTabLinkLbl";
+            UpdateTabLinkLbl.Size = new Size(98, 15);
+            UpdateTabLinkLbl.TabIndex = 26;
+            UpdateTabLinkLbl.TabStop = true;
+            UpdateTabLinkLbl.Text = "Update Accounts";
+            UpdateTabLinkLbl.LinkClicked += UpdateTabLinkLbl_LinkClicked;
+            // 
+            // InsertTabLinkLbl
+            // 
+            InsertTabLinkLbl.ActiveLinkColor = Color.FromArgb(41, 52, 64);
+            InsertTabLinkLbl.AutoSize = true;
+            InsertTabLinkLbl.LinkBehavior = LinkBehavior.NeverUnderline;
+            InsertTabLinkLbl.LinkColor = Color.FromArgb(250, 247, 247);
+            InsertTabLinkLbl.Location = new Point(3, 96);
+            InsertTabLinkLbl.Name = "InsertTabLinkLbl";
+            InsertTabLinkLbl.Size = new Size(89, 15);
+            InsertTabLinkLbl.TabIndex = 25;
+            InsertTabLinkLbl.TabStop = true;
+            InsertTabLinkLbl.Text = "Insert Accounts";
+            InsertTabLinkLbl.LinkClicked += InsertTabLinkLbl_LinkClicked;
+            // 
+            // ArchivedTabLinkLbl
+            // 
+            ArchivedTabLinkLbl.ActiveLinkColor = Color.FromArgb(41, 52, 64);
+            ArchivedTabLinkLbl.AutoSize = true;
+            ArchivedTabLinkLbl.LinkBehavior = LinkBehavior.NeverUnderline;
+            ArchivedTabLinkLbl.LinkColor = Color.FromArgb(250, 247, 247);
+            ArchivedTabLinkLbl.Location = new Point(3, 68);
+            ArchivedTabLinkLbl.Name = "ArchivedTabLinkLbl";
+            ArchivedTabLinkLbl.Size = new Size(107, 15);
+            ArchivedTabLinkLbl.TabIndex = 24;
+            ArchivedTabLinkLbl.TabStop = true;
+            ArchivedTabLinkLbl.Text = "Archived Accounts";
+            ArchivedTabLinkLbl.LinkClicked += ArchivedTabLinkLbl_LinkClicked;
+            // 
+            // ApprovedTabLinkLbl
+            // 
+            ApprovedTabLinkLbl.ActiveLinkColor = Color.FromArgb(41, 52, 64);
+            ApprovedTabLinkLbl.AutoSize = true;
+            ApprovedTabLinkLbl.LinkBehavior = LinkBehavior.NeverUnderline;
+            ApprovedTabLinkLbl.LinkColor = Color.FromArgb(250, 247, 247);
+            ApprovedTabLinkLbl.Location = new Point(3, 37);
+            ApprovedTabLinkLbl.Name = "ApprovedTabLinkLbl";
+            ApprovedTabLinkLbl.Size = new Size(112, 15);
+            ApprovedTabLinkLbl.TabIndex = 23;
+            ApprovedTabLinkLbl.TabStop = true;
+            ApprovedTabLinkLbl.Text = "Approved Accounts";
+            ApprovedTabLinkLbl.LinkClicked += ApprovedTabLinkLbl_LinkClicked;
+            // 
             // AccountTabs
             // 
             AccountTabs.Controls.Add(PendingTab);
@@ -642,7 +642,7 @@
             ApprovedTab.Location = new Point(4, 24);
             ApprovedTab.Name = "ApprovedTab";
             ApprovedTab.Padding = new Padding(3);
-            ApprovedTab.Size = new Size(796, 483);
+            ApprovedTab.Size = new Size(638, 483);
             ApprovedTab.TabIndex = 1;
             ApprovedTab.Text = "Approved Account";
             ApprovedTab.Click += ApprovedTab_Click;
@@ -654,7 +654,7 @@
             ArchivedTab.Location = new Point(4, 24);
             ArchivedTab.Name = "ArchivedTab";
             ArchivedTab.Padding = new Padding(3);
-            ArchivedTab.Size = new Size(796, 483);
+            ArchivedTab.Size = new Size(638, 483);
             ArchivedTab.TabIndex = 2;
             ArchivedTab.Text = "Archived Account";
             // 
@@ -828,7 +828,7 @@
             InsertTab.Location = new Point(4, 24);
             InsertTab.Name = "InsertTab";
             InsertTab.Padding = new Padding(3);
-            InsertTab.Size = new Size(796, 483);
+            InsertTab.Size = new Size(638, 483);
             InsertTab.TabIndex = 3;
             InsertTab.Text = "Insert Account";
             // 
@@ -1226,7 +1226,7 @@
             UpdateTab.Controls.Add(panel1);
             UpdateTab.Location = new Point(4, 24);
             UpdateTab.Name = "UpdateTab";
-            UpdateTab.Size = new Size(796, 483);
+            UpdateTab.Size = new Size(638, 483);
             UpdateTab.TabIndex = 4;
             UpdateTab.Text = "Update Account";
             // 
@@ -1618,11 +1618,11 @@
             ((System.ComponentModel.ISupportInitialize)MorpheusLogo2).EndInit();
             PendingPanel.ResumeLayout(false);
             PendingPanel.PerformLayout();
-            TabBtnsPanel.ResumeLayout(false);
-            TabBtnsPanel.PerformLayout();
             PendingSearchPanel.ResumeLayout(false);
             PendingSearchPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)MorpheusBlueLogo).EndInit();
+            TabBtnsPanel.ResumeLayout(false);
+            TabBtnsPanel.PerformLayout();
             AccountTabs.ResumeLayout(false);
             PendingTab.ResumeLayout(false);
             ApprovedTab.ResumeLayout(false);
